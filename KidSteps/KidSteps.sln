@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KidSteps", "KidSteps\KidSteps.csproj", "{43C345E2-B908-452A-9B8D-09C3E3DD24B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KidSteps.Tests", "KidSteps.Tests\KidSteps.Tests.csproj", "{CC36CA32-FEA7-4A08-A15E-723E076359B8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{43C345E2-B908-452A-9B8D-09C3E3DD24B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43C345E2-B908-452A-9B8D-09C3E3DD24B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43C345E2-B908-452A-9B8D-09C3E3DD24B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43C345E2-B908-452A-9B8D-09C3E3DD24B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC36CA32-FEA7-4A08-A15E-723E076359B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC36CA32-FEA7-4A08-A15E-723E076359B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC36CA32-FEA7-4A08-A15E-723E076359B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC36CA32-FEA7-4A08-A15E-723E076359B8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
