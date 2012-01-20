@@ -76,7 +76,6 @@
     <Content Include="App_Data\KidSteps_log.ldf">
       <DependentUpon>KidSteps.mdf</DependentUpon>
     </Content>
-    <Content Include="App_Data\TextFile1.txt" />
     <Content Include="Content\style.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
