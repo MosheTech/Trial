@@ -7,7 +7,7 @@ namespace KidSteps.Repository
 {
     public interface IDataContextFactory
     {
-        System.Data.Linq.DataContext Context { get; }
+        Models.KidStepsDataContext Context { get; }
         void SaveAll();
     }
 }

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace KidSteps.Repository
 {
-    public class FamilyRepository
+    public class FamilyRepository : Repository<Models.Family>
     {
     }
 }

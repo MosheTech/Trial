@@ -3,9 +3,7 @@ namespace KidSteps.Repository
 {
     class KidStepsContextFactory : IDataContextFactory
     {
-
-
-        public DataContext Context
+        public Models.KidStepsDataContext Context
         {
             get { return new Models.KidStepsDataContext(); }
         }
