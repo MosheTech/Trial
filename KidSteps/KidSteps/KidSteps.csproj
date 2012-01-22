@@ -70,6 +70,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\KidSteps.cs">
+      <DependentUpon>KidSteps.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Models\KidSteps.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
