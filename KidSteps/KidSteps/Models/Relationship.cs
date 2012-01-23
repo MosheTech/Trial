@@ -5,15 +5,20 @@ using System.Web;
 
 namespace KidSteps.Models
 {
-    public partial class Relationship
+    public class Relationship
     {
-        public RelationshipType IsA 
-        { 
-            get { return (Models.RelationshipType)RelationshipType; } 
-        }
-        public Member Of 
-        { 
-            get { return Member1; } 
-        }
+        public long RelationshipId { get; set; }
+        public Member Member { get; set; }
+        public RelationshipType IsA { get; set; }
+        public Member Of { get; set; }
+
+        //public RelationshipType IsA 
+        //{ 
+        //    get { return (Models.RelationshipType)RelationshipType; } 
+        //}
+        //public Member Of 
+        //{ 
+        //    get { return Member1; } 
+        //}
     }
 }

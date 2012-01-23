@@ -1,0 +1,15 @@
+﻿@model KidSteps.Models.Family
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Family</legend>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.FamilyId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -7,5 +7,9 @@ namespace KidSteps.Repository
 {
     public class FamilyRepository : Repository<Models.Family>
     {
+        public FamilyRepository(KidStepsContextFactory factory)
+            : base(factory)
+        {
+        }
     }
 }

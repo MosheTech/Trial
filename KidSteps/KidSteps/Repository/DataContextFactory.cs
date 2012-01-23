@@ -1,16 +1,23 @@
 using System.Data.Linq;
 namespace KidSteps.Repository
 {
-    class KidStepsContextFactory : IDataContextFactory
+    public class KidStepsContextFactory : IDataContextFactory
     {
+        public KidStepsContextFactory()
+        {
+            _context = new Models.KidStepsDataContext();
+        }
+
         public Models.KidStepsDataContext Context
         {
-            get { return new Models.KidStepsDataContext(); }
+            get { return _context; }
         }
 
         public void SaveAll()
         {
-            throw new System.NotImplementedException();
+            _context.SubmitChanges();
         }
+
+        private Models.KidStepsDataContext _context;
     }
 }

@@ -1,6 +1,6 @@
 ﻿USE [master]
 GO
-/****** Object:  Database [KidSteps]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Database [KidSteps]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE DATABASE [KidSteps] ON  PRIMARY 
 ( NAME = N'KidSteps', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL10_50.MSSQLSERVER\MSSQL\DATA\KidSteps.mdf' , SIZE = 2048KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
  LOG ON 
@@ -73,85 +73,85 @@ EXEC sys.sp_db_vardecimal_storage_format N'KidSteps', N'ON'
 GO
 USE [KidSteps]
 GO
-/****** Object:  Role [aspnet_Membership_BasicAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Role [aspnet_Membership_BasicAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE ROLE [aspnet_Membership_BasicAccess] AUTHORIZATION [dbo]
 GO
-/****** Object:  Role [aspnet_Membership_FullAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Role [aspnet_Membership_FullAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE ROLE [aspnet_Membership_FullAccess] AUTHORIZATION [dbo]
 GO
-/****** Object:  Role [aspnet_Membership_ReportingAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Role [aspnet_Membership_ReportingAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE ROLE [aspnet_Membership_ReportingAccess] AUTHORIZATION [dbo]
 GO
-/****** Object:  Role [aspnet_Personalization_BasicAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Role [aspnet_Personalization_BasicAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE ROLE [aspnet_Personalization_BasicAccess] AUTHORIZATION [dbo]
 GO
-/****** Object:  Role [aspnet_Personalization_FullAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Role [aspnet_Personalization_FullAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE ROLE [aspnet_Personalization_FullAccess] AUTHORIZATION [dbo]
 GO
-/****** Object:  Role [aspnet_Personalization_ReportingAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Role [aspnet_Personalization_ReportingAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE ROLE [aspnet_Personalization_ReportingAccess] AUTHORIZATION [dbo]
 GO
-/****** Object:  Role [aspnet_Profile_BasicAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Role [aspnet_Profile_BasicAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE ROLE [aspnet_Profile_BasicAccess] AUTHORIZATION [dbo]
 GO
-/****** Object:  Role [aspnet_Profile_FullAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Role [aspnet_Profile_FullAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE ROLE [aspnet_Profile_FullAccess] AUTHORIZATION [dbo]
 GO
-/****** Object:  Role [aspnet_Profile_ReportingAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Role [aspnet_Profile_ReportingAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE ROLE [aspnet_Profile_ReportingAccess] AUTHORIZATION [dbo]
 GO
-/****** Object:  Role [aspnet_Roles_BasicAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Role [aspnet_Roles_BasicAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE ROLE [aspnet_Roles_BasicAccess] AUTHORIZATION [dbo]
 GO
-/****** Object:  Role [aspnet_Roles_FullAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Role [aspnet_Roles_FullAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE ROLE [aspnet_Roles_FullAccess] AUTHORIZATION [dbo]
 GO
-/****** Object:  Role [aspnet_Roles_ReportingAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Role [aspnet_Roles_ReportingAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE ROLE [aspnet_Roles_ReportingAccess] AUTHORIZATION [dbo]
 GO
-/****** Object:  Role [aspnet_WebEvent_FullAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Role [aspnet_WebEvent_FullAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE ROLE [aspnet_WebEvent_FullAccess] AUTHORIZATION [dbo]
 GO
-/****** Object:  Schema [aspnet_WebEvent_FullAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Schema [aspnet_WebEvent_FullAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE SCHEMA [aspnet_WebEvent_FullAccess] AUTHORIZATION [aspnet_WebEvent_FullAccess]
 GO
-/****** Object:  Schema [aspnet_Roles_ReportingAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Schema [aspnet_Roles_ReportingAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE SCHEMA [aspnet_Roles_ReportingAccess] AUTHORIZATION [aspnet_Roles_ReportingAccess]
 GO
-/****** Object:  Schema [aspnet_Roles_FullAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Schema [aspnet_Roles_FullAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE SCHEMA [aspnet_Roles_FullAccess] AUTHORIZATION [aspnet_Roles_FullAccess]
 GO
-/****** Object:  Schema [aspnet_Roles_BasicAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Schema [aspnet_Roles_BasicAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE SCHEMA [aspnet_Roles_BasicAccess] AUTHORIZATION [aspnet_Roles_BasicAccess]
 GO
-/****** Object:  Schema [aspnet_Profile_ReportingAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Schema [aspnet_Profile_ReportingAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE SCHEMA [aspnet_Profile_ReportingAccess] AUTHORIZATION [aspnet_Profile_ReportingAccess]
 GO
-/****** Object:  Schema [aspnet_Profile_FullAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Schema [aspnet_Profile_FullAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE SCHEMA [aspnet_Profile_FullAccess] AUTHORIZATION [aspnet_Profile_FullAccess]
 GO
-/****** Object:  Schema [aspnet_Profile_BasicAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Schema [aspnet_Profile_BasicAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE SCHEMA [aspnet_Profile_BasicAccess] AUTHORIZATION [aspnet_Profile_BasicAccess]
 GO
-/****** Object:  Schema [aspnet_Personalization_ReportingAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Schema [aspnet_Personalization_ReportingAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE SCHEMA [aspnet_Personalization_ReportingAccess] AUTHORIZATION [aspnet_Personalization_ReportingAccess]
 GO
-/****** Object:  Schema [aspnet_Personalization_FullAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Schema [aspnet_Personalization_FullAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE SCHEMA [aspnet_Personalization_FullAccess] AUTHORIZATION [aspnet_Personalization_FullAccess]
 GO
-/****** Object:  Schema [aspnet_Personalization_BasicAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Schema [aspnet_Personalization_BasicAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE SCHEMA [aspnet_Personalization_BasicAccess] AUTHORIZATION [aspnet_Personalization_BasicAccess]
 GO
-/****** Object:  Schema [aspnet_Membership_ReportingAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Schema [aspnet_Membership_ReportingAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE SCHEMA [aspnet_Membership_ReportingAccess] AUTHORIZATION [aspnet_Membership_ReportingAccess]
 GO
-/****** Object:  Schema [aspnet_Membership_FullAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Schema [aspnet_Membership_FullAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE SCHEMA [aspnet_Membership_FullAccess] AUTHORIZATION [aspnet_Membership_FullAccess]
 GO
-/****** Object:  Schema [aspnet_Membership_BasicAccess]    Script Date: 01/21/2012 23:37:29 ******/
+/****** Object:  Schema [aspnet_Membership_BasicAccess]    Script Date: 01/22/2012 14:17:03 ******/
 CREATE SCHEMA [aspnet_Membership_BasicAccess] AUTHORIZATION [aspnet_Membership_BasicAccess]
 GO
-/****** Object:  Table [dbo].[aspnet_Applications]    Script Date: 01/21/2012 23:37:32 ******/
+/****** Object:  Table [dbo].[aspnet_Applications]    Script Date: 01/22/2012 14:17:06 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -180,7 +180,7 @@ CREATE CLUSTERED INDEX [aspnet_Applications_Index] ON [dbo].[aspnet_Applications
 	[LoweredApplicationName] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[aspnet_WebEvent_Events]    Script Date: 01/21/2012 23:37:32 ******/
+/****** Object:  Table [dbo].[aspnet_WebEvent_Events]    Script Date: 01/22/2012 14:17:06 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -211,7 +211,7 @@ PRIMARY KEY CLUSTERED
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Setup_RestorePermissions]    Script Date: 01/21/2012 23:37:38 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Setup_RestorePermissions]    Script Date: 01/22/2012 14:17:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -242,7 +242,7 @@ BEGIN
     DEALLOCATE c1
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Setup_RemoveAllRoleMembers]    Script Date: 01/21/2012 23:37:38 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Setup_RemoveAllRoleMembers]    Script Date: 01/22/2012 14:17:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -281,7 +281,7 @@ BEGIN
     DEALLOCATE c1
 END
 GO
-/****** Object:  Table [dbo].[aspnet_SchemaVersions]    Script Date: 01/21/2012 23:37:38 ******/
+/****** Object:  Table [dbo].[aspnet_SchemaVersions]    Script Date: 01/22/2012 14:17:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -297,21 +297,25 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Family]    Script Date: 01/21/2012 23:37:38 ******/
+/****** Object:  Table [dbo].[Family]    Script Date: 01/22/2012 14:17:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Family](
-	[FamilyPkey] [uniqueidentifier] NOT NULL,
+	[FamilyPkey] [bigint] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](50) NOT NULL,
- CONSTRAINT [PK_Family] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_Family_1] PRIMARY KEY CLUSTERED 
 (
 	[FamilyPkey] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
+ CONSTRAINT [Unique_Family] UNIQUE NONCLUSTERED 
+(
+	[Name] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  View [dbo].[vw_aspnet_Applications]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  View [dbo].[vw_aspnet_Applications]    Script Date: 01/22/2012 14:17:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -320,7 +324,7 @@ CREATE VIEW [dbo].[vw_aspnet_Applications]
   AS SELECT [dbo].[aspnet_Applications].[ApplicationName], [dbo].[aspnet_Applications].[LoweredApplicationName], [dbo].[aspnet_Applications].[ApplicationId], [dbo].[aspnet_Applications].[Description]
   FROM [dbo].[aspnet_Applications]
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_WebEvent_LogEvent]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_WebEvent_LogEvent]    Script Date: 01/22/2012 14:17:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -382,7 +386,7 @@ BEGIN
     )
 END
 GO
-/****** Object:  Table [dbo].[aspnet_Users]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  Table [dbo].[aspnet_Users]    Script Date: 01/22/2012 14:17:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -413,7 +417,7 @@ CREATE NONCLUSTERED INDEX [aspnet_Users_Index2] ON [dbo].[aspnet_Users]
 	[LastActivityDate] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_UnRegisterSchemaVersion]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_UnRegisterSchemaVersion]    Script Date: 01/22/2012 14:17:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -427,7 +431,7 @@ BEGIN
         WHERE   Feature = LOWER(@Feature) AND @CompatibleSchemaVersion = CompatibleSchemaVersion
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_CheckSchemaVersion]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_CheckSchemaVersion]    Script Date: 01/22/2012 14:17:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -446,7 +450,7 @@ BEGIN
     RETURN 1
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Applications_CreateApplication]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Applications_CreateApplication]    Script Date: 01/22/2012 14:17:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -499,7 +503,7 @@ BEGIN
     END
 END
 GO
-/****** Object:  Table [dbo].[aspnet_Paths]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  Table [dbo].[aspnet_Paths]    Script Date: 01/22/2012 14:17:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -521,7 +525,7 @@ CREATE UNIQUE CLUSTERED INDEX [aspnet_Paths_index] ON [dbo].[aspnet_Paths]
 	[LoweredPath] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Personalization_GetApplicationId]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Personalization_GetApplicationId]    Script Date: 01/22/2012 14:17:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -534,7 +538,7 @@ BEGIN
     SELECT @ApplicationId = ApplicationId FROM dbo.aspnet_Applications WHERE LOWER(@ApplicationName) = LoweredApplicationName
 END
 GO
-/****** Object:  Table [dbo].[aspnet_Roles]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  Table [dbo].[aspnet_Roles]    Script Date: 01/22/2012 14:17:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -557,7 +561,7 @@ CREATE UNIQUE CLUSTERED INDEX [aspnet_Roles_index1] ON [dbo].[aspnet_Roles]
 	[LoweredRoleName] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_RegisterSchemaVersion]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_RegisterSchemaVersion]    Script Date: 01/22/2012 14:17:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -587,7 +591,7 @@ BEGIN
     VALUES( LOWER( @Feature ), @CompatibleSchemaVersion, @IsCurrentVersion )
 END
 GO
-/****** Object:  Table [dbo].[aspnet_PersonalizationPerUser]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  Table [dbo].[aspnet_PersonalizationPerUser]    Script Date: 01/22/2012 14:17:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -616,7 +620,7 @@ CREATE UNIQUE NONCLUSTERED INDEX [aspnet_PersonalizationPerUser_ncindex2] ON [db
 	[PathId] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[aspnet_Profile]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  Table [dbo].[aspnet_Profile]    Script Date: 01/22/2012 14:17:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -633,7 +637,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[aspnet_Membership]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  Table [dbo].[aspnet_Membership]    Script Date: 01/22/2012 14:17:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -672,7 +676,7 @@ CREATE CLUSTERED INDEX [aspnet_Membership_index] ON [dbo].[aspnet_Membership]
 	[LoweredEmail] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Paths_CreatePath]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Paths_CreatePath]    Script Date: 01/22/2012 14:17:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -692,7 +696,7 @@ BEGIN
     SELECT @PathId = PathId FROM dbo.aspnet_Paths WHERE LOWER(@Path) = LoweredPath AND ApplicationId = @ApplicationId
 END
 GO
-/****** Object:  Table [dbo].[aspnet_PersonalizationAllUsers]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  Table [dbo].[aspnet_PersonalizationAllUsers]    Script Date: 01/22/2012 14:17:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -707,7 +711,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Users_CreateUser]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Users_CreateUser]    Script Date: 01/22/2012 14:17:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -735,7 +739,7 @@ BEGIN
     RETURN 0
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Roles_RoleExists]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Roles_RoleExists]    Script Date: 01/22/2012 14:17:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -756,7 +760,7 @@ BEGIN
         RETURN(0)
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Roles_GetAllRoles]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Roles_GetAllRoles]    Script Date: 01/22/2012 14:17:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -775,7 +779,7 @@ BEGIN
     ORDER BY RoleName
 END
 GO
-/****** Object:  Table [dbo].[aspnet_UsersInRoles]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  Table [dbo].[aspnet_UsersInRoles]    Script Date: 01/22/2012 14:17:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -795,7 +799,21 @@ CREATE NONCLUSTERED INDEX [aspnet_UsersInRoles_index] ON [dbo].[aspnet_UsersInRo
 	[RoleId] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Roles_CreateRole]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  Table [dbo].[Member]    Script Date: 01/22/2012 14:17:11 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Member](
+	[MemberPkey] [bigint] IDENTITY(1,1) NOT NULL,
+	[UserId] [uniqueidentifier] NOT NULL,
+ CONSTRAINT [PK_Member_1] PRIMARY KEY CLUSTERED 
+(
+	[MemberPkey] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  StoredProcedure [dbo].[aspnet_Roles_CreateRole]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -866,21 +884,7 @@ Cleanup:
 
 END
 GO
-/****** Object:  Table [dbo].[Member]    Script Date: 01/21/2012 23:37:40 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Member](
-	[MemberPkey] [uniqueidentifier] NOT NULL,
-	[UserId] [uniqueidentifier] NOT NULL,
- CONSTRAINT [PK_Member] PRIMARY KEY CLUSTERED 
-(
-	[MemberPkey] ASC
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  View [dbo].[vw_aspnet_Users]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  View [dbo].[vw_aspnet_Users]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -889,7 +893,7 @@ CREATE VIEW [dbo].[vw_aspnet_Users]
   AS SELECT [dbo].[aspnet_Users].[ApplicationId], [dbo].[aspnet_Users].[UserId], [dbo].[aspnet_Users].[UserName], [dbo].[aspnet_Users].[LoweredUserName], [dbo].[aspnet_Users].[MobileAlias], [dbo].[aspnet_Users].[IsAnonymous], [dbo].[aspnet_Users].[LastActivityDate]
   FROM [dbo].[aspnet_Users]
 GO
-/****** Object:  View [dbo].[vw_aspnet_Roles]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  View [dbo].[vw_aspnet_Roles]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -898,7 +902,7 @@ CREATE VIEW [dbo].[vw_aspnet_Roles]
   AS SELECT [dbo].[aspnet_Roles].[ApplicationId], [dbo].[aspnet_Roles].[RoleId], [dbo].[aspnet_Roles].[RoleName], [dbo].[aspnet_Roles].[LoweredRoleName], [dbo].[aspnet_Roles].[Description]
   FROM [dbo].[aspnet_Roles]
 GO
-/****** Object:  View [dbo].[vw_aspnet_WebPartState_Paths]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  View [dbo].[vw_aspnet_WebPartState_Paths]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -907,7 +911,7 @@ CREATE VIEW [dbo].[vw_aspnet_WebPartState_Paths]
   AS SELECT [dbo].[aspnet_Paths].[ApplicationId], [dbo].[aspnet_Paths].[PathId], [dbo].[aspnet_Paths].[Path], [dbo].[aspnet_Paths].[LoweredPath]
   FROM [dbo].[aspnet_Paths]
 GO
-/****** Object:  View [dbo].[vw_aspnet_WebPartState_User]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  View [dbo].[vw_aspnet_WebPartState_User]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -916,7 +920,7 @@ CREATE VIEW [dbo].[vw_aspnet_WebPartState_User]
   AS SELECT [dbo].[aspnet_PersonalizationPerUser].[PathId], [dbo].[aspnet_PersonalizationPerUser].[UserId], [DataSize]=DATALENGTH([dbo].[aspnet_PersonalizationPerUser].[PageSettings]), [dbo].[aspnet_PersonalizationPerUser].[LastUpdatedDate]
   FROM [dbo].[aspnet_PersonalizationPerUser]
 GO
-/****** Object:  View [dbo].[vw_aspnet_WebPartState_Shared]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  View [dbo].[vw_aspnet_WebPartState_Shared]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -925,7 +929,7 @@ CREATE VIEW [dbo].[vw_aspnet_WebPartState_Shared]
   AS SELECT [dbo].[aspnet_PersonalizationAllUsers].[PathId], [DataSize]=DATALENGTH([dbo].[aspnet_PersonalizationAllUsers].[PageSettings]), [dbo].[aspnet_PersonalizationAllUsers].[LastUpdatedDate]
   FROM [dbo].[aspnet_PersonalizationAllUsers]
 GO
-/****** Object:  View [dbo].[vw_aspnet_UsersInRoles]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  View [dbo].[vw_aspnet_UsersInRoles]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -934,7 +938,39 @@ CREATE VIEW [dbo].[vw_aspnet_UsersInRoles]
   AS SELECT [dbo].[aspnet_UsersInRoles].[UserId], [dbo].[aspnet_UsersInRoles].[RoleId]
   FROM [dbo].[aspnet_UsersInRoles]
 GO
-/****** Object:  View [dbo].[vw_aspnet_Profiles]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  Table [dbo].[Relationship]    Script Date: 01/22/2012 14:17:12 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Relationship](
+	[MemberPkey] [bigint] NOT NULL,
+	[RelatedMemberPkey] [bigint] NOT NULL,
+	[FamilyPkey] [bigint] NOT NULL,
+	[RelationshipType] [int] NOT NULL,
+ CONSTRAINT [PK_Relationship_1] PRIMARY KEY CLUSTERED 
+(
+	[MemberPkey] ASC,
+	[RelatedMemberPkey] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[MemberFamily]    Script Date: 01/22/2012 14:17:12 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[MemberFamily](
+	[MemberPkey] [bigint] NOT NULL,
+	[FamilyPkey] [bigint] NOT NULL,
+ CONSTRAINT [PK_MemberFamily_1] PRIMARY KEY CLUSTERED 
+(
+	[MemberPkey] ASC,
+	[FamilyPkey] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  View [dbo].[vw_aspnet_Profiles]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -946,7 +982,7 @@ CREATE VIEW [dbo].[vw_aspnet_Profiles]
                  + DATALENGTH([dbo].[aspnet_Profile].[PropertyValuesBinary])
   FROM [dbo].[aspnet_Profile]
 GO
-/****** Object:  View [dbo].[vw_aspnet_MembershipUsers]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  View [dbo].[vw_aspnet_MembershipUsers]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -978,38 +1014,7 @@ CREATE VIEW [dbo].[vw_aspnet_MembershipUsers]
   FROM [dbo].[aspnet_Membership] INNER JOIN [dbo].[aspnet_Users]
       ON [dbo].[aspnet_Membership].[UserId] = [dbo].[aspnet_Users].[UserId]
 GO
-/****** Object:  Table [dbo].[Relationship]    Script Date: 01/21/2012 23:37:41 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Relationship](
-	[MemberPkey] [uniqueidentifier] NOT NULL,
-	[RelatedMemberPkey] [uniqueidentifier] NOT NULL,
-	[RelationshipType] [int] NOT NULL,
- CONSTRAINT [PK_Relationship] PRIMARY KEY CLUSTERED 
-(
-	[MemberPkey] ASC,
-	[RelatedMemberPkey] ASC
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[MemberFamily]    Script Date: 01/21/2012 23:37:41 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[MemberFamily](
-	[MemberPkey] [uniqueidentifier] NOT NULL,
-	[FamilyPkey] [uniqueidentifier] NOT NULL,
- CONSTRAINT [PK_MemberFamily] PRIMARY KEY CLUSTERED 
-(
-	[MemberPkey] ASC,
-	[FamilyPkey] ASC
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Profile_DeleteInactiveProfiles]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Profile_DeleteInactiveProfiles]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -1046,7 +1051,7 @@ BEGIN
     SELECT  @@ROWCOUNT
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_UsersInRoles_RemoveUsersFromRoles]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_UsersInRoles_RemoveUsersFromRoles]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -1174,7 +1179,7 @@ BEGIN
 	RETURN(0)
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_UsersInRoles_IsUserInRole]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_UsersInRoles_IsUserInRole]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -1215,7 +1220,7 @@ BEGIN
         RETURN(0)
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_UsersInRoles_GetUsersInRoles]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_UsersInRoles_GetUsersInRoles]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -1247,7 +1252,7 @@ BEGIN
     RETURN(0)
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_UsersInRoles_GetRolesForUser]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_UsersInRoles_GetRolesForUser]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -1279,7 +1284,7 @@ BEGIN
     RETURN (0)
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_UsersInRoles_FindUsersInRole]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_UsersInRoles_FindUsersInRole]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -1312,7 +1317,7 @@ BEGIN
     RETURN(0)
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_UsersInRoles_AddUsersToRoles]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_UsersInRoles_AddUsersToRoles]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -1431,7 +1436,7 @@ BEGIN
 	RETURN(0)
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Users_DeleteUser]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Users_DeleteUser]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -1579,7 +1584,7 @@ Cleanup:
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Roles_DeleteRole]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Roles_DeleteRole]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -1664,7 +1669,7 @@ Cleanup:
     RETURN @ErrorCode
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Membership_UpdateUserInfo]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Membership_UpdateUserInfo]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -1820,7 +1825,7 @@ Cleanup:
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Membership_UpdateUser]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Membership_UpdateUser]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -1912,7 +1917,7 @@ Cleanup:
     RETURN -1
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Membership_UnlockUser]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Membership_UnlockUser]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -1946,7 +1951,7 @@ BEGIN
     RETURN 0
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Membership_SetPassword]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Membership_SetPassword]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -1979,7 +1984,7 @@ BEGIN
     RETURN(0)
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Membership_ResetPassword]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Membership_ResetPassword]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -2125,7 +2130,7 @@ Cleanup:
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Membership_GetUserByUserId]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Membership_GetUserByUserId]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -2160,7 +2165,7 @@ BEGIN
     RETURN 0
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Membership_GetUserByName]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Membership_GetUserByName]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -2213,7 +2218,7 @@ BEGIN
     RETURN 0
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Membership_GetUserByEmail]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Membership_GetUserByEmail]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -2243,7 +2248,7 @@ BEGIN
     RETURN(0)
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Membership_GetPasswordWithFormat]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Membership_GetPasswordWithFormat]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -2302,7 +2307,7 @@ BEGIN
     RETURN 0
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Membership_GetPassword]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Membership_GetPassword]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -2441,7 +2446,7 @@ Cleanup:
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Membership_GetNumberOfUsersOnline]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Membership_GetNumberOfUsersOnline]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -2467,7 +2472,7 @@ BEGIN
     RETURN(@NumOnline)
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Membership_GetAllUsers]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Membership_GetAllUsers]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -2522,7 +2527,7 @@ BEGIN
     RETURN @TotalRecords
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Membership_FindUsersByName]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Membership_FindUsersByName]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -2579,7 +2584,7 @@ BEGIN
     RETURN @TotalRecords
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Membership_FindUsersByEmail]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Membership_FindUsersByEmail]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -2642,7 +2647,7 @@ BEGIN
     RETURN @TotalRecords
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Membership_CreateUser]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Membership_CreateUser]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -2843,7 +2848,7 @@ Cleanup:
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Membership_ChangePasswordQuestionAndAnswer]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Membership_ChangePasswordQuestionAndAnswer]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -2874,7 +2879,7 @@ BEGIN
     RETURN(0)
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_AnyDataInTables]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_AnyDataInTables]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -2962,7 +2967,7 @@ BEGIN
     END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_PersonalizationAdministration_ResetUserState]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_PersonalizationAdministration_ResetUserState]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -2995,7 +3000,7 @@ BEGIN
     END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_PersonalizationAdministration_ResetSharedState]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_PersonalizationAdministration_ResetSharedState]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -3024,7 +3029,7 @@ BEGIN
     END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_PersonalizationAdministration_GetCountOfState]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_PersonalizationAdministration_GetCountOfState]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -3061,7 +3066,7 @@ BEGIN
                   AND (@InactiveSinceDate IS NULL OR Users.LastActivityDate <= @InactiveSinceDate)
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_PersonalizationAdministration_FindState]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_PersonalizationAdministration_FindState]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -3175,7 +3180,7 @@ BEGIN
     RETURN @TotalRecords
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_PersonalizationAdministration_DeleteAllState]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_PersonalizationAdministration_DeleteAllState]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -3209,7 +3214,7 @@ BEGIN
     END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_PersonalizationPerUser_SetPageSettings]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_PersonalizationPerUser_SetPageSettings]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -3257,7 +3262,7 @@ BEGIN
     RETURN 0
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_PersonalizationPerUser_ResetPageSettings]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_PersonalizationPerUser_ResetPageSettings]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -3305,7 +3310,7 @@ BEGIN
     RETURN 0
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_PersonalizationPerUser_GetPageSettings]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_PersonalizationPerUser_GetPageSettings]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -3352,7 +3357,7 @@ BEGIN
     SELECT p.PageSettings FROM dbo.aspnet_PersonalizationPerUser p WHERE p.PathId = @PathId AND p.UserId = @UserId
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_PersonalizationAllUsers_SetPageSettings]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_PersonalizationAllUsers_SetPageSettings]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -3385,7 +3390,7 @@ BEGIN
     RETURN 0
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_PersonalizationAllUsers_ResetPageSettings]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_PersonalizationAllUsers_ResetPageSettings]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -3417,7 +3422,7 @@ BEGIN
     RETURN 0
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_PersonalizationAllUsers_GetPageSettings]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_PersonalizationAllUsers_GetPageSettings]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -3448,7 +3453,7 @@ BEGIN
     SELECT p.PageSettings FROM dbo.aspnet_PersonalizationAllUsers p WHERE p.PathId = @PathId
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Profile_SetProperties]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Profile_SetProperties]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -3552,7 +3557,7 @@ Cleanup:
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Profile_GetProperties]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Profile_GetProperties]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -3590,7 +3595,7 @@ BEGIN
     END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Profile_GetProfiles]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Profile_GetProfiles]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -3649,7 +3654,7 @@ BEGIN
     DROP TABLE #PageIndexForUsers
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Profile_GetNumberOfInactiveProfiles]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Profile_GetNumberOfInactiveProfiles]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -3681,7 +3686,7 @@ BEGIN
             )
 END
 GO
-/****** Object:  StoredProcedure [dbo].[aspnet_Profile_DeleteProfiles]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  StoredProcedure [dbo].[aspnet_Profile_DeleteProfiles]    Script Date: 01/22/2012 14:17:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -3753,75 +3758,75 @@ Cleanup:
     RETURN @ErrorCode
 END
 GO
-/****** Object:  Default [DF__aspnet_Ap__Appli__6C190EBB]    Script Date: 01/21/2012 23:37:32 ******/
+/****** Object:  Default [DF__aspnet_Ap__Appli__6C190EBB]    Script Date: 01/22/2012 14:17:06 ******/
 ALTER TABLE [dbo].[aspnet_Applications] ADD  DEFAULT (newid()) FOR [ApplicationId]
 GO
-/****** Object:  Default [DF__aspnet_Us__UserI__6D0D32F4]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  Default [DF__aspnet_Us__UserI__6D0D32F4]    Script Date: 01/22/2012 14:17:11 ******/
 ALTER TABLE [dbo].[aspnet_Users] ADD  DEFAULT (newid()) FOR [UserId]
 GO
-/****** Object:  Default [DF__aspnet_Us__Mobil__6E01572D]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  Default [DF__aspnet_Us__Mobil__6E01572D]    Script Date: 01/22/2012 14:17:11 ******/
 ALTER TABLE [dbo].[aspnet_Users] ADD  DEFAULT (NULL) FOR [MobileAlias]
 GO
-/****** Object:  Default [DF__aspnet_Us__IsAno__6EF57B66]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  Default [DF__aspnet_Us__IsAno__6EF57B66]    Script Date: 01/22/2012 14:17:11 ******/
 ALTER TABLE [dbo].[aspnet_Users] ADD  DEFAULT ((0)) FOR [IsAnonymous]
 GO
-/****** Object:  Default [DF__aspnet_Pa__PathI__6FE99F9F]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  Default [DF__aspnet_Pa__PathI__6FE99F9F]    Script Date: 01/22/2012 14:17:11 ******/
 ALTER TABLE [dbo].[aspnet_Paths] ADD  DEFAULT (newid()) FOR [PathId]
 GO
-/****** Object:  Default [DF__aspnet_Ro__RoleI__70DDC3D8]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  Default [DF__aspnet_Ro__RoleI__70DDC3D8]    Script Date: 01/22/2012 14:17:11 ******/
 ALTER TABLE [dbo].[aspnet_Roles] ADD  DEFAULT (newid()) FOR [RoleId]
 GO
-/****** Object:  Default [DF__aspnet_Perso__Id__71D1E811]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  Default [DF__aspnet_Perso__Id__71D1E811]    Script Date: 01/22/2012 14:17:11 ******/
 ALTER TABLE [dbo].[aspnet_PersonalizationPerUser] ADD  DEFAULT (newid()) FOR [Id]
 GO
-/****** Object:  Default [DF__aspnet_Me__Passw__72C60C4A]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  Default [DF__aspnet_Me__Passw__72C60C4A]    Script Date: 01/22/2012 14:17:11 ******/
 ALTER TABLE [dbo].[aspnet_Membership] ADD  DEFAULT ((0)) FOR [PasswordFormat]
 GO
-/****** Object:  ForeignKey [FK__aspnet_Us__Appli__73BA3083]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  ForeignKey [FK__aspnet_Us__Appli__73BA3083]    Script Date: 01/22/2012 14:17:11 ******/
 ALTER TABLE [dbo].[aspnet_Users]  WITH CHECK ADD FOREIGN KEY([ApplicationId])
 REFERENCES [dbo].[aspnet_Applications] ([ApplicationId])
 GO
-/****** Object:  ForeignKey [FK__aspnet_Pa__Appli__74AE54BC]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  ForeignKey [FK__aspnet_Pa__Appli__74AE54BC]    Script Date: 01/22/2012 14:17:11 ******/
 ALTER TABLE [dbo].[aspnet_Paths]  WITH CHECK ADD FOREIGN KEY([ApplicationId])
 REFERENCES [dbo].[aspnet_Applications] ([ApplicationId])
 GO
-/****** Object:  ForeignKey [FK__aspnet_Ro__Appli__75A278F5]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  ForeignKey [FK__aspnet_Ro__Appli__75A278F5]    Script Date: 01/22/2012 14:17:11 ******/
 ALTER TABLE [dbo].[aspnet_Roles]  WITH CHECK ADD FOREIGN KEY([ApplicationId])
 REFERENCES [dbo].[aspnet_Applications] ([ApplicationId])
 GO
-/****** Object:  ForeignKey [FK__aspnet_Pe__PathI__76969D2E]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  ForeignKey [FK__aspnet_Pe__PathI__76969D2E]    Script Date: 01/22/2012 14:17:11 ******/
 ALTER TABLE [dbo].[aspnet_PersonalizationPerUser]  WITH CHECK ADD FOREIGN KEY([PathId])
 REFERENCES [dbo].[aspnet_Paths] ([PathId])
 GO
-/****** Object:  ForeignKey [FK__aspnet_Pe__UserI__778AC167]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  ForeignKey [FK__aspnet_Pe__UserI__778AC167]    Script Date: 01/22/2012 14:17:11 ******/
 ALTER TABLE [dbo].[aspnet_PersonalizationPerUser]  WITH CHECK ADD FOREIGN KEY([UserId])
 REFERENCES [dbo].[aspnet_Users] ([UserId])
 GO
-/****** Object:  ForeignKey [FK__aspnet_Pr__UserI__787EE5A0]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  ForeignKey [FK__aspnet_Pr__UserI__787EE5A0]    Script Date: 01/22/2012 14:17:11 ******/
 ALTER TABLE [dbo].[aspnet_Profile]  WITH CHECK ADD FOREIGN KEY([UserId])
 REFERENCES [dbo].[aspnet_Users] ([UserId])
 GO
-/****** Object:  ForeignKey [FK__aspnet_Me__Appli__797309D9]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  ForeignKey [FK__aspnet_Me__Appli__797309D9]    Script Date: 01/22/2012 14:17:11 ******/
 ALTER TABLE [dbo].[aspnet_Membership]  WITH CHECK ADD FOREIGN KEY([ApplicationId])
 REFERENCES [dbo].[aspnet_Applications] ([ApplicationId])
 GO
-/****** Object:  ForeignKey [FK__aspnet_Me__UserI__7A672E12]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  ForeignKey [FK__aspnet_Me__UserI__7A672E12]    Script Date: 01/22/2012 14:17:11 ******/
 ALTER TABLE [dbo].[aspnet_Membership]  WITH CHECK ADD FOREIGN KEY([UserId])
 REFERENCES [dbo].[aspnet_Users] ([UserId])
 GO
-/****** Object:  ForeignKey [FK__aspnet_Pe__PathI__7B5B524B]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  ForeignKey [FK__aspnet_Pe__PathI__7B5B524B]    Script Date: 01/22/2012 14:17:11 ******/
 ALTER TABLE [dbo].[aspnet_PersonalizationAllUsers]  WITH CHECK ADD FOREIGN KEY([PathId])
 REFERENCES [dbo].[aspnet_Paths] ([PathId])
 GO
-/****** Object:  ForeignKey [FK__aspnet_Us__RoleI__7C4F7684]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  ForeignKey [FK__aspnet_Us__RoleI__7C4F7684]    Script Date: 01/22/2012 14:17:11 ******/
 ALTER TABLE [dbo].[aspnet_UsersInRoles]  WITH CHECK ADD FOREIGN KEY([RoleId])
 REFERENCES [dbo].[aspnet_Roles] ([RoleId])
 GO
-/****** Object:  ForeignKey [FK__aspnet_Us__UserI__7D439ABD]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  ForeignKey [FK__aspnet_Us__UserI__7D439ABD]    Script Date: 01/22/2012 14:17:11 ******/
 ALTER TABLE [dbo].[aspnet_UsersInRoles]  WITH CHECK ADD FOREIGN KEY([UserId])
 REFERENCES [dbo].[aspnet_Users] ([UserId])
 GO
-/****** Object:  ForeignKey [FK_Member_aspnet_Users]    Script Date: 01/21/2012 23:37:40 ******/
+/****** Object:  ForeignKey [FK_Member_aspnet_Users]    Script Date: 01/22/2012 14:17:11 ******/
 ALTER TABLE [dbo].[Member]  WITH CHECK ADD  CONSTRAINT [FK_Member_aspnet_Users] FOREIGN KEY([UserId])
 REFERENCES [dbo].[aspnet_Users] ([UserId])
 ON UPDATE CASCADE
@@ -3829,25 +3834,31 @@ ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[Member] CHECK CONSTRAINT [FK_Member_aspnet_Users]
 GO
-/****** Object:  ForeignKey [FK_Relationship_Member]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  ForeignKey [FK_Relationship_Family]    Script Date: 01/22/2012 14:17:12 ******/
+ALTER TABLE [dbo].[Relationship]  WITH CHECK ADD  CONSTRAINT [FK_Relationship_Family] FOREIGN KEY([FamilyPkey])
+REFERENCES [dbo].[Family] ([FamilyPkey])
+GO
+ALTER TABLE [dbo].[Relationship] CHECK CONSTRAINT [FK_Relationship_Family]
+GO
+/****** Object:  ForeignKey [FK_Relationship_Member]    Script Date: 01/22/2012 14:17:12 ******/
 ALTER TABLE [dbo].[Relationship]  WITH CHECK ADD  CONSTRAINT [FK_Relationship_Member] FOREIGN KEY([MemberPkey])
 REFERENCES [dbo].[Member] ([MemberPkey])
 GO
 ALTER TABLE [dbo].[Relationship] CHECK CONSTRAINT [FK_Relationship_Member]
 GO
-/****** Object:  ForeignKey [FK_Relationship_Member1]    Script Date: 01/21/2012 23:37:41 ******/
-ALTER TABLE [dbo].[Relationship]  WITH CHECK ADD  CONSTRAINT [FK_Relationship_Member1] FOREIGN KEY([RelatedMemberPkey])
+/****** Object:  ForeignKey [FK_Relationship_RelativeMember]    Script Date: 01/22/2012 14:17:12 ******/
+ALTER TABLE [dbo].[Relationship]  WITH CHECK ADD  CONSTRAINT [FK_Relationship_RelativeMember] FOREIGN KEY([RelatedMemberPkey])
 REFERENCES [dbo].[Member] ([MemberPkey])
 GO
-ALTER TABLE [dbo].[Relationship] CHECK CONSTRAINT [FK_Relationship_Member1]
+ALTER TABLE [dbo].[Relationship] CHECK CONSTRAINT [FK_Relationship_RelativeMember]
 GO
-/****** Object:  ForeignKey [FK_MemberFamily_Family]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  ForeignKey [FK_MemberFamily_Family]    Script Date: 01/22/2012 14:17:12 ******/
 ALTER TABLE [dbo].[MemberFamily]  WITH CHECK ADD  CONSTRAINT [FK_MemberFamily_Family] FOREIGN KEY([FamilyPkey])
 REFERENCES [dbo].[Family] ([FamilyPkey])
 GO
 ALTER TABLE [dbo].[MemberFamily] CHECK CONSTRAINT [FK_MemberFamily_Family]
 GO
-/****** Object:  ForeignKey [FK_MemberFamily_Member]    Script Date: 01/21/2012 23:37:41 ******/
+/****** Object:  ForeignKey [FK_MemberFamily_Member]    Script Date: 01/22/2012 14:17:12 ******/
 ALTER TABLE [dbo].[MemberFamily]  WITH CHECK ADD  CONSTRAINT [FK_MemberFamily_Member] FOREIGN KEY([MemberPkey])
 REFERENCES [dbo].[Member] ([MemberPkey])
 GO

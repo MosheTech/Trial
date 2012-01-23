@@ -30,21 +30,21 @@ namespace KidSteps.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void Insertaspnet_User(aspnet_User instance);
-    partial void Updateaspnet_User(aspnet_User instance);
-    partial void Deleteaspnet_User(aspnet_User instance);
-    partial void InsertFamily(Family instance);
-    partial void UpdateFamily(Family instance);
-    partial void DeleteFamily(Family instance);
+    partial void InsertRelationship(Relationship instance);
+    partial void UpdateRelationship(Relationship instance);
+    partial void DeleteRelationship(Relationship instance);
     partial void InsertMember(Member instance);
     partial void UpdateMember(Member instance);
     partial void DeleteMember(Member instance);
     partial void InsertMemberFamily(MemberFamily instance);
     partial void UpdateMemberFamily(MemberFamily instance);
     partial void DeleteMemberFamily(MemberFamily instance);
-    partial void InsertRelationship(Relationship instance);
-    partial void UpdateRelationship(Relationship instance);
-    partial void DeleteRelationship(Relationship instance);
+    partial void Insertaspnet_User(aspnet_User instance);
+    partial void Updateaspnet_User(aspnet_User instance);
+    partial void Deleteaspnet_User(aspnet_User instance);
+    partial void InsertFamily(Family instance);
+    partial void UpdateFamily(Family instance);
+    partial void DeleteFamily(Family instance);
     #endregion
 		
 		public KidStepsDataContext() : 
@@ -77,19 +77,11 @@ namespace KidSteps.Models
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<aspnet_User> aspnet_Users
+		public System.Data.Linq.Table<Relationship> Relationships
 		{
 			get
 			{
-				return this.GetTable<aspnet_User>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Family> Families
-		{
-			get
-			{
-				return this.GetTable<Family>();
+				return this.GetTable<Relationship>();
 			}
 		}
 		
@@ -109,11 +101,655 @@ namespace KidSteps.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<Relationship> Relationships
+		public System.Data.Linq.Table<aspnet_User> aspnet_Users
 		{
 			get
 			{
-				return this.GetTable<Relationship>();
+				return this.GetTable<aspnet_User>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Family> Families
+		{
+			get
+			{
+				return this.GetTable<Family>();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Relationship")]
+	public partial class Relationship : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _MemberPkey;
+		
+		private long _RelatedMemberPkey;
+		
+		private long _FamilyPkey;
+		
+		private int _RelationshipType;
+		
+		private EntityRef<Member> _Member;
+		
+		private EntityRef<Member> _Member1;
+		
+		private EntityRef<Family> _Family;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMemberPkeyChanging(long value);
+    partial void OnMemberPkeyChanged();
+    partial void OnRelatedMemberPkeyChanging(long value);
+    partial void OnRelatedMemberPkeyChanged();
+    partial void OnFamilyPkeyChanging(long value);
+    partial void OnFamilyPkeyChanged();
+    partial void OnRelationshipTypeChanging(int value);
+    partial void OnRelationshipTypeChanged();
+    #endregion
+		
+		public Relationship()
+		{
+			this._Member = default(EntityRef<Member>);
+			this._Member1 = default(EntityRef<Member>);
+			this._Family = default(EntityRef<Family>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MemberPkey", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		public long MemberPkey
+		{
+			get
+			{
+				return this._MemberPkey;
+			}
+			set
+			{
+				if ((this._MemberPkey != value))
+				{
+					if (this._Member.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMemberPkeyChanging(value);
+					this.SendPropertyChanging();
+					this._MemberPkey = value;
+					this.SendPropertyChanged("MemberPkey");
+					this.OnMemberPkeyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RelatedMemberPkey", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		public long RelatedMemberPkey
+		{
+			get
+			{
+				return this._RelatedMemberPkey;
+			}
+			set
+			{
+				if ((this._RelatedMemberPkey != value))
+				{
+					if (this._Member1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnRelatedMemberPkeyChanging(value);
+					this.SendPropertyChanging();
+					this._RelatedMemberPkey = value;
+					this.SendPropertyChanged("RelatedMemberPkey");
+					this.OnRelatedMemberPkeyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FamilyPkey", DbType="BigInt NOT NULL")]
+		public long FamilyPkey
+		{
+			get
+			{
+				return this._FamilyPkey;
+			}
+			set
+			{
+				if ((this._FamilyPkey != value))
+				{
+					if (this._Family.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnFamilyPkeyChanging(value);
+					this.SendPropertyChanging();
+					this._FamilyPkey = value;
+					this.SendPropertyChanged("FamilyPkey");
+					this.OnFamilyPkeyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RelationshipType", DbType="Int NOT NULL")]
+		public int RelationshipType
+		{
+			get
+			{
+				return this._RelationshipType;
+			}
+			set
+			{
+				if ((this._RelationshipType != value))
+				{
+					this.OnRelationshipTypeChanging(value);
+					this.SendPropertyChanging();
+					this._RelationshipType = value;
+					this.SendPropertyChanged("RelationshipType");
+					this.OnRelationshipTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_Relationship", Storage="_Member", ThisKey="MemberPkey", OtherKey="MemberPkey", IsForeignKey=true)]
+		public Member Member
+		{
+			get
+			{
+				return this._Member.Entity;
+			}
+			set
+			{
+				Member previousValue = this._Member.Entity;
+				if (((previousValue != value) 
+							|| (this._Member.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Member.Entity = null;
+						previousValue.Relationships.Remove(this);
+					}
+					this._Member.Entity = value;
+					if ((value != null))
+					{
+						value.Relationships.Add(this);
+						this._MemberPkey = value.MemberPkey;
+					}
+					else
+					{
+						this._MemberPkey = default(long);
+					}
+					this.SendPropertyChanged("Member");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_Relationship1", Storage="_Member1", ThisKey="RelatedMemberPkey", OtherKey="MemberPkey", IsForeignKey=true)]
+		public Member Member1
+		{
+			get
+			{
+				return this._Member1.Entity;
+			}
+			set
+			{
+				Member previousValue = this._Member1.Entity;
+				if (((previousValue != value) 
+							|| (this._Member1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Member1.Entity = null;
+						previousValue.Relationships1.Remove(this);
+					}
+					this._Member1.Entity = value;
+					if ((value != null))
+					{
+						value.Relationships1.Add(this);
+						this._RelatedMemberPkey = value.MemberPkey;
+					}
+					else
+					{
+						this._RelatedMemberPkey = default(long);
+					}
+					this.SendPropertyChanged("Member1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Family_Relationship", Storage="_Family", ThisKey="FamilyPkey", OtherKey="FamilyPkey", IsForeignKey=true)]
+		public Family Family
+		{
+			get
+			{
+				return this._Family.Entity;
+			}
+			set
+			{
+				Family previousValue = this._Family.Entity;
+				if (((previousValue != value) 
+							|| (this._Family.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Family.Entity = null;
+						previousValue.Relationships.Remove(this);
+					}
+					this._Family.Entity = value;
+					if ((value != null))
+					{
+						value.Relationships.Add(this);
+						this._FamilyPkey = value.FamilyPkey;
+					}
+					else
+					{
+						this._FamilyPkey = default(long);
+					}
+					this.SendPropertyChanged("Family");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Member")]
+	public partial class Member : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _MemberPkey;
+		
+		private System.Guid _UserId;
+		
+		private EntitySet<Relationship> _Relationships;
+		
+		private EntitySet<Relationship> _Relationships1;
+		
+		private EntitySet<MemberFamily> _MemberFamilies;
+		
+		private EntityRef<aspnet_User> _aspnet_User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMemberPkeyChanging(long value);
+    partial void OnMemberPkeyChanged();
+    partial void OnUserIdChanging(System.Guid value);
+    partial void OnUserIdChanged();
+    #endregion
+		
+		public Member()
+		{
+			this._Relationships = new EntitySet<Relationship>(new Action<Relationship>(this.attach_Relationships), new Action<Relationship>(this.detach_Relationships));
+			this._Relationships1 = new EntitySet<Relationship>(new Action<Relationship>(this.attach_Relationships1), new Action<Relationship>(this.detach_Relationships1));
+			this._MemberFamilies = new EntitySet<MemberFamily>(new Action<MemberFamily>(this.attach_MemberFamilies), new Action<MemberFamily>(this.detach_MemberFamilies));
+			this._aspnet_User = default(EntityRef<aspnet_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MemberPkey", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long MemberPkey
+		{
+			get
+			{
+				return this._MemberPkey;
+			}
+			set
+			{
+				if ((this._MemberPkey != value))
+				{
+					this.OnMemberPkeyChanging(value);
+					this.SendPropertyChanging();
+					this._MemberPkey = value;
+					this.SendPropertyChanged("MemberPkey");
+					this.OnMemberPkeyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					if (this._aspnet_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_Relationship", Storage="_Relationships", ThisKey="MemberPkey", OtherKey="MemberPkey")]
+		public EntitySet<Relationship> Relationships
+		{
+			get
+			{
+				return this._Relationships;
+			}
+			set
+			{
+				this._Relationships.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_Relationship1", Storage="_Relationships1", ThisKey="MemberPkey", OtherKey="RelatedMemberPkey")]
+		public EntitySet<Relationship> Relationships1
+		{
+			get
+			{
+				return this._Relationships1;
+			}
+			set
+			{
+				this._Relationships1.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_MemberFamily", Storage="_MemberFamilies", ThisKey="MemberPkey", OtherKey="MemberPkey")]
+		public EntitySet<MemberFamily> MemberFamilies
+		{
+			get
+			{
+				return this._MemberFamilies;
+			}
+			set
+			{
+				this._MemberFamilies.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Member", Storage="_aspnet_User", ThisKey="UserId", OtherKey="UserId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public aspnet_User aspnet_User
+		{
+			get
+			{
+				return this._aspnet_User.Entity;
+			}
+			set
+			{
+				aspnet_User previousValue = this._aspnet_User.Entity;
+				if (((previousValue != value) 
+							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._aspnet_User.Entity = null;
+						previousValue.Members.Remove(this);
+					}
+					this._aspnet_User.Entity = value;
+					if ((value != null))
+					{
+						value.Members.Add(this);
+						this._UserId = value.UserId;
+					}
+					else
+					{
+						this._UserId = default(System.Guid);
+					}
+					this.SendPropertyChanged("aspnet_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Relationships(Relationship entity)
+		{
+			this.SendPropertyChanging();
+			entity.Member = this;
+		}
+		
+		private void detach_Relationships(Relationship entity)
+		{
+			this.SendPropertyChanging();
+			entity.Member = null;
+		}
+		
+		private void attach_Relationships1(Relationship entity)
+		{
+			this.SendPropertyChanging();
+			entity.Member1 = this;
+		}
+		
+		private void detach_Relationships1(Relationship entity)
+		{
+			this.SendPropertyChanging();
+			entity.Member1 = null;
+		}
+		
+		private void attach_MemberFamilies(MemberFamily entity)
+		{
+			this.SendPropertyChanging();
+			entity.Member = this;
+		}
+		
+		private void detach_MemberFamilies(MemberFamily entity)
+		{
+			this.SendPropertyChanging();
+			entity.Member = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MemberFamily")]
+	public partial class MemberFamily : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _MemberPkey;
+		
+		private long _FamilyPkey;
+		
+		private EntityRef<Member> _Member;
+		
+		private EntityRef<Family> _Family;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMemberPkeyChanging(long value);
+    partial void OnMemberPkeyChanged();
+    partial void OnFamilyPkeyChanging(long value);
+    partial void OnFamilyPkeyChanged();
+    #endregion
+		
+		public MemberFamily()
+		{
+			this._Member = default(EntityRef<Member>);
+			this._Family = default(EntityRef<Family>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MemberPkey", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		public long MemberPkey
+		{
+			get
+			{
+				return this._MemberPkey;
+			}
+			set
+			{
+				if ((this._MemberPkey != value))
+				{
+					if (this._Member.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMemberPkeyChanging(value);
+					this.SendPropertyChanging();
+					this._MemberPkey = value;
+					this.SendPropertyChanged("MemberPkey");
+					this.OnMemberPkeyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FamilyPkey", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		public long FamilyPkey
+		{
+			get
+			{
+				return this._FamilyPkey;
+			}
+			set
+			{
+				if ((this._FamilyPkey != value))
+				{
+					if (this._Family.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnFamilyPkeyChanging(value);
+					this.SendPropertyChanging();
+					this._FamilyPkey = value;
+					this.SendPropertyChanged("FamilyPkey");
+					this.OnFamilyPkeyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_MemberFamily", Storage="_Member", ThisKey="MemberPkey", OtherKey="MemberPkey", IsForeignKey=true)]
+		public Member Member
+		{
+			get
+			{
+				return this._Member.Entity;
+			}
+			set
+			{
+				Member previousValue = this._Member.Entity;
+				if (((previousValue != value) 
+							|| (this._Member.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Member.Entity = null;
+						previousValue.MemberFamilies.Remove(this);
+					}
+					this._Member.Entity = value;
+					if ((value != null))
+					{
+						value.MemberFamilies.Add(this);
+						this._MemberPkey = value.MemberPkey;
+					}
+					else
+					{
+						this._MemberPkey = default(long);
+					}
+					this.SendPropertyChanged("Member");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Family_MemberFamily", Storage="_Family", ThisKey="FamilyPkey", OtherKey="FamilyPkey", IsForeignKey=true)]
+		public Family Family
+		{
+			get
+			{
+				return this._Family.Entity;
+			}
+			set
+			{
+				Family previousValue = this._Family.Entity;
+				if (((previousValue != value) 
+							|| (this._Family.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Family.Entity = null;
+						previousValue.MemberFamilies.Remove(this);
+					}
+					this._Family.Entity = value;
+					if ((value != null))
+					{
+						value.MemberFamilies.Add(this);
+						this._FamilyPkey = value.FamilyPkey;
+					}
+					else
+					{
+						this._FamilyPkey = default(long);
+					}
+					this.SendPropertyChanged("Family");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -358,9 +994,11 @@ namespace KidSteps.Models
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private System.Guid _FamilyPkey;
+		private long _FamilyPkey;
 		
 		private string _Name;
+		
+		private EntitySet<Relationship> _Relationships;
 		
 		private EntitySet<MemberFamily> _MemberFamilies;
 		
@@ -368,7 +1006,7 @@ namespace KidSteps.Models
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnFamilyPkeyChanging(System.Guid value);
+    partial void OnFamilyPkeyChanging(long value);
     partial void OnFamilyPkeyChanged();
     partial void OnNameChanging(string value);
     partial void OnNameChanged();
@@ -376,12 +1014,13 @@ namespace KidSteps.Models
 		
 		public Family()
 		{
+			this._Relationships = new EntitySet<Relationship>(new Action<Relationship>(this.attach_Relationships), new Action<Relationship>(this.detach_Relationships));
 			this._MemberFamilies = new EntitySet<MemberFamily>(new Action<MemberFamily>(this.attach_MemberFamilies), new Action<MemberFamily>(this.detach_MemberFamilies));
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FamilyPkey", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid FamilyPkey
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FamilyPkey", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long FamilyPkey
 		{
 			get
 			{
@@ -420,6 +1059,19 @@ namespace KidSteps.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Family_Relationship", Storage="_Relationships", ThisKey="FamilyPkey", OtherKey="FamilyPkey")]
+		public EntitySet<Relationship> Relationships
+		{
+			get
+			{
+				return this._Relationships;
+			}
+			set
+			{
+				this._Relationships.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Family_MemberFamily", Storage="_MemberFamilies", ThisKey="FamilyPkey", OtherKey="FamilyPkey")]
 		public EntitySet<MemberFamily> MemberFamilies
 		{
@@ -453,6 +1105,18 @@ namespace KidSteps.Models
 			}
 		}
 		
+		private void attach_Relationships(Relationship entity)
+		{
+			this.SendPropertyChanging();
+			entity.Family = this;
+		}
+		
+		private void detach_Relationships(Relationship entity)
+		{
+			this.SendPropertyChanging();
+			entity.Family = null;
+		}
+		
 		private void attach_MemberFamilies(MemberFamily entity)
 		{
 			this.SendPropertyChanging();
@@ -463,577 +1127,6 @@ namespace KidSteps.Models
 		{
 			this.SendPropertyChanging();
 			entity.Family = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Member")]
-	public partial class Member : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _MemberPkey;
-		
-		private System.Guid _UserId;
-		
-		private EntitySet<MemberFamily> _MemberFamilies;
-		
-		private EntitySet<Relationship> _Relationships;
-		
-		private EntitySet<Relationship> _Relationships1;
-		
-		private EntityRef<aspnet_User> _aspnet_User;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnMemberPkeyChanging(System.Guid value);
-    partial void OnMemberPkeyChanged();
-    partial void OnUserIdChanging(System.Guid value);
-    partial void OnUserIdChanged();
-    #endregion
-		
-		public Member()
-		{
-			this._MemberFamilies = new EntitySet<MemberFamily>(new Action<MemberFamily>(this.attach_MemberFamilies), new Action<MemberFamily>(this.detach_MemberFamilies));
-			this._Relationships = new EntitySet<Relationship>(new Action<Relationship>(this.attach_Relationships), new Action<Relationship>(this.detach_Relationships));
-			this._Relationships1 = new EntitySet<Relationship>(new Action<Relationship>(this.attach_Relationships1), new Action<Relationship>(this.detach_Relationships1));
-			this._aspnet_User = default(EntityRef<aspnet_User>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MemberPkey", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid MemberPkey
-		{
-			get
-			{
-				return this._MemberPkey;
-			}
-			set
-			{
-				if ((this._MemberPkey != value))
-				{
-					this.OnMemberPkeyChanging(value);
-					this.SendPropertyChanging();
-					this._MemberPkey = value;
-					this.SendPropertyChanged("MemberPkey");
-					this.OnMemberPkeyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid UserId
-		{
-			get
-			{
-				return this._UserId;
-			}
-			set
-			{
-				if ((this._UserId != value))
-				{
-					if (this._aspnet_User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnUserIdChanging(value);
-					this.SendPropertyChanging();
-					this._UserId = value;
-					this.SendPropertyChanged("UserId");
-					this.OnUserIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_MemberFamily", Storage="_MemberFamilies", ThisKey="MemberPkey", OtherKey="MemberPkey")]
-		public EntitySet<MemberFamily> MemberFamilies
-		{
-			get
-			{
-				return this._MemberFamilies;
-			}
-			set
-			{
-				this._MemberFamilies.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_Relationship", Storage="_Relationships", ThisKey="MemberPkey", OtherKey="MemberPkey")]
-		public EntitySet<Relationship> Relationships
-		{
-			get
-			{
-				return this._Relationships;
-			}
-			set
-			{
-				this._Relationships.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_Relationship1", Storage="_Relationships1", ThisKey="MemberPkey", OtherKey="RelatedMemberPkey")]
-		public EntitySet<Relationship> Relationships1
-		{
-			get
-			{
-				return this._Relationships1;
-			}
-			set
-			{
-				this._Relationships1.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="aspnet_User_Member", Storage="_aspnet_User", ThisKey="UserId", OtherKey="UserId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public aspnet_User aspnet_User
-		{
-			get
-			{
-				return this._aspnet_User.Entity;
-			}
-			set
-			{
-				aspnet_User previousValue = this._aspnet_User.Entity;
-				if (((previousValue != value) 
-							|| (this._aspnet_User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._aspnet_User.Entity = null;
-						previousValue.Members.Remove(this);
-					}
-					this._aspnet_User.Entity = value;
-					if ((value != null))
-					{
-						value.Members.Add(this);
-						this._UserId = value.UserId;
-					}
-					else
-					{
-						this._UserId = default(System.Guid);
-					}
-					this.SendPropertyChanged("aspnet_User");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_MemberFamilies(MemberFamily entity)
-		{
-			this.SendPropertyChanging();
-			entity.Member = this;
-		}
-		
-		private void detach_MemberFamilies(MemberFamily entity)
-		{
-			this.SendPropertyChanging();
-			entity.Member = null;
-		}
-		
-		private void attach_Relationships(Relationship entity)
-		{
-			this.SendPropertyChanging();
-			entity.Member = this;
-		}
-		
-		private void detach_Relationships(Relationship entity)
-		{
-			this.SendPropertyChanging();
-			entity.Member = null;
-		}
-		
-		private void attach_Relationships1(Relationship entity)
-		{
-			this.SendPropertyChanging();
-			entity.Member1 = this;
-		}
-		
-		private void detach_Relationships1(Relationship entity)
-		{
-			this.SendPropertyChanging();
-			entity.Member1 = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MemberFamily")]
-	public partial class MemberFamily : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _MemberPkey;
-		
-		private System.Guid _FamilyPkey;
-		
-		private EntityRef<Family> _Family;
-		
-		private EntityRef<Member> _Member;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnMemberPkeyChanging(System.Guid value);
-    partial void OnMemberPkeyChanged();
-    partial void OnFamilyPkeyChanging(System.Guid value);
-    partial void OnFamilyPkeyChanged();
-    #endregion
-		
-		public MemberFamily()
-		{
-			this._Family = default(EntityRef<Family>);
-			this._Member = default(EntityRef<Member>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MemberPkey", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid MemberPkey
-		{
-			get
-			{
-				return this._MemberPkey;
-			}
-			set
-			{
-				if ((this._MemberPkey != value))
-				{
-					if (this._Member.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnMemberPkeyChanging(value);
-					this.SendPropertyChanging();
-					this._MemberPkey = value;
-					this.SendPropertyChanged("MemberPkey");
-					this.OnMemberPkeyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FamilyPkey", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid FamilyPkey
-		{
-			get
-			{
-				return this._FamilyPkey;
-			}
-			set
-			{
-				if ((this._FamilyPkey != value))
-				{
-					if (this._Family.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnFamilyPkeyChanging(value);
-					this.SendPropertyChanging();
-					this._FamilyPkey = value;
-					this.SendPropertyChanged("FamilyPkey");
-					this.OnFamilyPkeyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Family_MemberFamily", Storage="_Family", ThisKey="FamilyPkey", OtherKey="FamilyPkey", IsForeignKey=true)]
-		public Family Family
-		{
-			get
-			{
-				return this._Family.Entity;
-			}
-			set
-			{
-				Family previousValue = this._Family.Entity;
-				if (((previousValue != value) 
-							|| (this._Family.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Family.Entity = null;
-						previousValue.MemberFamilies.Remove(this);
-					}
-					this._Family.Entity = value;
-					if ((value != null))
-					{
-						value.MemberFamilies.Add(this);
-						this._FamilyPkey = value.FamilyPkey;
-					}
-					else
-					{
-						this._FamilyPkey = default(System.Guid);
-					}
-					this.SendPropertyChanged("Family");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_MemberFamily", Storage="_Member", ThisKey="MemberPkey", OtherKey="MemberPkey", IsForeignKey=true)]
-		public Member Member
-		{
-			get
-			{
-				return this._Member.Entity;
-			}
-			set
-			{
-				Member previousValue = this._Member.Entity;
-				if (((previousValue != value) 
-							|| (this._Member.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Member.Entity = null;
-						previousValue.MemberFamilies.Remove(this);
-					}
-					this._Member.Entity = value;
-					if ((value != null))
-					{
-						value.MemberFamilies.Add(this);
-						this._MemberPkey = value.MemberPkey;
-					}
-					else
-					{
-						this._MemberPkey = default(System.Guid);
-					}
-					this.SendPropertyChanged("Member");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Relationship")]
-	public partial class Relationship : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _MemberPkey;
-		
-		private System.Guid _RelatedMemberPkey;
-		
-		private int _RelationshipType;
-		
-		private EntityRef<Member> _Member;
-		
-		private EntityRef<Member> _Member1;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnMemberPkeyChanging(System.Guid value);
-    partial void OnMemberPkeyChanged();
-    partial void OnRelatedMemberPkeyChanging(System.Guid value);
-    partial void OnRelatedMemberPkeyChanged();
-    partial void OnRelationshipTypeChanging(int value);
-    partial void OnRelationshipTypeChanged();
-    #endregion
-		
-		public Relationship()
-		{
-			this._Member = default(EntityRef<Member>);
-			this._Member1 = default(EntityRef<Member>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MemberPkey", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid MemberPkey
-		{
-			get
-			{
-				return this._MemberPkey;
-			}
-			set
-			{
-				if ((this._MemberPkey != value))
-				{
-					if (this._Member.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnMemberPkeyChanging(value);
-					this.SendPropertyChanging();
-					this._MemberPkey = value;
-					this.SendPropertyChanged("MemberPkey");
-					this.OnMemberPkeyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RelatedMemberPkey", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid RelatedMemberPkey
-		{
-			get
-			{
-				return this._RelatedMemberPkey;
-			}
-			set
-			{
-				if ((this._RelatedMemberPkey != value))
-				{
-					if (this._Member1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnRelatedMemberPkeyChanging(value);
-					this.SendPropertyChanging();
-					this._RelatedMemberPkey = value;
-					this.SendPropertyChanged("RelatedMemberPkey");
-					this.OnRelatedMemberPkeyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RelationshipType", DbType="Int NOT NULL")]
-		public int RelationshipType
-		{
-			get
-			{
-				return this._RelationshipType;
-			}
-			set
-			{
-				if ((this._RelationshipType != value))
-				{
-					this.OnRelationshipTypeChanging(value);
-					this.SendPropertyChanging();
-					this._RelationshipType = value;
-					this.SendPropertyChanged("RelationshipType");
-					this.OnRelationshipTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_Relationship", Storage="_Member", ThisKey="MemberPkey", OtherKey="MemberPkey", IsForeignKey=true)]
-		public Member Member
-		{
-			get
-			{
-				return this._Member.Entity;
-			}
-			set
-			{
-				Member previousValue = this._Member.Entity;
-				if (((previousValue != value) 
-							|| (this._Member.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Member.Entity = null;
-						previousValue.Relationships.Remove(this);
-					}
-					this._Member.Entity = value;
-					if ((value != null))
-					{
-						value.Relationships.Add(this);
-						this._MemberPkey = value.MemberPkey;
-					}
-					else
-					{
-						this._MemberPkey = default(System.Guid);
-					}
-					this.SendPropertyChanged("Member");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_Relationship1", Storage="_Member1", ThisKey="RelatedMemberPkey", OtherKey="MemberPkey", IsForeignKey=true)]
-		public Member Member1
-		{
-			get
-			{
-				return this._Member1.Entity;
-			}
-			set
-			{
-				Member previousValue = this._Member1.Entity;
-				if (((previousValue != value) 
-							|| (this._Member1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Member1.Entity = null;
-						previousValue.Relationships1.Remove(this);
-					}
-					this._Member1.Entity = value;
-					if ((value != null))
-					{
-						value.Relationships1.Add(this);
-						this._RelatedMemberPkey = value.MemberPkey;
-					}
-					else
-					{
-						this._RelatedMemberPkey = default(System.Guid);
-					}
-					this.SendPropertyChanged("Member1");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 }

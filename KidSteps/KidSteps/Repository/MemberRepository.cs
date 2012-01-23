@@ -7,16 +7,17 @@ namespace KidSteps.Repository
 {
     public class MemberRepository : Repository<Models.Member>
     {
+        public MemberRepository(KidStepsContextFactory factory)
+            : base(factory)
+        {
+        }
+
         public IEnumerable<Models.Member> GetByFamily(Models.Family family)
         {
             return
                 family.MemberFamilies.Select(rel => rel.Member);
         }
 
-        public IEnumerable<Models.Relationship> GetRelationshipsOf(Models.Member member)
-        {
-            return _dataContextFactory.Context.Relationships.Where(
-                r => member.Equals(r.Member));
-        }
+        
     }
 }

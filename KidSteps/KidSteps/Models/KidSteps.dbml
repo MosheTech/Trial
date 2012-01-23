@@ -1,5 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="KidSteps" Class="KidStepsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=KidSteps;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ApplicationServices" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Relationship" Member="Relationships">
+    <Type Name="Relationship">
+      <Column Name="MemberPkey" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RelatedMemberPkey" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FamilyPkey" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="RelationshipType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Member_Relationship" Member="Member" ThisKey="MemberPkey" OtherKey="MemberPkey" Type="Member" IsForeignKey="true" />
+      <Association Name="Member_Relationship1" Member="Member1" ThisKey="RelatedMemberPkey" OtherKey="MemberPkey" Type="Member" IsForeignKey="true" />
+      <Association Name="Family_Relationship" Member="Family" ThisKey="FamilyPkey" OtherKey="FamilyPkey" Type="Family" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Member" Member="Members">
+    <Type Name="Member">
+      <Column Name="MemberPkey" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Association Name="Member_Relationship" Member="Relationships" ThisKey="MemberPkey" OtherKey="MemberPkey" Type="Relationship" />
+      <Association Name="Member_Relationship1" Member="Relationships1" ThisKey="MemberPkey" OtherKey="RelatedMemberPkey" Type="Relationship" />
+      <Association Name="Member_MemberFamily" Member="MemberFamilies" ThisKey="MemberPkey" OtherKey="MemberPkey" Type="MemberFamily" />
+      <Association Name="aspnet_User_Member" Member="aspnet_User" ThisKey="UserId" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MemberFamily" Member="MemberFamilies">
+    <Type Name="MemberFamily">
+      <Column Name="MemberPkey" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FamilyPkey" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Member_MemberFamily" Member="Member" ThisKey="MemberPkey" OtherKey="MemberPkey" Type="Member" IsForeignKey="true" />
+      <Association Name="Family_MemberFamily" Member="Family" ThisKey="FamilyPkey" OtherKey="FamilyPkey" Type="Family" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.aspnet_Users" Member="aspnet_Users">
     <Type Name="aspnet_User">
       <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
@@ -14,36 +43,10 @@
   </Table>
   <Table Name="dbo.Family" Member="Families">
     <Type Name="Family">
-      <Column Name="FamilyPkey" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FamilyPkey" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Family_Relationship" Member="Relationships" ThisKey="FamilyPkey" OtherKey="FamilyPkey" Type="Relationship" />
       <Association Name="Family_MemberFamily" Member="MemberFamilies" ThisKey="FamilyPkey" OtherKey="FamilyPkey" Type="MemberFamily" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Member" Member="Members">
-    <Type Name="Member">
-      <Column Name="MemberPkey" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Association Name="Member_MemberFamily" Member="MemberFamilies" ThisKey="MemberPkey" OtherKey="MemberPkey" Type="MemberFamily" />
-      <Association Name="Member_Relationship" Member="Relationships" ThisKey="MemberPkey" OtherKey="MemberPkey" Type="Relationship" />
-      <Association Name="Member_Relationship1" Member="Relationships1" ThisKey="MemberPkey" OtherKey="RelatedMemberPkey" Type="Relationship" />
-      <Association Name="aspnet_User_Member" Member="aspnet_User" ThisKey="UserId" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.MemberFamily" Member="MemberFamilies">
-    <Type Name="MemberFamily">
-      <Column Name="MemberPkey" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="FamilyPkey" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="Family_MemberFamily" Member="Family" ThisKey="FamilyPkey" OtherKey="FamilyPkey" Type="Family" IsForeignKey="true" />
-      <Association Name="Member_MemberFamily" Member="Member" ThisKey="MemberPkey" OtherKey="MemberPkey" Type="Member" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Relationship" Member="Relationships">
-    <Type Name="Relationship">
-      <Column Name="MemberPkey" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="RelatedMemberPkey" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="RelationshipType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Member_Relationship" Member="Member" ThisKey="MemberPkey" OtherKey="MemberPkey" Type="Member" IsForeignKey="true" />
-      <Association Name="Member_Relationship1" Member="Member1" ThisKey="RelatedMemberPkey" OtherKey="MemberPkey" Type="Member" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
