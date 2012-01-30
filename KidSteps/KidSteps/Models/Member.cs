@@ -10,6 +10,6 @@ namespace KidSteps.Models
         public long MemberId { get; set; }
         public string Name { get; set; }
         public virtual ICollection<Family> Families { get; set; }
-        //public ICollection<Relationship> Relationships { get; set; }
+        public ICollection<Relationship> Relationships { get; set; }
     }
 }
