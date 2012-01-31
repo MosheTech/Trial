@@ -14,13 +14,13 @@ namespace KidSteps.DAL
         protected override void Seed(KidStepsContext context)
         {
             SqlServices.Install(
-                "KidStepsEntity",
+                "KidSteps",
                 SqlFeatures.Membership | SqlFeatures.RoleManager | SqlFeatures.Profile,
                 WebConfigurationManager.ConnectionStrings["KidStepsContext"].ConnectionString);
             var families = new List<Family>()
             {
-                new Family() { FamilyId = "Friedman", Name = "Friedman" },
-                new Family() { FamilyId = "Sussman", Name = "Sussman" }
+                new Family() { Id = "Friedman", Name = "Friedman" },
+                new Family() { Id = "Sussman", Name = "Sussman" }
             };
             foreach (var family in families)
             {

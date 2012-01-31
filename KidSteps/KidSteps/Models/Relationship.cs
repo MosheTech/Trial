@@ -8,9 +8,9 @@ namespace KidSteps.Models
     public class Relationship
     {
         public long RelationshipId { get; set; }
-        public Member Member { get; set; }
+        public User Member { get; set; }
         public RelationshipType IsA { get; set; }
-        public Member Of { get; set; }
+        public User Of { get; set; }
 
         //public RelationshipType IsA 
         //{ 

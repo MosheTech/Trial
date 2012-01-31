@@ -8,5 +8,6 @@ namespace KidSteps.Models
     public class TimelineEvent
     {
         public long Id { get; set; }
+        public virtual User Member { get; set; }
     }
 }
