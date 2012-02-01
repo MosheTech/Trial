@@ -18,6 +18,17 @@ namespace KidSteps.Controllers
 
         public ViewResult Index()
         {
+            var families = db.Families.ToList();
+            var family = families.First();
+            User newUser = new User();
+            newUser.Name = new PersonName() { First = "Phil" };
+            family.Members = new List<User>();
+            family.Members.Add(newUser);
+            family = families.Skip(1).Take(1).First();
+            family.Members = new List<User>();
+            family.Members.Add(newUser);
+            db.SaveChanges();
+
             return View(db.Families.ToList());
         }
 

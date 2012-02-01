@@ -75,10 +75,10 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Content.cs" />
     <Compile Include="Models\Family.cs" />
-    <Compile Include="Models\Member.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\PersonName.cs" />
     <Compile Include="Models\Relationship.cs" />
     <Compile Include="Models\RelationshipType.cs" />
-    <Compile Include="Models\Timeline.cs" />
     <Compile Include="Models\TimelineEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
