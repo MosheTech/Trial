@@ -13,7 +13,7 @@
     <RootNamespace>KidSteps</RootNamespace>
     <AssemblyName>KidSteps</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <MvcBuildViews>false</MvcBuildViews>
+    <MvcBuildViews>true</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -67,6 +67,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FamilyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\Initializer.cs" />
     <Compile Include="DAL\KidStepsContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -75,11 +76,14 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Content.cs" />
     <Compile Include="Models\Family.cs" />
+    <Compile Include="Models\Image.cs" />
+    <Compile Include="Models\Media.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\PersonName.cs" />
     <Compile Include="Models\Relationship.cs" />
     <Compile Include="Models\RelationshipType.cs" />
     <Compile Include="Models\TimelineEvent.cs" />
+    <Compile Include="Models\Video.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -111,7 +115,6 @@
     <Content Include="Content\themes\base\jquery.ui.slider.css" />
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
-    <Content Include="Database\CreateDatabase.sql" />
     <Content Include="Global.asax" />
     <Content Include="Images\accessories.jpg" />
     <Content Include="Images\accessory-image1.jpg" />
@@ -223,6 +226,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="UserContent\Media\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -241,6 +245,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Family\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\User\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\User\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\User\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\User\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\User\Delete.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

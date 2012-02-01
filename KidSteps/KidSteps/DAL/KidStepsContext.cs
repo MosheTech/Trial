@@ -13,20 +13,11 @@ namespace KidSteps.Models
         public DbSet<User> Members { get; set; }
         public DbSet<Relationship> Relationships { get; set; }
         public DbSet<TimelineEvent> TimelineEvents { get; set; }
+        public DbSet<Media> Media { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-
-            //modelBuilder.Entity<Family>()
-            //.HasMany<User>(f => f.Members)
-            //.WithMany(u => u.Families)
-            //.Map(x =>
-            //{
-            //    x.MapLeftKey("FamilyId");
-            //    x.MapRightKey("MemberId");
-            //    x.ToTable("FamilyMember");
-            //});
         }
     }
 }

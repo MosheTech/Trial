@@ -1,4 +1,4 @@
-﻿@model IEnumerable<KidSteps.Models.Family>
+﻿@model IEnumerable<KidSteps.Models.User>
 
 @{
     ViewBag.Title = "Index";
@@ -12,7 +12,7 @@
 <table>
     <tr>
         <th>
-            Name
+            Bio
         </th>
         <th></th>
     </tr>
@@ -20,7 +20,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+            @Html.DisplayFor(modelItem => item.Bio)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

@@ -1,4 +1,4 @@
-﻿@model KidSteps.Models.Family
+﻿@model KidSteps.Models.User
 
 @{
     ViewBag.Title = "Edit";
@@ -12,9 +12,17 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>Family</legend>
+        <legend>User</legend>
 
         @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Bio)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Bio)
+            @Html.ValidationMessageFor(model => model.Bio)
+        </div>
 
         <p>
             <input type="submit" value="Save" />
