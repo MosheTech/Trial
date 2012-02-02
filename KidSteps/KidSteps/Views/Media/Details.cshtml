@@ -1,0 +1,20 @@
+﻿@model KidSteps.Models.Media
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Media</legend>
+
+    <div class="display-label">Url</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Url)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

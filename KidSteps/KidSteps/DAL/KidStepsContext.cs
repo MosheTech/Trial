@@ -19,5 +19,7 @@ namespace KidSteps.Models
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
+
+        public DbSet<Image> Images { get; set; }
     }
 }
