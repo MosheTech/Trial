@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using KidSteps.Models;
+using System.IO;
 
 namespace KidSteps.Controllers
 { 
@@ -42,10 +43,15 @@ namespace KidSteps.Controllers
         // POST: /Media/Create
 
         [HttpPost]
-        public ActionResult Create(Media media)
+        public ActionResult Create(Image media)
         {
             if (ModelState.IsValid)
             {
+                var rootedPath = Path.Combine(Server.MapPath("~"), media.Url);
+                //VirtualPathUtility
+                    
+                media.File.SaveAs(rootedPath);
+
                 db.Media.Add(media);
                 db.SaveChanges();
                 return RedirectToAction("Index");  

@@ -9,13 +9,14 @@
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Create", "Media", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Media</legend>
 
         <p>
-            <input type="file" name="inpFile" value=" " />
+            @Html.TextBoxFor(model => model.File, new { type = "file" })
             <input type="submit" value="Create" />
         </p>
     </fieldset>
