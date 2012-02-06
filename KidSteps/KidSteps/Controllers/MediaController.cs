@@ -47,13 +47,14 @@ namespace KidSteps.Controllers
         {
             if (ModelState.IsValid)
             {
+                db.Media.Add(media);
+                db.SaveChanges();
+
                 var rootedPath = Path.Combine(Server.MapPath("~"), media.Url);
                 //VirtualPathUtility
                     
                 media.File.SaveAs(rootedPath);
 
-                db.Media.Add(media);
-                db.SaveChanges();
                 return RedirectToAction("Index");  
             }
 

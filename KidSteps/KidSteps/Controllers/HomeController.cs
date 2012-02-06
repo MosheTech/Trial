@@ -10,7 +10,7 @@ namespace KidSteps.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "Media");
+            return RedirectToAction("Index", "User");
 
             ViewBag.Message = "Welcome to ASP.NET MVC!";
 

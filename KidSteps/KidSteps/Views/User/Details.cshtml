@@ -11,7 +11,8 @@
 
     <div class="display-label">Bio</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Bio)
+        @Html.DisplayFor(model => model.Name.Full)
+        <img src="@(string.IsNullOrEmpty(Model.ProfilePicture.Url) ? "" : Model.ProfilePicture.Url)" alt="Alternate Text" />
     </div>
 </fieldset>
 <p>
