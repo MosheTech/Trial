@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\FamilyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MediaController.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Models\Family.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Media.cs" />
+    <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\PersonName.cs" />
     <Compile Include="Models\Relationship.cs" />

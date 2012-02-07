@@ -9,7 +9,7 @@ using KidSteps.Models;
 
 namespace KidSteps.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : ControllerBase
     {
 
         //
