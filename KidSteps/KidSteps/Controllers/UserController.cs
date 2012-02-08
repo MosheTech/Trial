@@ -9,10 +9,8 @@ using KidSteps.Models;
 
 namespace KidSteps.Controllers
 { 
-    public class UserController : Controller
+    public class UserController : ControllerBase
     {
-        private KidStepsContext db = new KidStepsContext();
-
         //
         // GET: /User/
 
@@ -33,26 +31,26 @@ namespace KidSteps.Controllers
         //
         // GET: /User/Create
 
-        public ActionResult Create()
-        {
-            return View();
-        } 
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //} 
 
-        //
-        // POST: /User/Create
+        ////
+        //// POST: /User/Create
 
-        [HttpPost]
-        public ActionResult Create(User user)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Members.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");  
-            }
+        //[HttpPost]
+        //public ActionResult Create(User user)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Members.Add(user);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");  
+        //    }
 
-            return View(user);
-        }
+        //    return View(user);
+        //}
         
         //
         // GET: /User/Edit/5

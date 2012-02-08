@@ -72,6 +72,7 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\Initializer.cs" />
     <Compile Include="DAL\KidStepsContext.cs" />
+    <Compile Include="DAL\UserRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -254,9 +255,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\User\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\User\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\User\Edit.cshtml" />

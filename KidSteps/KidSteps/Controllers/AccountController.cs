@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using KidSteps.Models;
+using KidSteps.DAL;
 
 namespace KidSteps.Controllers
 {
@@ -84,6 +85,9 @@ namespace KidSteps.Controllers
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
+
+                    (new UserRepository()).Create(db, MembershipUser);
+
                     return RedirectToAction("Index", "Home");
                 }
                 else

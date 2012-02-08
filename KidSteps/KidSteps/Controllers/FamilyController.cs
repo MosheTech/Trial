@@ -8,8 +8,8 @@ using System.Web.Mvc;
 using KidSteps.Models;
 
 namespace KidSteps.Controllers
-{ 
-    public class FamilyController : Controller
+{
+    public class FamilyController : ControllerBase
     {
 
         //
