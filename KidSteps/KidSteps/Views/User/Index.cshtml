@@ -12,7 +12,7 @@
 <table>
     <tr>
         <th>
-            Bio
+            User Id
         </th>
         <th></th>
     </tr>
@@ -20,7 +20,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Name.Full)
+            @Html.DisplayFor(modelItem => item.Id)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

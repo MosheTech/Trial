@@ -10,6 +10,11 @@ namespace KidSteps.Models
 {
     public class User
     {
+        public User()
+        {
+            Name = new PersonName();
+        }
+
         public string Id { get; set; }
 
         public PersonName Name { get; set; }

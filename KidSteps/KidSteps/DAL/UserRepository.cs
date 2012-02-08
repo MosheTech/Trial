@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using KidSteps.Models;
 using System.Security.Principal;
+using System.Web.Security;
 
 namespace KidSteps.DAL
 {
@@ -18,10 +19,11 @@ namespace KidSteps.DAL
             return user;
         }
 
-        public User Create(KidStepsContext dbContext, IPrincipal membershipUser)
+        public User Create(KidStepsContext dbContext, string id)
         {
             User user = new User();
-            user.Id = membershipUser.Identity.Name;
+            user.Id = id;
+            dbContext.Members.Add(user);
             return user;
         }
     }
