@@ -17,11 +17,14 @@
         @Html.HiddenFor(model => model.Id)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Bio)
+            @Html.LabelFor(model => model.Name)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Bio)
-            @Html.ValidationMessageFor(model => model.Bio)
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+        <div class="edito-field">
+            @Html.EditorFor(model => model.ProfilePicture)
         </div>
 
         <p>

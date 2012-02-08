@@ -9,11 +9,13 @@
 <fieldset>
     <legend>User</legend>
 
-    <div class="display-label">Bio</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Name.Full)
-        <img src="@(string.IsNullOrEmpty(Model.ProfilePicture.Url) ? "" : Model.ProfilePicture.Url)" alt="Alternate Text" />
-    </div>
+    <div class="display-label">@Html.DisplayFor(m => m.Id)</div>
+    @if (Model.ProfilePicture != null)
+    {
+        <div class="display-field">
+            <img src="@Model.ProfilePicture.Url" alt="Alternate Text" />
+        </div>        
+    }
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |

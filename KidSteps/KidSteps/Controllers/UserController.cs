@@ -22,7 +22,7 @@ namespace KidSteps.Controllers
         //
         // GET: /User/Details/5
 
-        public ViewResult Details(long id)
+        public ViewResult Details(string id)
         {
             User user = db.Members.Find(id);
             return View(user);
@@ -55,7 +55,7 @@ namespace KidSteps.Controllers
         //
         // GET: /User/Edit/5
  
-        public ActionResult Edit(long id)
+        public ActionResult Edit(string id)
         {
             User user = db.Members.Find(id);
             return View(user);

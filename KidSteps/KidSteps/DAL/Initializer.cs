@@ -9,7 +9,7 @@ using System.Web.Configuration;
 
 namespace KidSteps.DAL
 {
-    public class Initializer : DropCreateDatabaseAlways<KidStepsContext>
+    public class Initializer : DropCreateDatabaseIfModelChanges<KidStepsContext>
     {
         protected override void Seed(KidStepsContext context)
         {
