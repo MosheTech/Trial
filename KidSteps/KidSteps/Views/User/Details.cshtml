@@ -1,14 +1,10 @@
 ﻿@model KidSteps.Models.User
-
 @{
     ViewBag.Title = "Details";
 }
-
-<h2>Details</h2>
-
+<h2>@Html.DisplayFor(m => m.Name)</h2>
 <fieldset>
-    <legend>User</legend>
-
+    <legend>Profile</legend>
     <div class="display-label">@Html.DisplayFor(m => m.Id)</div>
     @if (Model.ProfilePicture != null)
     {
@@ -16,8 +12,14 @@
             <img src="@Model.ProfilePicture.Url" alt="Alternate Text" />
         </div>        
     }
+    else
+    {
+        <div class="display-field">
+            <img src="/Images/profile-placeholder.jpg" alt="Alternate Text" height="100" />
+        </div>
+    }
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
