@@ -86,7 +86,9 @@ namespace KidSteps.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
 
-                    (new UserRepository()).Create(db, model.UserName);
+                    //(new UserRepository()).Create(db, model.UserName);
+                    model.User.Id = model.UserName;
+                    db.Members.Add(model.User);
                     db.SaveChanges();
 
                     return RedirectToAction("Index", "Home");
