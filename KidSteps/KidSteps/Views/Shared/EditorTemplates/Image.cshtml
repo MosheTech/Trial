@@ -1,0 +1,17 @@
+﻿@model KidSteps.Models.Image
+@if (Model != null)
+{
+    <div class="display-field">
+        <img src="@Model.Url" alt="Alternate Text" />
+    </div>        
+}
+else
+{
+    <div class="display-field">
+        <img src="/Images/profile-placeholder.jpg" alt="Alternate Text" height="100" />
+    </div>
+}
+<p>
+    @Html.TextBoxFor(model => model.File, new { type = "file" })
+    <input type="submit" value="Create" />
+</p>

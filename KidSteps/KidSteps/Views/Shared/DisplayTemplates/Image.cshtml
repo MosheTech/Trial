@@ -1,0 +1,14 @@
+﻿@model KidSteps.Models.Image
+
+@if (Model != null)
+{
+    <div class="display-field">
+        <img src="@Model.Url" alt="Alternate Text" />
+    </div>        
+}
+else
+{
+    <div class="display-field">
+        <img src="/Images/profile-placeholder.jpg" alt="Alternate Text" height="100" />
+    </div>
+}
