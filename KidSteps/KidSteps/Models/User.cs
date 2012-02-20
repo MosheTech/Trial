@@ -17,7 +17,7 @@ namespace KidSteps.Models
 
         public string Id { get; set; }
 
-        public PersonName Name { get; set; }
+        public PersonName Name { get; set; }        
         public Image ProfilePicture { get; set; }
         public string Bio { get; set; }
 

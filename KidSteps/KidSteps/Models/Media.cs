@@ -10,8 +10,8 @@ namespace KidSteps.Models
     {
         public long Id { get; set; }
         public abstract string Url { get; }
+        public bool HasPhysicalFile { get; set; }
         [NotMapped]
-        //[Required, Microsoft.Web.Mvc.FileExtensions(Extensions = "csv", ErrorMessage = "Specify a CSV file. (Comma-separated values)")]
-        public HttpPostedFileBase File { get; set; }
+        public abstract HttpPostedFileBase File { get; set; }
     }
 }

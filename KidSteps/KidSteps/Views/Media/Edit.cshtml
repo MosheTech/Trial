@@ -13,8 +13,7 @@
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Media</legend>
-
-        @Html.HiddenFor(model => model.Id)
+        @Html.EditorFor(model => model as KidSteps.Models.Image)
 
         <p>
             <input type="submit" value="Save" />

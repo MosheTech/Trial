@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Microsoft.Web.Mvc;
 
 namespace KidSteps.Models
 {
@@ -14,5 +15,8 @@ namespace KidSteps.Models
         {
             get { return string.Format("UserContent\\Media\\{0}.{1}", Id, Extension); }
         }
+
+        [FileExtensions(Extensions = ".png,.jpg,.jpeg,.gif", ErrorMessage = "Must be an image file.")]
+        public override HttpPostedFileBase File { get; set; }
     }
 }
