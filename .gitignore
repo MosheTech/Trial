@@ -30,3 +30,5 @@ _ReSharper*/
 #ignore database files
 *.mdf
 *.ldf
+#ignore user context files
+KidSteps/KidSteps/UserContent/*
