@@ -2,13 +2,9 @@
 
 @if (Model != null)
 {
-    <div class="display-field">
-        <img src="@Model.Url" alt="Alternate Text" />
-    </div>        
+        <img src="@Model.Url" alt="Alternate Text" height="100" />
 }
 else
 {
-    <div class="display-field">
         <img src="/Images/profile-placeholder.jpg" alt="Alternate Text" height="100" />
-    </div>
 }

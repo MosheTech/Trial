@@ -50,7 +50,7 @@ namespace KidSteps.Controllers
                 db.SaveChanges();
 
 
-                var rootedPath = Path.Combine(Server.MapPath("~"), image.Url);
+                var rootedPath = Path.Combine(Server.MapPath("~"), image.Path);
                 //VirtualPathUtility
 
                 image.File.SaveAs(rootedPath);

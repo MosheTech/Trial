@@ -1,4 +1,4 @@
-﻿@model KidSteps.Models.Image
+﻿@model IEnumerable<KidSteps.Models.Image>
 @{
     ViewBag.Title = "Edit";
 }
@@ -8,27 +8,11 @@
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 @using (Html.BeginForm())
 {
-    @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>Profile Picture</legend>
-        @Html.HiddenFor(model => model.Id)
-        @if (Model != null) {
-        <div class="display-field">
-            <img src="@Model.Url" alt="Alternate Text" />
-        </div>
-        } else {
-        <div class="display-field">
-            <img src="/Images/profile-placeholder.jpg" alt="Alternate Text" height="100" />
-        </div>
-        }
-        <p>
-            @Html.TextBoxFor(model => model.File, new { type = "file", accept = "image/*" })
-            @Html.ValidationMessageFor(model => model.File)
-        </p>
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </fieldset>
+    foreach (var image in Model)
+    {
+        @Html.RadioButtonFor(_ => image, image)
+        @Html.DisplayFor(_ => image)
+    }
 }
 <div>
     @Html.ActionLink("Back to Profile", "Index")

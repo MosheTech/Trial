@@ -10,6 +10,10 @@ namespace KidSteps.Models
     {
         public long Id { get; set; }
         public abstract string Url { get; }
+        public virtual string Path 
+        {
+            get { return string.Empty; }
+        }
         public bool HasPhysicalFile { get; set; }
         [NotMapped]
         public abstract HttpPostedFileBase File { get; set; }

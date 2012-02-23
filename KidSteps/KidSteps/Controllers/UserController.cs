@@ -76,12 +76,9 @@ namespace KidSteps.Controllers
             return View(user);
         }
 
-        public ActionResult ProfileImageEdit(long? id)
+        public ActionResult ProfileImageEdit()
         {
-            Image image = null;
-            if (id.HasValue)
-                image = db.Images.Find(id);
-            return View(image);
+            return View(db.Images);
         }
 
         //

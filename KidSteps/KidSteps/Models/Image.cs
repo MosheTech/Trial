@@ -13,7 +13,15 @@ namespace KidSteps.Models
 
         public override string Url
         {
-            get { return string.Format("UserContent\\Media\\{0}{1}", Id, Extension); }
+            get { return string.Format("/UserContent/Media/{0}{1}", Id, Extension); }
+        }
+
+        public override string Path
+        {
+            get
+            {
+                return string.Format("UserContent\\Media\\{0}{1}", Id, Extension);
+            }
         }
 
         [FileExtensions(Extensions = ".png,.jpg,.jpeg,.gif", ErrorMessage = "Must be an image file.")]
