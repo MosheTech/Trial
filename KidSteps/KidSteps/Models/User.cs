@@ -15,15 +15,26 @@ namespace KidSteps.Models
             Name = new PersonName();
         }
 
-        public string Id { get; set; }
+        public virtual string Id { get; set; }
 
-        public PersonName Name { get; set; }        
-        public Image ProfilePicture { get; set; }
-        public string Bio { get; set; }
+        public virtual PersonName Name { get; set; }        
+        public virtual Image ProfilePicture { get; set; }
+        public virtual string Bio { get; set; }
 
         [InverseProperty("Members")]
         public virtual ICollection<Family> Families { get; set; }
         public virtual ICollection<Relationship> Relationships { get; set; }
         public virtual ICollection<TimelineEvent> TimelineEvents { get; set; }
+
+        public long? ProfilePictureId
+        {
+            get
+            {
+                if (ProfilePicture == null)
+                    return null;
+                else
+                    return ProfilePicture.Id;
+            }
+        }
     }
 }

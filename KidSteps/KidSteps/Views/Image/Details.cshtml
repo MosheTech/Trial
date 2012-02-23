@@ -1,0 +1,35 @@
+﻿@model KidSteps.Models.Image
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Image</legend>
+
+    <div class="display-label">AltText</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AltText)
+    </div>
+
+    <div class="display-label">Extension</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Extension)
+    </div>
+
+    <div class="display-label">Url</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Url)
+    </div>
+
+    <div class="display-label">HasPhysicalFile</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.HasPhysicalFile)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
