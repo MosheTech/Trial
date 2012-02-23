@@ -87,11 +87,12 @@ namespace KidSteps.Controllers
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
 
                     //(new UserRepository()).Create(db, model.UserName);
-                    model.User.Id = model.UserName;
-                    db.Members.Add(model.User);
+                    User user = new User();
+                    db.Members.Add(user);
+                    user.Id = model.UserName;
                     db.SaveChanges();
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Edit", "User", user.Id);
                 }
                 else
                 {
