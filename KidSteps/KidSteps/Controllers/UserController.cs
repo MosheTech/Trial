@@ -85,12 +85,18 @@ namespace KidSteps.Controllers
         // POST: /User/Edit/5
 
         [HttpPost]
-        public ActionResult ProfileImageEdit(Image image)
+        public ActionResult ProfileImageEdit(string userId, long imageId)
         {
-            if (ModelState.IsValid)
+            var user = db.Members.Find(userId);
+            var image = db.Images.Find(imageId);
+
+            if (user != null && image != null)
             {
+                user.ProfilePicture = image;
+                db.SaveChanges();
             }
-            return View();
+
+            return RedirectToAction("Edit", new { id = userId });
         }
 
         //

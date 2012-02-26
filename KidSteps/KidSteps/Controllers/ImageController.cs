@@ -49,11 +49,11 @@ namespace KidSteps.Controllers
                 image.Extension = Path.GetExtension(image.File.FileName);
                 db.SaveChanges();
 
+                var thumbnail = System.Drawing.Image.FromStream(image.File.InputStream).GetThumbnailImage(100, 100, null, IntPtr.Zero);
 
                 var rootedPath = Path.Combine(Server.MapPath("~"), image.Path);
-                //VirtualPathUtility
 
-                image.File.SaveAs(rootedPath);
+                thumbnail.Save(rootedPath);
 
                 return RedirectToAction("Index");
             }

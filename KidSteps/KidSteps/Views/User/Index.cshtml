@@ -4,15 +4,10 @@
 }
 <h2>
     Index</h2>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table>
     <tr>
         <th>
-        </th>
-        <th>
-            User Id
         </th>
         <th>
             Name
@@ -24,14 +19,7 @@
     {
         <tr>
             <td>
-                @if (item.ProfilePicture == null)
-                {
-                    <img src="/Images/profile-placeholder.jpg" alt="Alternate Text" height="50" />
-                }
-            </td>
-            <td>
-            @Html.LabelFor(m => m.First().Bio)
-                @Html.DisplayFor(modelItem => item.Id)
+                @Html.DisplayFor(_ => item.ProfilePicture)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
