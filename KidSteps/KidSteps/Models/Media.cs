@@ -9,6 +9,8 @@ namespace KidSteps.Models
     public abstract class Media
     {
         public long Id { get; set; }
+        [Required]
+        public virtual User CreatedBy { get; set; }
         public abstract string Url { get; }
         public virtual string Path 
         {

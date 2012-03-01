@@ -16,6 +16,12 @@ namespace KidSteps.Controllers
             return User.Identity.Name == id;
         }
 
+        protected User GetCurrentUser()
+        {
+            DAL.UserRepository repo = new DAL.UserRepository();
+            return repo.FindByMembership(db, User);
+        }
+
         protected IPrincipal MembershipUser
         {
             get { return User; }

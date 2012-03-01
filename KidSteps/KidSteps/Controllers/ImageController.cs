@@ -15,6 +15,7 @@ namespace KidSteps.Controllers
         //
         // GET: /Image/
 
+        [Authorize]
         public ViewResult Index()
         {
             return View(db.Images.ToList());
@@ -23,6 +24,7 @@ namespace KidSteps.Controllers
         //
         // GET: /Image/Details/5
 
+        [Authorize]
         public ViewResult Details(long id)
         {
             Image image = db.Images.Find(id);
@@ -32,6 +34,7 @@ namespace KidSteps.Controllers
         //
         // GET: /Image/Create
 
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -41,8 +44,13 @@ namespace KidSteps.Controllers
         // POST: /Image/Create
 
         [HttpPost]
+        [Authorize]
         public ActionResult Create(Image image)
         {
+            image.CreatedBy = GetCurrentUser();
+            ModelState["CreatedBy"].Value = new ValueProviderResult(GetCurrentUser(), "",
+                                                                    System.Globalization.CultureInfo.CurrentCulture);
+            
             if (ModelState.IsValid)
             {
                 db.Media.Add(image);
@@ -64,6 +72,7 @@ namespace KidSteps.Controllers
         //
         // GET: /Image/Edit/5
  
+        [Authorize]
         public ActionResult Edit(long id)
         {
             Image image = db.Images.Find(id);
@@ -74,6 +83,7 @@ namespace KidSteps.Controllers
         // POST: /Image/Edit/5
 
         [HttpPost]
+        [Authorize]
         public ActionResult Edit(Image image)
         {
             if (ModelState.IsValid)
@@ -88,6 +98,7 @@ namespace KidSteps.Controllers
         //
         // GET: /Image/Delete/5
  
+        [Authorize]
         public ActionResult Delete(long id)
         {
             Image image = db.Images.Find(id);
@@ -98,6 +109,7 @@ namespace KidSteps.Controllers
         // POST: /Image/Delete/5
 
         [HttpPost, ActionName("Delete")]
+        [Authorize]
         public ActionResult DeleteConfirmed(long id)
         {            
             Image image = db.Images.Find(id);
