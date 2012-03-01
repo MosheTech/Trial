@@ -17,10 +17,11 @@ namespace KidSteps.DAL
                 "KidSteps",
                 SqlFeatures.Membership | SqlFeatures.RoleManager | SqlFeatures.Profile,
                 WebConfigurationManager.ConnectionStrings["KidStepsContext"].ConnectionString);
+
             var families = new List<Family>()
             {
-                new Family() { Id = "Friedman", Name = "Friedman" },
-                new Family() { Id = "Sussman", Name = "Sussman" }
+                new Family() { Id = "Example1", Name = "Example1" },
+                new Family() { Id = "Example2", Name = "Example2" }
             };
             foreach (var family in families)
             {

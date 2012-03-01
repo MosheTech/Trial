@@ -19,8 +19,11 @@
             <nav>
                 <ul id="menu">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("My Family", "Index", "User")</li>
-                    <li>@Html.ActionLink("My Pics", "Index", "Image")</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("My Family", "Index", "User")</li>
+                        <li>@Html.ActionLink("My Pics", "Index", "Image")</li>
+                    }
                 </ul>
             </nav>
         </header>

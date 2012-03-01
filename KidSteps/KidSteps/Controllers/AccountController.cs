@@ -29,9 +29,9 @@ namespace KidSteps.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (Membership.ValidateUser(model.UserName, model.Password))
+                if (Membership.ValidateUser(model.Email, model.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                    FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                     {
@@ -80,19 +80,26 @@ namespace KidSteps.Controllers
             {
                 // Attempt to register the user
                 MembershipCreateStatus createStatus;
-                Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
+                Membership.CreateUser(model.Email, model.Password, model.Email, null, null, true, null, out createStatus);
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
+                    FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
 
-                    //(new UserRepository()).Create(db, model.UserName);
                     User user = new User();
                     db.Members.Add(user);
-                    user.Id = model.UserName;
-                    db.SaveChanges();
+                    user.Id = model.Email;
+                    user.Name = model.Name;
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch
+                    {
+                        Membership.DeleteUser(model.Email, true);
+                    }
 
-                    return RedirectToAction("Edit", "User", user.Id);
+                    return RedirectToAction("Edit", "User", new { id = user.Id });
                 }
                 else
                 {

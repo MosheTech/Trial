@@ -9,13 +9,21 @@ namespace KidSteps.Models
     [ComplexType]
     public class PersonName
     {
+        [StringLength(32)]
+        [MinLength(1)]
+        [Required]
+        [Display(Name = "First name")]
         public string First { get; set; }
-        public string Middle { get; set; }
+
+        [StringLength(32)]
+        [MinLength(1)]
+        [Required]
+        [Display(Name = "Last name")]
         public string Last { get; set; }
 
         public string Full
         {
-            get { return string.Format("{0} {1} {2}", First, Middle, Last); }
+            get { return string.Format("{0} {1}", First, Last); }
         }
     }
 }
