@@ -14,6 +14,7 @@ namespace KidSteps.Controllers
         //
         // GET: /User/
 
+        [Authorize]
         public ViewResult Index()
         {
             return View(db.Members.ToList());
@@ -22,6 +23,7 @@ namespace KidSteps.Controllers
         //
         // GET: /User/Details/5
 
+        [Authorize]
         public ViewResult Details(string id)
         {
             User user = db.Members.Find(id);
@@ -54,9 +56,12 @@ namespace KidSteps.Controllers
         
         //
         // GET: /User/Edit/5
- 
+
+        [Authorize]
         public ActionResult Edit(string id)
         {
+            if (!VerifyCurrentUser(id))
+                throw new Exception();
             User user = db.Members.Find(id);
             return View(user);
         }
@@ -65,10 +70,14 @@ namespace KidSteps.Controllers
         // POST: /User/Edit/5
 
         [HttpPost]
+        [Authorize]
         public ActionResult Edit(User user)
         {
             if (ModelState.IsValid)
             {
+                if (!VerifyCurrentUser(user.Id))
+                    throw new Exception();
+
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -76,6 +85,7 @@ namespace KidSteps.Controllers
             return View(user);
         }
 
+        [Authorize]
         public ActionResult ProfileImageEdit()
         {
             return View(db.Images);
@@ -85,6 +95,7 @@ namespace KidSteps.Controllers
         // POST: /User/Edit/5
 
         [HttpPost]
+        [Authorize]
         public ActionResult ProfileImageEdit(string userId, long imageId)
         {
             var user = db.Members.Find(userId);
@@ -101,7 +112,8 @@ namespace KidSteps.Controllers
 
         //
         // GET: /User/Delete/5
- 
+
+        [Authorize]
         public ActionResult Delete(long id)
         {
             User user = db.Members.Find(id);
@@ -112,18 +124,13 @@ namespace KidSteps.Controllers
         // POST: /User/Delete/5
 
         [HttpPost, ActionName("Delete")]
+        [Authorize]
         public ActionResult DeleteConfirmed(long id)
         {            
             User user = db.Members.Find(id);
             db.Members.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
         }
     }
 }
