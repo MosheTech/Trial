@@ -26,6 +26,7 @@ namespace KidSteps.Models
         public virtual ICollection<Family> Families { get; set; }
         public virtual ICollection<Relationship> Relationships { get; set; }
         public virtual ICollection<TimelineEvent> TimelineEvents { get; set; }
+        public virtual ICollection<Image> Images { get; set; }
 
         public long? ProfilePictureId
         {

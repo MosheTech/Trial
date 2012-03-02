@@ -1,4 +1,4 @@
-﻿@model KidSteps.Models.Image
+﻿@*@model KidSteps.Models.ImageViewModel
 @using (Ajax.BeginForm("Create", "Media", new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace }))
 {
     if (Model != null)
@@ -18,3 +18,4 @@
         @Html.ValidationMessageFor(model => model.File)
     </p>
 }
+*@

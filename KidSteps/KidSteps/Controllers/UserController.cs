@@ -88,7 +88,8 @@ namespace KidSteps.Controllers
         [Authorize]
         public ActionResult ProfileImageEdit()
         {
-            return View(db.Images);
+            var currentUser = GetCurrentUser();
+            return View(db.Images.Where(image => image.CreatedBy.Id == currentUser.Id).ToList());
         }
 
         //
@@ -96,10 +97,12 @@ namespace KidSteps.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult ProfileImageEdit(string userId, long imageId)
+        public ActionResult ProfileImageEdit(string userId, long? imageId)
         {
             var user = db.Members.Find(userId);
-            var image = db.Images.Find(imageId);
+            Image image = null;
+            if (imageId.HasValue)
+                image = db.Images.Find(imageId);
 
             if (user != null && image != null)
             {

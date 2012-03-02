@@ -11,11 +11,15 @@
     <input type="hidden" name="userId" value="@User.Identity.Name" />
     foreach (var imageId in Model)
     {
-        @Html.RadioButtonFor(_ => imageId, imageId.Id)
-        @Html.DisplayFor(_ => imageId)
+    @Html.RadioButtonFor(_ => imageId, imageId.Id)
+    @Html.DisplayFor(_ => imageId)
     }
-    <input type="submit" value="Save" />
+    <div>
+        <input type="submit" value="Select" />
+    </div>
 }
 <div>
+    @Html.ActionLink("Upload new image", "Create", "Image", new { returnUrl = Request.RawUrl }, null)
+    |
     @Html.ActionLink("Back to Profile", "Index")
 </div>

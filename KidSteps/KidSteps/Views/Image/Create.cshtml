@@ -1,7 +1,7 @@
-﻿@model KidSteps.Models.Image
+﻿@model KidSteps.Models.ImageViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Upload Image";
 }
 
 <h2>Create</h2>
@@ -11,17 +11,10 @@
 
 @using (Html.BeginForm("Create", "Image", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>Image</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AltText)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.AltText)
-            @Html.ValidationMessageFor(model => model.AltText)
-        </div>
+        <legend>Upload Image</legend>
         
         <div>
             @Html.TextBoxFor(model => model.File, new { type = "file", accept = "image/*" })
@@ -29,7 +22,7 @@
         </div>
 
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="Upload" />
         </p>
     </fieldset>
 }

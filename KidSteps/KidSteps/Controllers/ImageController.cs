@@ -18,7 +18,8 @@ namespace KidSteps.Controllers
         [Authorize]
         public ViewResult Index()
         {
-            return View(db.Images.ToList());
+            var currentUser = GetCurrentUser();
+            return View(db.Images.Where(image => image.CreatedBy.Id.Equals(currentUser.Id)).ToList());
         }
 
         //
@@ -35,8 +36,9 @@ namespace KidSteps.Controllers
         // GET: /Image/Create
 
         [Authorize]
-        public ActionResult Create()
+        public ActionResult Create(string returnUrl = null)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         } 
 
@@ -45,28 +47,41 @@ namespace KidSteps.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Create(ImageViewModel imageViewModel)
+        public ActionResult Create(ImageViewModel imageViewModel, string returnUrl = null)
         {
             
             if (ModelState.IsValid)
             {
                 Image image = new Image();
-                image.
+                image.AltText = string.Empty;
                 image.CreatedBy = GetCurrentUser();
-                db.Media.Add(image);
-                image.Extension = Path.GetExtension(image.File.FileName);
+                image.Extension = Path.GetExtension(imageViewModel.File.FileName);
+                db.Images.Add(image);
                 db.SaveChanges();
 
-                var thumbnail = System.Drawing.Image.FromStream(image.File.InputStream).GetThumbnailImage(100, 100, null, IntPtr.Zero);
+                try
+                {
+                    var thumbnail =
+                        System.Drawing.Image.FromStream(imageViewModel.File.InputStream).GetThumbnailImage(100, 100,
+                                                                                                           null,
+                                                                                                           IntPtr.Zero);
 
-                var rootedPath = Path.Combine(Server.MapPath("~"), image.Path);
+                    var rootedPath = Path.Combine(Server.MapPath("~"), image.Path);
 
-                thumbnail.Save(rootedPath);
+                    thumbnail.Save(rootedPath);
 
-                return RedirectToAction("Index");
+                    if (returnUrl != null)
+                        return Redirect(returnUrl);
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    db.Images.Remove(image);
+                    db.SaveChanges();
+                }
             }
 
-            return View(image);
+            return View(imageViewModel);
         }
         
         //
@@ -108,14 +123,14 @@ namespace KidSteps.Controllers
         //
         // POST: /Image/Delete/5
 
-        [HttpPost, ActionName("Delete")]
-        [Authorize]
-        public ActionResult DeleteConfirmed(long id)
-        {            
-            Image image = db.Images.Find(id);
-            db.Media.Remove(image);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //[HttpPost, ActionName("Delete")]
+        //[Authorize]
+        //public ActionResult DeleteConfirmed(long id)
+        //{            
+        //    Image image = db.Images.Find(id);
+        //    db.Media.Remove(image);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
     }
 }

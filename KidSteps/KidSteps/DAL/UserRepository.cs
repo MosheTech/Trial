@@ -14,8 +14,7 @@ namespace KidSteps.DAL
 
         public User FindByMembership(KidStepsContext dbContext, IPrincipal membershipUser)
         {
-            User user = dbContext.Members.SingleOrDefault(
-                u => u.Id == membershipUser.Identity.Name);
+            var user = dbContext.Members.Find(membershipUser.Identity.Name);
             return user;
         }
 

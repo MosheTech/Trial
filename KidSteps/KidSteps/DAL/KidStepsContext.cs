@@ -13,13 +13,12 @@ namespace KidSteps.Models
         public DbSet<User> Members { get; set; }
         public DbSet<Relationship> Relationships { get; set; }
         public DbSet<TimelineEvent> TimelineEvents { get; set; }
-        public DbSet<Media> Media { get; set; }
+        public DbSet<Image> Images { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
-        public DbSet<Image> Images { get; set; }
     }
 }

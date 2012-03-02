@@ -15,12 +15,12 @@ namespace KidSteps.Models
         public string AltText { get; set; }
         public string Extension { get; set; }
 
-        public override string Url
+        public string Url
         {
             get { return string.Format("/UserContent/Media/{0}{1}", Id, Extension); }
         }
 
-        public override string Path
+        public string Path
         {
             get
             {
@@ -33,7 +33,8 @@ namespace KidSteps.Models
     {
 
         [FileExtensions(Extensions = ".png,.jpg,.jpeg,.gif", ErrorMessage = "Must be an image file.")]
-        public override HttpPostedFileBase File { get; set; }
+        [Required]
+        public HttpPostedFileBase File { get; set; }
 
     }
 }
