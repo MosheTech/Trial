@@ -13,6 +13,7 @@ namespace KidSteps.Models
         public User()
         {
             Name = new PersonName();
+            Bio = string.Empty;
         }
 
         public virtual string Id { get; set; }

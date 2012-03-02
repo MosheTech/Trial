@@ -94,7 +94,7 @@ namespace KidSteps.Controllers
                     {
                         db.SaveChanges();
                     }
-                    catch
+                    catch (Exception ex)
                     {
                         Membership.DeleteUser(model.Email, true);
                     }

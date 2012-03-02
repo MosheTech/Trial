@@ -8,9 +8,7 @@
     @Html.LabelFor(model => model.Bio)
 </div>
 <div class="editor-field">
-        <textarea rows="5" cols="30" name="Bio">
-            @Html.DisplayFor(m => m.Bio)
-        </textarea>
+    <textarea rows="5" cols="30" name="Bio">@Html.DisplayFor(m => m.Bio)</textarea>
     @Html.ValidationMessageFor(model => model.Bio)
 </div>
 <div>
