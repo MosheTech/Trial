@@ -17,7 +17,5 @@ namespace KidSteps.Models
             get { return string.Empty; }
         }
         public bool HasPhysicalFile { get; set; }
-        [NotMapped]
-        public abstract HttpPostedFileBase File { get; set; }
     }
 }

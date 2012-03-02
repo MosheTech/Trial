@@ -45,14 +45,14 @@ namespace KidSteps.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Create(Image image)
+        public ActionResult Create(ImageViewModel imageViewModel)
         {
-            image.CreatedBy = GetCurrentUser();
-            ModelState["CreatedBy"].Value = new ValueProviderResult(GetCurrentUser(), "",
-                                                                    System.Globalization.CultureInfo.CurrentCulture);
             
             if (ModelState.IsValid)
             {
+                Image image = new Image();
+                image.
+                image.CreatedBy = GetCurrentUser();
                 db.Media.Add(image);
                 image.Extension = Path.GetExtension(image.File.FileName);
                 db.SaveChanges();
