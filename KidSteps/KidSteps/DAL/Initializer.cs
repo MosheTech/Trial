@@ -14,29 +14,42 @@ namespace KidSteps.DAL
     {
         protected override void Seed(KidStepsContext context)
         {
+            // install/initialize asp.net membership services
             SqlServices.Install(
                 "KidSteps",
                 SqlFeatures.Membership | SqlFeatures.RoleManager | SqlFeatures.Profile,
                 WebConfigurationManager.ConnectionStrings["KidStepsContext"].ConnectionString);
+            foreach (Models.Role role in Enum.GetValues(typeof(Models.Role)))
+                Roles.CreateRole(role.ToString());
 
-            MembershipCreateStatus createStatus;
-            Membership.CreateUser("admin", "admin", "admin", null, null, true, null, out createStatus);
-            User admin = new User();
-            context.Members.Add(admin);
-            admin.Id = "admin";
-            admin.Name = new PersonName() { First = "Pinchas", Last = "Friedman" };
-            context.SaveChanges();
+            // create admin and example users
+            UserRepository userRepos = new UserRepository();
+            MembershipCreateStatus _;
 
-            Roles.CreateRole("Admin");
-            Roles.CreateRole("User");
-            Roles.CreateRole("UserWithFamily");
-
-            Roles.AddUserToRole("admin", "admin");
+            Models.RegisterModel registerModel = 
+                new RegisterModel()
+                {
+                    Name = new PersonName() { First = "Pinchas", Last = "Friedman" },
+                    Email = "admin",
+                    Password = "admin",
+                    ConfirmPassword = "admin",
+                    RememberMe = false
+                };
+            User admin = userRepos.Create(context, registerModel, Role.SiteAdmin, out _);
+            registerModel =
+                new RegisterModel()
+                {
+                    Name = new PersonName() { First = "Test", Last = "User" },
+                    Email = "test@user.com",
+                    Password = "test",
+                    ConfirmPassword = "test",
+                    RememberMe = false
+                };
+            userRepos.Create(context, registerModel, Role.FamilyAdmin, out _);
 
             var families = new List<Family>()
             {
-                new Family() { Name = "Example1", Owner = admin },
-                new Family() { Name = "Example2", Owner = admin }
+                new Family() { Name = "Example1", Owner = admin }
             };
             foreach (var family in families)
             {

@@ -18,12 +18,36 @@ namespace KidSteps.DAL
             return user;
         }
 
-        public User Create(KidStepsContext dbContext, string id)
+        public User Create(KidStepsContext dbContext, Models.RegisterModel model, Role role, out MembershipCreateStatus status)
         {
-            User user = new User();
-            user.Id = id;
-            dbContext.Members.Add(user);
-            return user;
+            // Attempt to register the user
+            MembershipCreateStatus createStatus;
+            Membership.CreateUser(model.Email, model.Password, model.Email, null, null, true, null, out createStatus);
+
+            status = createStatus;
+
+            if (createStatus == MembershipCreateStatus.Success)
+            {
+                FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
+
+                User user = new User();
+                dbContext.Members.Add(user);
+                user.Id = model.Email;
+                user.Name = model.Name;
+                try
+                {
+                    dbContext.SaveChanges();
+                    Roles.AddUserToRole(user.Id, role.ToString());
+                    return user;
+                }
+                catch
+                {
+                    Membership.DeleteUser(model.Email, true);
+                    throw;
+                }
+            }
+
+            return null;
         }
     }
 }
