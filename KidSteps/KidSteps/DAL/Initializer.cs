@@ -6,10 +6,11 @@ using System.Data.Entity;
 using KidSteps.Models;
 using System.Web.Management;
 using System.Web.Configuration;
+using System.Web.Security;
 
 namespace KidSteps.DAL
 {
-    public class Initializer : DropCreateDatabaseIfModelChanges<KidStepsContext>
+    public class Initializer : DropCreateDatabaseAlways<KidStepsContext>
     {
         protected override void Seed(KidStepsContext context)
         {
@@ -18,10 +19,24 @@ namespace KidSteps.DAL
                 SqlFeatures.Membership | SqlFeatures.RoleManager | SqlFeatures.Profile,
                 WebConfigurationManager.ConnectionStrings["KidStepsContext"].ConnectionString);
 
+            MembershipCreateStatus createStatus;
+            Membership.CreateUser("admin", "admin", "admin", null, null, true, null, out createStatus);
+            User admin = new User();
+            context.Members.Add(admin);
+            admin.Id = "admin";
+            admin.Name = new PersonName() { First = "Pinchas", Last = "Friedman" };
+            context.SaveChanges();
+
+            Roles.CreateRole("Admin");
+            Roles.CreateRole("User");
+            Roles.CreateRole("UserWithFamily");
+
+            Roles.AddUserToRole("admin", "admin");
+
             var families = new List<Family>()
             {
-                new Family() { Id = "Example1", Name = "Example1" },
-                new Family() { Id = "Example2", Name = "Example2" }
+                new Family() { Name = "Example1", Owner = admin },
+                new Family() { Name = "Example2", Owner = admin }
             };
             foreach (var family in families)
             {
