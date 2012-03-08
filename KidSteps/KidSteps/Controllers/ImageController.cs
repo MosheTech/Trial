@@ -68,9 +68,12 @@ namespace KidSteps.Controllers
 
                     var rootedPath = Path.Combine(Server.MapPath("~"), image.Path);
 
-                    thumbnail.Save(rootedPath);
+                    //System.IO.File.WriteAllText(rootedPath, "Testing valid path & permissions.");
 
-                    if (returnUrl != null)
+                    thumbnail.Save(rootedPath);
+                    //imageViewModel.File.InputStream.Close();
+
+                    if (!String.IsNullOrEmpty(returnUrl))
                         return Redirect(returnUrl);
                     return RedirectToAction("Index");
                 }
@@ -78,6 +81,7 @@ namespace KidSteps.Controllers
                 {
                     db.Images.Remove(image);
                     db.SaveChanges();
+                    throw;
                 }
             }
 
