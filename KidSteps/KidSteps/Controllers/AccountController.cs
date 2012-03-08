@@ -78,26 +78,15 @@ namespace KidSteps.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Attempt to register the user
+                UserRepository repos = new UserRepository();
                 MembershipCreateStatus createStatus;
-                Membership.CreateUser(model.Email, model.Password, model.Email, null, null, true, null, out createStatus);
+
+                // Attempt to register the user
+                User user = repos.Create(db, model, Role.FamilyAdmin, out createStatus);
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
-
-                    User user = new User();
-                    db.Members.Add(user);
-                    user.Id = model.Email;
-                    user.Name = model.Name;
-                    try
-                    {
-                        db.SaveChanges();
-                    }
-                    catch
-                    {
-                        Membership.DeleteUser(model.Email, true);
-                    }
 
                     return RedirectToAction("Edit", "User", new { id = user.Id });
                 }
