@@ -10,12 +10,12 @@ using System.IO;
 
 namespace KidSteps.Controllers
 { 
+    [Authorize]
     public class ImageController : ControllerBase
     {
         //
         // GET: /Image/
 
-        [Authorize]
         public ViewResult Index()
         {
             var currentUser = GetCurrentUser();
@@ -25,7 +25,6 @@ namespace KidSteps.Controllers
         //
         // GET: /Image/Details/5
 
-        [Authorize]
         public ViewResult Details(long id)
         {
             Image image = db.Images.Find(id);
@@ -35,7 +34,6 @@ namespace KidSteps.Controllers
         //
         // GET: /Image/Create
 
-        [Authorize]
         public ActionResult Create(string returnUrl = null)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -46,7 +44,6 @@ namespace KidSteps.Controllers
         // POST: /Image/Create
 
         [HttpPost]
-        [Authorize]
         public ActionResult Create(ImageViewModel imageViewModel, string returnUrl = null)
         {
             
@@ -91,7 +88,6 @@ namespace KidSteps.Controllers
         //
         // GET: /Image/Edit/5
  
-        [Authorize]
         public ActionResult Edit(long id)
         {
             Image image = db.Images.Find(id);
@@ -102,7 +98,6 @@ namespace KidSteps.Controllers
         // POST: /Image/Edit/5
 
         [HttpPost]
-        [Authorize]
         public ActionResult Edit(Image image)
         {
             if (ModelState.IsValid)
@@ -117,7 +112,6 @@ namespace KidSteps.Controllers
         //
         // GET: /Image/Delete/5
  
-        [Authorize]
         public ActionResult Delete(long id)
         {
             Image image = db.Images.Find(id);

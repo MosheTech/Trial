@@ -28,8 +28,6 @@ namespace KidSteps.DAL
 
             if (createStatus == MembershipCreateStatus.Success)
             {
-                FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
-
                 User user = new User();
                 dbContext.Members.Add(user);
                 user.Id = model.Email;
