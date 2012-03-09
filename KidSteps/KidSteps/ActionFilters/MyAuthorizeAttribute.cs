@@ -10,10 +10,10 @@ namespace KidSteps.ActionFilters
 {
     public class MyAuthorizeAttribute : AuthorizeAttribute
     {
-        MyAuthorizeAttribute(params Role[] roles)
+        public MyAuthorizeAttribute(params Role[] roles)
             : base()
         {
-            Roles = string.Concat(
+            Roles = string.Join(",", roles);
         }
     }
 }

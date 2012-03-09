@@ -2,10 +2,12 @@ using System;
 using System.Web;
 using System.Web.Mvc;
 using Elmah;
+using KidSteps.ActionFilters;
+using KidSteps.Models;
 
 namespace KidSteps.Areas.Admin.Controllers 
 {
-    [Authorize(Roles = Models.Role.SiteAdmin.ToString())]
+    [MyAuthorize(Role.SiteAdmin)]
     public class ElmahController : Controller
     {
         public ActionResult Index()
