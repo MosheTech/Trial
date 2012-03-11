@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using KidSteps.Models;
+using KidSteps.ActionFilters;
 
 namespace KidSteps.Controllers
 { 
@@ -14,7 +15,7 @@ namespace KidSteps.Controllers
         //
         // GET: /User/
 
-        [Authorize]
+        [MyAuthorize(Role.SuperUser)]
         public ViewResult Index()
         {
             return View(db.Members.ToList());

@@ -6,15 +6,21 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using KidSteps.Models;
+using KidSteps.ViewModels;
+using KidSteps.DAL;
+using System.Web.Security;
+using KidSteps.ActionFilters;
 
 namespace KidSteps.Controllers
 {
+    [Authorize]
     public class FamilyController : ControllerBase
     {
 
         //
         // GET: /Family/
 
+        [MyAuthorize(Role.SuperUser)]
         public ViewResult Index()
         {
             return View(db.Families.ToList());
@@ -41,22 +47,29 @@ namespace KidSteps.Controllers
         // POST: /Family/Create
 
         [HttpPost]
-        public ActionResult Create(Family family)
+        public ActionResult Create(FamilyCreateViewModel model)
         {
             if (ModelState.IsValid)
             {
+                Family family = new Family();
                 db.Families.Add(family);
+                family.Name = model.FamilyName;
+                var currentUser = GetCurrentUser();
+                family.Owner = currentUser;
+                family.Members.Add(family.Owner);
+
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+
+                return RedirectToAction("Edit", new { id = family.Id }); 
             }
 
-            return View(family);
+            return View(model);
         }
         
         //
         // GET: /Family/Edit/5
  
-        public ActionResult Edit(string id)
+        public ActionResult Edit(long id)
         {
             Family family = db.Families.Find(id);
             return View(family);

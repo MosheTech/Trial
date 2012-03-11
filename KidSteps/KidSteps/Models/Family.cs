@@ -8,13 +8,20 @@ namespace KidSteps.Models
 {
     public class Family
     {
+        public Family()
+        {
+            Members = new List<User>();
+        }
+
         public long Id { get; set; }
         [Required]
         public string Name { get; set; }
-        [Required]
+        
         public virtual User Owner { get; set; }
 
-        [InverseProperty("Family")]
+        public virtual Image Thumbnail { get; set; }
+
+        [InverseProperty("Families")]
         public virtual ICollection<User> Members { get; set; }
     }
 }

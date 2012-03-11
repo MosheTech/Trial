@@ -35,7 +35,7 @@ namespace KidSteps.DAL
                     ConfirmPassword = "admin",
                     RememberMe = false
                 };
-            User admin = userRepos.Create(context, registerModel, Role.SiteAdmin, out _);
+            User admin = userRepos.Create(context, registerModel, Role.SuperUser, out _);
             registerModel =
                 new RegisterModel()
                 {
@@ -45,7 +45,7 @@ namespace KidSteps.DAL
                     ConfirmPassword = "moshe",
                     RememberMe = false
                 };
-            userRepos.Create(context, registerModel, Role.SiteAdmin, out _);
+            userRepos.Create(context, registerModel, Role.SuperUser, out _);
             registerModel =
                 new RegisterModel()
                 {

@@ -33,6 +33,17 @@
             @RenderBody()
         </section>
         <footer>
+            @if (User.IsInRole(KidSteps.Models.Role.SuperUser.ToString()))
+            {
+                <div>
+                    @Html.ActionLink("Users", "Index", "User") |
+                    @Html.ActionLink("Families", "Index", "Family")
+                </div>
+                <div>
+                    @Html.ActionLink("Error Log", "Index", "Elmah", null, new { target = "_blank" })
+                    | <a href="glimpse.axd" target="_blank">Trace</a>
+                </div>
+            }
         </footer>
     </div>
 </body>
