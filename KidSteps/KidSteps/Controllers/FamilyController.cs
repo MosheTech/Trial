@@ -36,7 +36,7 @@ namespace KidSteps.Controllers
 
             Family family = db.Families.Find(id);
             model.Family = family;
-            model.FamilyMembers = family.Members;
+            model.FamilyMembers = family.Members.AsQueryable().Include("User");
 
             return View(model);
         }

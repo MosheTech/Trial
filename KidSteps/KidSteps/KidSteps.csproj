@@ -135,6 +135,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\FamilyCreateViewModel.cs" />
     <Compile Include="ViewModels\FamilyDetailsViewModel.cs" />
+    <Compile Include="ViewModels\HomeIndexViewModel.cs" />
     <Compile Include="ViewModels\KidCreateViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

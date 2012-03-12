@@ -1,10 +1,12 @@
 ﻿@model KidSteps.ViewModels.FamilyDetailsViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Family";
 }
 
 <h2>Details</h2>
+
+Managed by @Html.DisplayFor(m => m.Family.Owner.Name)
 
 <fieldset>
     <legend>Family Members</legend>

@@ -8,10 +8,6 @@ namespace KidSteps.ViewModels
 {
     public class FamilyDetailsViewModel
     {
-        public FamilyDetailsViewModel()
-        {
-        }
-
         public Family Family { get; set; }
         public IEnumerable<FamilyMember> FamilyMembers { get; set; }
     }

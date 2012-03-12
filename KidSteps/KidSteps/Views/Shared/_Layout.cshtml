@@ -36,8 +36,8 @@
             @if (User.IsInRole(KidSteps.Models.Role.SuperUser.ToString()))
             {
                 <div>
-                    @Html.ActionLink("Users", "Index", "User") |
-                    @Html.ActionLink("Families", "Index", "Family")
+                    @Html.ActionLink("All Users", "Index", "User") |
+                    @Html.ActionLink("All Families", "Index", "Family")
                 </div>
                 <div>
                     @Html.ActionLink("Error Log", "Index", "Elmah", null, new { target = "_blank" })

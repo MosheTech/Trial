@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using KidSteps.Models;
 using System.Web.Security;
+using KidSteps.ViewModels;
 
 namespace KidSteps.Controllers
 {
@@ -12,30 +13,35 @@ namespace KidSteps.Controllers
     {
         public ActionResult Index()
         {
+            HomeIndexViewModel viewModel = new HomeIndexViewModel();
             if (User.Identity.IsAuthenticated)
             {
-                var userRepo = new DAL.UserRepository();
-                var user = userRepo.FindByMembership(db, User);
-                ViewBag.Message = string.Format("Welcome {0}!", user.Name.First);
+                viewModel.CurrentUser = GetCurrentUser();
+                viewModel.IsLoggedOn = true;
+                viewModel.UserFamilies =
+                    db.FamilyMembers.Where(fm => fm.User.Id == viewModel.CurrentUser.Id).Select(fm => fm.Family).Distinct();
+
+                ViewBag.Message = string.Format("Welcome {0}!", viewModel.CurrentUser.Name.First);
             }
             else
             {
+                viewModel.IsLoggedOn = false;
                 ViewBag.Message = "Welcome to Kid Steps!";
             }
 
             var xyz = db.Images.ToList();
 
-            return View();
+            return View(viewModel);
         }
 
         [HttpPost]
-        public ActionResult Index(LogOnModel model)
+        public ActionResult Index(HomeIndexViewModel model)
         {
             if (ModelState.IsValid)
             {
-                if (Membership.ValidateUser(model.Email, model.Password))
+                if (Membership.ValidateUser(model.LogOnModel.Email, model.LogOnModel.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
+                    FormsAuthentication.SetAuthCookie(model.LogOnModel.Email, model.LogOnModel.RememberMe);
                     return RedirectToAction("Index");
                 }
                 else
