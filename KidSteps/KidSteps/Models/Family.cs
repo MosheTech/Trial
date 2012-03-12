@@ -22,7 +22,7 @@ namespace KidSteps.Models
 
         public virtual Image Thumbnail { get; set; }
 
-        //[InverseProperty("Families")]
+        [InverseProperty("Family")]
         public virtual ICollection<FamilyMember> Members { get; set; }
 
         public virtual ICollection<User> Kids { get; set; }

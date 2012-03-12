@@ -36,7 +36,9 @@ namespace KidSteps.Controllers
 
             Family family = db.Families.Find(id);
             model.Family = family;
-            model.FamilyMembers = family.Members.AsQueryable().Include("User");
+            var allMembers = family.Members.AsQueryable().Include("User").ToList();
+            model.FamilyMembers = allMembers.Where(fm => fm.Relationship != RelationshipType.Kid);
+            model.Kids = allMembers.Where(fm => fm.Relationship == RelationshipType.Kid);
 
             return View(model);
         }
@@ -57,23 +59,8 @@ namespace KidSteps.Controllers
         {
             if (ModelState.IsValid)
             {
-                Family family = new Family();
-                db.Families.Add(family);
-                family.Name = model.FamilyName;
-                var currentUser = GetCurrentUser();
-                family.Owner = currentUser;
-
-                FamilyMember membership = new FamilyMember()
-                                              {
-                                                  Family = family,
-                                                  Role = Models.Role.FamilyAdmin,
-                                                  User = currentUser,
-                                                  Relationship = RelationshipType.Friend
-                                              };
-
-                family.Members.Add(membership);
-
-                db.SaveChanges();
+                FamilyRepository repos = new FamilyRepository();
+                repos.Create(db, model.FamilyName, owner: GetCurrentUser());
 
                 return RedirectToAction("Index", "User"); 
             }

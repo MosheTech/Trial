@@ -25,47 +25,23 @@ namespace KidSteps.DAL
             // create admin and example users
             UserRepository userRepos = new UserRepository();
             MembershipCreateStatus _;
+            User pinchas = userRepos.Create(context, "Pinchas", "Friedman", "admin", "admin", Role.SuperUser, out _);
+            User moshe = userRepos.Create(context, "Moshe", "Starkman", "moshe", "moshe", Role.SuperUser, out _);
+            User testUser = userRepos.Create(context, "Test", "User", "fam", "fam", Role.FamilyAdmin, out _);
+            // create kids
+            User chaim = userRepos.CreateUnregisteredUser(context, "Chaim", "Friedman", out _);
+            User shalom = userRepos.CreateUnregisteredUser(context, "Shalom", "Friedman", out _);
+            User shlomo = userRepos.CreateUnregisteredUser(context, "Shlomo", "Starkman", out _);
 
-            Models.RegisterModel registerModel = 
-                new RegisterModel()
-                {
-                    Name = new PersonName() { First = "Pinchas", Last = "Friedman" },
-                    Email = "admin",
-                    Password = "admin",
-                    ConfirmPassword = "admin",
-                    RememberMe = false
-                };
-            User admin = userRepos.Create(context, registerModel, Role.SuperUser, out _);
-            registerModel =
-                new RegisterModel()
-                {
-                    Name = new PersonName() { First = "Moshe", Last = "Starkman" },
-                    Email = "moshe",
-                    Password = "moshe",
-                    ConfirmPassword = "moshe",
-                    RememberMe = false
-                };
-            userRepos.Create(context, registerModel, Role.SuperUser, out _);
-            registerModel =
-                new RegisterModel()
-                {
-                    Name = new PersonName() { First = "Test", Last = "User" },
-                    Email = "fam",
-                    Password = "fam",
-                    ConfirmPassword = "fam",
-                    RememberMe = false
-                };
-            userRepos.Create(context, registerModel, Role.FamilyAdmin, out _);
-
-            var families = new List<Family>()
-            {
-                new Family() { Name = "Example1", Owner = admin }
-            };
-            foreach (var family in families)
-            {
-                context.Families.Add(family);
-            }
-            context.SaveChanges();
+            // create example families
+            FamilyRepository familyRepos = new FamilyRepository();
+            Family starkman = familyRepos.Create(context, "Starkman", testUser);
+            Family friedman = familyRepos.Create(context, "Friedman", pinchas);
+            // add family members
+            familyRepos.AddMember(context, starkman, moshe, RelationshipType.Parent);
+            familyRepos.AddMember(context, starkman, shlomo, RelationshipType.Kid);
+            familyRepos.AddMember(context, friedman, chaim, RelationshipType.Kid);
+            familyRepos.AddMember(context, friedman, shalom, RelationshipType.Kid);
         }
     }
 }

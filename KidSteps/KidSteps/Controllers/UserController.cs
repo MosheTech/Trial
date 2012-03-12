@@ -150,15 +150,20 @@ namespace KidSteps.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserRepository repos = new UserRepository();
+                MembershipCreateStatus _;
+                UserRepository userRepos = new UserRepository();
+                User kid = userRepos.CreateUnregisteredUser(db, model.Name, out _);
+
+                FamilyRepository familyRepos = new FamilyRepository();
+
+
                 RegisterModel registerModel = new RegisterModel();
                 string password = Membership.GeneratePassword(30, 3);
                 registerModel.Email = (new Guid()).ToString();
                 registerModel.Name = model.Name;
                 registerModel.Password = password;
                 registerModel.ConfirmPassword = password;
-                MembershipCreateStatus _;
-                repos.Create(db, registerModel, Role.UnregisteredFamilyMember, out _);
+                userRepos.Create(db, model.Name, registerModel.Email, registerModel.Password, Role.UnregisteredFamilyMember, out _);
 
                 return RedirectToAction("Index");
             }
