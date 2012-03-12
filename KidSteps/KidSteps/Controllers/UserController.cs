@@ -7,6 +7,9 @@ using System.Web;
 using System.Web.Mvc;
 using KidSteps.Models;
 using KidSteps.ActionFilters;
+using KidSteps.ViewModels;
+using KidSteps.DAL;
+using System.Web.Security;
 
 namespace KidSteps.Controllers
 { 
@@ -136,5 +139,33 @@ namespace KidSteps.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public ActionResult CreateKid()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateKid(KidCreateViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                UserRepository repos = new UserRepository();
+                RegisterModel registerModel = new RegisterModel();
+                string password = Membership.GeneratePassword(30, 3);
+                registerModel.Email = (new Guid()).ToString();
+                registerModel.Name = model.Name;
+                registerModel.Password = password;
+                registerModel.ConfirmPassword = password;
+                MembershipCreateStatus _;
+                repos.Create(db, registerModel, Role.UnregisteredFamilyMember, out _);
+
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
+
+
     }
 }

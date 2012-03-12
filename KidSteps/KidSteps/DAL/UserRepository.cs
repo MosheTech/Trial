@@ -32,6 +32,7 @@ namespace KidSteps.DAL
                 dbContext.Members.Add(user);
                 user.Id = model.Email;
                 user.Name = model.Name;
+                user.HasAccount = true;
                 try
                 {
                     dbContext.SaveChanges();

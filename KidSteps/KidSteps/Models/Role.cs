@@ -8,6 +8,7 @@ namespace KidSteps.Models
     public enum Role
     {
         None,
+        UnregisteredFamilyMember,
         Read,
         Write,
         FamilyAdmin,

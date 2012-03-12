@@ -18,6 +18,8 @@ namespace KidSteps.Models
 
         public virtual string Id { get; set; }
 
+        public bool HasAccount { get; set; }
+
         [Required]
         public virtual PersonName Name { get; set; }        
         public virtual Image ProfilePicture { get; set; }

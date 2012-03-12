@@ -11,6 +11,7 @@ namespace KidSteps.Models
         public Family()
         {
             Members = new List<User>();
+            Kids = new List<User>();
         }
 
         public long Id { get; set; }
@@ -23,5 +24,7 @@ namespace KidSteps.Models
 
         [InverseProperty("Families")]
         public virtual ICollection<User> Members { get; set; }
+
+        public virtual ICollection<User> Kids { get; set; }
     }
 }

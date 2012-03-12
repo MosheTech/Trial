@@ -1,0 +1,14 @@
+﻿@model KidSteps.ViewModels.KidCreateViewModel
+@{
+    ViewBag.Title = "CreateKid";
+}
+<h2>
+    CreateKid</h2>
+@using (Html.BeginForm())
+{
+    @Html.EditorFor(m => m.Name)
+
+    <p>
+        <input type="submit" value="Save" />
+    </p>
+}
