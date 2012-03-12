@@ -10,7 +10,7 @@ namespace KidSteps.Models
     {
         public Family()
         {
-            Members = new List<User>();
+            Members = new List<FamilyMember>();
             Kids = new List<User>();
         }
 
@@ -22,8 +22,8 @@ namespace KidSteps.Models
 
         public virtual Image Thumbnail { get; set; }
 
-        [InverseProperty("Families")]
-        public virtual ICollection<User> Members { get; set; }
+        //[InverseProperty("Families")]
+        public virtual ICollection<FamilyMember> Members { get; set; }
 
         public virtual ICollection<User> Kids { get; set; }
     }

@@ -1,4 +1,4 @@
-﻿@model KidSteps.Models.Family
+﻿@model KidSteps.ViewModels.FamilyDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -7,9 +7,34 @@
 <h2>Details</h2>
 
 <fieldset>
-    <legend>Family</legend>
+    <legend>Family Members</legend>
+    <table>
+    <tr>
+        <th>
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+        </th>
+    </tr>
+    @foreach (var member in Model.FamilyMembers)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(_ => member.User.ProfilePicture)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => member.User.Name)
+            </td>
+            <td>
+                @Html.ActionLink("View", "Details", new { id = member.Id })
+            </td>
+        </tr>
+    }
+</table>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Family.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

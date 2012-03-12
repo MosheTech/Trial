@@ -29,10 +29,16 @@ namespace KidSteps.Controllers
         //
         // GET: /Family/Details/5
 
-        public ViewResult Details(string id)
+        [Authorize]
+        public ViewResult Details(long id)
         {
+            FamilyDetailsViewModel model = new FamilyDetailsViewModel();
+
             Family family = db.Families.Find(id);
-            return View(family);
+            model.Family = family;
+            model.FamilyMembers = family.Members;
+
+            return View(model);
         }
 
         //
@@ -56,11 +62,20 @@ namespace KidSteps.Controllers
                 family.Name = model.FamilyName;
                 var currentUser = GetCurrentUser();
                 family.Owner = currentUser;
-                family.Members.Add(family.Owner);
+
+                FamilyMember membership = new FamilyMember()
+                                              {
+                                                  Family = family,
+                                                  Role = Models.Role.FamilyAdmin,
+                                                  User = currentUser,
+                                                  Relationship = RelationshipType.Friend
+                                              };
+
+                family.Members.Add(membership);
 
                 db.SaveChanges();
 
-                return RedirectToAction("Edit", new { id = family.Id }); 
+                return RedirectToAction("Index", "User"); 
             }
 
             return View(model);

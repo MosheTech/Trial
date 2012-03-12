@@ -50,9 +50,9 @@ namespace KidSteps.DAL
                 new RegisterModel()
                 {
                     Name = new PersonName() { First = "Test", Last = "User" },
-                    Email = "test@user.com",
-                    Password = "test",
-                    ConfirmPassword = "test",
+                    Email = "fam",
+                    Password = "fam",
+                    ConfirmPassword = "fam",
                     RememberMe = false
                 };
             userRepos.Create(context, registerModel, Role.FamilyAdmin, out _);

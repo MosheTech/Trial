@@ -25,9 +25,9 @@ namespace KidSteps.Models
         public virtual Image ProfilePicture { get; set; }
         public virtual string Bio { get; set; }
 
-        [InverseProperty("Members")]
-        public virtual ICollection<Family> Families { get; set; }
-        public virtual ICollection<Relationship> Relationships { get; set; }
+        //[InverseProperty("Members")]
+        public virtual ICollection<FamilyMember> FamilyMemberships { get; set; }
+        //public virtual ICollection<Relationship> Relationships { get; set; }
         public virtual ICollection<TimelineEvent> TimelineEvents { get; set; }
         public virtual ICollection<Image> Images { get; set; }
     }
