@@ -6,7 +6,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace KidSteps.Models
 {
-    [ComplexType]
     public enum RelationshipType
     {
         Friend,
