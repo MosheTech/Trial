@@ -60,9 +60,9 @@ namespace KidSteps.Controllers
             if (ModelState.IsValid)
             {
                 FamilyRepository repos = new FamilyRepository();
-                repos.Create(db, model.FamilyName, owner: GetCurrentUser());
+                var family = repos.Create(db, model.FamilyName, owner: GetCurrentUser());
 
-                return RedirectToAction("Index", "User"); 
+                return RedirectToAction("Details", new { id = family.Id }); 
             }
 
             return View(model);

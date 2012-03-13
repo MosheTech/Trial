@@ -6,6 +6,7 @@
     CreateKid</h2>
 @using (Html.BeginForm())
 {
+    @Html.HiddenFor(m => m.FamilyId)
     @Html.EditorFor(m => m.Name)
 
     <p>

@@ -35,6 +35,7 @@ Managed by @Html.DisplayFor(m => m.Family.Owner.Name)
             </tr>
         }
     </table>
+    @Html.ActionLink("Add Kid", "CreateKid", "User", new { familyId = Model.Family.Id }, null)
 </fieldset>
 
 <fieldset>
@@ -70,6 +71,7 @@ Managed by @Html.DisplayFor(m => m.Family.Owner.Name)
         </tr>
     }
 </table>
+    @Html.ActionLink("Add Family Member", "CreateFamilyMember", "User", new { familyId = Model.Family.Id }, null)
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.Family.Id }) |

@@ -1,0 +1,16 @@
+﻿@model KidSteps.ViewModels.CreateFamilyMemberViewModel
+@{
+    ViewBag.Title = "Create Family Member";
+}
+
+<h2>Create Family Member</h2>
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.FamilyId)
+    @Html.EditorFor(m => m.Name)
+    @Html.DropDownListFor(m => m.Relationship, Model.RelationshipsToChooseFrom);
+
+    <p>
+        <input type="submit" value="Save" />
+    </p>
+}

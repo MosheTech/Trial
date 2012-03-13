@@ -13,7 +13,13 @@ namespace KidSteps.Models
         public virtual Family Family { get; set; }
         [InverseProperty("FamilyMemberships")]
         public virtual User User { get; set; }
-        public RelationshipType Relationship { get; set; }
+
+        public int RelationshipTypeWrapper { get; set; }
+        public RelationshipType Relationship
+        {
+            get { return (RelationshipType)RelationshipTypeWrapper; }
+            set { RelationshipTypeWrapper = (int)value; }
+        }
         public Role Role { get; set; }
     }
 }

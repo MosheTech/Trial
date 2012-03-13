@@ -84,7 +84,7 @@ namespace KidSteps.Controllers
 
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = user.Id });
             }
             return View(user);
         }
@@ -140,9 +140,11 @@ namespace KidSteps.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult CreateKid()
+        public ActionResult CreateKid(long familyId)
         {
-            return View();
+            KidCreateViewModel viewModel = new KidCreateViewModel();
+            viewModel.FamilyId = familyId;
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -155,17 +157,44 @@ namespace KidSteps.Controllers
                 User kid = userRepos.CreateUnregisteredUser(db, model.Name, out _);
 
                 FamilyRepository familyRepos = new FamilyRepository();
+                Family family = db.Families.Find(model.FamilyId);
+                familyRepos.AddMember(db, family, kid, RelationshipType.Kid);
 
+                return RedirectToAction("Details", "Family", new { id = model.FamilyId });
+            }
 
-                RegisterModel registerModel = new RegisterModel();
-                string password = Membership.GeneratePassword(30, 3);
-                registerModel.Email = (new Guid()).ToString();
-                registerModel.Name = model.Name;
-                registerModel.Password = password;
-                registerModel.ConfirmPassword = password;
-                userRepos.Create(db, model.Name, registerModel.Email, registerModel.Password, Role.UnregisteredFamilyMember, out _);
+            return View();
+        }
 
-                return RedirectToAction("Index");
+        public ActionResult CreateFamilyMember(long familyId)
+        {
+            CreateFamilyMemberViewModel viewModel = new CreateFamilyMemberViewModel();
+            viewModel.FamilyId = familyId;
+            viewModel.RelationshipsToChooseFrom = new List<SelectListItem>();
+            foreach (RelationshipType type in Enum.GetValues(typeof(RelationshipType)))
+            {
+                if (type == RelationshipType.Kid)
+                    continue;
+                SelectListItem item = new SelectListItem() { Text = type.ToString(), Value = ((int)type).ToString() };
+                viewModel.RelationshipsToChooseFrom.Add(item);
+            }
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult CreateFamilyMember(CreateFamilyMemberViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                MembershipCreateStatus _;
+                UserRepository userRepos = new UserRepository();
+                User member = userRepos.CreateUnregisteredUser(db, model.Name, out _);
+
+                FamilyRepository familyRepos = new FamilyRepository();
+                Family family = db.Families.Find(model.FamilyId);
+                familyRepos.AddMember(db, family, member, model.Relationship);
+
+                return RedirectToAction("Details", "Family", new { id = model.FamilyId });
             }
 
             return View();

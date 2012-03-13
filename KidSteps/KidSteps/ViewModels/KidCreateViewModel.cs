@@ -8,6 +8,7 @@ namespace KidSteps.ViewModels
 {
     public class KidCreateViewModel
     {
+        public long FamilyId { get; set; }
         public PersonName Name { get; set; }
     }
 }
