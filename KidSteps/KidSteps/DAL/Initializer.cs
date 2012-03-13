@@ -38,10 +38,10 @@ namespace KidSteps.DAL
             Family starkman = familyRepos.Create(context, "Starkman", testUser);
             Family friedman = familyRepos.Create(context, "Friedman", pinchas);
             // add family members
-            familyRepos.AddMember(context, starkman, moshe, RelationshipType.Parent);
-            familyRepos.AddMember(context, starkman, shlomo, RelationshipType.Kid);
-            familyRepos.AddMember(context, friedman, chaim, RelationshipType.Kid);
-            familyRepos.AddMember(context, friedman, shalom, RelationshipType.Kid);
+            familyRepos.AddMember(context, starkman, moshe, RelationshipType.Father, true);
+            familyRepos.AddMember(context, starkman, shlomo, RelationshipType.Kid, true);
+            familyRepos.AddMember(context, friedman, chaim, RelationshipType.Kid, true);
+            familyRepos.AddMember(context, friedman, shalom, RelationshipType.Kid, true);
         }
     }
 }

@@ -158,7 +158,7 @@ namespace KidSteps.Controllers
 
                 FamilyRepository familyRepos = new FamilyRepository();
                 Family family = db.Families.Find(model.FamilyId);
-                familyRepos.AddMember(db, family, kid, RelationshipType.Kid);
+                familyRepos.AddMember(db, family, kid, RelationshipType.Kid, setAsUsersDefaultFamily: true);
 
                 return RedirectToAction("Details", "Family", new { id = model.FamilyId });
             }
@@ -192,7 +192,7 @@ namespace KidSteps.Controllers
 
                 FamilyRepository familyRepos = new FamilyRepository();
                 Family family = db.Families.Find(model.FamilyId);
-                familyRepos.AddMember(db, family, member, model.Relationship);
+                familyRepos.AddMember(db, family, member, model.Relationship, setAsUsersDefaultFamily: true);
 
                 return RedirectToAction("Details", "Family", new { id = model.FamilyId });
             }

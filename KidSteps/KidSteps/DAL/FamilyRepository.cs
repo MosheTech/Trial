@@ -17,7 +17,12 @@ namespace KidSteps.DAL
 
             context.SaveChanges();
 
-            AddMember(context, family, owner, RelationshipType.Friend);
+            AddMember(
+                context,
+                family,
+                owner,
+                RelationshipType.FamilyMember,
+                setAsUsersDefaultFamily: true);
 
             return family;
         }
@@ -26,7 +31,8 @@ namespace KidSteps.DAL
             KidStepsContext context,
             Family family,
             User memberToAdd, 
-            RelationshipType relationshipToKid)
+            RelationshipType relationshipToKid,
+            bool setAsUsersDefaultFamily)
         {
             FamilyMember membership = new FamilyMember()
             {
@@ -37,6 +43,9 @@ namespace KidSteps.DAL
             };
 
             family.Members.Add(membership);
+
+            if (setAsUsersDefaultFamily)
+                memberToAdd.DefaultFamily = family;
 
             context.SaveChanges();
 

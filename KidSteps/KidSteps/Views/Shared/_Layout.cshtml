@@ -18,16 +18,7 @@
             <div id="logindisplay">
                 @Html.Partial("_LogOnPartial")
             </div>
-            <nav>
-                <ul id="menu">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink("My Family", "Index", "User")</li>
-                        <li>@Html.ActionLink("My Pics", "Index", "Image")</li>
-                    }
-                </ul>
-            </nav>
+            @Html.Action("Menu", "Layout")
         </header>
         <section id="main">
             @RenderBody()

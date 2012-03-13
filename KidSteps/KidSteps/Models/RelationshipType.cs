@@ -8,9 +8,14 @@ namespace KidSteps.Models
 {
     public enum RelationshipType
     {
-        Friend,
-        Parent,
-        Sibling,
-        Kid
+        Mother,
+        Father,
+        Grandmother,
+        Grandfather,
+        Aunt,
+        Uncle,
+        Cousin,
+        Kid,
+        FamilyMember
     }
 }
