@@ -8,71 +8,79 @@
 
 Managed by @Html.DisplayFor(m => m.Family.Owner.Name)
 
-<fieldset>
-    <legend>Kids</legend>
-    <table>
-        <tr>
-            <th>
-            </th>
-            <th>
-                Name
-            </th>
-            <th>
-            </th>
-        </tr>
-        @foreach (var member in Model.Kids)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(_ => member.User.ProfilePicture)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => member.User.Name)
-                </td>
-                <td>
-                    @Html.ActionLink("View", "Details", "User", new { id = member.User.Id }, null)
-                </td>
-            </tr>
-        }
-    </table>
-    @Html.ActionLink("Add Kid", "CreateKid", "User", new { familyId = Model.Family.Id }, null)
-</fieldset>
-
-<fieldset>
-    <legend>Family Members</legend>
-    <table>
+<table>
     <tr>
-        <th>
-        </th>
-        <th>
-            Name
-        </th>
-        <th>
-            Relationship
-        </th>
-        <th>
-        </th>
+        <td style="vertical-align:top;">
+            <fieldset>
+                <legend>Family Members</legend>
+                <table>
+                <tr>
+                    <th>
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Relationship
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+                @foreach (var member in Model.FamilyMembers)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(_ => member.User.ProfilePicture)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => member.User.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => member.Relationship)
+                        </td>
+                        <td>
+                            @Html.ActionLink("View", "Details", "User", new { id = member.User.Id }, null)
+                        </td>
+                    </tr>
+                }
+            </table>
+                @Html.ActionLink("Add Family Member", "CreateFamilyMember", "User", new { familyId = Model.Family.Id }, null)
+            </fieldset>
+        </td>
+        <td style="vertical-align:top;">
+            <fieldset>
+                <legend>Kids</legend>
+                <table>
+                    <tr>
+                        <th>
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                    @foreach (var member in Model.Kids)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(_ => member.User.ProfilePicture)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => member.User.Name)
+                            </td>
+                            <td>
+                                @Html.ActionLink("View", "Details", "User", new { id = member.User.Id }, null)
+                            </td>
+                        </tr>
+                    }
+                </table>
+                @Html.ActionLink("Add Kid", "CreateKid", "User", new { familyId = Model.Family.Id }, null)
+            </fieldset>
+        </td>
     </tr>
-    @foreach (var member in Model.FamilyMembers)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(_ => member.User.ProfilePicture)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => member.User.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(m => member.Relationship)
-            </td>
-            <td>
-                @Html.ActionLink("View", "Details", "User", new { id = member.User.Id }, null)
-            </td>
-        </tr>
-    }
 </table>
-    @Html.ActionLink("Add Family Member", "CreateFamilyMember", "User", new { familyId = Model.Family.Id }, null)
-</fieldset>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.Family.Id }) |
     @Html.ActionLink("Back to List", "Index")
