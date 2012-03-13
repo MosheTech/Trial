@@ -10,7 +10,7 @@ using System.Web.Security;
 
 namespace KidSteps.DAL
 {
-    public class Initializer : DropCreateDatabaseIfModelChanges<KidStepsContext>
+    public class Initializer : DropCreateDatabaseAlways<KidStepsContext>
     {
         protected override void Seed(KidStepsContext context)
         {
@@ -28,20 +28,14 @@ namespace KidSteps.DAL
             User pinchas = userRepos.Create(context, "Pinchas", "Friedman", "admin", "admin", Role.SuperUser, out _);
             User moshe = userRepos.Create(context, "Moshe", "Starkman", "moshe", "moshe", Role.SuperUser, out _);
             User testUser = userRepos.Create(context, "Test", "User", "fam", "fam", Role.FamilyAdmin, out _);
-            // create kids
-            User chaim = userRepos.CreateUnregisteredUser(context, "Chaim", "Friedman", out _);
-            User shalom = userRepos.CreateUnregisteredUser(context, "Shalom", "Friedman", out _);
-            User shlomo = userRepos.CreateUnregisteredUser(context, "Shlomo", "Starkman", out _);
 
-            // create example families
+            // create example families with intial kid
             FamilyRepository familyRepos = new FamilyRepository();
-            Family starkman = familyRepos.Create(context, "Starkman", testUser);
-            Family friedman = familyRepos.Create(context, "Friedman", pinchas);
+            Family starkman = familyRepos.Create(context, "Starkman", testUser, "Shlomo", "Starkman", RelationshipType.Uncle);
+            Family friedman = familyRepos.Create(context, "Friedman", pinchas, "Chaim", "Friedman", RelationshipType.Father);
             // add family members
             familyRepos.AddMember(context, starkman, moshe, RelationshipType.Father, true);
-            familyRepos.AddMember(context, starkman, shlomo, RelationshipType.Kid, true);
-            familyRepos.AddMember(context, friedman, chaim, RelationshipType.Kid, true);
-            familyRepos.AddMember(context, friedman, shalom, RelationshipType.Kid, true);
+            familyRepos.AddUnregisteredMember(context, friedman, "Shalom", "Friedman", RelationshipType.Self);
         }
     }
 }

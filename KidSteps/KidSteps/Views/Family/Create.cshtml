@@ -11,8 +11,18 @@
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Family</legend>
+        <div>@Html.LabelFor(m => m.FamilyName)</div>
         <div>
             @Html.EditorFor(m => m.FamilyName)
+        </div>
+        <div>@Html.LabelFor(m => m.KidName)</div>
+        <div>
+            @Html.EditorFor(m => m.KidName)
+        </div>
+        <div>@Html.LabelFor(m => m.RelationshipOfOwnerToKid)
+        </div>
+        <div>
+        @Html.DropDownListFor(m => m.RelationshipOfOwnerToKid, Model.RelationshipsToChooseFrom)
         </div>
         <p>
             <input type="submit" value="Create" />

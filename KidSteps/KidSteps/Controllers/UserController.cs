@@ -158,7 +158,7 @@ namespace KidSteps.Controllers
 
                 FamilyRepository familyRepos = new FamilyRepository();
                 Family family = db.Families.Find(model.FamilyId);
-                familyRepos.AddMember(db, family, kid, RelationshipType.Kid, setAsUsersDefaultFamily: true);
+                familyRepos.AddMember(db, family, kid, RelationshipType.Self, setAsUsersDefaultFamily: true);
 
                 return RedirectToAction("Details", "Family", new { id = model.FamilyId });
             }
@@ -173,7 +173,7 @@ namespace KidSteps.Controllers
             viewModel.RelationshipsToChooseFrom = new List<SelectListItem>();
             foreach (RelationshipType type in Enum.GetValues(typeof(RelationshipType)))
             {
-                if (type == RelationshipType.Kid)
+                if (type == RelationshipType.Self)
                     continue;
                 SelectListItem item = new SelectListItem() { Text = type.ToString(), Value = ((int)type).ToString() };
                 viewModel.RelationshipsToChooseFrom.Add(item);

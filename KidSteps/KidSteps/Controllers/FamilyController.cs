@@ -37,8 +37,8 @@ namespace KidSteps.Controllers
             Family family = db.Families.Find(id);
             model.Family = family;
             var allMembers = family.Members.AsQueryable().Include("User").ToList();
-            model.FamilyMembers = allMembers.Where(fm => fm.Relationship != RelationshipType.Kid);
-            model.Kids = allMembers.Where(fm => fm.Relationship == RelationshipType.Kid);
+            model.FamilyMembers = allMembers.Where(fm => fm.Relationship != RelationshipType.Self);
+            model.Kids = allMembers.Where(fm => fm.Relationship == RelationshipType.Self);
 
             return View(model);
         }
@@ -48,7 +48,16 @@ namespace KidSteps.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            FamilyCreateViewModel viewModel = new FamilyCreateViewModel();
+            viewModel.RelationshipsToChooseFrom = new List<SelectListItem>();
+            foreach (RelationshipType type in Enum.GetValues(typeof(RelationshipType)))
+            {
+                if (type == RelationshipType.Self)
+                    continue;
+                SelectListItem item = new SelectListItem() { Text = type.ToString(), Value = ((int)type).ToString() };
+                viewModel.RelationshipsToChooseFrom.Add(item);
+            }
+            return View(viewModel);
         } 
 
         //
@@ -60,7 +69,13 @@ namespace KidSteps.Controllers
             if (ModelState.IsValid)
             {
                 FamilyRepository repos = new FamilyRepository();
-                var family = repos.Create(db, model.FamilyName, owner: GetCurrentUser());
+                var family =
+                    repos.Create(
+                    db, 
+                    model.FamilyName,
+                    GetCurrentUser(),
+                    model.KidName, 
+                    model.RelationshipOfOwnerToKid);
 
                 return RedirectToAction("Details", new { id = family.Id }); 
             }
