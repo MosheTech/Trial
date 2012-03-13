@@ -6,9 +6,7 @@
 
 <h2>@Model.Family.Name</h2>
 
-Managed by @Html.DisplayFor(m => m.Family.Owner.Name)
-
-<table>
+<table style="margin-bottom:4px">
     <tr>
         <td style="vertical-align:top;">
             <fieldset>
@@ -23,8 +21,6 @@ Managed by @Html.DisplayFor(m => m.Family.Owner.Name)
                     <th>
                         Relationship
                     </th>
-                    <th>
-                    </th>
                 </tr>
                 @foreach (var member in Model.FamilyMembers)
                 {
@@ -33,13 +29,10 @@ Managed by @Html.DisplayFor(m => m.Family.Owner.Name)
                             @Html.DisplayFor(_ => member.User.ProfilePicture)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => member.User.Name)
+                            @Html.ActionLink(member.User.Name.Full, "Details", "User", new { id = member.User.Id }, null)
                         </td>
                         <td>
                             @Html.DisplayFor(m => member.Relationship)
-                        </td>
-                        <td>
-                            @Html.ActionLink("View", "Details", "User", new { id = member.User.Id }, null)
                         </td>
                     </tr>
                 }
@@ -57,8 +50,6 @@ Managed by @Html.DisplayFor(m => m.Family.Owner.Name)
                         <th>
                             Name
                         </th>
-                        <th>
-                        </th>
                     </tr>
                     @foreach (var member in Model.Kids)
                     {
@@ -67,10 +58,7 @@ Managed by @Html.DisplayFor(m => m.Family.Owner.Name)
                                 @Html.DisplayFor(_ => member.User.ProfilePicture)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => member.User.Name)
-                            </td>
-                            <td>
-                                @Html.ActionLink("View", "Details", "User", new { id = member.User.Id }, null)
+                                @Html.ActionLink(member.User.Name.Full, "Details", "User", new { id = member.User.Id }, null)
                             </td>
                         </tr>
                     }
@@ -81,6 +69,7 @@ Managed by @Html.DisplayFor(m => m.Family.Owner.Name)
     </tr>
 </table>
 
+<div>Managed by @Html.DisplayFor(m => m.Family.Owner.Name)</div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.Family.Id }) |
     @Html.ActionLink("Back to List", "Index")
