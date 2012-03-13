@@ -32,3 +32,4 @@ _ReSharper*/
 *.ldf
 #ignore user context files
 KidSteps/KidSteps/UserContent/*
+KidSteps/KidSteps/user.config
