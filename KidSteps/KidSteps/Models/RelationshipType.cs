@@ -16,6 +16,6 @@ namespace KidSteps.Models
         Uncle,
         Cousin,
         Self,
-        FamilyMember
+        None
     }
 }

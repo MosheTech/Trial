@@ -1,0 +1,30 @@
+﻿@model KidSteps.ViewModels.InvitationIndexViewModel
+@{
+    ViewBag.Title = "Index";
+}
+<h2>
+    Invitations</h2>
+<div>
+    Public Viewer: @Model.PublicViewer.Id
+</div>
+
+<table>
+    <tr>
+        <th>
+            Unregistered Family Member
+        </th>
+        <th>
+        </th>
+    </tr>
+    @foreach (var member in Model.UnregisteredUsers)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(_ => member.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Generate invitation code", "Generate", "Invitation", new { id = member.Id }, null)
+            </td>
+        </tr>
+    }
+</table>

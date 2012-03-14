@@ -37,7 +37,7 @@ namespace KidSteps.Controllers
             Family family = db.Families.Find(id);
             model.Family = family;
             var allMembers = family.Members.AsQueryable().Include("User").ToList();
-            model.FamilyMembers = allMembers.Where(fm => fm.Relationship != RelationshipType.Self);
+            model.FamilyMembers = allMembers.Where(fm => fm.Relationship != RelationshipType.Self && fm.Relationship != RelationshipType.None);
             model.Kids = allMembers.Where(fm => fm.Relationship == RelationshipType.Self);
 
             return View(model);

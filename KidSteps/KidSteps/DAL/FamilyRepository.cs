@@ -48,6 +48,13 @@ namespace KidSteps.DAL
                 relationshipOfOwnerToKid,
                 setAsUsersDefaultFamily: true);
 
+            // add public viewer
+            AddUnregisteredMember(
+                context, 
+                family, 
+                new PersonName() {First = "Public", Last = "Viewer"},
+                RelationshipType.None);
+
             return family;
         }
 

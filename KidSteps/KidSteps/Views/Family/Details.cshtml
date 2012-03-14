@@ -19,7 +19,7 @@
                         Name
                     </th>
                     <th>
-                        Relationship
+                        Relationship to Kids
                     </th>
                 </tr>
                 @foreach (var member in Model.FamilyMembers)
@@ -29,7 +29,15 @@
                             @Html.DisplayFor(_ => member.User.ProfilePicture)
                         </td>
                         <td>
-                            @Html.ActionLink(member.User.Name.Full, "Details", "User", new { id = member.User.Id }, null)
+                            <div>
+                                @Html.ActionLink(member.User.Name.Full, "Details", "User", new { id = member.User.Id }, null)
+                            </div>
+                            @if (!member.User.HasAccount)
+                            {
+                                <div>
+                                    @Html.ActionLink("Invite", "Index", "Invitation")
+                                </div>
+                            }
                         </td>
                         <td>
                             @Html.DisplayFor(m => member.Relationship)
