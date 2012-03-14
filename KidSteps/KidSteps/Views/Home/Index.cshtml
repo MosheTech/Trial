@@ -45,32 +45,22 @@
 }
 else
 {
+    if (Model.UserDefaultFamily == null)
+    {
     <div>
-        My Families
-    </div>
-    
+        You aren't part of a family yet.</div>
     <div>
-        <table>
-            <tr>
-                <th>
-                    Name
-                </th>
-                <th>
-                </th>
-            </tr>
-            @foreach (var item in Model.UserFamilies)
-            {
-                <tr>
-                    <td>
-                        @item.Name
-                    </td>
-                    <td>
-                        @Html.ActionLink("Details", "Details", "Family", new { id = item.Id }, null)
-                    </td>
-                </tr>
-            }
-        </table>
-    </div>
-    <div>
-        @Html.ActionLink("Create new family", "Create", "Family")</div>
+        @Html.ActionLink("Start a family", "Create", "Family")</div>
+    }
+    else
+    {
+            <div>
+    <strong>@Model.UserDefaultFamily.Name Family</strong></div>
+        <div>
+    Kids: @Model.FamilyMembers.Count(fm => fm.Relationship == KidSteps.Models.RelationshipType.Self)</div>
+        <div>
+    Registered Members: @Model.FamilyMembers.Count(fm => fm.User.HasAccount)</div>
+        <div>
+    Unregistered Members: @Model.FamilyMembers.Count(fm => !fm.User.HasAccount)</div>
+    }
 }

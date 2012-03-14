@@ -4,7 +4,11 @@
         <li>@Html.ActionLink("Home", "Index", "Home")</li>
         @if (User.Identity.IsAuthenticated)
         {
-            <li>@Html.ActionLink("My Family", "Details", "Family", new { id = Model.DefaultFamily.Id }, null)</li>
+            if (Model.DefaultFamily != null)
+            {
+                <li>@Html.ActionLink("My Family", "Details", "Family", new { id = Model.DefaultFamily.Id }, null)</li>
+            }
+
             <li>@Html.ActionLink("My Pics", "Index", "Image")</li>
         }
     </ul>

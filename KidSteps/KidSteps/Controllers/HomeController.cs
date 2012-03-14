@@ -18,8 +18,12 @@ namespace KidSteps.Controllers
             {
                 viewModel.CurrentUser = GetCurrentUser();
                 viewModel.IsLoggedOn = true;
-                viewModel.UserFamilies =
-                    db.FamilyMembers.Where(fm => fm.User.Id == viewModel.CurrentUser.Id).Select(fm => fm.Family).Distinct();
+                viewModel.UserDefaultFamily = viewModel.CurrentUser.DefaultFamily;
+                if (viewModel.UserDefaultFamily != null)
+                {
+                    viewModel.FamilyMembers =
+                        db.FamilyMembers.Where(fm => fm.Family.Id == viewModel.UserDefaultFamily.Id).ToList();
+                }
 
                 ViewBag.Message = string.Format("Welcome {0}!", viewModel.CurrentUser.Name.First);
             }

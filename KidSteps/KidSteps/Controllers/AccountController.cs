@@ -88,7 +88,7 @@ namespace KidSteps.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
 
-                    return RedirectToAction("Edit", "User", new { id = user.Id });
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {

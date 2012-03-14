@@ -11,7 +11,9 @@ namespace KidSteps.ViewModels
         public bool IsLoggedOn { get; set; }
 
         public User CurrentUser { get; set; }
-        public IEnumerable<Family> UserFamilies { get; set; }
+
+        public Family UserDefaultFamily { get; set; }
+        public List<FamilyMember> FamilyMembers { get; set; }
 
         public LogOnModel LogOnModel { get; set; }
     }
