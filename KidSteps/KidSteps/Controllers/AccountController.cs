@@ -52,6 +52,18 @@ namespace KidSteps.Controllers
             return View(model);
         }
 
+        public ActionResult LogOn(string id)
+        {
+            // TODO: sanitize string
+
+            var user = db.Members.FirstOrDefault(m => m.Id == id);
+            if (user != null && !user.HasAccount)
+            {
+                FormsAuthentication.SetAuthCookie(id, createPersistentCookie: false); // remember me?
+            }
+            RedirectToAction("Index", "Home");
+        }
+
         //
         // GET: /Account/LogOff
 
