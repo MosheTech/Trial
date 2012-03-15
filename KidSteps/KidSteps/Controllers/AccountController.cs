@@ -61,7 +61,8 @@ namespace KidSteps.Controllers
             {
                 FormsAuthentication.SetAuthCookie(id, createPersistentCookie: false); // remember me?
             }
-            RedirectToAction("Index", "Home");
+
+            return RedirectToAction("Index", "Home");
         }
 
         //

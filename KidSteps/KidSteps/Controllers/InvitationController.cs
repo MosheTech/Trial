@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using KidSteps.ViewModels;
+using KidSteps.Models;
 
 namespace KidSteps.Controllers
 {
@@ -22,8 +23,12 @@ namespace KidSteps.Controllers
                 user.DefaultFamily.Members.ToList();
             model.UnregisteredUsers =
                 familyMembers.Where(fm => fm.Relationship != Models.RelationshipType.None && !fm.User.HasAccount).Select(fm => fm.User).ToList();
-            model.PublicViewer =
+            //model.PublicViewer =
+            User publicViewer = 
                 familyMembers.Single(fm => fm.Relationship == Models.RelationshipType.None).User;
+            string url = @"http://mykidsteps.com/account/logon/" + publicViewer.Id;
+            model.PublicViewerUrl = url;
+            
 
             return View(model);
         }
