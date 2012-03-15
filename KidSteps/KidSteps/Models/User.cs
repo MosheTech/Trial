@@ -20,6 +20,29 @@ namespace KidSteps.Models
 
         public bool HasAccount { get; set; }
 
+        public int RoleWrapper { get; set; }
+
+        public Role RoleFlags
+        {
+            get { return (Role) RoleWrapper; }
+            set { RoleWrapper = (int) value; }
+        }
+
+        public bool IsPublicViewer
+        {
+            get { return RoleFlags.HasFlag(Role.PublicViewer); }
+        }
+
+        public bool IsUnregisteredMember
+        {
+            get { return RoleFlags.HasFlag(Role.UnregisteredMember); }
+        }
+
+        public bool IsRegisteredMember
+        {
+            get { return RoleFlags.HasFlag(Role.RegisteredMember); }
+        }
+
         [Required]
         public virtual PersonName Name { get; set; }        
         public virtual Image ProfilePicture { get; set; }

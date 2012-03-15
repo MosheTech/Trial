@@ -7,6 +7,7 @@ using System.Web.Routing;
 using System.Web.Security;
 using KidSteps.Models;
 using KidSteps.DAL;
+using KidSteps.ViewModels;
 
 namespace KidSteps.Controllers
 {
@@ -52,7 +53,7 @@ namespace KidSteps.Controllers
             return View(model);
         }
 
-        public ActionResult LogOn(string id)
+        public ActionResult PublicViewerLogOn(string id)
         {
             // TODO: sanitize string
 
@@ -62,7 +63,12 @@ namespace KidSteps.Controllers
                 FormsAuthentication.SetAuthCookie(id, createPersistentCookie: false); // remember me?
             }
 
-            return RedirectToAction("Index", "Home");
+            var familyMembership = user.FamilyMemberships.First(fm => fm.Family.Id == user.DefaultFamily.Id);
+
+            if (familyMembership.Relationship == RelationshipType.None)
+                return RedirectToAction("Index", "Home");
+            else
+                return RedirectToAction("ConnectToAccount");
         }
 
         //
@@ -80,7 +86,18 @@ namespace KidSteps.Controllers
 
         public ActionResult Register()
         {
-            return View();
+            User currentUser = GetCurrentUser();
+
+            if (currentUser == null)
+                return View();
+
+            if (currentUser.IsPublicViewer)
+                return View();
+
+            RegisterModel model = new RegisterModel();
+            model.Name = currentUser.Name;
+
+            return View(model);
         }
 
         //
@@ -91,21 +108,36 @@ namespace KidSteps.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserRepository repos = new UserRepository();
-                MembershipCreateStatus createStatus;
+                User currentUser = GetCurrentUser();
 
-                // Attempt to register the user
-                User user = repos.Create(db, model.Name, model.Email, model.Password, Role.FamilyAdmin, out createStatus);
-
-                if (createStatus == MembershipCreateStatus.Success)
+                if (currentUser == null || !currentUser.IsUnregisteredMember)
                 {
-                    FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
+                    // register new user
 
-                    return RedirectToAction("Index", "Home");
+                    UserRepository repos = new UserRepository();
+                    MembershipCreateStatus createStatus;
+
+                    // Attempt to register the user
+                    User user = repos.Create(db, model.Name, model.Email, model.Password, Role.FamilyAdmin,
+                                             out createStatus);
+
+                    if (createStatus == MembershipCreateStatus.Success)
+                    {
+                        FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", ErrorCodeToString(createStatus));
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError("", ErrorCodeToString(createStatus));
+                    // register an unregistered family member
+
+                    MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
+                    changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
                 }
             }
 

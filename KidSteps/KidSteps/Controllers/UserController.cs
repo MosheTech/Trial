@@ -154,7 +154,7 @@ namespace KidSteps.Controllers
             {
                 MembershipCreateStatus _;
                 UserRepository userRepos = new UserRepository();
-                User kid = userRepos.CreateUnregisteredUser(db, model.Name, out _);
+                User kid = userRepos.CreateUnregisteredUser(db, model.Name, Role.UnregisteredMember, out _);
 
                 FamilyRepository familyRepos = new FamilyRepository();
                 Family family = db.Families.Find(model.FamilyId);
@@ -188,7 +188,7 @@ namespace KidSteps.Controllers
             {
                 MembershipCreateStatus _;
                 UserRepository userRepos = new UserRepository();
-                User member = userRepos.CreateUnregisteredUser(db, model.Name, out _);
+                User member = userRepos.CreateUnregisteredUser(db, model.Name, Role.UnregisteredMember, out _);
 
                 FamilyRepository familyRepos = new FamilyRepository();
                 Family family = db.Families.Find(model.FamilyId);

@@ -61,6 +61,6 @@ else
         <div>
     Registered Members: @Model.FamilyMembers.Count(fm => fm.User.HasAccount)</div>
         <div>
-    Unregistered Members: @Model.FamilyMembers.Count(fm => !fm.User.HasAccount)</div>
+    Unregistered Members: @(Model.FamilyMembers.Count(fm => !fm.User.HasAccount) - 1)</div>
     }
 }

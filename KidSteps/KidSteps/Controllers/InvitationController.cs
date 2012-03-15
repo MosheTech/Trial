@@ -23,19 +23,15 @@ namespace KidSteps.Controllers
                 user.DefaultFamily.Members.ToList();
             model.UnregisteredUsers =
                 familyMembers.Where(fm => fm.Relationship != Models.RelationshipType.None && !fm.User.HasAccount).Select(fm => fm.User).ToList();
-            //model.PublicViewer =
+
+            model.Inviter = user;
+
             User publicViewer = 
                 familyMembers.Single(fm => fm.Relationship == Models.RelationshipType.None).User;
-            string url = @"http://mykidsteps.com/account/logon/" + publicViewer.Id;
+            string url = Url.Action("PublicViewerLogon", "Account", new {id = publicViewer.Id}, Request.Url.Scheme);
             model.PublicViewerUrl = url;
-            
 
             return View(model);
-        }
-
-        public ActionResult Generate(string id)
-        {
-            return View();
         }
     }
 }

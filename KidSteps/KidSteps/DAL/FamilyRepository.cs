@@ -38,7 +38,7 @@ namespace KidSteps.DAL
             context.SaveChanges();
 
             // add kid
-            AddUnregisteredMember(context, family, kidName, RelationshipType.Self);
+            AddUnregisteredMember(context, family, kidName, true, RelationshipType.Self);
 
             // add owner
             AddMember(
@@ -53,6 +53,7 @@ namespace KidSteps.DAL
                 context, 
                 family, 
                 new PersonName() {First = "Public", Last = "Viewer"},
+                false, // not member of family
                 RelationshipType.None);
 
             return family;
@@ -66,7 +67,7 @@ namespace KidSteps.DAL
             RelationshipType relationshipToKid)
         {
             PersonName name = new PersonName() {First = firstName, Last = lastName};
-            return AddUnregisteredMember(context, family, name, relationshipToKid);
+            return AddUnregisteredMember(context, family, name, true, relationshipToKid);
         }
 
         public FamilyMember AddUnregisteredMember(
@@ -78,7 +79,7 @@ namespace KidSteps.DAL
             UserRepository userRepos =
                 new UserRepository();
             MembershipCreateStatus _;
-            User newUser = userRepos.CreateUnregisteredUser(context, name, out _);
+            User newUser = userRepos.CreateUnregisteredUser(context, name, Role.UnregisteredMember, out _);
 
             return AddMember(context, family, newUser, relationshipToKid, setAsUsersDefaultFamily: true);
         }
@@ -94,7 +95,7 @@ namespace KidSteps.DAL
             FamilyMember membership = new FamilyMember()
             {
                 Family = family,
-                Role = Models.Role.UnregisteredFamilyMember,
+                Role = Models.Role.UnregisteredMember,
                 User = memberToAdd,
                 Relationship = relationshipToKid
             };
@@ -107,6 +108,23 @@ namespace KidSteps.DAL
             context.SaveChanges();
 
             return membership;
+        }
+
+        private FamilyMember AddUnregisteredMember(
+            KidStepsContext context,
+            Family family,
+            PersonName name,
+            bool isMemberOfFamily,
+            RelationshipType relationshipToKid)
+        {
+            Role role = isMemberOfFamily ? Role.UnregisteredMember : Role.PublicViewer;
+
+            UserRepository userRepos =
+                new UserRepository();
+            MembershipCreateStatus _;
+            User newUser = userRepos.CreateUnregisteredUser(context, name, role, out _);
+
+            return AddMember(context, family, newUser, relationshipToKid, setAsUsersDefaultFamily: true);
         }
     }
 }

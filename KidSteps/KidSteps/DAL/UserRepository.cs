@@ -38,6 +38,7 @@ namespace KidSteps.DAL
                 user.Id = email;
                 user.Name = name;
                 user.HasAccount = true;
+                user.RoleFlags = role;
                 try
                 {
                     dbContext.SaveChanges();
@@ -54,13 +55,13 @@ namespace KidSteps.DAL
             return null;
         }
 
-        public User CreateUnregisteredUser(KidStepsContext dbContext, string firstName, string lastName, out MembershipCreateStatus status)
+        public User CreateUnregisteredUser(KidStepsContext dbContext, string firstName, string lastName, Role role, out MembershipCreateStatus status)
         {
             PersonName name = new PersonName() {First = firstName, Last = lastName};
-            return CreateUnregisteredUser(dbContext, name, out status);
+            return CreateUnregisteredUser(dbContext, name, role, out status);
         }
 
-        public User CreateUnregisteredUser(KidStepsContext dbContext, PersonName name, out MembershipCreateStatus status)
+        public User CreateUnregisteredUser(KidStepsContext dbContext, PersonName name, Role role, out MembershipCreateStatus status)
         {
             string password = Membership.GeneratePassword(30, 3);
             string email = Guid.NewGuid().ToString();
@@ -78,10 +79,11 @@ namespace KidSteps.DAL
                 user.Id = email;
                 user.Name = name;
                 user.HasAccount = false;
+                user.RoleFlags = role;
                 try
                 {
                     dbContext.SaveChanges();
-                    Roles.AddUserToRole(user.Id, Role.UnregisteredFamilyMember.ToString());
+                    Roles.AddUserToRole(user.Id, role.ToString());
                     return user;
                 }
                 catch
@@ -92,7 +94,12 @@ namespace KidSteps.DAL
             }
 
             return null;
-            
+        }
+
+        public void ChangePassword(KidStepsContext dbContext, IPrincipal aspMembership)
+        {
+            MembershipUser
+            //Membership.UpdateUser(aspMembership.Identity);
         }
     }
 }

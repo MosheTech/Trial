@@ -1,11 +1,14 @@
 ﻿@model KidSteps.ViewModels.InvitationIndexViewModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Invitations";
 }
 <h2>
     Invitations</h2>
 <div>
-    Public Viewer: @Model.PublicViewerUrl
+    Public Viewer: @Model.PublicViewerUrl 
+    <a href="mailto:?subject=You're invited to see my family on MyKidSteps.com!&body=@Model.Inviter.Name.Full wants to show you a family on MyKidSteps.com.  Follow this link to see it. @Model.PublicViewerUrl">
+        Email this link
+    </a>
 </div>
 
 <table>
@@ -23,7 +26,9 @@
                 @Html.DisplayFor(_ => member.Name)
             </td>
             <td>
-                @Html.ActionLink("Generate invitation code", "Generate", "Invitation", new { id = member.Id }, null)
+    <a href="mailto:?subject=@member.Name.Full, come join my family on MyKidSteps.com!&body=@Model.Inviter.Name.Full wants you to join @member.DefaultFamily.Name family on MyKidSteps.com.  Follow this link accept the invitation and set up your account. @Model.PublicViewerUrl">
+        Invite
+    </a>
             </td>
         </tr>
     }
