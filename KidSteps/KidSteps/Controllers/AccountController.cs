@@ -109,13 +109,13 @@ namespace KidSteps.Controllers
             if (ModelState.IsValid)
             {
                 User currentUser = GetCurrentUser();
+                UserRepository repos = new UserRepository();
+                MembershipCreateStatus createStatus;
 
                 if (currentUser == null || !currentUser.IsUnregisteredMember)
                 {
                     // register new user
 
-                    UserRepository repos = new UserRepository();
-                    MembershipCreateStatus createStatus;
 
                     // Attempt to register the user
                     User user = repos.Create(db, model.Name, model.Email, model.Password, Role.FamilyAdmin,
@@ -136,8 +136,18 @@ namespace KidSteps.Controllers
                 {
                     // register an unregistered family member
 
-                    MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
-                    changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
+                    createStatus = repos.CreateAccountForUser(db, currentUser, model.Email, model.Password);
+
+                    if (createStatus == MembershipCreateStatus.Success)
+                    {
+                        FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", ErrorCodeToString(createStatus));
+                    }
+
                 }
             }
 

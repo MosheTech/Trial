@@ -152,13 +152,18 @@ namespace KidSteps.Controllers
         {
             if (ModelState.IsValid)
             {
-                MembershipCreateStatus _;
-                UserRepository userRepos = new UserRepository();
-                User kid = userRepos.CreateUnregisteredUser(db, model.Name, Role.UnregisteredMember, out _);
+                Family family = GetCurrentUser().DefaultFamily;
 
-                FamilyRepository familyRepos = new FamilyRepository();
-                Family family = db.Families.Find(model.FamilyId);
-                familyRepos.AddMember(db, family, kid, RelationshipType.Self, setAsUsersDefaultFamily: true);
+                FamilyRepository repos = new FamilyRepository();
+                repos.AddUnregisteredMember(db, family, model.Name, RelationshipType.Self);
+
+                //MembershipCreateStatus _;
+                //UserRepository userRepos = new UserRepository();
+                //User kid = userRepos.CreatePublicViewer(db, model.Name, Role.UnregisteredMember, out _);
+
+                //FamilyRepository familyRepos = new FamilyRepository();
+                //Family family = db.Families.Find(model.FamilyId);
+                //familyRepos.AddMember(db, family, kid, RelationshipType.Self, setAsUsersDefaultFamily: true);
 
                 return RedirectToAction("Details", "Family", new { id = model.FamilyId });
             }
@@ -186,13 +191,18 @@ namespace KidSteps.Controllers
         {
             if (ModelState.IsValid)
             {
-                MembershipCreateStatus _;
-                UserRepository userRepos = new UserRepository();
-                User member = userRepos.CreateUnregisteredUser(db, model.Name, Role.UnregisteredMember, out _);
+                Family family = GetCurrentUser().DefaultFamily;
 
-                FamilyRepository familyRepos = new FamilyRepository();
-                Family family = db.Families.Find(model.FamilyId);
-                familyRepos.AddMember(db, family, member, model.Relationship, setAsUsersDefaultFamily: true);
+                FamilyRepository repos = new FamilyRepository();
+                repos.AddUnregisteredMember(db, family, model.Name, model.Relationship);
+
+                //MembershipCreateStatus _;
+                //UserRepository userRepos = new UserRepository();
+                //User member = userRepos.CreatePublicViewer(db, model.Name, Role.UnregisteredMember, out _);
+
+                //FamilyRepository familyRepos = new FamilyRepository();
+                //Family family = db.Families.Find(model.FamilyId);
+                //familyRepos.AddMember(db, family, member, model.Relationship, setAsUsersDefaultFamily: true);
 
                 return RedirectToAction("Details", "Family", new { id = model.FamilyId });
             }

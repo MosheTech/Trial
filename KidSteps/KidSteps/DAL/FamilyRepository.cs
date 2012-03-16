@@ -49,12 +49,10 @@ namespace KidSteps.DAL
                 setAsUsersDefaultFamily: true);
 
             // add public viewer
-            AddUnregisteredMember(
-                context, 
-                family, 
-                new PersonName() {First = "Public", Last = "Viewer"},
-                false, // not member of family
-                RelationshipType.None);
+            UserRepository userRepos = new UserRepository();
+            MembershipCreateStatus _;
+            User publicViewer = userRepos.CreatePublicViewer(context, out _);
+            AddMember(context, family, publicViewer, RelationshipType.None, setAsUsersDefaultFamily: true);
 
             return family;
         }
@@ -78,8 +76,7 @@ namespace KidSteps.DAL
         {
             UserRepository userRepos =
                 new UserRepository();
-            MembershipCreateStatus _;
-            User newUser = userRepos.CreateUnregisteredUser(context, name, Role.UnregisteredMember, out _);
+            User newUser = userRepos.CreateUserWithoutAccount(context, name);
 
             return AddMember(context, family, newUser, relationshipToKid, setAsUsersDefaultFamily: true);
         }
@@ -121,8 +118,7 @@ namespace KidSteps.DAL
 
             UserRepository userRepos =
                 new UserRepository();
-            MembershipCreateStatus _;
-            User newUser = userRepos.CreateUnregisteredUser(context, name, role, out _);
+            User newUser = userRepos.CreateUserWithoutAccount(context, name);
 
             return AddMember(context, family, newUser, relationshipToKid, setAsUsersDefaultFamily: true);
         }

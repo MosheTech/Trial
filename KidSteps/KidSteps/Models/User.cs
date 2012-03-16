@@ -47,6 +47,7 @@ namespace KidSteps.Models
         public virtual PersonName Name { get; set; }        
         public virtual Image ProfilePicture { get; set; }
         public virtual string Bio { get; set; }
+        public virtual string InvitationCode { get; set; }
 
         public virtual Family DefaultFamily { get; set; }
 

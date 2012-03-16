@@ -36,6 +36,7 @@ namespace KidSteps.DAL
             // add family members
             familyRepos.AddMember(context, starkman, moshe, RelationshipType.Father, true);
             familyRepos.AddUnregisteredMember(context, friedman, "Shalom", "Friedman", RelationshipType.Self);
+            familyRepos.AddUnregisteredMember(context, friedman, "Yael", "Friedman", RelationshipType.Mother);
         }
     }
 }
