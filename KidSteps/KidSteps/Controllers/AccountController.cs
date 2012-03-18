@@ -53,6 +53,8 @@ namespace KidSteps.Controllers
             return View(model);
         }
 
+
+
         public ActionResult PublicViewerLogOn(string id)
         {
             // TODO: sanitize string
@@ -84,18 +86,20 @@ namespace KidSteps.Controllers
         //
         // GET: /Account/Register
 
-        public ActionResult Register()
+        public ActionResult Register(string invitationCode)
         {
-            User currentUser = GetCurrentUser();
-
-            if (currentUser == null)
-                return View();
-
-            if (currentUser.IsPublicViewer)
-                return View();
-
             RegisterModel model = new RegisterModel();
-            model.Name = currentUser.Name;
+
+            if (!string.IsNullOrEmpty(invitationCode))
+            {
+                UserRepository repos = new UserRepository();
+                User user = db.Members.Find(invitationCode);
+                if (user != null && user.IsUnregisteredMember)
+                {
+                    model.Name = user.Name;
+                    model.InvitationCode = invitationCode;
+                }
+            }           
 
             return View(model);
         }
@@ -108,14 +112,14 @@ namespace KidSteps.Controllers
         {
             if (ModelState.IsValid)
             {
-                User currentUser = GetCurrentUser();
+
                 UserRepository repos = new UserRepository();
                 MembershipCreateStatus createStatus;
 
-                if (currentUser == null || !currentUser.IsUnregisteredMember)
+                if (string.IsNullOrEmpty(model.InvitationCode))
                 {
+                    User currentUser = GetCurrentUser();
                     // register new user
-
 
                     // Attempt to register the user
                     User user = repos.Create(db, model.Name, model.Email, model.Password, Role.FamilyAdmin,
@@ -135,19 +139,22 @@ namespace KidSteps.Controllers
                 else
                 {
                     // register an unregistered family member
+                    User user = db.Members.Find(model.InvitationCode);
 
-                    createStatus = repos.CreateAccountForUser(db, currentUser, model.Email, model.Password);
-
-                    if (createStatus == MembershipCreateStatus.Success)
+                    if (user.IsUnregisteredMember)
                     {
-                        FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", ErrorCodeToString(createStatus));
-                    }
+                        createStatus = repos.CreateAccountForUser(db, user, model.Email, model.Password);
 
+                        if (createStatus == MembershipCreateStatus.Success)
+                        {
+                            FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", ErrorCodeToString(createStatus));
+                        }
+                    }
                 }
             }
 

@@ -23,12 +23,13 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(_ => member.Name)
+                @Html.DisplayFor(_ => member.Item1.Name)
             </td>
             <td>
-    <a href="mailto:?subject=@member.Name.Full, come join my family on MyKidSteps.com!&body=@Model.Inviter.Name.Full wants you to join @member.DefaultFamily.Name family on MyKidSteps.com.  Follow this link accept the invitation and set up your account. @Model.PublicViewerUrl">
+    <a href="mailto:?subject=@member.Item1.Name.Full, come join my family on MyKidSteps.com!&body=@Model.Inviter.Name.Full wants you to join @member.Item1.DefaultFamily.Name family on MyKidSteps.com.  Follow this link accept the invitation and set up your account. @member.Item2">
         Invite
     </a>
+     <a href="@member.Item2">thingy</a>
             </td>
         </tr>
     }

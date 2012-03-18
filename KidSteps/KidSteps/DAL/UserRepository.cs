@@ -105,7 +105,7 @@ namespace KidSteps.DAL
                 user.HasAccount = true;
                 user.RoleFlags = role;
                 try
-                {
+                {                    
                     dbContext.SaveChanges();
                     Roles.AddUserToRole(user.Id, role.ToString());
                     return user;

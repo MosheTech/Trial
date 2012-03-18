@@ -8,7 +8,7 @@ namespace KidSteps.ViewModels
 {
     public class InvitationIndexViewModel
     {
-        public List<User> UnregisteredUsers { get; set; }
+        public List<Tuple<User, string>> UnregisteredUsers { get; set; }
         public string PublicViewerUrl { get; set; }
         public User Inviter { get; set; }
     }
