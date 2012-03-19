@@ -10,7 +10,7 @@ using System.Web.Security;
 
 namespace KidSteps.DAL
 {
-    public class Initializer : DropCreateDatabaseIfModelChanges<KidStepsContext>
+    public class Initializer : DropCreateDatabaseAlways<KidStepsContext>
     {
         protected override void Seed(KidStepsContext context)
         {
@@ -21,6 +21,8 @@ namespace KidSteps.DAL
                 WebConfigurationManager.ConnectionStrings["KidStepsContext"].ConnectionString);
             foreach (Models.Role role in Enum.GetValues(typeof(Models.Role)))
                 Roles.CreateRole(role.ToString());
+
+            // todo: unique constraint for email
 
             // create admin and example users
             UserRepository userRepos = new UserRepository();

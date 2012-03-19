@@ -79,7 +79,7 @@ namespace KidSteps.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!VerifyCurrentUser(user.Id))
+                if (!VerifyCurrentUser(user.Id.ToString()))
                     throw new Exception();
 
                 db.Entry(user).State = EntityState.Modified;

@@ -43,9 +43,11 @@ namespace KidSteps.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (Membership.ValidateUser(model.LogOnModel.Email, model.LogOnModel.Password))
+                User u = db.Members.FirstOrDefault(m => m.Email == model.LogOnModel.Email);
+
+                if (u != null && Membership.ValidateUser(u.Id.ToString(), model.LogOnModel.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(model.LogOnModel.Email, model.LogOnModel.RememberMe);
+                    FormsAuthentication.SetAuthCookie(u.Id.ToString(), model.LogOnModel.RememberMe);
                     return RedirectToAction("Index");
                 }
                 else

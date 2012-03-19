@@ -55,14 +55,14 @@ namespace KidSteps.Controllers
 
 
 
-        public ActionResult PublicViewerLogOn(string id)
+        public ActionResult PublicViewerLogOn(string invitationCode)
         {
             // TODO: sanitize string
 
-            var user = db.Members.FirstOrDefault(m => m.Id == id);
-            if (user != null && !user.HasAccount)
+            var user = db.Members.FirstOrDefault(m => m.InvitationCode == invitationCode);
+            if (user != null && user.IsPublicViewer)
             {
-                FormsAuthentication.SetAuthCookie(id, createPersistentCookie: false); // remember me?
+                FormsAuthentication.SetAuthCookie(user.Id.ToString(), createPersistentCookie: false); // remember me?
             }
 
             var familyMembership = user.FamilyMemberships.First(fm => fm.Family.Id == user.DefaultFamily.Id);
@@ -93,7 +93,7 @@ namespace KidSteps.Controllers
             if (!string.IsNullOrEmpty(invitationCode))
             {
                 UserRepository repos = new UserRepository();
-                User user = db.Members.Find(invitationCode);
+                User user = db.Members.FirstOrDefault(m => m.InvitationCode == invitationCode);
                 if (user != null && user.IsUnregisteredMember)
                 {
                     model.Name = user.Name;
@@ -139,15 +139,15 @@ namespace KidSteps.Controllers
                 else
                 {
                     // register an unregistered family member
-                    User user = db.Members.Find(model.InvitationCode);
+                    User user = db.Members.FirstOrDefault(u => u.InvitationCode == model.InvitationCode);
 
-                    if (user.IsUnregisteredMember)
+                    if (user != null && user.IsUnregisteredMember)
                     {
                         createStatus = repos.CreateAccountForUser(db, user, model.Email, model.Password);
 
                         if (createStatus == MembershipCreateStatus.Success)
                         {
-                            FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
+                            FormsAuthentication.SetAuthCookie(user.Id.ToString(), model.RememberMe);
                             return RedirectToAction("Index", "Home");
                         }
                         else

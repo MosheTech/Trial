@@ -12,7 +12,7 @@
     </div>
 </fieldset>
 <p>
-    @if(Model.Id == User.Identity.Name)
+    @if(Model.Id.ToString() == User.Identity.Name)
     {
         @Html.ActionLink("Edit", "Edit", new {id = Model.Id}) @:|
     }

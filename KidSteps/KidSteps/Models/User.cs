@@ -16,7 +16,11 @@ namespace KidSteps.Models
             Bio = string.Empty;
         }
 
-        public virtual string Id { get; set; }
+        public virtual int Id { get; set; }
+
+        [Required]
+        [MaxLength(128)]
+        public string Email { get; set; }
 
         public bool HasAccount { get; set; }
 

@@ -30,14 +30,14 @@ namespace KidSteps.Controllers
                 model.UnregisteredUsers.Add(
                     Tuple.Create(
                         unregisteredUser, 
-                        Url.Action("Register", "Account", new { invitationCode = unregisteredUser.Id }, Request.Url.Scheme)));
+                        Url.Action("Register", "Account", new { invitationCode = unregisteredUser.InvitationCode }, Request.Url.Scheme)));
             }
 
             model.Inviter = user;
 
             User publicViewer = 
                 familyMembers.Single(fm => fm.Relationship == Models.RelationshipType.None).User;
-            string url = Url.Action("PublicViewerLogon", "Account", new {id = publicViewer.Id}, Request.Url.Scheme);
+            string url = Url.Action("PublicViewerLogon", "Account", new {invitationCode = publicViewer.InvitationCode}, Request.Url.Scheme);
             model.PublicViewerUrl = url;
 
             return View(model);

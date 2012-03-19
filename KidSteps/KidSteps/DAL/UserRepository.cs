@@ -12,7 +12,11 @@ namespace KidSteps.DAL
     {
         public User FindByMembership(KidStepsContext dbContext, IPrincipal membershipUser)
         {
-            var user = dbContext.Members.Find(membershipUser.Identity.Name);
+            int id;
+            bool hasId = int.TryParse(membershipUser.Identity.Name, out id);
+            User user = null;
+            if (hasId)
+                user = dbContext.Members.Find(id);
             return user;
         }
         
@@ -66,7 +70,7 @@ namespace KidSteps.DAL
 
             User user = new User();
             dbContext.Members.Add(user);
-            user.Id = email;
+            user.Email = email;
             user.Name = name;
             user.HasAccount = false;
             user.RoleFlags = Role.UnregisteredMember;
@@ -77,47 +81,75 @@ namespace KidSteps.DAL
 
         public User CreatePublicViewer(KidStepsContext dbContext, out MembershipCreateStatus status)
         {
-            string id = Guid.NewGuid().ToString();
+            string email = Guid.NewGuid().ToString();
             string password = Membership.GeneratePassword(20, 3);
 
             return
-                Create(dbContext, "Public", "Viewer", id, password, Role.PublicViewer, out status);
+                Create(dbContext, "Public", "Viewer", email, password, Role.PublicViewer, out status);
         }
 
         private User Create(KidStepsContext dbContext, User existingUser, PersonName name, string email, string password, Role role, out MembershipCreateStatus status)
         {
+            User user = existingUser;
+            if (user == null)
+            {
+                user = new User();
+                dbContext.Members.Add(user);
+            }
+            user.Email = email;
+            user.Name = name;
+            user.InvitationCode = Guid.NewGuid().ToString();
+            if (role == Role.PublicViewer)
+                user.HasAccount = false;
+            else
+                user.HasAccount = true;
+            user.RoleFlags = role;
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch
+            {
+            }
+
+
+
+
             // Attempt to register the user
             MembershipCreateStatus createStatus;
-            Membership.CreateUser(email, password, email, null, null, true, null, out createStatus);
+            Membership.CreateUser(user.Id.ToString(), password, email, null, null, true, null, out createStatus);
+            Roles.AddUserToRole(user.Id.ToString(), role.ToString());
 
             status = createStatus;
 
-            if (createStatus == MembershipCreateStatus.Success)
-            {
-                User user = existingUser;
-                if (user == null)
-                {
-                    user = new User();
-                    dbContext.Members.Add(user);
-                }
-                user.Id = email;
-                user.Name = name;
-                user.HasAccount = true;
-                user.RoleFlags = role;
-                try
-                {                    
-                    dbContext.SaveChanges();
-                    Roles.AddUserToRole(user.Id, role.ToString());
-                    return user;
-                }
-                catch
-                {
-                    Membership.DeleteUser(email, true);
-                    throw;
-                }
-            }
+            return user;
 
-            return null;
+            //if (createStatus == MembershipCreateStatus.Success)
+            //{
+            //    User user = existingUser;
+            //    if (user == null)
+            //    {
+            //        user = new User();
+            //        dbContext.Members.Add(user);
+            //    }
+            //    user.Id = email;
+            //    user.Name = name;
+            //    user.HasAccount = true;
+            //    user.RoleFlags = role;
+            //    try
+            //    {                    
+            //        dbContext.SaveChanges();
+            //        Roles.AddUserToRole(user.Id, role.ToString());
+            //        return user;
+            //    }
+            //    catch
+            //    {
+            //        Membership.DeleteUser(email, true);
+            //        throw;
+            //    }
+            //}
+
+            //return null;
         }
     }
 }
