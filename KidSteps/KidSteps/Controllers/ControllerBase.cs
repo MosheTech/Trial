@@ -11,9 +11,9 @@ namespace KidSteps.Controllers
 {
     public abstract class ControllerBase : Controller
     {
-        protected bool VerifyCurrentUser(string id)
+        protected bool VerifyCurrentUser(int id)
         {
-            return User.Identity.Name == id;
+            return User.Identity.Name == id.ToString();
         }
 
         protected User GetCurrentUser()

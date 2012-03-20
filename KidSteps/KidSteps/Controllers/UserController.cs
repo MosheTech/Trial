@@ -28,7 +28,7 @@ namespace KidSteps.Controllers
         // GET: /User/Details/5
 
         [Authorize]
-        public ViewResult Details(string id)
+        public ViewResult Details(int id)
         {
             User user = db.Members.Find(id);
             return View(user);
@@ -62,7 +62,7 @@ namespace KidSteps.Controllers
         // GET: /User/Edit/5
 
         [Authorize]
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int id)
         {
             if (!VerifyCurrentUser(id))
                 throw new Exception();
@@ -79,7 +79,7 @@ namespace KidSteps.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!VerifyCurrentUser(user.Id.ToString()))
+                if (!VerifyCurrentUser(user.Id))
                     throw new Exception();
 
                 db.Entry(user).State = EntityState.Modified;

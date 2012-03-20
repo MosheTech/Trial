@@ -17,6 +17,11 @@ namespace KidSteps.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 viewModel.CurrentUser = GetCurrentUser();
+                if (viewModel.CurrentUser == null)
+                {
+                    viewModel.IsLoggedOn = false;
+                    return View(viewModel);
+                }
                 viewModel.IsLoggedOn = true;
                 viewModel.UserDefaultFamily = viewModel.CurrentUser.DefaultFamily;
                 if (viewModel.UserDefaultFamily != null)

@@ -118,7 +118,6 @@ namespace KidSteps.Controllers
 
                 if (string.IsNullOrEmpty(model.InvitationCode))
                 {
-                    User currentUser = GetCurrentUser();
                     // register new user
 
                     // Attempt to register the user
@@ -127,7 +126,7 @@ namespace KidSteps.Controllers
 
                     if (createStatus == MembershipCreateStatus.Success)
                     {
-                        FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
+                        FormsAuthentication.SetAuthCookie(user.Id.ToString(), model.RememberMe);
 
                         return RedirectToAction("Index", "Home");
                     }
