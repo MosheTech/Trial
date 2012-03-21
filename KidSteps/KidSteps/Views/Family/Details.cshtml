@@ -1,54 +1,51 @@
 ﻿@model KidSteps.ViewModels.FamilyDetailsViewModel
-
 @{
     ViewBag.Title = "Family";
 }
-
 <h2>@Model.Family.Name</h2>
-
-<table style="margin-bottom:4px">
+<table style="margin-bottom: 4px">
     <tr>
-        <td style="vertical-align:top;">
+        <td style="vertical-align: top;">
             <fieldset>
                 <legend>Family Members</legend>
                 <table>
-                <tr>
-                    <th>
-                    </th>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Relationship to Kids
-                    </th>
-                </tr>
-                @foreach (var member in Model.FamilyMembers)
-                {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(_ => member.User.ProfilePicture)
-                        </td>
-                        <td>
-                            <div>
-                                @Html.ActionLink(member.User.Name.Full, "Details", "User", new { id = member.User.Id }, null)
-                            </div>
-                            @if (!member.User.HasAccount)
-                            {
-                                <div>
-                                    @Html.ActionLink("Invite", "Index", "Invitation")
-                                </div>
-                            }
-                        </td>
-                        <td>
-                            @Html.DisplayFor(m => member.Relationship)
-                        </td>
+                        <th>
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Relationship to Kids
+                        </th>
                     </tr>
-                }
-            </table>
+                    @foreach (var member in Model.FamilyMembers)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(_ => member.User.ProfilePicture, new { Size = 50 })
+                            </td>
+                            <td>
+                                <div>
+                                    @Html.ActionLink(member.User.Name.Full, "Details", "User", new { id = member.User.Id }, null)
+                                </div>
+                                @if (!member.User.HasAccount)
+                                {
+                                    <div>
+                                        @Html.ActionLink("Invite", "Index", "Invitation")
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => member.Relationship)
+                            </td>
+                        </tr>
+                    }
+                </table>
                 @Html.ActionLink("Add Family Member", "CreateFamilyMember", "User", new { familyId = Model.Family.Id }, null)
             </fieldset>
         </td>
-        <td style="vertical-align:top;">
+        <td style="vertical-align: top;">
             <fieldset>
                 <legend>Kids</legend>
                 <table>
@@ -63,22 +60,29 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(_ => member.User.ProfilePicture)
+                                @Html.DisplayFor(_ => member.User.ProfilePicture, new { Size = 50 })
                             </td>
                             <td>
-                                @Html.ActionLink(member.User.Name.Full, "Details", "User", new { id = member.User.Id }, null)
+                                <div>
+                                    @Html.ActionLink(member.User.Name.Full, "Details", "User", new { id = member.User.Id }, null)</div>
+                                @if (!member.User.HasAccount)
+                                {
+                                    <div>
+                                        @Html.ActionLink("Invite", "Index", "Invitation")
+                                    </div>
+                                }
                             </td>
                         </tr>
                     }
                 </table>
-                @Html.ActionLink("Add Kid", "CreateKid", "User", new { familyId = Model.Family.Id }, null)
+                @Html.ActionLink("Add Kid", "CreateKid", "User")
             </fieldset>
         </td>
     </tr>
 </table>
-
-<div>Managed by @Html.DisplayFor(m => m.Family.Owner.Name)</div>
+<div>
+    Managed by @Html.DisplayFor(m => m.Family.Owner.Name)</div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Family.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Family.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

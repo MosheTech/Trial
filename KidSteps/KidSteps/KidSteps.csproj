@@ -144,6 +144,7 @@
     <Compile Include="ViewModels\InvitationIndexViewModel.cs" />
     <Compile Include="ViewModels\KidCreateViewModel.cs" />
     <Compile Include="ViewModels\LayoutMenuViewModel.cs" />
+    <Compile Include="ViewModels\UserEditViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Readme\glimpse.mvc3.readme.txt" />

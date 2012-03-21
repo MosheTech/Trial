@@ -30,7 +30,10 @@ namespace KidSteps.Controllers
                         db.FamilyMembers.Where(fm => fm.Family.Id == viewModel.UserDefaultFamily.Id).ToList();
                 }
 
-                ViewBag.Message = string.Format("Welcome {0}!", viewModel.CurrentUser.Name.First);
+                if (viewModel.CurrentUser.IsPublicViewer)
+                    ViewBag.Message = "Welcome!";
+                else
+                    ViewBag.Message = string.Format("Welcome {0}!", viewModel.CurrentUser.Name.First);
             }
             else
             {

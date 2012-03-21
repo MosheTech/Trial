@@ -110,7 +110,7 @@ namespace KidSteps.Controllers
         //
         // GET: /Family/Delete/5
  
-        public ActionResult Delete(string id)
+        public ActionResult Delete(long id)
         {
             Family family = db.Families.Find(id);
             return View(family);
@@ -120,7 +120,7 @@ namespace KidSteps.Controllers
         // POST: /Family/Delete/5
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(long id)
         {            
             Family family = db.Families.Find(id);
             db.Families.Remove(family);

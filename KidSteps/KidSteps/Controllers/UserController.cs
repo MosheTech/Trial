@@ -67,7 +67,13 @@ namespace KidSteps.Controllers
             if (!VerifyCurrentUser(id))
                 throw new Exception();
             User user = db.Members.Find(id);
-            return View(user);
+
+            UserEditViewModel model = new UserEditViewModel();
+            model.Name = user.Name;
+            model.Bio = user.Bio;
+            model.ProfilePicture = user.ProfilePicture;
+
+            return View(model);
         }
 
         //
@@ -75,18 +81,17 @@ namespace KidSteps.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Edit(User user)
+        public ActionResult Edit(UserEditViewModel model)
         {
             if (ModelState.IsValid)
             {
-                if (!VerifyCurrentUser(user.Id))
-                    throw new Exception();
-
-                db.Entry(user).State = EntityState.Modified;
+                User currentUser = GetCurrentUser();
+                currentUser.Bio = model.Bio;
+                currentUser.Name = model.Name;
                 db.SaveChanges();
-                return RedirectToAction("Details", new { id = user.Id });
+                return RedirectToAction("Details", new { id = currentUser.Id });
             }
-            return View(user);
+            return View(model);
         }
 
         [Authorize]
@@ -101,7 +106,7 @@ namespace KidSteps.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult ProfileImageEdit(string userId, long? imageId)
+        public ActionResult ProfileImageEdit(int userId, long? imageId)
         {
             var user = db.Members.Find(userId);
             Image image = null;
@@ -140,10 +145,12 @@ namespace KidSteps.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult CreateKid(long familyId)
+        public ActionResult CreateKid()
         {
+            User user = GetCurrentUser();
+
             KidCreateViewModel viewModel = new KidCreateViewModel();
-            viewModel.FamilyId = familyId;
+            viewModel.FamilyId = user.DefaultFamily.Id;
             return View(viewModel);
         }
 

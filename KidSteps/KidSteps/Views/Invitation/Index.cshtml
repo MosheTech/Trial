@@ -4,13 +4,6 @@
 }
 <h2>
     Invitations</h2>
-<div>
-    Public Viewer: @Model.PublicViewerUrl 
-    <a href="mailto:?subject=You're invited to see my family on MyKidSteps.com!&body=@Model.Inviter.Name.Full wants to show you a family on MyKidSteps.com.  Follow this link to see it. @Model.PublicViewerUrl">
-        Email this link
-    </a>
-</div>
-
 <table>
     <tr>
         <th>
@@ -26,10 +19,14 @@
                 @Html.DisplayFor(_ => member.Item1.Name)
             </td>
             <td>
-    <a href="mailto:?subject=@member.Item1.Name.Full, come join my family on MyKidSteps.com!&body=@Model.Inviter.Name.Full wants you to join @member.Item1.DefaultFamily.Name family on MyKidSteps.com.  Follow this link accept the invitation and set up your account. @member.Item2">
-        Invite
-    </a>&nbsp<a href="@member.Item2">(direct link)</a>
+                <a href="mailto:?subject=@member.Item1.Name.Full, come join our family on MyKidSteps.com!&body=@Model.Inviter.Name.Full wants you to join @member.Item1.DefaultFamily.Name family on MyKidSteps.com.  Follow this link accept the invitation and set up your account. @member.Item2">
+                    Invite </a>&nbsp<a href="@member.Item2">(direct link)</a>
             </td>
         </tr>
     }
 </table>
+<div>
+    Public Viewer: 
+    <a href="mailto:?subject=You're invited to see my family on MyKidSteps.com!&body=@Model.Inviter.Name.Full wants to show you a family on MyKidSteps.com.  Follow this link to see it. @Model.PublicViewerUrl">
+        Invite </a>&nbsp<a href="@Model.PublicViewerUrl">(direct link)</a>
+</div>

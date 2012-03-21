@@ -9,14 +9,20 @@ namespace KidSteps.DAL
 {
     public class FamilyRepository
     {
+        public Family CreateForUser(
+            KidStepsContext context,
+            User owner)
+        {
+            return Create(context, owner.Name.Last, owner, null, RelationshipType.Grandfather);
+        }
+
         public Family Create(
             KidStepsContext context, 
             string name, 
             User owner, 
             string kidFirstName,
             string kidLastName,
-            RelationshipType
-            relationshipOfOwnerToKid)
+            RelationshipType relationshipOfOwnerToKid)
         {
             PersonName kidName = new PersonName() { First = kidFirstName, Last = kidLastName };
             return Create(context, name, owner, kidName, relationshipOfOwnerToKid);
@@ -27,26 +33,30 @@ namespace KidSteps.DAL
             string name,
             User owner, 
             PersonName kidName,
-            RelationshipType
-            relationshipOfOwnerToKid)
+            RelationshipType relationshipOfOwnerToKid)
         {
             Family family = new Family();
             context.Families.Add(family);
             family.Name = name;
             family.Owner = owner;
 
+            owner.DefaultFamily = family;
+
             context.SaveChanges();
 
             // add kid
-            AddUnregisteredMember(context, family, kidName, true, RelationshipType.Self);
+            if (kidName != null)
+            {
+                AddUnregisteredMember(context, family, kidName, true, RelationshipType.Self);
 
-            // add owner
-            AddMember(
-                context,
-                family,
-                owner,
-                relationshipOfOwnerToKid,
-                setAsUsersDefaultFamily: true);
+                // add owner
+                AddMember(
+                    context,
+                    family,
+                    owner,
+                    relationshipOfOwnerToKid,
+                    setAsUsersDefaultFamily: true);
+            }
 
             // add public viewer
             UserRepository userRepos = new UserRepository();

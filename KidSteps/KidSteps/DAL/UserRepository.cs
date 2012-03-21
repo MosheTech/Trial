@@ -122,6 +122,13 @@ namespace KidSteps.DAL
 
             status = createStatus;
 
+            // if this was a brand new user, create a family for that user
+            if (existingUser == null && !user.IsPublicViewer)
+            {
+                FamilyRepository familyRepos = new FamilyRepository();
+                familyRepos.CreateForUser(dbContext, user);
+            }
+
             return user;
 
             //if (createStatus == MembershipCreateStatus.Success)
