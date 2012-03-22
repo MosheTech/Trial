@@ -65,12 +65,13 @@ namespace KidSteps.Controllers
                 FormsAuthentication.SetAuthCookie(user.Id.ToString(), createPersistentCookie: false); // remember me?
             }
 
-            var familyMembership = user.FamilyMemberships.First(fm => fm.Family.Id == user.DefaultFamily.Id);
+            return RedirectToAction("Index", "Home");
 
-            if (familyMembership.Relationship == RelationshipType.None)
-                return RedirectToAction("Index", "Home");
-            else
-                return RedirectToAction("ConnectToAccount");
+            //var familyMembership = user.FamilyMemberships.First(fm => fm.Family.Id == user.DefaultFamily.Id);
+
+            //if (familyMembership.Relationship == RelationshipType.None)
+            //else
+            //    return RedirectToAction("ConnectToAccount");
         }
 
         //

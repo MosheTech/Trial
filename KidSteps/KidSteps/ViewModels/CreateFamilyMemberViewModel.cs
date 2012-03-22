@@ -17,6 +17,6 @@ namespace KidSteps.ViewModels
         [Required]
         public RelationshipType Relationship { get; set; }
 
-        public List<SelectListItem> RelationshipsToChooseFrom { get; set; }
+        public IEnumerable<SelectListItem> RelationshipsToChooseFrom { get; set; }
     }
 }

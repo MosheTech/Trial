@@ -13,7 +13,7 @@ namespace KidSteps.DAL
             KidStepsContext context,
             User owner)
         {
-            return Create(context, owner.Name.Last, owner, null, RelationshipType.Grandfather);
+            return Create(context, owner.Name.Last, owner, null);
         }
 
         public Family Create(
@@ -33,7 +33,7 @@ namespace KidSteps.DAL
             string name,
             User owner, 
             PersonName kidName,
-            RelationshipType relationshipOfOwnerToKid)
+            RelationshipType relationshipOfOwnerToKid = RelationshipType.None)
         {
             Family family = new Family();
             context.Families.Add(family);
@@ -99,18 +99,45 @@ namespace KidSteps.DAL
             RelationshipType relationshipToKid,
             bool setAsUsersDefaultFamily)
         {
-            FamilyMember membership = new FamilyMember()
-            {
-                Family = family,
-                Role = Models.Role.UnregisteredMember,
-                User = memberToAdd,
-                Relationship = relationshipToKid
-            };
-
-            family.Members.Add(membership);
-
             if (setAsUsersDefaultFamily)
                 memberToAdd.DefaultFamily = family;
+
+            FamilyMember membership =
+                AddRelationship(context, memberToAdd, relationshipToKid);
+
+            //FamilyMember membership = new FamilyMember()
+            //{
+            //    Family = family,
+            //    Role = Models.Role.UnregisteredMember,
+            //    User = memberToAdd,
+            //    Relationship = relationshipToKid
+            //};
+
+            //family.Members.Add(membership);
+
+            //if (relationshipToKid == RelationshipType.Self)
+            //    family.HasKids = true;
+
+            return membership;
+        }
+
+        public FamilyMember AddRelationship(
+            KidStepsContext context,
+            User user,
+            RelationshipType relationship)
+        {
+            FamilyMember membership = new FamilyMember()
+            {
+                Family = user.DefaultFamily,
+                Role = Models.Role.UnregisteredMember,
+                User = user,
+                Relationship = relationship
+            };
+
+            user.DefaultFamily.Members.Add(membership);
+
+            if (relationship == RelationshipType.Self)
+                user.DefaultFamily.HasKids = true;
 
             context.SaveChanges();
 

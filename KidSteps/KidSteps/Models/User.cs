@@ -53,6 +53,7 @@ namespace KidSteps.Models
         public virtual string Bio { get; set; }
         public virtual string InvitationCode { get; set; }
 
+        public long? DefaultFamilyId { get; set; }
         public virtual Family DefaultFamily { get; set; }
 
         [InverseProperty("User")]

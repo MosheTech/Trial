@@ -16,6 +16,19 @@ namespace KidSteps.Controllers
     [Authorize]
     public class FamilyController : ControllerBase
     {
+        static FamilyController()
+        {
+            List<SelectListItem> familyRelationships = new List<SelectListItem>();
+            foreach (RelationshipType type in Enum.GetValues(typeof(RelationshipType)))
+            {
+                if (type == RelationshipType.Self)
+                    continue;
+                SelectListItem item = 
+                    new SelectListItem() { Text = type.ToString(), Value = ((int)type).ToString() };
+                familyRelationships.Add(item);
+            }
+            FamilyRelationships = familyRelationships;
+        }
 
         //
         // GET: /Family/
@@ -128,10 +141,6 @@ namespace KidSteps.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
+        public static IEnumerable<SelectListItem> FamilyRelationships;
     }
 }

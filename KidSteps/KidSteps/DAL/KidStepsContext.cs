@@ -19,6 +19,12 @@ namespace KidSteps.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            modelBuilder.Entity<User>().
+                HasOptional(u => u.DefaultFamily).WithMany().HasForeignKey(u => u.DefaultFamilyId);
+
+            modelBuilder.Entity<Family>().
+                HasRequired(f => f.Owner).WithMany().HasForeignKey(f => f.OwnerId);
         }
 
     }

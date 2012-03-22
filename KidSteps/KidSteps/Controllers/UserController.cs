@@ -151,6 +151,11 @@ namespace KidSteps.Controllers
 
             KidCreateViewModel viewModel = new KidCreateViewModel();
             viewModel.FamilyId = user.DefaultFamily.Id;
+
+            if (!user.DefaultFamily.HasKids)
+                viewModel.ShouldChooseRelationship = true;
+            viewModel.RelationshipsToChooseFrom = FamilyController.FamilyRelationships;
+
             return View(viewModel);
         }
 
@@ -159,10 +164,20 @@ namespace KidSteps.Controllers
         {
             if (ModelState.IsValid)
             {
-                Family family = GetCurrentUser().DefaultFamily;
+                User currentUser = GetCurrentUser();
+
+                Family family = currentUser.DefaultFamily;
 
                 FamilyRepository repos = new FamilyRepository();
+
+                if (!family.HasKids)
+                {
+                    repos.AddRelationship(db, currentUser, model.RelationshipOfOwnerToKid);
+                }
+
                 repos.AddUnregisteredMember(db, family, model.Name, RelationshipType.Self);
+
+
 
                 //MembershipCreateStatus _;
                 //UserRepository userRepos = new UserRepository();
@@ -182,14 +197,7 @@ namespace KidSteps.Controllers
         {
             CreateFamilyMemberViewModel viewModel = new CreateFamilyMemberViewModel();
             viewModel.FamilyId = familyId;
-            viewModel.RelationshipsToChooseFrom = new List<SelectListItem>();
-            foreach (RelationshipType type in Enum.GetValues(typeof(RelationshipType)))
-            {
-                if (type == RelationshipType.Self)
-                    continue;
-                SelectListItem item = new SelectListItem() { Text = type.ToString(), Value = ((int)type).ToString() };
-                viewModel.RelationshipsToChooseFrom.Add(item);
-            }
+            viewModel.RelationshipsToChooseFrom = FamilyController.FamilyRelationships;
             return View(viewModel);
         }
 

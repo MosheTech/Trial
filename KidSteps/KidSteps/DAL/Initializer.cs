@@ -10,7 +10,7 @@ using System.Web.Security;
 
 namespace KidSteps.DAL
 {
-    public class Initializer : DropCreateDatabaseIfModelChanges<KidStepsContext>
+    public class Initializer : DropCreateDatabaseAlways<KidStepsContext>
     {
         protected override void Seed(KidStepsContext context)
         {

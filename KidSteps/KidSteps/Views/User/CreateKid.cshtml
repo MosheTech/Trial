@@ -9,6 +9,11 @@
     @Html.HiddenFor(m => m.FamilyId)
     @Html.EditorFor(m => m.Name)
 
+    if (Model.ShouldChooseRelationship)
+    {
+        @Html.DropDownListFor(m => m.RelationshipOfOwnerToKid, Model.RelationshipsToChooseFrom);
+    }
+
     <p>
         <input type="submit" value="Save" />
     </p>
