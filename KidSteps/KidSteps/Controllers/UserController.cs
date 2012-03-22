@@ -150,7 +150,7 @@ namespace KidSteps.Controllers
             User user = GetCurrentUser();
 
             KidCreateViewModel viewModel = new KidCreateViewModel();
-            viewModel.FamilyId = user.DefaultFamily.Id;
+            viewModel.Name.Last = user.DefaultFamily.Name;
 
             if (!user.DefaultFamily.HasKids)
                 viewModel.ShouldChooseRelationship = true;
@@ -175,7 +175,7 @@ namespace KidSteps.Controllers
                     repos.AddRelationship(db, currentUser, model.RelationshipOfOwnerToKid);
                 }
 
-                repos.AddUnregisteredMember(db, family, model.Name, RelationshipType.Self);
+                repos.AddUnregisteredMember(db, family, model.Name, model.Email, RelationshipType.Self);
 
 
 
@@ -187,7 +187,7 @@ namespace KidSteps.Controllers
                 //Family family = db.Families.Find(model.FamilyId);
                 //familyRepos.AddMember(db, family, kid, RelationshipType.Self, setAsUsersDefaultFamily: true);
 
-                return RedirectToAction("Details", "Family", new { id = model.FamilyId });
+                return RedirectToAction("Details", "Family", new { id = family.Id });
             }
 
             return View();
@@ -195,9 +195,12 @@ namespace KidSteps.Controllers
 
         public ActionResult CreateFamilyMember(long familyId)
         {
+            Family family = GetCurrentUser().DefaultFamily;
+
             CreateFamilyMemberViewModel viewModel = new CreateFamilyMemberViewModel();
-            viewModel.FamilyId = familyId;
             viewModel.RelationshipsToChooseFrom = FamilyController.FamilyRelationships;
+            viewModel.Name.Last = family.Name;
+
             return View(viewModel);
         }
 
@@ -209,7 +212,7 @@ namespace KidSteps.Controllers
                 Family family = GetCurrentUser().DefaultFamily;
 
                 FamilyRepository repos = new FamilyRepository();
-                repos.AddUnregisteredMember(db, family, model.Name, model.Relationship);
+                repos.AddUnregisteredMember(db, family, model.Name, model.Email, model.Relationship);
 
                 //MembershipCreateStatus _;
                 //UserRepository userRepos = new UserRepository();
@@ -219,7 +222,7 @@ namespace KidSteps.Controllers
                 //Family family = db.Families.Find(model.FamilyId);
                 //familyRepos.AddMember(db, family, member, model.Relationship, setAsUsersDefaultFamily: true);
 
-                return RedirectToAction("Details", "Family", new { id = model.FamilyId });
+                return RedirectToAction("Details", "Family", new { id = family.Id });
             }
 
             return View();

@@ -10,11 +10,18 @@ namespace KidSteps.ViewModels
 {
     public class CreateFamilyMemberViewModel
     {
-        [Required]
-        public long FamilyId { get; set; }
+        public CreateFamilyMemberViewModel()
+        {
+            Name = new PersonName();
+        }
+
         [Required]
         public PersonName Name { get; set; }
+
+        public string Email { get; set; }
+
         [Required]
+        [Display(Name = "Relationship to kids")]
         public RelationshipType Relationship { get; set; }
 
         public IEnumerable<SelectListItem> RelationshipsToChooseFrom { get; set; }

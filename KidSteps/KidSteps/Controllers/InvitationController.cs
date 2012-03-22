@@ -22,23 +22,44 @@ namespace KidSteps.Controllers
             var familyMembers = 
                 user.DefaultFamily.Members.ToList();
 
-            model.UnregisteredUsers = new List<Tuple<Models.User, string>>();
             IEnumerable<User> unregisteredUsers =
                 familyMembers.Where(fm => fm.Relationship != Models.RelationshipType.None && !fm.User.HasAccount).Select(fm => fm.User);
             foreach (var unregisteredUser in unregisteredUsers)
             {
-                model.UnregisteredUsers.Add(
-                    Tuple.Create(
-                        unregisteredUser, 
-                        Url.Action("Register", "Account", new { invitationCode = unregisteredUser.InvitationCode }, Request.Url.Scheme)));
+                InvitationIndexViewModel.Invitation invitation = new InvitationIndexViewModel.Invitation();
+                string url = Url.Action("Register", "Account", new { invitationCode = unregisteredUser.InvitationCode }, Request.Url.Scheme);
+                string recipientAddress = 
+                    unregisteredUser.HasRealEmail ? unregisteredUser.Email : string.Empty;
+                string emailHref =
+                    string.Format(
+                        "mailto:{0}?subject={1}, come join our family on MyKidSteps.com!" +
+                        "&body={2} wants you to join your family on MyKidSteps.com." +
+                        "  Follow this link accept the invitation and set up your account. {3}",
+                        recipientAddress,
+                        unregisteredUser.Name.Full,
+                        user.Name.Full,
+                        url);
+                invitation.User = unregisteredUser;
+                invitation.EmailHRef = emailHref;
+                invitation.DirectLink = url;
+                model.UnregisteredUserInvitations.Add(invitation);
             }
 
-            model.Inviter = user;
-
-            User publicViewer = 
+            InvitationIndexViewModel.Invitation publicViewerInvitation = new InvitationIndexViewModel.Invitation();
+            User publicViewer =
                 familyMembers.Single(fm => fm.Relationship == Models.RelationshipType.None).User;
-            string url = Url.Action("PublicViewerLogon", "Account", new {invitationCode = publicViewer.InvitationCode}, Request.Url.Scheme);
-            model.PublicViewerUrl = url;
+            string publicViewerUrl = Url.Action("PublicViewerLogon", "Account", new { invitationCode = publicViewer.InvitationCode }, Request.Url.Scheme);
+            string publicViewerEmailHref =
+                string.Format(
+                    "mailto:?subject=You're invited to see my family on MyKidSteps.com!" + 
+                    "&body={0} wants to show you a family on MyKidSteps.com." + 
+                    "  Follow this link to see it. {1}",
+                    user.Name.Full,
+                    publicViewerUrl);
+            publicViewerInvitation.User = publicViewer;
+            publicViewerInvitation.EmailHRef = publicViewerEmailHref;
+            publicViewerInvitation.DirectLink = publicViewerUrl;
+            model.PublicViewerInvitation = publicViewerInvitation;
 
             return View(model);
         }

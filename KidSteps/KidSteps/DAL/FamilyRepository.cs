@@ -13,7 +13,7 @@ namespace KidSteps.DAL
             KidStepsContext context,
             User owner)
         {
-            return Create(context, owner.Name.Last, owner, null);
+            return Create(context, owner.Name.Last, owner, null, null);
         }
 
         public Family Create(
@@ -22,10 +22,11 @@ namespace KidSteps.DAL
             User owner, 
             string kidFirstName,
             string kidLastName,
+            string kidEmail,
             RelationshipType relationshipOfOwnerToKid)
         {
             PersonName kidName = new PersonName() { First = kidFirstName, Last = kidLastName };
-            return Create(context, name, owner, kidName, relationshipOfOwnerToKid);
+            return Create(context, name, owner, kidName, kidEmail, relationshipOfOwnerToKid);
         }
 
         public Family Create(
@@ -33,6 +34,7 @@ namespace KidSteps.DAL
             string name,
             User owner, 
             PersonName kidName,
+            string kidEmail,
             RelationshipType relationshipOfOwnerToKid = RelationshipType.None)
         {
             Family family = new Family();
@@ -47,7 +49,7 @@ namespace KidSteps.DAL
             // add kid
             if (kidName != null)
             {
-                AddUnregisteredMember(context, family, kidName, true, RelationshipType.Self);
+                AddUnregisteredMember(context, family, kidName, kidEmail, true, RelationshipType.Self);
 
                 // add owner
                 AddMember(
@@ -72,21 +74,23 @@ namespace KidSteps.DAL
             Family family,
             string firstName,
             string lastName,
+            string email,
             RelationshipType relationshipToKid)
         {
             PersonName name = new PersonName() {First = firstName, Last = lastName};
-            return AddUnregisteredMember(context, family, name, true, relationshipToKid);
+            return AddUnregisteredMember(context, family, name, email, true, relationshipToKid);
         }
 
         public FamilyMember AddUnregisteredMember(
             KidStepsContext context,
             Family family,
             PersonName name,
+            string email,
             RelationshipType relationshipToKid)
         {
             UserRepository userRepos =
                 new UserRepository();
-            User newUser = userRepos.CreateUserWithoutAccount(context, name);
+            User newUser = userRepos.CreateUserWithoutAccount(context, name, email);
 
             return AddMember(context, family, newUser, relationshipToKid, setAsUsersDefaultFamily: true);
         }
@@ -148,6 +152,7 @@ namespace KidSteps.DAL
             KidStepsContext context,
             Family family,
             PersonName name,
+            string email,
             bool isMemberOfFamily,
             RelationshipType relationshipToKid)
         {
@@ -155,7 +160,7 @@ namespace KidSteps.DAL
 
             UserRepository userRepos =
                 new UserRepository();
-            User newUser = userRepos.CreateUserWithoutAccount(context, name);
+            User newUser = userRepos.CreateUserWithoutAccount(context, name, email);
 
             return AddMember(context, family, newUser, relationshipToKid, setAsUsersDefaultFamily: true);
         }

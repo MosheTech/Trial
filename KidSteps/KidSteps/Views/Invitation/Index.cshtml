@@ -12,21 +12,21 @@
         <th>
         </th>
     </tr>
-    @foreach (var member in Model.UnregisteredUsers)
+    @foreach (var invitation in Model.UnregisteredUserInvitations)
     {
         <tr>
             <td>
-                @Html.DisplayFor(_ => member.Item1.Name)
+                @Html.DisplayFor(_ => invitation.User.Name)
             </td>
             <td>
-                <a href="mailto:?subject=@member.Item1.Name.Full, come join our family on MyKidSteps.com!&body=@Model.Inviter.Name.Full wants you to join @member.Item1.DefaultFamily.Name family on MyKidSteps.com.  Follow this link accept the invitation and set up your account. @member.Item2">
-                    Invite </a>&nbsp<a href="@member.Item2">(direct link)</a>
+                <a href="@invitation.EmailHRef">
+                    Invite</a>&nbsp<a href="@invitation.DirectLink">(direct link)</a>
             </td>
         </tr>
     }
 </table>
 <div>
     Public Viewer: 
-    <a href="mailto:?subject=You're invited to see my family on MyKidSteps.com!&body=@Model.Inviter.Name.Full wants to show you a family on MyKidSteps.com.  Follow this link to see it. @Model.PublicViewerUrl">
-        Invite </a>&nbsp<a href="@Model.PublicViewerUrl">(direct link)</a>
+    <a href="@Model.PublicViewerInvitation.EmailHRef">
+        Invite</a>&nbsp<a href="@Model.PublicViewerInvitation.DirectLink">(direct link)</a>
 </div>

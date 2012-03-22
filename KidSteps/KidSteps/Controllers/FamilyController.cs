@@ -87,7 +87,8 @@ namespace KidSteps.Controllers
                     db, 
                     model.FamilyName,
                     GetCurrentUser(),
-                    model.KidName, 
+                    model.KidName,
+                    model.KidEmail, 
                     model.RelationshipOfOwnerToKid);
 
                 return RedirectToAction("Details", new { id = family.Id }); 

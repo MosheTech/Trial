@@ -57,24 +57,30 @@ namespace KidSteps.DAL
             return createStatus;
         }
 
-        public User CreateUserWithoutAccount(KidStepsContext dbContext, string firstName, string lastName)
+        public User CreateUserWithoutAccount(KidStepsContext dbContext, string firstName, string lastName, string email)
         {
             PersonName name = new PersonName() {First = firstName, Last = lastName};
-            return CreateUserWithoutAccount(dbContext, name);
+            return CreateUserWithoutAccount(dbContext, name, email);
         }
 
-        public User CreateUserWithoutAccount(KidStepsContext dbContext, PersonName name)
+        public User CreateUserWithoutAccount(KidStepsContext dbContext, PersonName name, string email)
         {
-            string email = Guid.NewGuid().ToString();
-            string invitationCode = Guid.NewGuid().ToString();
-
             User user = new User();
             dbContext.Members.Add(user);
-            user.Email = email;
             user.Name = name;
             user.HasAccount = false;
             user.RoleFlags = Role.UnregisteredMember;
+
+            string emailToSave = email;
+            if (string.IsNullOrWhiteSpace(emailToSave))
+                emailToSave = Guid.NewGuid().ToString();
+            else
+                user.HasRealEmail = true;
+            user.Email = emailToSave;
+
+            string invitationCode = Guid.NewGuid().ToString();
             user.InvitationCode = invitationCode;
+
             dbContext.SaveChanges();
             return user;
         }
@@ -102,7 +108,10 @@ namespace KidSteps.DAL
             if (role == Role.PublicViewer)
                 user.HasAccount = false;
             else
+            {
                 user.HasAccount = true;
+                user.HasRealEmail = true;
+            }
             user.RoleFlags = role;
             try
             {

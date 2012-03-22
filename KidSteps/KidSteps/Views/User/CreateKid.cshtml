@@ -1,17 +1,28 @@
 ﻿@model KidSteps.ViewModels.KidCreateViewModel
 @{
-    ViewBag.Title = "Create Kid";
+    ViewBag.Title = "Add a Kid";
 }
 <h2>
-    Create Kid</h2>
+    Add a Kid</h2>
 @using (Html.BeginForm())
 {
-    @Html.HiddenFor(m => m.FamilyId)
     @Html.EditorFor(m => m.Name)
+    
+    <div class="editor-label">
+        @Html.LabelFor(m => m.Email)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(m => m.Email)
+    </div>
 
     if (Model.ShouldChooseRelationship)
     {
-        @Html.DropDownListFor(m => m.RelationshipOfOwnerToKid, Model.RelationshipsToChooseFrom);
+    <div class="editor-label">
+        @Html.LabelFor(m => m.RelationshipOfOwnerToKid)
+    </div>
+    
+    <div class="editor-field">
+        @Html.DropDownListFor(m => m.RelationshipOfOwnerToKid, Model.RelationshipsToChooseFrom)</div>
     }
 
     <p>

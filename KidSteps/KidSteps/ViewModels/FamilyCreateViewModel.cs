@@ -19,5 +19,7 @@ namespace KidSteps.ViewModels
 
         [Required]
         public PersonName KidName { get; set; }
+
+        public string KidEmail { get; set; }
     }
 }

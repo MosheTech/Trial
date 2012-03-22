@@ -6,9 +6,13 @@
 <h2>Create Family Member</h2>
 @using (Html.BeginForm())
 {
-    @Html.HiddenFor(m => m.FamilyId)
     @Html.EditorFor(m => m.Name)
-    @Html.DropDownListFor(m => m.Relationship, Model.RelationshipsToChooseFrom);
+    <div class="editor-label">
+        @Html.LabelFor(m => m.Relationship)
+    </div>
+    
+    <div class="editor-field">
+        @Html.DropDownListFor(m => m.Relationship, Model.RelationshipsToChooseFrom)</div>
 
     <p>
         <input type="submit" value="Save" />

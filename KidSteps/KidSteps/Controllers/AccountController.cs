@@ -99,6 +99,8 @@ namespace KidSteps.Controllers
                 {
                     model.Name = user.Name;
                     model.InvitationCode = invitationCode;
+                    if (user.HasRealEmail)
+                        model.Email = user.Email;
                 }
             }           
 

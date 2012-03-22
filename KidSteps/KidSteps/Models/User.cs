@@ -18,6 +18,8 @@ namespace KidSteps.Models
 
         public virtual int Id { get; set; }
 
+        public bool HasRealEmail { get; set; }
+
         [Required]
         [MaxLength(128)]
         public string Email { get; set; }
