@@ -86,7 +86,7 @@ namespace KidSteps.Controllers
                     repos.Create(
                     db, 
                     model.FamilyName,
-                    GetCurrentUser(),
+                    CurrentUser,
                     model.KidName,
                     model.KidEmail, 
                     model.RelationshipOfOwnerToKid);

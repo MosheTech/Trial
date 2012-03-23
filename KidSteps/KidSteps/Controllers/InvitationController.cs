@@ -18,7 +18,7 @@ namespace KidSteps.Controllers
         {
             InvitationIndexViewModel model = new InvitationIndexViewModel();
 
-            var user = GetCurrentUser();
+            var user = CurrentUser;
             var familyMembers = 
                 user.DefaultFamily.Members.ToList();
 

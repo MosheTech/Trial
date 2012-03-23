@@ -13,10 +13,9 @@ namespace KidSteps.Controllers
         [ChildActionOnly]
         public ActionResult Menu()
         {
-            User currentUser = GetCurrentUser();
             LayoutMenuViewModel model = new LayoutMenuViewModel();
-            if (currentUser != null)
-                model.DefaultFamily = currentUser.DefaultFamily;
+            if (CurrentUser != null)
+                model.DefaultFamily = CurrentUser.DefaultFamily;
 
             return PartialView(model);
         }

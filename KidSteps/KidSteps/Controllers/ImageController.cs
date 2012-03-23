@@ -18,7 +18,7 @@ namespace KidSteps.Controllers
 
         public ViewResult Index()
         {
-            var currentUser = GetCurrentUser();
+            var currentUser = CurrentUser;
             return View(db.Images.Where(image => image.CreatedBy.Id.Equals(currentUser.Id)).ToList());
         }
 
@@ -51,7 +51,7 @@ namespace KidSteps.Controllers
             {
                 Image image = new Image();
                 image.AltText = string.Empty;
-                image.CreatedBy = GetCurrentUser();
+                image.CreatedBy = CurrentUser;
                 image.Extension = Path.GetExtension(imageViewModel.File.FileName);
                 db.Images.Add(image);
                 db.SaveChanges();

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using KidSteps.Models;
 using System.Web.Security;
 using KidSteps.ViewModels;
+using KidSteps.ActionFilters;
 
 namespace KidSteps.Controllers
 {
@@ -16,7 +17,7 @@ namespace KidSteps.Controllers
             HomeIndexViewModel viewModel = new HomeIndexViewModel();
             if (User.Identity.IsAuthenticated)
             {
-                viewModel.CurrentUser = GetCurrentUser();
+                viewModel.CurrentUser = CurrentUser;
                 if (viewModel.CurrentUser == null)
                 {
                     viewModel.IsLoggedOn = false;

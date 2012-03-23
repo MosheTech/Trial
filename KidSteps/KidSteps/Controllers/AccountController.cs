@@ -218,6 +218,11 @@ namespace KidSteps.Controllers
             return View();
         }
 
+        public ActionResult Unauthorized()
+        {
+            return View();
+        }
+
         #region Status Codes
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
         {

@@ -33,45 +33,17 @@ namespace KidSteps.Controllers
             User user = db.Members.Find(id);
             return View(user);
         }
-
-        //
-        // GET: /User/Create
-
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //} 
-
-        ////
-        //// POST: /User/Create
-
-        //[HttpPost]
-        //public ActionResult Create(User user)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Members.Add(user);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");  
-        //    }
-
-        //    return View(user);
-        //}
         
         //
         // GET: /User/Edit/5
 
-        [Authorize]
+        [UserTarget(UserTarget.Authorization.Edit)]
         public ActionResult Edit(int id)
         {
-            if (!VerifyCurrentUser(id))
-                throw new Exception();
-            User user = db.Members.Find(id);
-
             UserEditViewModel model = new UserEditViewModel();
-            model.Name = user.Name;
-            model.Bio = user.Bio;
-            model.ProfilePicture = user.ProfilePicture;
+            model.Name = TargetUser.Name;
+            model.Bio = TargetUser.Bio;
+            model.ProfilePicture = TargetUser.ProfilePicture;
 
             return View(model);
         }
@@ -80,16 +52,15 @@ namespace KidSteps.Controllers
         // POST: /User/Edit/5
 
         [HttpPost]
-        [Authorize]
+        [UserTarget(UserTarget.Authorization.Edit)]
         public ActionResult Edit(UserEditViewModel model)
         {
             if (ModelState.IsValid)
             {
-                User currentUser = GetCurrentUser();
-                currentUser.Bio = model.Bio;
-                currentUser.Name = model.Name;
+                TargetUser.Bio = model.Bio;
+                TargetUser.Name = model.Name;
                 db.SaveChanges();
-                return RedirectToAction("Details", new { id = currentUser.Id });
+                return RedirectToAction("Details", new { id = TargetUser.Id });
             }
             return View(model);
         }
@@ -97,8 +68,7 @@ namespace KidSteps.Controllers
         [Authorize]
         public ActionResult ProfileImageEdit()
         {
-            var currentUser = GetCurrentUser();
-            return View(db.Images.Where(image => image.CreatedBy.Id == currentUser.Id).ToList());
+            return View(db.Images.Where(image => image.CreatedBy.Id == CurrentUser.Id).ToList());
         }
 
         //
@@ -134,7 +104,7 @@ namespace KidSteps.Controllers
 
         //
         // POST: /User/Delete/5
-
+        
         [HttpPost, ActionName("Delete")]
         [Authorize]
         public ActionResult DeleteConfirmed(long id)
@@ -147,12 +117,10 @@ namespace KidSteps.Controllers
 
         public ActionResult CreateKid()
         {
-            User user = GetCurrentUser();
-
             KidCreateViewModel viewModel = new KidCreateViewModel();
-            viewModel.Name.Last = user.DefaultFamily.Name;
+            viewModel.Name.Last = CurrentUser.DefaultFamily.Name;
 
-            if (!user.DefaultFamily.HasKids)
+            if (!CurrentUser.DefaultFamily.HasKids)
                 viewModel.ShouldChooseRelationship = true;
 
             return View(viewModel);
@@ -163,15 +131,13 @@ namespace KidSteps.Controllers
         {
             if (ModelState.IsValid)
             {
-                User currentUser = GetCurrentUser();
-
-                Family family = currentUser.DefaultFamily;
+                Family family = CurrentUser.DefaultFamily;
 
                 FamilyRepository repos = new FamilyRepository();
 
                 if (!family.HasKids)
                 {
-                    repos.AddRelationship(db, currentUser, model.RelationshipOfOwnerToKid);
+                    repos.AddRelationship(db, CurrentUser, model.RelationshipOfOwnerToKid);
                 }
 
                 repos.AddUnregisteredMember(db, family, model.Name, model.Email, RelationshipType.Self);
@@ -194,7 +160,7 @@ namespace KidSteps.Controllers
 
         public ActionResult CreateFamilyMember()
         {
-            Family family = GetCurrentUser().DefaultFamily;
+            Family family = CurrentUser.DefaultFamily;
 
             CreateFamilyMemberViewModel viewModel = new CreateFamilyMemberViewModel();
             viewModel.Name.Last = family.Name;
@@ -207,7 +173,7 @@ namespace KidSteps.Controllers
         {
             if (ModelState.IsValid)
             {
-                Family family = GetCurrentUser().DefaultFamily;
+                Family family = CurrentUser.DefaultFamily;
 
                 FamilyRepository repos = new FamilyRepository();
                 repos.AddUnregisteredMember(db, family, model.Name, model.Email, model.Relationship);

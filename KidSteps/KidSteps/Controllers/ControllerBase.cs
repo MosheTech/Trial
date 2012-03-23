@@ -11,15 +11,24 @@ namespace KidSteps.Controllers
 {
     public abstract class ControllerBase : Controller
     {
-        protected bool VerifyCurrentUser(int id)
+        public ControllerBase()
         {
-            return User.Identity.Name == id.ToString();
+            _currentUser = new Lazy<User>(() => GetCurrentUser());
         }
 
-        protected User GetCurrentUser()
+        public void SetTargetUser(int userId)
         {
-            DAL.UserRepository repo = new DAL.UserRepository();
-            return repo.FindByMembership(db, User);
+            TargetUser = db.Members.Find(userId);
+
+            if (TargetUser == null)
+                throw new ArgumentException("No User found with given id");
+        }
+
+        public User TargetUser { get; private set; }
+
+        public User CurrentUser
+        {
+            get { return _currentUser.Value; }
         }
 
         protected IPrincipal MembershipUser
@@ -34,5 +43,13 @@ namespace KidSteps.Controllers
         }
 
         protected KidStepsContext db = new KidStepsContext();
+
+        private User GetCurrentUser()
+        {
+            DAL.UserRepository repo = new DAL.UserRepository();
+            return repo.FindByMembership(db, User);
+        }
+
+        private Lazy<User> _currentUser;
     }
 }

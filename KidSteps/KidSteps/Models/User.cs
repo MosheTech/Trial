@@ -49,6 +49,11 @@ namespace KidSteps.Models
             get { return RoleFlags.HasFlag(Role.RegisteredMember); }
         }
 
+        public bool IsSuperUser
+        {
+            get { return RoleFlags.HasFlag(Role.SuperUser); }
+        }
+
         [Required]
         public virtual PersonName Name { get; set; }        
         public virtual Image ProfilePicture { get; set; }
