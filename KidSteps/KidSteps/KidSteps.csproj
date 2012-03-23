@@ -103,7 +103,7 @@
   <ItemGroup>
     <Compile Include="ActionFilters\MyAuthorizeAttribute.cs" />
     <Compile Include="ActionFilters\TestActionFilterAttribute.cs" />
-    <Compile Include="ActionFilters\UserTarget.cs" />
+    <Compile Include="ActionFilters\UserTargetAttribute.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ElmahController.cs" />
     <Compile Include="Configuration.cs" />
@@ -129,6 +129,7 @@
     <Compile Include="Models\FamilyMember.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Media.cs" />
+    <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\ProfileImage.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />

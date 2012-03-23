@@ -19,12 +19,16 @@ namespace KidSteps.Controllers
         public void SetTargetUser(int userId)
         {
             TargetUser = db.Members.Find(userId);
+        }
 
-            if (TargetUser == null)
-                throw new ArgumentException("No User found with given id");
+        public void SetTargetFamily(int familyId)
+        {
+            TargetFamily = db.Families.Find(familyId);
         }
 
         public User TargetUser { get; private set; }
+
+        public Family TargetFamily { get; private set; }
 
         public User CurrentUser
         {

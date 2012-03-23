@@ -8,24 +8,20 @@ using KidSteps.Models;
 
 namespace KidSteps.ActionFilters
 {
-    public class UserTarget : Mvc.ActionFilterAttribute
+    public class UserTargetAttribute : Mvc.ActionFilterAttribute
     {
-        public enum Authorization
-        {
-            Read,
-            Edit,
-            Delete
-        }
-
-        public UserTarget(Authorization authorization)
+        public UserTargetAttribute(Permission permission)
             : base()
         {
-            AuthorizationType = authorization;
+            Permission = permission;
         }
 
         public override void OnActionExecuting(Mvc.ActionExecutingContext filterContext)
         {
-            // set properties on controller
+            // set properties target user and family
+
+            if (!filterContext.ActionParameters.ContainsKey("id"))
+                throw new ArgumentException("Missing User Id");
 
             int userId;
             bool hasUserId = int.TryParse(filterContext.ActionParameters["id"].ToString(), out userId);
@@ -40,16 +36,28 @@ namespace KidSteps.ActionFilters
 
             controller.SetTargetUser(userId);
 
+            if (controller.CurrentUser.DefaultFamilyId.HasValue)
+                controller.SetTargetFamily(controller.CurrentUser.DefaultFamilyId.Value);
+
             // check authorization
             bool authorized = false;
 
             if (controller.CurrentUser.IsSuperUser)
                 authorized = true;
+            bool isTargetUser = controller.CurrentUser.Id == controller.TargetUser.Id;
+            bool isInSameFamilyAsTargetUser =
+                controller.CurrentUser.DefaultFamily != null &&
+                controller.TargetUser.DefaultFamily != null &&
+                controller.CurrentUser.DefaultFamily.Id == controller.TargetUser.DefaultFamily.Id;
 
-            switch (AuthorizationType)
+            switch (Permission)
             {
-                case Authorization.Edit:
-                    if (controller.CurrentUser.Id == controller.TargetUser.Id)
+                case Permission.Read:
+                    if (isTargetUser || isInSameFamilyAsTargetUser)
+                        authorized = true;
+                    break;
+                case Permission.Update:
+                    if (isTargetUser)
                         authorized = true;
                     break;
                 default:
@@ -62,6 +70,6 @@ namespace KidSteps.ActionFilters
             base.OnActionExecuting(filterContext);
         }
 
-        public Authorization AuthorizationType { get; set; }
+        public Permission Permission { get; set; }
     }
 }

@@ -27,23 +27,19 @@ namespace KidSteps.Controllers
         //
         // GET: /User/Details/5
 
-        [Authorize]
+        [UserTarget(Permission.Read)]
         public ViewResult Details(int id)
         {
-            User user = db.Members.Find(id);
-            return View(user);
+            return View(TargetUser);
         }
         
         //
         // GET: /User/Edit/5
 
-        [UserTarget(UserTarget.Authorization.Edit)]
+        [UserTarget(Permission.Update)]
         public ActionResult Edit(int id)
         {
-            UserEditViewModel model = new UserEditViewModel();
-            model.Name = TargetUser.Name;
-            model.Bio = TargetUser.Bio;
-            model.ProfilePicture = TargetUser.ProfilePicture;
+            UserEditViewModel model = new UserEditViewModel(TargetUser);
 
             return View(model);
         }
@@ -52,8 +48,8 @@ namespace KidSteps.Controllers
         // POST: /User/Edit/5
 
         [HttpPost]
-        [UserTarget(UserTarget.Authorization.Edit)]
-        public ActionResult Edit(UserEditViewModel model)
+        [UserTarget(Permission.Update)]
+        public ActionResult Edit(int id, UserEditViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -142,16 +138,6 @@ namespace KidSteps.Controllers
 
                 repos.AddUnregisteredMember(db, family, model.Name, model.Email, RelationshipType.Self);
 
-
-
-                //MembershipCreateStatus _;
-                //UserRepository userRepos = new UserRepository();
-                //User kid = userRepos.CreatePublicViewer(db, model.Name, Role.UnregisteredMember, out _);
-
-                //FamilyRepository familyRepos = new FamilyRepository();
-                //Family family = db.Families.Find(model.FamilyId);
-                //familyRepos.AddMember(db, family, kid, RelationshipType.Self, setAsUsersDefaultFamily: true);
-
                 return RedirectToAction("Details", "Family", new { id = family.Id });
             }
 
@@ -177,14 +163,6 @@ namespace KidSteps.Controllers
 
                 FamilyRepository repos = new FamilyRepository();
                 repos.AddUnregisteredMember(db, family, model.Name, model.Email, model.Relationship);
-
-                //MembershipCreateStatus _;
-                //UserRepository userRepos = new UserRepository();
-                //User member = userRepos.CreatePublicViewer(db, model.Name, Role.UnregisteredMember, out _);
-
-                //FamilyRepository familyRepos = new FamilyRepository();
-                //Family family = db.Families.Find(model.FamilyId);
-                //familyRepos.AddMember(db, family, member, model.Relationship, setAsUsersDefaultFamily: true);
 
                 return RedirectToAction("Details", "Family", new { id = family.Id });
             }
