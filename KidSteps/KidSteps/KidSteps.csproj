@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionFilters\MyAuthorizeAttribute.cs" />
+    <Compile Include="ActionFilters\TestActionFilterAttribute.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ElmahController.cs" />
     <Compile Include="Configuration.cs" />
