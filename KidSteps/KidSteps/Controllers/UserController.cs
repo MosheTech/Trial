@@ -154,7 +154,6 @@ namespace KidSteps.Controllers
 
             if (!user.DefaultFamily.HasKids)
                 viewModel.ShouldChooseRelationship = true;
-            viewModel.RelationshipsToChooseFrom = FamilyController.FamilyRelationships;
 
             return View(viewModel);
         }
@@ -190,15 +189,14 @@ namespace KidSteps.Controllers
                 return RedirectToAction("Details", "Family", new { id = family.Id });
             }
 
-            return View();
+            return View(model);
         }
 
-        public ActionResult CreateFamilyMember(long familyId)
+        public ActionResult CreateFamilyMember()
         {
             Family family = GetCurrentUser().DefaultFamily;
 
             CreateFamilyMemberViewModel viewModel = new CreateFamilyMemberViewModel();
-            viewModel.RelationshipsToChooseFrom = FamilyController.FamilyRelationships;
             viewModel.Name.Last = family.Name;
 
             return View(viewModel);
@@ -225,7 +223,7 @@ namespace KidSteps.Controllers
                 return RedirectToAction("Details", "Family", new { id = family.Id });
             }
 
-            return View();
+            return View(model);
         }
 
 

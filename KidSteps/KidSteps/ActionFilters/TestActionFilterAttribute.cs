@@ -9,7 +9,7 @@ namespace KidSteps.ActionFilters
     public class TestActionFilterAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
-        {            
+        {
             base.OnActionExecuting(filterContext);
         }
     }

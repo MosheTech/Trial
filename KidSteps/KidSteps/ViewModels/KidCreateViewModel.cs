@@ -5,6 +5,7 @@ using System.Web;
 using KidSteps.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using KidSteps.Controllers;
 
 namespace KidSteps.ViewModels
 {
@@ -13,6 +14,7 @@ namespace KidSteps.ViewModels
         public KidCreateViewModel()
         {
             Name = new PersonName();
+            RelationshipsToChooseFrom = FamilyController.FamilyRelationships;
         }
 
         public PersonName Name { get; set; }
@@ -24,6 +26,6 @@ namespace KidSteps.ViewModels
         [Display(Name = "My relationship to the kid")]
         public RelationshipType RelationshipOfOwnerToKid { get; set; }
 
-        public IEnumerable<SelectListItem> RelationshipsToChooseFrom { get; set; }
+        public IEnumerable<SelectListItem> RelationshipsToChooseFrom { get; private set; }
     }
 }

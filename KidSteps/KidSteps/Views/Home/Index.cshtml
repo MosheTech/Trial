@@ -54,13 +54,33 @@ else
     }
     else
     {
-            <div>
-    <strong>@Model.UserDefaultFamily.Name Family</strong></div>
-        <div>
-    Kids: @Model.FamilyMembers.Count(fm => fm.Relationship == KidSteps.Models.RelationshipType.Self)</div>
-        <div>
-    Registered Members: @Model.FamilyMembers.Count(fm => fm.User.HasAccount)</div>
-        <div>
-    Unregistered Members: @(Model.FamilyMembers.Count(fm => !fm.User.HasAccount) - 1)</div>
+    <div>
+        <strong>@Model.UserDefaultFamily.Name Family</strong></div>
+    <p />
+    <table>
+        <tr>
+            <td>
+                Kids: @Model.FamilyMembers.Count(fm => fm.Relationship == KidSteps.Models.RelationshipType.Self)
+            </td>
+            <td>@Html.ActionLink("Add a kid", "CreateKid", "User")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Registered Family Members: @Model.FamilyMembers.Count(fm => fm.User.HasAccount)
+            </td>
+            <td>@Html.ActionLink("Add a family member", "CreateFamilyMember", "User")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Unregistered Members: @(Model.FamilyMembers.Count(fm => !fm.User.HasAccount) - 1)
+            </td>
+            <td>@Html.ActionLink("Invite", "Index", "Invitation")
+            </td>
+        </tr>
+    </table>
+            
+            
     }
 }
