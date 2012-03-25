@@ -2,12 +2,25 @@
 @{
     ViewBag.Title = "Edit";
 }
-<h2>
-    Edit</h2>
+
+<script type="text/javascript">
+    var warning = false;
+    function setWarning(value) {
+        warning = value;
+        $("#changeImage").val("yes");
+    }
+    function saveProfile() {
+        $("#btn1").click();
+        return false;
+    }
+</script>
+<h2>Edit</h2>
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 @using (Html.BeginForm())
 {
+    <input type="hidden" id="changeImage" name="changeImage" />
+
     @Html.HiddenFor(m => m.Id)
     
     @Html.ValidationSummary(true)
@@ -20,20 +33,20 @@
             @Html.LabelFor(model => model.Bio)
         </div>
         <div class="editor-field">
-            <textarea rows="5" cols="30" name="Bio">@Html.DisplayFor(m => m.Bio)</textarea>
+            <textarea rows="5" cols="30" name="Bio" onkeyup="setWarning(true);">@Html.DisplayFor(m => m.Bio)</textarea>
             @Html.ValidationMessageFor(model => model.Bio)
         </div>
         <div>
             @Html.DisplayFor(m => m.ProfilePicture)
         </div>
         <div>
-            @Html.ActionLink("Select Profile Picture", "ProfileImageEdit", "User")
+            @Html.ActionLink("Select Profile Picture", "ProfileImageEdit", "User", null, new { onclick = "return (warning ? confirm('You have edited this page, save edits?') ? saveProfile() : true : true);" })
         </div>
         <div>
             @Html.ActionLink("Change Password", "ChangePassword", "Account")
         </div>
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" id="btn1" value="Save" />
         </p>
     </fieldset>
 }

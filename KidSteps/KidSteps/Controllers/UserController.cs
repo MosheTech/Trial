@@ -56,7 +56,11 @@ namespace KidSteps.Controllers
                 TargetUser.Bio = model.Bio;
                 TargetUser.Name = model.Name;
                 db.SaveChanges();
-                return RedirectToAction("Details", new { id = TargetUser.Id });
+
+                if (Request.Form["changeImage"] == "yes")
+                    return RedirectToAction("ProfileImageEdit");
+                else
+                    return RedirectToAction("Details", new { id = TargetUser.Id });
             }
             return View(model);
         }
