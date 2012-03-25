@@ -6,11 +6,7 @@
     Invitations</h2>
 <table>
     <tr>
-        <th>
-            Unregistered Family Member
-        </th>
-        <th>
-        </th>
+        <th colspan="2">Family Members without a registered MKS account.</th>
     </tr>
     @foreach (var invitation in Model.UnregisteredUserInvitations)
     {
@@ -18,15 +14,14 @@
             <td>
                 @Html.DisplayFor(_ => invitation.User.Name)
             </td>
-            <td>
-                <a href="@invitation.EmailHRef">
-                    Invite</a>&nbsp<a href="@invitation.DirectLink">(direct link)</a>
-            </td>
+            <td>@invitation.DirectLink</td>
         </tr>
     }
+    <tr>
+        <th colspan="2">Want to share with others?</th>
+    </tr>
+    <tr>
+        <td>Public Viewer</td>
+        <td>@Model.PublicViewerInvitation.DirectLink</td>
+    </tr>
 </table>
-<div>
-    Public Viewer: 
-    <a href="@Model.PublicViewerInvitation.EmailHRef">
-        Invite</a>&nbsp<a href="@Model.PublicViewerInvitation.DirectLink">(direct link)</a>
-</div>
