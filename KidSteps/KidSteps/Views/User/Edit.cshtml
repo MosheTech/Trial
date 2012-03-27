@@ -20,8 +20,6 @@
 @using (Html.BeginForm())
 {
     <input type="hidden" id="changeImage" name="changeImage" />
-
-    @Html.HiddenFor(m => m.Id)
     
     @Html.ValidationSummary(true)
     <fieldset>

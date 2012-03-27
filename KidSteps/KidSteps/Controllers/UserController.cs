@@ -49,7 +49,7 @@ namespace KidSteps.Controllers
 
         [HttpPost]
         [UserTarget(Permission.Update)]
-        public ActionResult Edit(int id, UserEditViewModel model)
+        public ActionResult Edit(UserEditViewModel model)
         {
             if (ModelState.IsValid)
             {

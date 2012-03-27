@@ -20,11 +20,11 @@ namespace KidSteps.ActionFilters
         {
             // set properties target user and family
 
-            if (!filterContext.ActionParameters.ContainsKey("id"))
+            if (!filterContext.RouteData.Values.ContainsKey("id"))
                 throw new ArgumentException("Missing User Id");
 
             int userId;
-            bool hasUserId = int.TryParse(filterContext.ActionParameters["id"].ToString(), out userId);
+            bool hasUserId = int.TryParse(filterContext.RouteData.Values["id"].ToString(), out userId);
 
             if (!hasUserId)
                 throw new ArgumentException("Missing User Id");

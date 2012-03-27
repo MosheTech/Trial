@@ -16,13 +16,10 @@ namespace KidSteps.ViewModels
 
         public UserEditViewModel(User user)
         {
-            Id = user.Id;
             Name = user.Name;
             Bio = user.Bio;
             ProfilePicture = user.ProfilePicture;
         }
-
-        public int Id { get; set; }
 
         [Required]
         public PersonName Name { get; set; }
