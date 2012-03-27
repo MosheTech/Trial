@@ -60,36 +60,35 @@ namespace KidSteps.Controllers
                 if (Request.Form["changeImage"] == "yes")
                     return RedirectToAction("ProfileImageEdit");
                 else
-                    return RedirectToAction("Details", new { id = TargetUser.Id });
+                    return RedirectToAction("Details", IdRoute.Create(TargetUser.Id));
             }
             return View(model);
         }
 
-        [Authorize]
+        [UserTarget(Permission.Update)]
         public ActionResult ProfileImageEdit()
         {
-            return View(db.Images.Where(image => image.CreatedBy.Id == CurrentUser.Id).ToList());
+            return View(db.Images.Where(image => image.CreatedBy.Id == TargetUser.Id).ToList());
         }
 
         //
         // POST: /User/Edit/5
 
         [HttpPost]
-        [Authorize]
-        public ActionResult ProfileImageEdit(int userId, long? imageId)
+        [UserTarget(Permission.Update)]
+        public ActionResult ProfileImageEdit(long? imageId)
         {
-            var user = db.Members.Find(userId);
             Image image = null;
             if (imageId.HasValue)
                 image = db.Images.Find(imageId);
 
-            if (user != null && image != null)
+            if (image != null)
             {
-                user.ProfilePicture = image;
+                TargetUser.ProfilePicture = image;
                 db.SaveChanges();
             }
 
-            return RedirectToAction("Edit", new { id = userId });
+            return RedirectToAction("Edit", new { id = TargetUser.Id });
         }
 
         //

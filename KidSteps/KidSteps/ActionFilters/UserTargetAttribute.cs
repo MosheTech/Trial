@@ -42,20 +42,24 @@ namespace KidSteps.ActionFilters
             // check authorization
             bool authorized = false;
 
-            if (controller.CurrentUser.IsSuperUser)
-                authorized = true;
             bool isTargetUser = controller.CurrentUser.Id == controller.TargetUser.Id;
             bool isInSameFamilyAsTargetUser =
                 controller.CurrentUser.DefaultFamily != null &&
                 controller.TargetUser.DefaultFamily != null &&
                 controller.CurrentUser.DefaultFamily.Id == controller.TargetUser.DefaultFamily.Id;
 
+            // superuser is always authorized
+            if (controller.CurrentUser.IsSuperUser)
+                authorized = true;
+
             switch (Permission)
             {
+                    // anyone in the family can read
                 case Permission.Read:
                     if (isTargetUser || isInSameFamilyAsTargetUser)
                         authorized = true;
                     break;
+                    // only target user can update
                 case Permission.Update:
                     if (isTargetUser)
                         authorized = true;

@@ -1,5 +1,5 @@
 ﻿@if(Request.IsAuthenticated) {
-    <text>[ @Html.ActionLink("My Account", "Edit", "User", new { id = User.Identity.Name }, null) ]
+    <text>[ @Html.ActionLink("My Account", "Edit", "User", KidSteps.Models.IdRoute.Create(User.Identity.Name), null) ]
     [ @Html.ActionLink("Log Off", "LogOff", "Account") ]</text>
 }
 else {

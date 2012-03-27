@@ -127,6 +127,7 @@
     <Compile Include="Models\Content.cs" />
     <Compile Include="Models\Family.cs" />
     <Compile Include="Models\FamilyMember.cs" />
+    <Compile Include="Models\IdRoute.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\Permission.cs" />
