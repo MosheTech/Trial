@@ -86,7 +86,7 @@ namespace KidSteps.ActionFilters
 
         protected override void SetTarget(int id)
         {
-            _controller.Target = _controller.Context.Members.Find(id);
+            _controller.Target = _controller.Context.Users.Find(id);
 
             if (_controller.Target == null)
                 throw new ArgumentException("Target user not found");

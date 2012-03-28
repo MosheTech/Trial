@@ -16,21 +16,6 @@ namespace KidSteps.Controllers
             _currentUser = new Lazy<User>(() => GetCurrentUser());
         }
 
-        //public void SetTargetUser(int userId)
-        //{
-        //    TargetUser = db.Members.Find(userId);
-        //}
-
-        //public void SetTargetFamily(int familyId)
-        //{
-        //    TargetFamily = db.Families.Find(familyId);
-        //}
-
-
-        //public User TargetUser { get; private set; }
-
-        //public Family TargetFamily { get; private set; }
-
         public User CurrentUser
         {
             get { return _currentUser.Value; }

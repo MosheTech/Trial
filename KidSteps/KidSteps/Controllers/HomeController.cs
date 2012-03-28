@@ -52,7 +52,7 @@ namespace KidSteps.Controllers
         {
             if (ModelState.IsValid)
             {
-                User u = db.Members.FirstOrDefault(m => m.Email == model.LogOnModel.Email);
+                User u = db.Users.FirstOrDefault(m => m.Email == model.LogOnModel.Email);
 
                 if (u != null && Membership.ValidateUser(u.Id.ToString(), model.LogOnModel.Password))
                 {

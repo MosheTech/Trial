@@ -60,19 +60,13 @@ namespace KidSteps.Controllers
         {
             // TODO: sanitize string
 
-            var user = db.Members.FirstOrDefault(m => m.InvitationCode == invitationCode);
+            var user = db.Users.FirstOrDefault(m => m.InvitationCode == invitationCode);
             if (user != null && user.IsPublicViewer)
             {
                 FormsAuthentication.SetAuthCookie(user.Id.ToString(), createPersistentCookie: false); // remember me?
             }
 
             return RedirectToAction("Index", "Home");
-
-            //var familyMembership = user.FamilyMemberships.First(fm => fm.Family.Id == user.DefaultFamily.Id);
-
-            //if (familyMembership.Relationship == RelationshipType.None)
-            //else
-            //    return RedirectToAction("ConnectToAccount");
         }
 
         //
@@ -95,7 +89,7 @@ namespace KidSteps.Controllers
             if (!string.IsNullOrEmpty(invitationCode))
             {
                 UserRepository repos = new UserRepository();
-                User user = db.Members.FirstOrDefault(m => m.InvitationCode == invitationCode);
+                User user = db.Users.FirstOrDefault(m => m.InvitationCode == invitationCode);
                 if (user != null && user.IsUnregisteredMember)
                 {
                     model.Name = user.Name;
@@ -142,7 +136,7 @@ namespace KidSteps.Controllers
                 else
                 {
                     // register an unregistered family member
-                    User user = db.Members.FirstOrDefault(u => u.InvitationCode == model.InvitationCode);
+                    User user = db.Users.FirstOrDefault(u => u.InvitationCode == model.InvitationCode);
 
                     if (user != null && user.IsUnregisteredMember)
                     {

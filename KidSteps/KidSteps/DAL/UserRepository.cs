@@ -16,7 +16,7 @@ namespace KidSteps.DAL
             bool hasId = int.TryParse(membershipUser.Identity.Name, out id);
             User user = null;
             if (hasId)
-                user = dbContext.Members.Find(id);
+                user = dbContext.Users.Find(id);
             return user;
         }
         
@@ -66,7 +66,7 @@ namespace KidSteps.DAL
         public User CreateUserWithoutAccount(KidStepsContext dbContext, PersonName name, string email)
         {
             User user = new User();
-            dbContext.Members.Add(user);
+            dbContext.Users.Add(user);
             user.Name = name;
             user.HasAccount = false;
             user.RoleFlags = Role.UnregisteredMember;
@@ -100,7 +100,7 @@ namespace KidSteps.DAL
             if (user == null)
             {
                 user = new User();
-                dbContext.Members.Add(user);
+                dbContext.Users.Add(user);
             }
             user.Email = email;
             user.Name = name;

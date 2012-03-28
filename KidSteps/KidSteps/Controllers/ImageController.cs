@@ -65,10 +65,7 @@ namespace KidSteps.Controllers
 
                     var rootedPath = Path.Combine(Server.MapPath("~"), image.Path);
 
-                    //System.IO.File.WriteAllText(rootedPath, "Testing valid path & permissions.");
-
                     thumbnail.Save(rootedPath);
-                    //imageViewModel.File.InputStream.Close();
 
                     if (!String.IsNullOrEmpty(returnUrl))
                         return Redirect(returnUrl);

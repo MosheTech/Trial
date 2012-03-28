@@ -120,7 +120,6 @@
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\InvitationController.cs" />
     <Compile Include="Controllers\LayoutController.cs" />
-    <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\TargetedController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\FamilyRepository.cs" />
@@ -153,7 +152,6 @@
     <Compile Include="Models\Family.cs" />
     <Compile Include="Models\FamilyMember.cs" />
     <Compile Include="Models\Image.cs" />
-    <Compile Include="Models\Media.cs" />
     <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\ProfileImage.cs" />
     <Compile Include="Models\Role.cs" />
@@ -176,6 +174,7 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Utils\ActionResultExtensions.cs" />
+    <Compile Include="Utils\ImageHelper.cs" />
     <Compile Include="ViewModels\ConnectToAccountViewModel.cs" />
     <Compile Include="ViewModels\CreateFamilyMemberViewModel.cs" />
     <Compile Include="ViewModels\FamilyCreateViewModel.cs" />
@@ -361,21 +360,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\User\Delete.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Media\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Media\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Media\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Media\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Media\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\EditorTemplates\PersonName.cshtml" />

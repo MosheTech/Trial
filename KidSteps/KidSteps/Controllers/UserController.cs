@@ -22,7 +22,7 @@ namespace KidSteps.Controllers
         [MyAuthorize(Role.SuperUser)]
         public virtual ViewResult Index()
         {
-            return View(db.Members.ToList());
+            return View(db.Users.ToList());
         }
 
         //
@@ -59,9 +59,9 @@ namespace KidSteps.Controllers
                 db.SaveChanges();
 
                 if (Request.Form["changeImage"] == "yes")
-                    return RedirectToAction(Actions.ProfileImageEdit());// "ProfileImageEdit");
+                    return RedirectToAction(Actions.ProfileImageEdit().WithId(Target));
                 else
-                    return RedirectToAction(Actions.Details().WithId(Target));// "Details", IdRoute.Create(TargetUser.Id));
+                    return RedirectToAction(Actions.Details().WithId(Target));
             }
             return View(model);
         }
@@ -89,7 +89,7 @@ namespace KidSteps.Controllers
                 db.SaveChanges();
             }
 
-            return RedirectToAction(Actions.Edit().WithId(Target));// "Edit", new { id = TargetUser.Id });
+            return RedirectToAction(Actions.Edit().WithId(Target));
         }
 
         //
@@ -108,9 +108,9 @@ namespace KidSteps.Controllers
         [UserTarget(Models.Permission.DeleteUser)]
         public virtual ActionResult DeleteConfirmed()
         {            
-            db.Members.Remove(Target);
+            db.Users.Remove(Target);
             db.SaveChanges();
-            return RedirectToAction(Actions.Index());// "Index");
+            return RedirectToAction(Actions.Index());
         }
 
 

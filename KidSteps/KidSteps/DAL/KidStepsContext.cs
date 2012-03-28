@@ -10,7 +10,7 @@ namespace KidSteps.Models
     public class KidStepsContext : DbContext
     {
         public DbSet<Family> Families { get; set; }
-        public DbSet<User> Members { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Relationship> Relationships { get; set; }
         public DbSet<TimelineEvent> TimelineEvents { get; set; }
         public DbSet<Image> Images { get; set; }

@@ -174,7 +174,7 @@ namespace KidSteps.Controllers
 
                 repos.AddUnregisteredMember(db, Target, model.Name, model.Email, RelationshipType.Self);
 
-                return RedirectToAction(MVC.Family.Details().WithId(Target.Id));// "Details", "Family", IdRoute.Create(TargetFamily.Id));
+                return RedirectToAction(MVC.Family.Details().WithId(Target.Id));
             }
 
             return View(model);
@@ -198,15 +198,11 @@ namespace KidSteps.Controllers
                 FamilyRepository repos = new FamilyRepository();
                 repos.AddUnregisteredMember(db, Target, model.Name, model.Email, model.Relationship);
 
-                return RedirectToAction(MVC.Family.Details().WithId(Target.Id));// "Details", "Family", IdRoute.Create(TargetFamily.Id));
+                return RedirectToAction(MVC.Family.Details().WithId(Target.Id));
             }
 
             return View(model);
         }
-
-
-
-
 
         public static IEnumerable<SelectListItem> FamilyRelationships;
     }
