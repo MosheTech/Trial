@@ -9,12 +9,12 @@ using KidSteps.Models;
 namespace KidSteps.Controllers
 {
     [Authorize]
-    public class InvitationController : ControllerBase
+    public partial class InvitationController : ControllerBase
     {
         //
         // GET: /Invitation/
 
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             InvitationIndexViewModel model = new InvitationIndexViewModel();
 

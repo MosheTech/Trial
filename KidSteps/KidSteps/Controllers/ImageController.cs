@@ -11,12 +11,12 @@ using System.IO;
 namespace KidSteps.Controllers
 { 
     [Authorize]
-    public class ImageController : ControllerBase
+    public partial class ImageController : ControllerBase
     {
         //
         // GET: /Image/
 
-        public ViewResult Index()
+        public virtual ViewResult Index()
         {
             var currentUser = CurrentUser;
             return View(db.Images.Where(image => image.CreatedBy.Id.Equals(currentUser.Id)).ToList());
@@ -25,7 +25,7 @@ namespace KidSteps.Controllers
         //
         // GET: /Image/Details/5
 
-        public ViewResult Details(long id)
+        public virtual ViewResult Details(long id)
         {
             Image image = db.Images.Find(id);
             return View(image);
@@ -34,7 +34,7 @@ namespace KidSteps.Controllers
         //
         // GET: /Image/Create
 
-        public ActionResult Create(string returnUrl = null)
+        public virtual ActionResult Create(string returnUrl = null)
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
@@ -44,7 +44,7 @@ namespace KidSteps.Controllers
         // POST: /Image/Create
 
         [HttpPost]
-        public ActionResult Create(ImageViewModel imageViewModel, string returnUrl = null)
+        public virtual ActionResult Create(ImageViewModel imageViewModel, string returnUrl = null)
         {
             
             if (ModelState.IsValid)
@@ -87,8 +87,8 @@ namespace KidSteps.Controllers
         
         //
         // GET: /Image/Edit/5
- 
-        public ActionResult Edit(long id)
+
+        public virtual ActionResult Edit(long id)
         {
             Image image = db.Images.Find(id);
             return View(image);
@@ -98,7 +98,7 @@ namespace KidSteps.Controllers
         // POST: /Image/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Image image)
+        public virtual ActionResult Edit(Image image)
         {
             if (ModelState.IsValid)
             {
@@ -111,8 +111,8 @@ namespace KidSteps.Controllers
 
         //
         // GET: /Image/Delete/5
- 
-        public ActionResult Delete(long id)
+
+        public virtual ActionResult Delete(long id)
         {
             Image image = db.Images.Find(id);
             return View(image);

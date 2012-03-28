@@ -14,7 +14,7 @@ using KidSteps.ActionFilters;
 namespace KidSteps.Controllers
 {
     [Authorize]
-    public class FamilyController : ControllerBase
+    public partial class FamilyController : TargetedController<Family>
     {
         static FamilyController()
         {
@@ -34,7 +34,7 @@ namespace KidSteps.Controllers
         // GET: /Family/
 
         [MyAuthorize(Role.SuperUser)]
-        public ViewResult Index()
+        public virtual ViewResult Index()
         {
             return View(db.Families.ToList());
         }
@@ -42,14 +42,14 @@ namespace KidSteps.Controllers
         //
         // GET: /Family/Details/5
 
-        [Authorize]
-        public ViewResult Details(long id)
+        [FamilyTarget(Permission.ViewFamily)]
+        public virtual ViewResult Details(int id)
         {
             FamilyDetailsViewModel model = new FamilyDetailsViewModel();
 
-            Family family = db.Families.Find(id);
-            model.Family = family;
-            var allMembers = family.Members.AsQueryable().Include("User").ToList();
+            //Family family = db.Families.Find(id);
+            model.Family = Target;
+            var allMembers = Target.Members.AsQueryable().Include("User").ToList();
             model.FamilyMembers = allMembers.Where(fm => fm.Relationship != RelationshipType.Self && fm.Relationship != RelationshipType.None);
             model.Kids = allMembers.Where(fm => fm.Relationship == RelationshipType.Self);
 
@@ -59,88 +59,153 @@ namespace KidSteps.Controllers
         //
         // GET: /Family/Create
 
-        public ActionResult Create()
-        {
-            FamilyCreateViewModel viewModel = new FamilyCreateViewModel();
-            viewModel.RelationshipsToChooseFrom = new List<SelectListItem>();
-            foreach (RelationshipType type in Enum.GetValues(typeof(RelationshipType)))
-            {
-                if (type == RelationshipType.Self)
-                    continue;
-                SelectListItem item = new SelectListItem() { Text = type.ToString(), Value = ((int)type).ToString() };
-                viewModel.RelationshipsToChooseFrom.Add(item);
-            }
-            return View(viewModel);
-        } 
+        //public virtual ActionResult Create()
+        //{
+        //    FamilyCreateViewModel viewModel = new FamilyCreateViewModel();
+        //    viewModel.RelationshipsToChooseFrom = new List<SelectListItem>();
+        //    foreach (RelationshipType type in Enum.GetValues(typeof(RelationshipType)))
+        //    {
+        //        if (type == RelationshipType.Self)
+        //            continue;
+        //        SelectListItem item = new SelectListItem() { Text = type.ToString(), Value = ((int)type).ToString() };
+        //        viewModel.RelationshipsToChooseFrom.Add(item);
+        //    }
+        //    return View(viewModel);
+        //} 
 
-        //
-        // POST: /Family/Create
+        ////
+        //// POST: /Family/Create
 
-        [HttpPost]
-        public ActionResult Create(FamilyCreateViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                FamilyRepository repos = new FamilyRepository();
-                var family =
-                    repos.Create(
-                    db, 
-                    model.FamilyName,
-                    CurrentUser,
-                    model.KidName,
-                    model.KidEmail, 
-                    model.RelationshipOfOwnerToKid);
+        //[HttpPost]
+        //public virtual ActionResult Create(FamilyCreateViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        FamilyRepository repos = new FamilyRepository();
+        //        var family =
+        //            repos.Create(
+        //            db, 
+        //            model.FamilyName,
+        //            CurrentUser,
+        //            model.KidName,
+        //            model.KidEmail, 
+        //            model.RelationshipOfOwnerToKid);
 
-                return RedirectToAction("Details", new { id = family.Id }); 
-            }
+        //        return RedirectToAction("Details", new { id = family.Id }); 
+        //    }
 
-            return View(model);
-        }
+        //    return View(model);
+        //}
         
         //
         // GET: /Family/Edit/5
- 
-        public ActionResult Edit(long id)
+
+        [FamilyTarget(Permission.EditFamily)]
+        public virtual ActionResult Edit(int id)
         {
-            Family family = db.Families.Find(id);
-            return View(family);
+            //Family family = db.Families.Find(id);
+            return View(Target);
         }
 
         //
         // POST: /Family/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Family family)
+        [FamilyTarget(Permission.EditFamily)]
+        public virtual ActionResult Edit(Family family)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(family).State = EntityState.Modified;
+                db.Entry(Target).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(family);
         }
 
-        //
-        // GET: /Family/Delete/5
- 
-        public ActionResult Delete(long id)
+        ////
+        //// GET: /Family/Delete/5
+
+        //public virtual ActionResult Delete(long id)
+        //{
+        //    Family family = db.Families.Find(id);
+        //    return View(family);
+        //}
+
+        ////
+        //// POST: /Family/Delete/5
+
+        //[HttpPost, ActionName("Delete")]
+        //public virtual ActionResult DeleteConfirmed(long id)
+        //{            
+        //    Family family = db.Families.Find(id);
+        //    db.Families.Remove(family);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
+
+
+
+        [FamilyTarget(Models.Permission.EditFamily)]
+        public virtual ActionResult CreateKid()
         {
-            Family family = db.Families.Find(id);
-            return View(family);
+            KidCreateViewModel viewModel = new KidCreateViewModel();
+            viewModel.Name.Last = Target.Name;
+
+            if (Target.HasKids)
+                viewModel.ShouldChooseRelationship = true;
+
+            return View(viewModel);
         }
 
-        //
-        // POST: /Family/Delete/5
+        [HttpPost]
+        [FamilyTarget(Models.Permission.EditFamily)]
+        public virtual ActionResult CreateKid(KidCreateViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                FamilyRepository repos = new FamilyRepository();
 
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(long id)
-        {            
-            Family family = db.Families.Find(id);
-            db.Families.Remove(family);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+                if (!Target.HasKids)
+                {
+                    repos.AddRelationship(db, Target.Owner, model.RelationshipOfOwnerToKid);
+                }
+
+                repos.AddUnregisteredMember(db, Target, model.Name, model.Email, RelationshipType.Self);
+
+                return RedirectToAction(MVC.Family.Details(Target.Id));// "Details", "Family", IdRoute.Create(TargetFamily.Id));
+            }
+
+            return View(model);
         }
+
+        [FamilyTarget(Models.Permission.EditFamily)]
+        public virtual ActionResult CreateFamilyMember()
+        {
+            CreateFamilyMemberViewModel viewModel = new CreateFamilyMemberViewModel();
+            viewModel.Name.Last = Target.Name;
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [FamilyTarget(Models.Permission.EditFamily)]
+        public virtual ActionResult CreateFamilyMember(CreateFamilyMemberViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                FamilyRepository repos = new FamilyRepository();
+                repos.AddUnregisteredMember(db, Target, model.Name, model.Email, model.Relationship);
+
+                return RedirectToAction(MVC.Family.Details(Target.Id));// "Details", "Family", IdRoute.Create(TargetFamily.Id));
+            }
+
+            return View(model);
+        }
+
+
+
+
 
         public static IEnumerable<SelectListItem> FamilyRelationships;
     }

@@ -11,13 +11,13 @@ using KidSteps.ViewModels;
 
 namespace KidSteps.Controllers
 {
-    public class AccountController : ControllerBase
+    public partial class AccountController : ControllerBase
     {
 
         //
         // GET: /Account/LogOn
 
-        public ActionResult LogOn()
+        public virtual ActionResult LogOn()
         {
             return View();
         }
@@ -26,7 +26,7 @@ namespace KidSteps.Controllers
         // POST: /Account/LogOn
 
         [HttpPost]
-        public ActionResult LogOn(LogOnModel model, string returnUrl)
+        public virtual ActionResult LogOn(LogOnModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -55,7 +55,7 @@ namespace KidSteps.Controllers
 
 
 
-        public ActionResult PublicViewerLogOn(string invitationCode)
+        public virtual ActionResult PublicViewerLogOn(string invitationCode)
         {
             // TODO: sanitize string
 
@@ -77,7 +77,7 @@ namespace KidSteps.Controllers
         //
         // GET: /Account/LogOff
 
-        public ActionResult LogOff()
+        public virtual ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
 
@@ -87,7 +87,7 @@ namespace KidSteps.Controllers
         //
         // GET: /Account/Register
 
-        public ActionResult Register(string invitationCode)
+        public virtual ActionResult Register(string invitationCode)
         {
             RegisterModel model = new RegisterModel();
 
@@ -111,7 +111,7 @@ namespace KidSteps.Controllers
         // POST: /Account/Register
 
         [HttpPost]
-        public ActionResult Register(RegisterModel model)
+        public virtual ActionResult Register(RegisterModel model)
         {
             if (ModelState.IsValid)
             {
@@ -168,7 +168,7 @@ namespace KidSteps.Controllers
         // GET: /Account/ChangePassword
 
         [Authorize]
-        public ActionResult ChangePassword()
+        public virtual ActionResult ChangePassword()
         {
             return View();
         }
@@ -178,7 +178,7 @@ namespace KidSteps.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult ChangePassword(ChangePasswordModel model)
+        public virtual ActionResult ChangePassword(ChangePasswordModel model)
         {
             if (ModelState.IsValid)
             {
@@ -213,12 +213,12 @@ namespace KidSteps.Controllers
         //
         // GET: /Account/ChangePasswordSuccess
 
-        public ActionResult ChangePasswordSuccess()
+        public virtual ActionResult ChangePasswordSuccess()
         {
             return View();
         }
 
-        public ActionResult Unauthorized()
+        public virtual ActionResult Unauthorized()
         {
             return View();
         }

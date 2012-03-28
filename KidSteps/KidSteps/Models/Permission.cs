@@ -10,7 +10,7 @@ namespace KidSteps.Models
         ReadUser,
         UpdateUser,
         DeleteUser,
-        AddFamilyMember,
+        EditFamily,
         ViewFamily
     }
 }

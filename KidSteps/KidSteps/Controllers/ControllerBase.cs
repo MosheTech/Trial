@@ -16,19 +16,20 @@ namespace KidSteps.Controllers
             _currentUser = new Lazy<User>(() => GetCurrentUser());
         }
 
-        public void SetTargetUser(int userId)
-        {
-            TargetUser = db.Members.Find(userId);
-        }
+        //public void SetTargetUser(int userId)
+        //{
+        //    TargetUser = db.Members.Find(userId);
+        //}
 
-        public void SetTargetFamily(int familyId)
-        {
-            TargetFamily = db.Families.Find(familyId);
-        }
+        //public void SetTargetFamily(int familyId)
+        //{
+        //    TargetFamily = db.Families.Find(familyId);
+        //}
 
-        public User TargetUser { get; private set; }
 
-        public Family TargetFamily { get; private set; }
+        //public User TargetUser { get; private set; }
+
+        //public Family TargetFamily { get; private set; }
 
         public User CurrentUser
         {
@@ -44,6 +45,11 @@ namespace KidSteps.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        public KidStepsContext Context
+        {
+            get { return db; }
         }
 
         protected KidStepsContext db = new KidStepsContext();

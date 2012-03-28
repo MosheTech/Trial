@@ -12,14 +12,14 @@ using KidSteps.DAL;
 using System.Web.Security;
 
 namespace KidSteps.Controllers
-{ 
-    public class UserController : ControllerBase
+{
+    public partial class UserController : TargetedController<User>
     {
         //
         // GET: /User/
 
         [MyAuthorize(Role.SuperUser)]
-        public ViewResult Index()
+        public virtual ViewResult Index()
         {
             return View(db.Members.ToList());
         }
@@ -28,18 +28,18 @@ namespace KidSteps.Controllers
         // GET: /User/Details/5
 
         [UserTarget(Permission.ReadUser)]
-        public ViewResult Details(int id)
+        public virtual ViewResult Details(int id)
         {
-            return View(TargetUser);
+            return View(Target);
         }
         
         //
         // GET: /User/Edit/5
 
         [UserTarget(Permission.UpdateUser)]
-        public ActionResult Edit(int id)
+        public virtual ActionResult Edit(int id)
         {
-            UserEditViewModel model = new UserEditViewModel(TargetUser);
+            UserEditViewModel model = new UserEditViewModel(Target);
 
             return View(model);
         }
@@ -49,26 +49,26 @@ namespace KidSteps.Controllers
 
         [HttpPost]
         [UserTarget(Permission.UpdateUser)]
-        public ActionResult Edit(UserEditViewModel model)
+        public virtual ActionResult Edit(UserEditViewModel model)
         {
             if (ModelState.IsValid)
             {
-                TargetUser.Bio = model.Bio;
-                TargetUser.Name = model.Name;
+                Target.Bio = model.Bio;
+                Target.Name = model.Name;
                 db.SaveChanges();
 
                 if (Request.Form["changeImage"] == "yes")
-                    return RedirectToAction("ProfileImageEdit");
+                    return RedirectToAction(Actions.ProfileImageEdit());// "ProfileImageEdit");
                 else
-                    return RedirectToAction("Details", IdRoute.Create(TargetUser.Id));
+                    return RedirectToAction(Actions.Details(Target.Id));// "Details", IdRoute.Create(TargetUser.Id));
             }
             return View(model);
         }
 
         [UserTarget(Permission.UpdateUser)]
-        public ActionResult ProfileImageEdit()
+        public virtual ActionResult ProfileImageEdit()
         {
-            return View(db.Images.Where(image => image.CreatedBy.Id == TargetUser.Id).ToList());
+            return View(db.Images.Where(image => image.CreatedBy.Id == Target.Id).ToList());
         }
 
         //
@@ -76,7 +76,7 @@ namespace KidSteps.Controllers
 
         [HttpPost]
         [UserTarget(Permission.UpdateUser)]
-        public ActionResult ProfileImageEdit(long? imageId)
+        public virtual ActionResult ProfileImageEdit(long? imageId)
         {
             Image image = null;
             if (imageId.HasValue)
@@ -84,89 +84,32 @@ namespace KidSteps.Controllers
 
             if (image != null)
             {
-                TargetUser.ProfilePicture = image;
+                Target.ProfilePicture = image;
                 db.SaveChanges();
             }
 
-            return RedirectToAction("Edit", new { id = TargetUser.Id });
+            return RedirectToAction(Actions.Edit(Target.Id));// "Edit", new { id = TargetUser.Id });
         }
 
         //
         // GET: /User/Delete/5
 
         [UserTarget(Models.Permission.DeleteUser)]
-        public ActionResult Delete()
+        public virtual ActionResult Delete()
         {
-            return View(TargetUser);
+            return View(Target);
         }
 
         //
         // POST: /User/Delete/5
 
         [HttpPost, ActionName("Delete")]
-        [FamilyTarget(Models.Permission.DeleteUser)]
-        public ActionResult DeleteConfirmed()
+        [UserTarget(Models.Permission.DeleteUser)]
+        public virtual ActionResult DeleteConfirmed()
         {            
-            db.Members.Remove(TargetUser);
+            db.Members.Remove(Target);
             db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        [UserTarget(Models.Permission.AddFamilyMember)]
-        public ActionResult CreateKid()
-        {
-            KidCreateViewModel viewModel = new KidCreateViewModel();
-            viewModel.Name.Last = TargetFamily.Name;
-
-            if (TargetFamily.HasKids)
-                viewModel.ShouldChooseRelationship = true;
-
-            return View(viewModel);
-        }
-
-        [HttpPost]
-        [FamilyTarget(Models.Permission.AddFamilyMember)]
-        public ActionResult CreateKid(KidCreateViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                FamilyRepository repos = new FamilyRepository();
-
-                if (!TargetFamily.HasKids)
-                {
-                    repos.AddRelationship(db, TargetFamily.Owner, model.RelationshipOfOwnerToKid);
-                }
-
-                repos.AddUnregisteredMember(db, TargetFamily, model.Name, model.Email, RelationshipType.Self);
-
-                return RedirectToAction("Details", "Family", IdRoute.Create(TargetFamily.Id));
-            }
-
-            return View(model);
-        }
-
-        [FamilyTarget(Models.Permission.AddFamilyMember)]
-        public ActionResult CreateFamilyMember()
-        {
-            CreateFamilyMemberViewModel viewModel = new CreateFamilyMemberViewModel();
-            viewModel.Name.Last = TargetFamily.Name;
-
-            return View(viewModel);
-        }
-
-        [HttpPost]
-        [FamilyTarget(Models.Permission.AddFamilyMember)]
-        public ActionResult CreateFamilyMember(CreateFamilyMemberViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                FamilyRepository repos = new FamilyRepository();
-                repos.AddUnregisteredMember(db, TargetFamily, model.Name, model.Email, model.Relationship);
-
-                return RedirectToAction("Details", "Family", IdRoute.Create(TargetFamily.Id));
-            }
-
-            return View(model);
+            return RedirectToAction(Index());// "Index");
         }
 
 

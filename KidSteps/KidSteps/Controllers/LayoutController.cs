@@ -8,10 +8,10 @@ using KidSteps.ViewModels;
 
 namespace KidSteps.Controllers
 {
-    public class LayoutController : ControllerBase
+    public partial class LayoutController : ControllerBase
     {
         [ChildActionOnly]
-        public ActionResult Menu()
+        public virtual ActionResult Menu()
         {
             LayoutMenuViewModel model = new LayoutMenuViewModel();
             if (CurrentUser != null)

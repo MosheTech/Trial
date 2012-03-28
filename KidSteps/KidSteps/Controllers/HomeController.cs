@@ -10,9 +10,9 @@ using KidSteps.ActionFilters;
 
 namespace KidSteps.Controllers
 {
-    public class HomeController : ControllerBase
+    public partial class HomeController : ControllerBase
     {
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             HomeIndexViewModel viewModel = new HomeIndexViewModel();
             if (User.Identity.IsAuthenticated)
@@ -48,7 +48,7 @@ namespace KidSteps.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(HomeIndexViewModel model)
+        public virtual ActionResult Index(HomeIndexViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -69,7 +69,7 @@ namespace KidSteps.Controllers
             return View(model);
         }
 
-        public ActionResult About()
+        public virtual ActionResult About()
         {
             return View();
         }

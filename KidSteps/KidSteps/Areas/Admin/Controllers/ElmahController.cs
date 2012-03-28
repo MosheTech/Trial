@@ -8,49 +8,49 @@ using KidSteps.Models;
 namespace KidSteps.Areas.Admin.Controllers 
 {
     [MyAuthorize(Role.SuperUser)]
-    public class ElmahController : Controller
+    public partial class ElmahController : Controller
     {
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             return new ElmahResult();
         }
 
-        public ActionResult Stylesheet()
+        public virtual ActionResult Stylesheet()
         {
             return new ElmahResult("stylesheet");
         }
 
-        public ActionResult Rss()
+        public virtual ActionResult Rss()
         {
             return new ElmahResult("rss");
         }
 
-        public ActionResult DigestRss()
+        public virtual ActionResult DigestRss()
         {
             return new ElmahResult("digestrss");
         }
 
-        public ActionResult About()
+        public virtual ActionResult About()
         {
             return new ElmahResult("about");
         }
 
-        public ActionResult Detail()
+        public virtual ActionResult Detail()
         {
             return new ElmahResult("detail");
         }
 
-        public ActionResult Download()
+        public virtual ActionResult Download()
         {
             return new ElmahResult("download");
         }
 
-        public ActionResult Json()
+        public virtual ActionResult Json()
         {
             return new ElmahResult("json");
         }
 
-        public ActionResult Xml()
+        public virtual ActionResult Xml()
         {
             return new ElmahResult("xml");
         }
