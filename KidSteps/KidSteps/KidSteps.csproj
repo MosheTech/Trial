@@ -101,8 +101,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilters\FamilyTargetAttribute.cs" />
     <Compile Include="ActionFilters\MyAuthorizeAttribute.cs" />
-    <Compile Include="ActionFilters\TestActionFilterAttribute.cs" />
     <Compile Include="ActionFilters\UserTargetAttribute.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ElmahController.cs" />
