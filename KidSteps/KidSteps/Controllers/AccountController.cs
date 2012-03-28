@@ -8,6 +8,7 @@ using System.Web.Security;
 using KidSteps.Models;
 using KidSteps.DAL;
 using KidSteps.ViewModels;
+using KidSteps.Utils;
 
 namespace KidSteps.Controllers
 {
@@ -131,7 +132,7 @@ namespace KidSteps.Controllers
                     {
                         FormsAuthentication.SetAuthCookie(user.Id.ToString(), model.RememberMe);
 
-                        return RedirectToAction("CreateKid", "User");
+                        return RedirectToAction(MVC.Family.CreateKid().WithId(user.DefaultFamily));
                     }
                     else
                     {

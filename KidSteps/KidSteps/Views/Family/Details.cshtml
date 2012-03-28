@@ -1,5 +1,4 @@
-﻿
-@model KidSteps.ViewModels.FamilyDetailsViewModel
+﻿@model KidSteps.ViewModels.FamilyDetailsViewModel
 @{
     ViewBag.Title = "Family";
 }
@@ -28,7 +27,7 @@
                             </td>
                             <td>
                                 <div>
-                                    @Html.ActionLink(member.User.Name.Full, "Details", "User", new { id = member.User.Id }, null)
+                                    @Html.ActionLink(member.User.Name.Full, MVC.User.Details().WithId(member.User))
                                 </div>
                             </td>
                             <td>
@@ -37,7 +36,7 @@
                         </tr>
                     }
                 </table>
-                @Html.ActionLink("Add Family Member", "CreateFamilyMember", "User", new { id = Model.Family.Id }, null)
+                @Html.ActionLink("Add Family Member", MVC.Family.CreateFamilyMember().WithId(Model.Family))
             </fieldset>
         </td>
         <td style="vertical-align: top;">
@@ -59,12 +58,12 @@
                             </td>
                             <td>
                                 <div>
-                                    @Html.ActionLink(member.User.Name.Full, "Details", "User", new { id = member.User.Id }, null)</div>
+                                    @Html.ActionLink(member.User.Name.Full, MVC.User.Details().WithId(member.User))</div>
                             </td>
                         </tr>
                     }
                 </table>
-                @Html.ActionLink("Add Kid", "CreateKid", "User")
+                @Html.ActionLink("Add Kid", MVC.Family.CreateKid().WithId(Model.Family))
             </fieldset>
         </td>
     </tr>

@@ -10,6 +10,7 @@ using KidSteps.ViewModels;
 using KidSteps.DAL;
 using System.Web.Security;
 using KidSteps.ActionFilters;
+using KidSteps.Utils;
 
 namespace KidSteps.Controllers
 {
@@ -43,7 +44,7 @@ namespace KidSteps.Controllers
         // GET: /Family/Details/5
 
         [FamilyTarget(Permission.ViewFamily)]
-        public virtual ViewResult Details(int id)
+        public virtual ViewResult Details()
         {
             FamilyDetailsViewModel model = new FamilyDetailsViewModel();
 
@@ -101,7 +102,7 @@ namespace KidSteps.Controllers
         // GET: /Family/Edit/5
 
         [FamilyTarget(Permission.EditFamily)]
-        public virtual ActionResult Edit(int id)
+        public virtual ActionResult Edit()
         {
             //Family family = db.Families.Find(id);
             return View(Target);
@@ -118,7 +119,7 @@ namespace KidSteps.Controllers
             {
                 db.Entry(Target).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction(Actions.Index());
             }
             return View(family);
         }
@@ -173,7 +174,7 @@ namespace KidSteps.Controllers
 
                 repos.AddUnregisteredMember(db, Target, model.Name, model.Email, RelationshipType.Self);
 
-                return RedirectToAction(MVC.Family.Details(Target.Id));// "Details", "Family", IdRoute.Create(TargetFamily.Id));
+                return RedirectToAction(MVC.Family.Details().WithId(Target.Id));// "Details", "Family", IdRoute.Create(TargetFamily.Id));
             }
 
             return View(model);
@@ -197,7 +198,7 @@ namespace KidSteps.Controllers
                 FamilyRepository repos = new FamilyRepository();
                 repos.AddUnregisteredMember(db, Target, model.Name, model.Email, model.Relationship);
 
-                return RedirectToAction(MVC.Family.Details(Target.Id));// "Details", "Family", IdRoute.Create(TargetFamily.Id));
+                return RedirectToAction(MVC.Family.Details().WithId(Target.Id));// "Details", "Family", IdRoute.Create(TargetFamily.Id));
             }
 
             return View(model);

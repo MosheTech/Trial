@@ -1,15 +1,15 @@
 ﻿@model KidSteps.ViewModels.LayoutMenuViewModel
 <nav>
     <ul id="menu">
-        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li>@Html.ActionLink("Home", MVC.Home.Index())</li>
         @if (User.Identity.IsAuthenticated)
         {
             if (Model.DefaultFamily != null)
             {
-                <li>@Html.ActionLink("My Family", "Details", "Family", new { id = Model.DefaultFamily.Id }, null)</li>
+                <li>@Html.ActionLink("My Family", MVC.Family.Details().WithId(Model.DefaultFamily))</li>
             }
 
-            <li>@Html.ActionLink("My Pics", "Index", "Image")</li>
+            <li>@Html.ActionLink("My Pics", MVC.Image.Index().WithId(Model.CurrentUser))</li>
         }
     </ul>
 </nav>

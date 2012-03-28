@@ -14,6 +14,6 @@
 <p>
     @if(Model.Id.ToString() == User.Identity.Name)
     {
-        @Html.ActionLink("Edit", "Edit", new {id = Model.Id})
+        @Html.ActionLink("Edit", MVC.User.Edit().WithId(Model))
     }
 </p>

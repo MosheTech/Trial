@@ -15,8 +15,8 @@
     }
 </script>
 <h2>Edit</h2>
-<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Links.Scripts.jquery_validate_min_js" type="text/javascript" />
+<script src="@Links.Scripts.jquery_validate_unobtrusive_min_js" type="text/javascript" />
 @using (Html.BeginForm())
 {
     <input type="hidden" id="changeImage" name="changeImage" />
@@ -38,10 +38,10 @@
             @Html.DisplayFor(m => m.ProfilePicture)
         </div>
         <div>
-            @Html.ActionLink("Select Profile Picture", "ProfileImageEdit", "User", null, new { onclick = "return (warning ? confirm('You have edited this page, save edits?') ? saveProfile() : true : true);" })
+            @Html.ActionLink("Select Profile Picture", MVC.User.ProfileImageEdit().WithId(ViewData), new { onclick = "return (warning ? confirm('You have edited this page, save edits?') ? saveProfile() : true : true);" })
         </div>
         <div>
-            @Html.ActionLink("Change Password", "ChangePassword", "Account")
+            @Html.ActionLink("Change Password", MVC.Account.ChangePassword())
         </div>
         <p>
             <input type="submit" id="btn1" value="Save" />

@@ -29,6 +29,8 @@ namespace KidSteps.ActionFilters
             if (!hasId)
                 throw new ArgumentException("Missing Id");
 
+            filterContext.Controller.ViewData["id"] = id;
+
             Initialize(filterContext.Controller as ControllerBase);
 
             SetTarget(id);

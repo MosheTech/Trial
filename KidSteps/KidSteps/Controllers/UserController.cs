@@ -10,6 +10,7 @@ using KidSteps.ActionFilters;
 using KidSteps.ViewModels;
 using KidSteps.DAL;
 using System.Web.Security;
+using KidSteps.Utils;
 
 namespace KidSteps.Controllers
 {
@@ -28,7 +29,7 @@ namespace KidSteps.Controllers
         // GET: /User/Details/5
 
         [UserTarget(Permission.ReadUser)]
-        public virtual ViewResult Details(int id)
+        public virtual ViewResult Details()
         {
             return View(Target);
         }
@@ -37,7 +38,7 @@ namespace KidSteps.Controllers
         // GET: /User/Edit/5
 
         [UserTarget(Permission.UpdateUser)]
-        public virtual ActionResult Edit(int id)
+        public virtual ActionResult Edit()
         {
             UserEditViewModel model = new UserEditViewModel(Target);
 
@@ -60,7 +61,7 @@ namespace KidSteps.Controllers
                 if (Request.Form["changeImage"] == "yes")
                     return RedirectToAction(Actions.ProfileImageEdit());// "ProfileImageEdit");
                 else
-                    return RedirectToAction(Actions.Details(Target.Id));// "Details", IdRoute.Create(TargetUser.Id));
+                    return RedirectToAction(Actions.Details().WithId(Target));// "Details", IdRoute.Create(TargetUser.Id));
             }
             return View(model);
         }
@@ -88,7 +89,7 @@ namespace KidSteps.Controllers
                 db.SaveChanges();
             }
 
-            return RedirectToAction(Actions.Edit(Target.Id));// "Edit", new { id = TargetUser.Id });
+            return RedirectToAction(Actions.Edit().WithId(Target));// "Edit", new { id = TargetUser.Id });
         }
 
         //
@@ -109,7 +110,7 @@ namespace KidSteps.Controllers
         {            
             db.Members.Remove(Target);
             db.SaveChanges();
-            return RedirectToAction(Index());// "Index");
+            return RedirectToAction(Actions.Index());// "Index");
         }
 
 

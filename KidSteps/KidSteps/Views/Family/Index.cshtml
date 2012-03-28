@@ -4,9 +4,6 @@
 }
 <h2>
     Index</h2>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table>
     <tr>
         <th>
@@ -22,7 +19,7 @@
                 @item.Name
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
+                @Html.ActionLink("Details", MVC.Family.Details().WithId(item))
             </td>
         </tr>
     }

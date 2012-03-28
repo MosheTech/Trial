@@ -152,7 +152,6 @@
     <Compile Include="Models\Content.cs" />
     <Compile Include="Models\Family.cs" />
     <Compile Include="Models\FamilyMember.cs" />
-    <Compile Include="Models\IdRoute.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\Permission.cs" />
@@ -176,6 +175,7 @@
     <Compile Include="UserController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utils\ActionResultExtensions.cs" />
     <Compile Include="ViewModels\ConnectToAccountViewModel.cs" />
     <Compile Include="ViewModels\CreateFamilyMemberViewModel.cs" />
     <Compile Include="ViewModels\FamilyCreateViewModel.cs" />
@@ -330,7 +330,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Utils\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -412,10 +411,10 @@
     <Content Include="Views\Image\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\User\CreateKid.cshtml" />
+    <Content Include="Views\Family\CreateKid.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\User\CreateFamilyMember.cshtml" />
+    <Content Include="Views\Family\CreateFamilyMember.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="user.config">
