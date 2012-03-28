@@ -1,4 +1,5 @@
-﻿@model KidSteps.ViewModels.FamilyDetailsViewModel
+﻿
+@model KidSteps.ViewModels.FamilyDetailsViewModel
 @{
     ViewBag.Title = "Family";
 }
@@ -36,7 +37,7 @@
                         </tr>
                     }
                 </table>
-                @Html.ActionLink("Add Family Member", "CreateFamilyMember", "User")
+                @Html.ActionLink("Add Family Member", "CreateFamilyMember", "User", new { id = Model.Family.Id }, null)
             </fieldset>
         </td>
         <td style="vertical-align: top;">

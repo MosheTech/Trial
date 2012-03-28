@@ -27,7 +27,7 @@ namespace KidSteps.Controllers
         //
         // GET: /User/Details/5
 
-        [UserTarget(Permission.Read)]
+        [UserTarget(Permission.ReadUser)]
         public ViewResult Details(int id)
         {
             return View(TargetUser);
@@ -36,7 +36,7 @@ namespace KidSteps.Controllers
         //
         // GET: /User/Edit/5
 
-        [UserTarget(Permission.Update)]
+        [UserTarget(Permission.UpdateUser)]
         public ActionResult Edit(int id)
         {
             UserEditViewModel model = new UserEditViewModel(TargetUser);
@@ -48,7 +48,7 @@ namespace KidSteps.Controllers
         // POST: /User/Edit/5
 
         [HttpPost]
-        [UserTarget(Permission.Update)]
+        [UserTarget(Permission.UpdateUser)]
         public ActionResult Edit(UserEditViewModel model)
         {
             if (ModelState.IsValid)
@@ -65,7 +65,7 @@ namespace KidSteps.Controllers
             return View(model);
         }
 
-        [UserTarget(Permission.Update)]
+        [UserTarget(Permission.UpdateUser)]
         public ActionResult ProfileImageEdit()
         {
             return View(db.Images.Where(image => image.CreatedBy.Id == TargetUser.Id).ToList());
@@ -75,7 +75,7 @@ namespace KidSteps.Controllers
         // POST: /User/Edit/5
 
         [HttpPost]
-        [UserTarget(Permission.Update)]
+        [UserTarget(Permission.UpdateUser)]
         public ActionResult ProfileImageEdit(long? imageId)
         {
             Image image = null;
@@ -94,80 +94,76 @@ namespace KidSteps.Controllers
         //
         // GET: /User/Delete/5
 
-        [Authorize]
-        public ActionResult Delete(long id)
+        [UserTarget(Models.Permission.DeleteUser)]
+        public ActionResult Delete()
         {
-            User user = db.Members.Find(id);
-            return View(user);
+            return View(TargetUser);
         }
 
         //
         // POST: /User/Delete/5
-        
+
         [HttpPost, ActionName("Delete")]
-        [Authorize]
-        public ActionResult DeleteConfirmed(long id)
+        [FamilyTarget(Models.Permission.DeleteUser)]
+        public ActionResult DeleteConfirmed()
         {            
-            User user = db.Members.Find(id);
-            db.Members.Remove(user);
+            db.Members.Remove(TargetUser);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
+        [UserTarget(Models.Permission.AddFamilyMember)]
         public ActionResult CreateKid()
         {
             KidCreateViewModel viewModel = new KidCreateViewModel();
-            viewModel.Name.Last = CurrentUser.DefaultFamily.Name;
+            viewModel.Name.Last = TargetFamily.Name;
 
-            if (!CurrentUser.DefaultFamily.HasKids)
+            if (TargetFamily.HasKids)
                 viewModel.ShouldChooseRelationship = true;
 
             return View(viewModel);
         }
 
         [HttpPost]
+        [FamilyTarget(Models.Permission.AddFamilyMember)]
         public ActionResult CreateKid(KidCreateViewModel model)
         {
             if (ModelState.IsValid)
             {
-                Family family = CurrentUser.DefaultFamily;
-
                 FamilyRepository repos = new FamilyRepository();
 
-                if (!family.HasKids)
+                if (!TargetFamily.HasKids)
                 {
-                    repos.AddRelationship(db, CurrentUser, model.RelationshipOfOwnerToKid);
+                    repos.AddRelationship(db, TargetFamily.Owner, model.RelationshipOfOwnerToKid);
                 }
 
-                repos.AddUnregisteredMember(db, family, model.Name, model.Email, RelationshipType.Self);
+                repos.AddUnregisteredMember(db, TargetFamily, model.Name, model.Email, RelationshipType.Self);
 
-                return RedirectToAction("Details", "Family", new { id = family.Id });
+                return RedirectToAction("Details", "Family", IdRoute.Create(TargetFamily.Id));
             }
 
             return View(model);
         }
 
+        [FamilyTarget(Models.Permission.AddFamilyMember)]
         public ActionResult CreateFamilyMember()
         {
-            Family family = CurrentUser.DefaultFamily;
-
             CreateFamilyMemberViewModel viewModel = new CreateFamilyMemberViewModel();
-            viewModel.Name.Last = family.Name;
+            viewModel.Name.Last = TargetFamily.Name;
 
             return View(viewModel);
         }
 
         [HttpPost]
+        [FamilyTarget(Models.Permission.AddFamilyMember)]
         public ActionResult CreateFamilyMember(CreateFamilyMemberViewModel model)
         {
             if (ModelState.IsValid)
             {
-                Family family = CurrentUser.DefaultFamily;
-
                 FamilyRepository repos = new FamilyRepository();
-                repos.AddUnregisteredMember(db, family, model.Name, model.Email, model.Relationship);
+                repos.AddUnregisteredMember(db, TargetFamily, model.Name, model.Email, model.Relationship);
 
-                return RedirectToAction("Details", "Family", new { id = family.Id });
+                return RedirectToAction("Details", "Family", IdRoute.Create(TargetFamily.Id));
             }
 
             return View(model);

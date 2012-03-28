@@ -8,9 +8,9 @@ using KidSteps.Models;
 
 namespace KidSteps.ActionFilters
 {
-    public class UserTargetAttribute : Mvc.ActionFilterAttribute
+    public class FamilyTargetAttribute : Mvc.ActionFilterAttribute
     {
-        public UserTargetAttribute(Permission permission)
+        public FamilyTargetAttribute(Permission permission)
             : base()
         {
             Permission = permission;
@@ -21,32 +21,28 @@ namespace KidSteps.ActionFilters
             // set properties target user and family
 
             if (!filterContext.RouteData.Values.ContainsKey("id"))
-                throw new ArgumentException("Missing User Id");
+                throw new ArgumentException("Missing Family Id");
 
-            int userId;
-            bool hasUserId = int.TryParse(filterContext.RouteData.Values["id"].ToString(), out userId);
+            int familyId;
+            bool hasFamilyId = int.TryParse(filterContext.RouteData.Values["id"].ToString(), out familyId);
 
-            if (!hasUserId)
-                throw new ArgumentException("Missing User Id");
+            if (!hasFamilyId)
+                throw new ArgumentException("Missing Family Id");
 
             ControllerBase controller = filterContext.Controller as ControllerBase;
 
             if (controller == null)
                 throw new ArgumentException("Controller did not inherit from custom ControllerBase");
 
-            controller.SetTargetUser(userId);
-
-            if (controller.CurrentUser.DefaultFamilyId.HasValue)
-                controller.SetTargetFamily(controller.CurrentUser.DefaultFamilyId.Value);
+            controller.SetTargetFamily(familyId);
 
             // check authorization
             bool authorized = false;
 
-            bool isTargetUser = controller.CurrentUser.Id == controller.TargetUser.Id;
-            bool isInSameFamilyAsTargetUser =
-                controller.CurrentUser.DefaultFamily != null &&
-                controller.TargetUser.DefaultFamily != null &&
-                controller.CurrentUser.DefaultFamily.Id == controller.TargetUser.DefaultFamily.Id;
+            bool isFamilyAdmin = controller.CurrentUser.Id == controller.TargetFamily.OwnerId;
+            bool isInTargetFamily = controller.CurrentUser.DefaultFamilyId == controller.TargetFamily.Id;
+            bool isRegisteredMemberOfTargetFamily =
+                (isInTargetFamily && controller.CurrentUser.RoleFlags.HasFlag(Role.RegisteredMember)) || isFamilyAdmin;
 
             // superuser is always authorized
             if (controller.CurrentUser.IsSuperUser)
@@ -54,14 +50,14 @@ namespace KidSteps.ActionFilters
 
             switch (Permission)
             {
-                    // anyone in the family can read
-                case Permission.ReadUser:
-                    if (isTargetUser || isInSameFamilyAsTargetUser)
+                // anyone in the family, including public viewer, can view the family
+                case Models.Permission.ViewFamily:
+                    if (isInTargetFamily)
                         authorized = true;
                     break;
-                    // only target user can update
-                case Permission.UpdateUser:
-                    if (isTargetUser)
+                // only family admin can add a family member
+                case Permission.AddFamilyMember:
+                    if (isFamilyAdmin)
                         authorized = true;
                     break;
                 default:
