@@ -23,6 +23,8 @@ namespace KidSteps.Models
         [Required]
         [MaxLength(128)]
         public string Email { get; set; }
+        [MaxLength(25)]
+        public string Phone { get; set; }
 
         public bool HasAccount { get; set; }
 
