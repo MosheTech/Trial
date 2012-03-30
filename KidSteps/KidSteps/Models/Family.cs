@@ -25,7 +25,7 @@ namespace KidSteps.Models
         //[InverseProperty("Family")]
         //public virtual ICollection<FamilyMember> Members { get; set; }
 
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<User> Members { get; set; }
 
         public bool HasKids { get; set; }
     }

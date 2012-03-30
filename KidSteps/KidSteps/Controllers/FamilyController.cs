@@ -50,7 +50,7 @@ namespace KidSteps.Controllers
 
             //Family family = db.Families.Find(id);
             model.Family = Target;
-            var allMembers = Target.Users.ToList();
+            List<User> allMembers = Target.Members.ToList();
             model.FamilyMembers = allMembers.Where(u => !u.IsKid);//.Where(fm => fm.Relationship != RelationshipType.Self && fm.Relationship != RelationshipType.None);
             model.Kids = allMembers.Where(u => u.IsKid);
 

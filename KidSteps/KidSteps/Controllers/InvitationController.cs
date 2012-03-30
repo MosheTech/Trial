@@ -19,8 +19,7 @@ namespace KidSteps.Controllers
             InvitationIndexViewModel model = new InvitationIndexViewModel();
 
             var user = CurrentUser;
-            var familyMembers = 
-                user.Family.Users.ToList();
+            List<User> familyMembers = user.Family.Members.ToList();
 
             IEnumerable<User> unregisteredUsers =
                 db.Users.Where(u => u.Family.Id == CurrentUser.Family.Id && u.IsUnregisteredFamilyMember);

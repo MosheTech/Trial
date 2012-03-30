@@ -4,7 +4,7 @@
 <table style="border:none;">
     <tr>
         <td style="vertical-align:top; width:160px; padding-right:20px; border:none;">
-            @foreach (var child in Model.User.Family.Users.Where(user => !user.IsKid))
+            @*@foreach (var child in Model.User.Family.Users.Where(user => !user.IsKid))
             {
                 <div style="border:solid 1px #aaaaaa; background-color:#f0f0f0; padding:5px; width:60px; margin:2px; float:left">
                     <div>@Html.DisplayFor(_ => child.ProfilePicture, new { Size = 60 })</div>
@@ -23,7 +23,7 @@
                     <div>@Html.DisplayFor(_ => child.ProfilePicture, new { Size = 60 })</div>
                     <div>@Html.DisplayFor(_ => child.Name)</div>
                 </div>
-            }
+            }*@
             </div>
         </td>
         <td style="vertical-align:top; width:560px; padding-right:20px; border:none;">

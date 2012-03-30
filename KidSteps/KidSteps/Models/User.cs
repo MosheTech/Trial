@@ -14,6 +14,7 @@ namespace KidSteps.Models
         {
             Name = new PersonName();
             Bio = string.Empty;
+            Relationships = new List<Relationship>();
         }
 
         public virtual int Id { get; set; }
@@ -70,7 +71,8 @@ namespace KidSteps.Models
         public virtual string Bio { get; set; }
         public virtual string InvitationCode { get; set; }
 
-        [Required]
+        //[ForeignKey("Family")]
+        //public int? FamilyId { get; set; }
         public virtual Family Family { get; set; }
 
         //[InverseProperty("User")]

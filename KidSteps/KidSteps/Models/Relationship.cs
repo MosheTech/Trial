@@ -10,15 +10,15 @@ namespace KidSteps.Models
     {
         public long Id { get; set; }
 
-        [Required]
+        //[Required]
         public User RelatedUser { get; set; }
-        public int RelatedUserId { get; set; }
+        //public int RelatedUserId { get; set; }
 
         [Required]
         public RelationshipType RelatedUserIsUsers { get; set; }
 
-        [Required]
-        public User User { get; set; }
-        public int UserId { get; set; }
+        //[Required]
+        public User Thingy { get; set; }
+        //public int UserId { get; set; }
     }
 }
