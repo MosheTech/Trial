@@ -59,7 +59,7 @@ namespace KidSteps.Controllers
                 try
                 {
                     var thumbnail =
-                        System.Drawing.Image.FromStream(imageViewModel.File.InputStream).GetThumbnailImage(100, 100,
+                        System.Drawing.Image.FromStream(imageViewModel.File.InputStream).GetThumbnailImage(200, 200,
                                                                                                            null,
                                                                                                            IntPtr.Zero);
 

@@ -153,7 +153,7 @@ namespace KidSteps.Controllers
             KidCreateViewModel viewModel = new KidCreateViewModel();
             viewModel.Name.Last = Target.Name;
 
-            if (Target.HasKids)
+            if (!Target.HasKids)
                 viewModel.ShouldChooseRelationship = true;
 
             return View(viewModel);
@@ -168,9 +168,7 @@ namespace KidSteps.Controllers
                 FamilyRepository repos = new FamilyRepository();
 
                 if (!Target.HasKids)
-                {
                     repos.AddRelationship(db, Target.Owner, model.RelationshipOfOwnerToKid);
-                }
 
                 repos.AddUnregisteredMember(db, Target, model.Name, model.Email, RelationshipType.Self);
 
