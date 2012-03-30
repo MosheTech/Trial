@@ -15,7 +15,7 @@ namespace KidSteps.Controllers
         public virtual ActionResult Index()
         {
             HomeIndexViewModel viewModel = new HomeIndexViewModel();
-            if (User.Identity.IsAuthenticated)
+            if (CurrentUser != null)
             {
                 viewModel.CurrentUser = CurrentUser;
                 if (viewModel.CurrentUser == null)
@@ -24,11 +24,11 @@ namespace KidSteps.Controllers
                     return View(viewModel);
                 }
                 viewModel.IsLoggedOn = true;
-                viewModel.UserDefaultFamily = viewModel.CurrentUser.DefaultFamily;
-                if (viewModel.UserDefaultFamily != null)
+                viewModel.UserFamily = viewModel.CurrentUser.Family;
+                if (viewModel.UserFamily != null)
                 {
                     viewModel.FamilyMembers =
-                        db.FamilyMembers.Where(fm => fm.Family.Id == viewModel.UserDefaultFamily.Id).ToList();
+                        db.Users.Where(u => u.Family.Id == viewModel.UserFamily.Id).ToList();
                 }
 
                 if (viewModel.CurrentUser.IsPublicViewer)

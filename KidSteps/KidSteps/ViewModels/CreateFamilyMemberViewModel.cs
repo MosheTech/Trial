@@ -14,7 +14,7 @@ namespace KidSteps.ViewModels
         public CreateFamilyMemberViewModel()
         {
             Name = new PersonName();
-            RelationshipsToChooseFrom = FamilyController.FamilyRelationships;
+            //RelationshipsToChooseFrom = FamilyController.RelationshipsTypes;
         }
 
         [Required]
@@ -22,10 +22,12 @@ namespace KidSteps.ViewModels
 
         public string Email { get; set; }
 
-        [Required]
-        [Display(Name = "Relationship to kids")]
-        public RelationshipType Relationship { get; set; }
+        //[Required]
+        //[Display(Name = "Relationship to kids")]
+        //public RelationshipType Relationship { get; set; }
 
-        public IEnumerable<SelectListItem> RelationshipsToChooseFrom { get; private set; }
+        //public IEnumerable<SelectListItem> RelationshipsToChooseFrom { get; private set; }
+
+        public bool IsKid { get; set; }
     }
 }

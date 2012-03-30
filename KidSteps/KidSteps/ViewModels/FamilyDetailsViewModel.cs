@@ -9,7 +9,7 @@ namespace KidSteps.ViewModels
     public class FamilyDetailsViewModel
     {
         public Family Family { get; set; }
-        public IEnumerable<FamilyMember> FamilyMembers { get; set; }
-        public IEnumerable<FamilyMember> Kids { get; set; }
+        public IEnumerable<User> FamilyMembers { get; set; }
+        public IEnumerable<User> Kids { get; set; }
     }
 }

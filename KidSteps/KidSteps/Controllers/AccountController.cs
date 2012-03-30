@@ -90,7 +90,7 @@ namespace KidSteps.Controllers
             {
                 UserRepository repos = new UserRepository();
                 User user = db.Users.FirstOrDefault(m => m.InvitationCode == invitationCode);
-                if (user != null && user.IsUnregisteredMember)
+                if (user != null && user.IsUnregisteredFamilyMember)
                 {
                     model.Name = user.Name;
                     model.InvitationCode = invitationCode;
@@ -119,14 +119,14 @@ namespace KidSteps.Controllers
                     // register new user
 
                     // Attempt to register the user
-                    User user = repos.Create(db, model.Name, model.Email, model.Password, Role.FamilyAdmin,
-                                             out createStatus);
+                    User user = repos.Cre(db, model.Name, model.Email, model.Password, out createStatus);// .Create(db, model.Name, model.Email, model.Password, Role.FamilyAdmin,
+                                             //out createStatus);
 
                     if (createStatus == MembershipCreateStatus.Success)
                     {
                         FormsAuthentication.SetAuthCookie(user.Id.ToString(), model.RememberMe);
 
-                        return RedirectToAction(MVC.Family.CreateKid().WithId(user.DefaultFamily));
+                        return RedirectToAction(MVC.Family.AddFamilyMember().WithId(user.Family));
                     }
                     else
                     {
@@ -138,14 +138,16 @@ namespace KidSteps.Controllers
                     // register an unregistered family member
                     User user = db.Users.FirstOrDefault(u => u.InvitationCode == model.InvitationCode);
 
-                    if (user != null && user.IsUnregisteredMember)
+                    if (user != null && user.IsUnregisteredFamilyMember)
                     {
-                        createStatus = repos.CreateAccountForUser(db, user, model.Email, model.Password);
+                        user.Name = model.Name;
+                        user.Email = model.Email;
+                        createStatus = repos.Register(db, user, model.Password);//.CreateAccountForUser(db, user, model.Email, model.Password);
 
                         if (createStatus == MembershipCreateStatus.Success)
                         {
                             FormsAuthentication.SetAuthCookie(user.Id.ToString(), model.RememberMe);
-                            return RedirectToAction("Index", "Home");
+                            return RedirectToAction(MVC.Home.Index());
                         }
                         else
                         {

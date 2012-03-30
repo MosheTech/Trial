@@ -45,7 +45,7 @@
 }
 else
 {
-    if (Model.UserDefaultFamily == null)
+    if (Model.UserFamily == null)
     {
     <div>
         You aren't part of a family yet.</div>
@@ -55,26 +55,26 @@ else
     else
     {
     <div>
-        <strong>@Model.UserDefaultFamily.Name Family</strong></div>
+        <strong>@Model.UserFamily.Name Family</strong></div>
     <p />
     <table>
         <tr>
             <td>
-                Kids: @Model.FamilyMembers.Count(fm => fm.Relationship == KidSteps.Models.RelationshipType.Self)
+                Kids: @Model.FamilyMembers.Count(user => user.IsKid)
             </td>
             <td>@Html.ActionLink("Add a kid", "CreateKid", "User")
             </td>
         </tr>
         <tr>
             <td>
-                Registered Family Members: @Model.FamilyMembers.Count(fm => fm.User.HasAccount)
+                Registered Family Members: @Model.FamilyMembers.Count(fm => fm.IsRegistered)
             </td>
-            <td>@Html.ActionLink("Add a family member", MVC.Family.CreateFamilyMember().WithId(Model.UserDefaultFamily))
+            <td>@Html.ActionLink("Add a family member", MVC.Family.AddFamilyMember().WithId(Model.UserFamily))
             </td>
         </tr>
         <tr>
             <td>
-                Unregistered Members: @(Model.FamilyMembers.Count(fm => !fm.User.HasAccount) - 1)
+                Unregistered Members: @(Model.FamilyMembers.Count(user => user.IsUnregisteredFamilyMember))
             </td>
             <td>@Html.ActionLink("Invite", MVC.Invitation.Index())
             </td>

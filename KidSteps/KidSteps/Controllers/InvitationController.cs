@@ -20,10 +20,11 @@ namespace KidSteps.Controllers
 
             var user = CurrentUser;
             var familyMembers = 
-                user.DefaultFamily.Members.ToList();
+                user.Family.Users.ToList();
 
             IEnumerable<User> unregisteredUsers =
-                familyMembers.Where(fm => fm.Relationship != Models.RelationshipType.None && !fm.User.HasAccount).Select(fm => fm.User);
+                db.Users.Where(u => u.Family.Id == CurrentUser.Family.Id && u.IsUnregisteredFamilyMember);
+                //familyMembers.Where(fm => fm.Relationship != Models.RelationshipType.None && !fm.User.HasAccount).Select(fm => fm.User);
             foreach (var unregisteredUser in unregisteredUsers)
             {
                 InvitationIndexViewModel.Invitation invitation = new InvitationIndexViewModel.Invitation();
@@ -47,7 +48,7 @@ namespace KidSteps.Controllers
 
             InvitationIndexViewModel.Invitation publicViewerInvitation = new InvitationIndexViewModel.Invitation();
             User publicViewer =
-                familyMembers.Single(fm => fm.Relationship == Models.RelationshipType.None).User;
+                db.Users.First(u => u.Family.Id == CurrentUser.Family.Id && u.IsPublicViewer);// familyMembers.First(.Single(fm => fm.Relationship == Models.RelationshipType.None).User;
             string publicViewerUrl = Url.Action("PublicViewerLogon", "Account", new { invitationCode = publicViewer.InvitationCode }, Request.Url.Scheme);
             string publicViewerEmailHref =
                 string.Format(

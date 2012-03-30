@@ -8,7 +8,7 @@ namespace KidSteps.ViewModels
 {
     public class LayoutMenuViewModel
     {
-        public Family DefaultFamily { get; set; }
+        public Family Family { get; set; }
         public User CurrentUser { get; set; }
     }
 }

@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace KidSteps.Models
 {
     public class Relationship
     {
-        public long RelationshipId { get; set; }
-        public User Member { get; set; }
-        public RelationshipType IsA { get; set; }
-        public User Of { get; set; }
+        public long Id { get; set; }
 
-        //public RelationshipType IsA 
-        //{ 
-        //    get { return (Models.RelationshipType)RelationshipType; } 
-        //}
-        //public Member Of 
-        //{ 
-        //    get { return Member1; } 
-        //}
+        [Required]
+        public User RelatedUser { get; set; }
+        public int RelatedUserId { get; set; }
+
+        [Required]
+        public RelationshipType RelatedUserIsUsers { get; set; }
+
+        [Required]
+        public User User { get; set; }
+        public int UserId { get; set; }
     }
 }

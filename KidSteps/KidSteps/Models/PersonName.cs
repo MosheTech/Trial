@@ -9,6 +9,17 @@ namespace KidSteps.Models
     [ComplexType]
     public class PersonName
     {
+        public PersonName()
+        {
+            
+        }
+
+        public PersonName(string first, string last)
+        {
+            First = first;
+            Last = last;
+        }
+
         [StringLength(32)]
         [MinLength(1)]
         [Required]

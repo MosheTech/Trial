@@ -342,9 +342,6 @@
     <Content Include="Views\Family\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Family\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Family\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -394,9 +391,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Image\Delete.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Family\CreateKid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Family\CreateFamilyMember.cshtml" />

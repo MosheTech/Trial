@@ -58,8 +58,7 @@ namespace KidSteps.Controllers {
             public readonly string Index = "Index";
             public readonly string Details = "Details";
             public readonly string Edit = "Edit";
-            public readonly string CreateKid = "CreateKid";
-            public readonly string CreateFamilyMember = "CreateFamilyMember";
+            public readonly string AddFamilyMember = "AddFamilyMember";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -67,8 +66,7 @@ namespace KidSteps.Controllers {
             public const string Index = "Index";
             public const string Details = "Details";
             public const string Edit = "Edit";
-            public const string CreateKid = "CreateKid";
-            public const string CreateFamilyMember = "CreateFamilyMember";
+            public const string AddFamilyMember = "AddFamilyMember";
         }
 
 
@@ -77,9 +75,7 @@ namespace KidSteps.Controllers {
         public ViewNames Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
-            public readonly string Create = "~/Views/Family/Create.cshtml";
             public readonly string CreateFamilyMember = "~/Views/Family/CreateFamilyMember.cshtml";
-            public readonly string CreateKid = "~/Views/Family/CreateKid.cshtml";
             public readonly string Delete = "~/Views/Family/Delete.cshtml";
             public readonly string Details = "~/Views/Family/Details.cshtml";
             public readonly string Edit = "~/Views/Family/Edit.cshtml";
@@ -112,24 +108,13 @@ namespace KidSteps.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult CreateKid() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.CreateKid);
+        public override System.Web.Mvc.ActionResult AddFamilyMember() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.AddFamilyMember);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult CreateKid(KidSteps.ViewModels.KidCreateViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.CreateKid);
-            callInfo.RouteValueDictionary.Add("model", model);
-            return callInfo;
-        }
-
-        public override System.Web.Mvc.ActionResult CreateFamilyMember() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.CreateFamilyMember);
-            return callInfo;
-        }
-
-        public override System.Web.Mvc.ActionResult CreateFamilyMember(KidSteps.ViewModels.CreateFamilyMemberViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.CreateFamilyMember);
+        public override System.Web.Mvc.ActionResult AddFamilyMember(KidSteps.ViewModels.CreateFamilyMemberViewModel model) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.AddFamilyMember);
             callInfo.RouteValueDictionary.Add("model", model);
             return callInfo;
         }

@@ -1,18 +1,18 @@
 ﻿@model KidSteps.ViewModels.CreateFamilyMemberViewModel
 @{
-    ViewBag.Title = "Create Family Member";
+    ViewBag.Title = "Add Family Member";
 }
 
 <h2>Create Family Member</h2>
 @using (Html.BeginForm())
 {
     @Html.EditorFor(m => m.Name)
-    <div class="editor-label">
+    @*<div class="editor-label">
         @Html.LabelFor(m => m.Relationship)
     </div>
     
     <div class="editor-field">
-        @Html.DropDownListFor(m => m.Relationship, Model.RelationshipsToChooseFrom)</div>
+        @Html.DropDownListFor(m => m.Relationship, Model.RelationshipsToChooseFrom)</div>*@
 
     <p>
         <input type="submit" value="Save" />

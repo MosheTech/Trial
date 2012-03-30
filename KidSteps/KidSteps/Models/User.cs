@@ -26,8 +26,6 @@ namespace KidSteps.Models
         [MaxLength(25)]
         public string Phone { get; set; }
 
-        public bool HasAccount { get; set; }
-
         public int RoleWrapper { get; set; }
 
         public Role RoleFlags
@@ -41,19 +39,29 @@ namespace KidSteps.Models
             get { return RoleFlags.HasFlag(Role.PublicViewer); }
         }
 
-        public bool IsUnregisteredMember
+        public bool IsMemberOfFamily
         {
-            get { return RoleFlags.HasFlag(Role.UnregisteredMember); }
+            get { return RoleFlags.HasFlag(Role.MemberOfFamily); }
         }
 
-        public bool IsRegisteredMember
+        public bool IsRegistered
         {
-            get { return RoleFlags.HasFlag(Role.RegisteredMember); }
+            get { return RoleFlags.HasFlag(Role.Registered); }
+        }
+
+        public bool IsUnregisteredFamilyMember
+        {
+            get { return IsMemberOfFamily && !IsRegistered && !IsPublicViewer; }
         }
 
         public bool IsSuperUser
         {
             get { return RoleFlags.HasFlag(Role.SuperUser); }
+        }
+
+        public bool IsKid
+        {
+            get { return RoleFlags.HasFlag(Role.Kid); }
         }
 
         [Required]
@@ -62,12 +70,12 @@ namespace KidSteps.Models
         public virtual string Bio { get; set; }
         public virtual string InvitationCode { get; set; }
 
-        public int? DefaultFamilyId { get; set; }
-        public virtual Family DefaultFamily { get; set; }
+        [Required]
+        public virtual Family Family { get; set; }
 
-        [InverseProperty("User")]
-        public virtual ICollection<FamilyMember> FamilyMemberships { get; set; }
-        //public virtual ICollection<Relationship> Relationships { get; set; }
+        //[InverseProperty("User")]
+        //public virtual ICollection<FamilyMember> FamilyMemberships { get; set; }
+        public virtual ICollection<Relationship> Relationships { get; set; }
         public virtual ICollection<TimelineEvent> TimelineEvents { get; set; }
         public virtual ICollection<Image> Images { get; set; }
     }

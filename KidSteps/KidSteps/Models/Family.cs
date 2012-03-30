@@ -10,7 +10,7 @@ namespace KidSteps.Models
     {
         public Family()
         {
-            Members = new List<FamilyMember>();
+            //Members = new List<FamilyMember>();
         }
 
         public int Id { get; set; }
@@ -18,13 +18,14 @@ namespace KidSteps.Models
         [Required]
         public string Name { get; set; }
 
-        public int OwnerId { get; set; }
-        public virtual User Owner { get; set; }
+        public virtual User Admin { get; set; }
 
         public virtual Image Thumbnail { get; set; }
 
-        [InverseProperty("Family")]
-        public virtual ICollection<FamilyMember> Members { get; set; }
+        //[InverseProperty("Family")]
+        //public virtual ICollection<FamilyMember> Members { get; set; }
+
+        public virtual ICollection<User> Users { get; set; }
 
         public bool HasKids { get; set; }
     }

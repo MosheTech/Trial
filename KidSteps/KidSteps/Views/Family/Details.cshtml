@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Family";
 }
-<h2>@Model.Family.Owner.Name.Full's Family</h2>
+<h2>@Model.Family.Admin.Name.Full's Family</h2>
 <table style="margin-bottom: 4px">
     <tr>
         <td style="vertical-align: top;">
@@ -23,20 +23,20 @@
                     {
                         <tr>
                             <td>
-                                @Html.ActionImage(MVC.User.Details().WithId(member.User), member.User.ProfilePicture, 50, Links.Content.Images.profile_placeholder_jpg)
+                                @Html.ActionImage(MVC.User.Details().WithId(member), member.ProfilePicture, 50, Links.Content.Images.profile_placeholder_jpg)
                             </td>
                             <td>
                                 <div>
-                                    @Html.ActionLink(member.User.Name.Full, MVC.User.Details().WithId(member.User))
+                                    @Html.ActionLink(member.Name.Full, MVC.User.Details().WithId(member))
                                 </div>
                             </td>
                             <td>
-                                @Html.DisplayFor(m => member.Relationship)
+                                Relationship
                             </td>
                         </tr>
                     }
                 </table>
-                @Html.ActionLink("Add Family Member", MVC.Family.CreateFamilyMember().WithId(Model.Family))
+                @Html.ActionLink("Add Family Member", MVC.Family.AddFamilyMember().WithId(Model.Family))
             </fieldset>
         </td>
         <td style="vertical-align: top;">
@@ -54,19 +54,19 @@
                     {
                         <tr>
                             <td>
-                                @Html.ActionImage(MVC.User.Details().WithId(member.User), member.User.ProfilePicture, 50, Links.Content.Images.profile_placeholder_jpg)
+                                @Html.ActionImage(MVC.User.Details().WithId(member), member.ProfilePicture, 50, Links.Content.Images.profile_placeholder_jpg)
                             </td>
                             <td>
                                 <div>
-                                    @Html.ActionLink(member.User.Name.Full, MVC.User.Details().WithId(member.User))</div>
+                                    @Html.ActionLink(member.Name.Full, MVC.User.Details().WithId(member))</div>
                             </td>
                         </tr>
                     }
                 </table>
-                @Html.ActionLink("Add Kid", MVC.Family.CreateKid().WithId(Model.Family))
+                @Html.ActionLink("Add Kid", MVC.Family.AddFamilyMember().WithId(Model.Family))
             </fieldset>
         </td>
     </tr>
 </table>
 <div>
-    Managed by @Html.DisplayFor(m => m.Family.Owner.Name)</div>
+    Managed by @Html.DisplayFor(m => m.Family.Admin.Name)</div>

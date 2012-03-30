@@ -4,9 +4,9 @@
         <li>@Html.ActionLink("Home", MVC.Home.Index())</li>
         @if (User.Identity.IsAuthenticated)
         {
-            if (Model.DefaultFamily != null)
+            if (Model.Family != null)
             {
-                <li>@Html.ActionLink("My Family", MVC.Family.Details().WithId(Model.DefaultFamily))</li>
+                <li>@Html.ActionLink("My Family", MVC.Family.Details().WithId(Model.Family))</li>
             }
 
             <li>@Html.ActionLink("My Pics", MVC.Image.Index().WithId(Model.CurrentUser))</li>

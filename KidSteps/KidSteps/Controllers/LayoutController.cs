@@ -17,7 +17,7 @@ namespace KidSteps.Controllers
             LayoutMenuViewModel model = new LayoutMenuViewModel();
             if (CurrentUser != null)
             {
-                model.DefaultFamily = CurrentUser.DefaultFamily;
+                model.Family = CurrentUser.Family;
                 model.CurrentUser = CurrentUser;
             }
 

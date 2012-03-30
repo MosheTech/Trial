@@ -12,13 +12,13 @@ namespace KidSteps.ActionFilters
         {
             bool isTargetUser = user.Id == target.Id;
             bool isInSameFamilyAsTargetUser =
-                user.DefaultFamily != null &&
-                target.DefaultFamily != null &&
-                user.DefaultFamily.Id == target.DefaultFamily.Id;
+                user.Family != null &&
+                target.Family != null &&
+                user.Family.Id == target.Family.Id;
             bool isFamilyAdminAndTargetIsUnregistered =
-                target.DefaultFamily != null &&
-                target.DefaultFamily.Owner.Id == user.Id &&
-                target.IsUnregisteredMember;
+                target.Family != null &&
+                target.Family.Admin.Id == user.Id &&
+                target.IsUnregisteredFamilyMember;
 
 
             // superuser is always authorized
@@ -40,10 +40,10 @@ namespace KidSteps.ActionFilters
 
         public static bool IsAllowedTo(this User user, Permission permission, Family target)
         {
-            bool isFamilyAdmin = user.Id == target.OwnerId;
-            bool isInTargetFamily = user.DefaultFamilyId == target.Id;
+            bool isFamilyAdmin = user.Id == target.Admin.Id;
+            bool isInTargetFamily = user.Family.Id == target.Id;
             bool isRegisteredMemberOfTargetFamily =
-                (isInTargetFamily && user.IsRegisteredMember) || isFamilyAdmin;
+                (isInTargetFamily && user.IsRegistered) || isFamilyAdmin;
 
             // superuser is always authorized
             if (user.IsSuperUser)
