@@ -31,7 +31,11 @@ namespace KidSteps.Controllers
         [UserTarget(Permission.ReadUser)]
         public virtual ViewResult Details()
         {
-            return View(Target);
+            UserDetailsViewModel model = new UserDetailsViewModel();
+            model.User = Target;
+            model.IsAllowedToEdit = CurrentUser.IsAllowedTo(Permission.UpdateUser, Target);
+
+            return View(model);
         }
         
         //

@@ -25,6 +25,6 @@
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", MVC.Image.Edit(Model.Id)) |
+    @Html.ActionLink("Back to List", MVC.Image.Index())
 </p>

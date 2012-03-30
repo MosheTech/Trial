@@ -1,10 +1,10 @@
-﻿@model KidSteps.Models.User
+﻿@model KidSteps.ViewModels.UserDetailsViewModel
 @{ViewBag.Title = "Details";}
 
 <table style="border:none;">
     <tr>
         <td style="vertical-align:top; width:160px; padding-right:20px; border:none;">
-            @foreach (var child in Model.DefaultFamily.Members.Where(fm => fm.Relationship == KidSteps.Models.RelationshipType.Self).Select(fm => fm.User))
+            @foreach (var child in Model.User.DefaultFamily.Members.Where(fm => fm.Relationship == KidSteps.Models.RelationshipType.Self).Select(fm => fm.User))
             {
                 <div style="border:solid 1px #aaaaaa; background-color:#f0f0f0; padding:5px; width:60px; margin:2px; float:left">
                     <div>@Html.DisplayFor(_ => child.ProfilePicture, new { Size = 60 })</div>
@@ -13,11 +13,11 @@
             }
             <div style="clear:left; width:80px; border:solid 3px #aaaaaa; border-top:none; margin-left:15%; height:8px; margin-right:5px;"></div>
             <div style="width:60px; border-right:solid 3px #aaaaaa; height:8px;"></div>
-            @Html.DisplayFor(m => m.ProfilePicture, new {Size=150})
+            @Html.DisplayFor(m => m.User.ProfilePicture, new {Size=150})
             <div style="width:60px; border-right:solid 3px #aaaaaa; height:8px;"></div>
             <div style="width:80px; border:solid 3px #aaaaaa; border-bottom:none; margin-left:15%; height:8px; margin-right:5px;"></div>
             <div>
-            @foreach (var child in Model.DefaultFamily.Members.Where(fm => fm.Relationship == KidSteps.Models.RelationshipType.Self).Select(fm => fm.User))
+            @foreach (var child in Model.User.DefaultFamily.Members.Where(fm => fm.Relationship == KidSteps.Models.RelationshipType.Self).Select(fm => fm.User))
             {
                 <div style="border:solid 1px #aaaaaa; background-color:#f0f0f0; padding:5px; width:60px; margin:2px; float:left">
                     <div>@Html.DisplayFor(_ => child.ProfilePicture, new { Size = 60 })</div>
@@ -27,18 +27,21 @@
             </div>
         </td>
         <td style="vertical-align:top; width:560px; padding-right:20px; border:none;">
-            <span style="float:right;">@if(Model.Id.ToString() == User.Identity.Name)
+            <span style="float:right;">@if (Model.IsAllowedToEdit)
                 {
-                    @Html.ActionLink("Edit", MVC.User.Edit().WithId(Model))
+                    @Html.ActionLink("Edit", MVC.User.Edit().WithId(Model.User))
                 }</span>
-            <h2>@Html.DisplayFor(m => m.Name)</h2>
+            <h2>@Html.DisplayFor(m => m.User.Name)</h2>
             <div class="display-field" style="margin:0px 8px 8px 8px">
-            @Html.DisplayFor(m => m.Bio)
+            @Html.DisplayFor(m => m.User.Bio)
             </div>
+            @if (Model.User.HasRealEmail)
+            {
             <ul>
                 <t style="font-weight:bold; margin-left:-15px">Contact Information</t>
-                <li>@Html.DisplayFor(m => m.Email)</li>
+                <li>@Html.DisplayFor(m => m.User.Email)</li>
             </ul>
+            }
         </td>
         <td style="vertical-align:top; border:none;">
             <div style="border:solid 1px #aaaaaa; background-color:#f0f0f0; padding:10px; width:180px; margin-bottom:4px">

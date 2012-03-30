@@ -18,12 +18,12 @@
                         <th>
                             Relationship to Kids
                         </th>
-                    </tr>
+                    </tr>                    
                     @foreach (var member in Model.FamilyMembers)
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(_ => member.User.ProfilePicture, new { Size = 50 })
+                                @Html.ActionImage(MVC.User.Details().WithId(member.User), member.User.ProfilePicture, 50, Links.Content.Images.profile_placeholder_jpg)
                             </td>
                             <td>
                                 <div>
@@ -54,7 +54,7 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(_ => member.User.ProfilePicture, new { Size = 50 })
+                                @Html.ActionImage(MVC.User.Details().WithId(member.User), member.User.ProfilePicture, 50, Links.Content.Images.profile_placeholder_jpg)
                             </td>
                             <td>
                                 <div>

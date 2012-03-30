@@ -9,72 +9,12 @@ using KidSteps.Models;
 
 namespace KidSteps.ActionFilters
 {
-    public class UserTargetAttribute : TargetedAttribute //: Mvc.ActionFilterAttribute
+    public class UserTargetAttribute : TargetedAttribute
     {
         public UserTargetAttribute(Permission permission)
             : base(permission)
         {
         }
-
-        //public override void OnActionExecuting(Mvc.ActionExecutingContext filterContext)
-        //{
-        //    // set properties target user and family
-
-        //    if (!filterContext.RouteData.Values.ContainsKey("id"))
-        //        throw new ArgumentException("Missing User Id");
-
-        //    int userId;
-        //    bool hasUserId = int.TryParse(filterContext.RouteData.Values["id"].ToString(), out userId);
-
-        //    if (!hasUserId)
-        //        throw new ArgumentException("Missing User Id");
-
-        //    ControllerBase controller = filterContext.Controller as ControllerBase;
-
-        //    if (controller == null)
-        //        throw new ArgumentException("Controller did not inherit from custom ControllerBase");
-
-        //    controller.SetTargetUser(userId);
-
-        //    if (controller.CurrentUser.DefaultFamilyId.HasValue)
-        //        controller.SetTargetFamily(controller.CurrentUser.DefaultFamilyId.Value);
-
-        //    // check authorization
-        //    bool authorized = false;
-
-        //    bool isTargetUser = controller.CurrentUser.Id == controller.TargetUser.Id;
-        //    bool isInSameFamilyAsTargetUser =
-        //        controller.CurrentUser.DefaultFamily != null &&
-        //        controller.TargetUser.DefaultFamily != null &&
-        //        controller.CurrentUser.DefaultFamily.Id == controller.TargetUser.DefaultFamily.Id;
-
-        //    // superuser is always authorized
-        //    if (controller.CurrentUser.IsSuperUser)
-        //        authorized = true;
-
-        //    switch (Permission)
-        //    {
-        //            // anyone in the family can read
-        //        case Permission.ReadUser:
-        //            if (isTargetUser || isInSameFamilyAsTargetUser)
-        //                authorized = true;
-        //            break;
-        //            // only target user can update
-        //        case Permission.UpdateUser:
-        //            if (isTargetUser)
-        //                authorized = true;
-        //            break;
-        //        default:
-        //            throw new NotImplementedException();
-        //    }
-
-        //    if (!authorized)
-        //        filterContext.Result = new Mvc.HttpUnauthorizedResult();
-
-        //    base.OnActionExecuting(filterContext);
-        //}
-
-        //public Permission Permission { get; set; }
 
         protected override void Initialize(ControllerBase controller)
         {
@@ -94,27 +34,34 @@ namespace KidSteps.ActionFilters
 
         protected override bool IsAuthorized()
         {
-            bool isTargetUser = _controller.CurrentUser.Id == _controller.Target.Id;
-            bool isInSameFamilyAsTargetUser =
-                _controller.CurrentUser.DefaultFamily != null &&
-                _controller.Target.DefaultFamily != null &&
-                _controller.CurrentUser.DefaultFamily.Id == _controller.Target.DefaultFamily.Id;
+            return _controller.CurrentUser.IsAllowedTo(Permission, _controller.Target);
 
-            // superuser is always authorized
-            if (_controller.CurrentUser.IsSuperUser)
-                return true;
+            //bool isTargetUser = _controller.CurrentUser.Id == _controller.Target.Id;
+            //bool isInSameFamilyAsTargetUser =
+            //    _controller.CurrentUser.DefaultFamily != null &&
+            //    _controller.Target.DefaultFamily != null &&
+            //    _controller.CurrentUser.DefaultFamily.Id == _controller.Target.DefaultFamily.Id;
+            //bool isFamilyAdminAndTargetIsUnregistered =
+            //    _controller.Target.DefaultFamily != null &&
+            //    _controller.Target.DefaultFamily.Owner.Id == _controller.CurrentUser.Id &&
+            //    _controller.Target.IsUnregisteredMember;
+                
 
-            switch (Permission)
-            {
-                // anyone in the family can read
-                case Permission.ReadUser:
-                    return (isTargetUser || isInSameFamilyAsTargetUser);
-                // only target user can update
-                case Permission.UpdateUser:
-                    return isTargetUser;
-                default:
-                    throw new NotImplementedException();
-            }
+            //// superuser is always authorized
+            //if (_controller.CurrentUser.IsSuperUser)
+            //    return true;
+
+            //switch (Permission)
+            //{
+            //    // anyone in the family can read
+            //    case Permission.ReadUser:
+            //        return (isTargetUser || isInSameFamilyAsTargetUser);
+            //    // only target user can update
+            //    case Permission.UpdateUser:
+            //        return isTargetUser || isFamilyAdminAndTargetIsUnregistered;
+            //    default:
+            //        throw new NotImplementedException();
+            //}
         }
 
         private TargetedController<User> _controller;

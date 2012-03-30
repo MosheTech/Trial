@@ -39,7 +39,7 @@
     }
     
     <div>
-        Don't have an account yet? <strong>@Html.ActionLink("Sign  up", "Register", "Account")</strong>
+        Don't have an account yet? <strong>@Html.ActionLink("Sign  up", MVC.Account.Register())</strong>
         to start recording your Kid Steps today!
     </div>
 }
@@ -50,7 +50,7 @@ else
     <div>
         You aren't part of a family yet.</div>
     <div>
-        @Html.ActionLink("Start a family", "Create", "Family")</div>
+        Start a family!</div>
     }
     else
     {
@@ -69,14 +69,14 @@ else
             <td>
                 Registered Family Members: @Model.FamilyMembers.Count(fm => fm.User.HasAccount)
             </td>
-            <td>@Html.ActionLink("Add a family member", "CreateFamilyMember", "User")
+            <td>@Html.ActionLink("Add a family member", MVC.Family.CreateFamilyMember().WithId(Model.UserDefaultFamily))
             </td>
         </tr>
         <tr>
             <td>
                 Unregistered Members: @(Model.FamilyMembers.Count(fm => !fm.User.HasAccount) - 1)
             </td>
-            <td>@Html.ActionLink("Invite", "Index", "Invitation")
+            <td>@Html.ActionLink("Invite", MVC.Invitation.Index())
             </td>
         </tr>
     </table>
