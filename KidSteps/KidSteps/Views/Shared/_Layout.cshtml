@@ -16,9 +16,9 @@
                     Where what’s most important...matters most
             </div>
             <div id="logindisplay">
-                @Html.Partial("_LogOnPartial")
+                @Html.Action(MVC.Layout.AccountBar())
             </div>
-            @Html.Action("Menu", "Layout")
+            @Html.Action(MVC.Layout.Menu())
         </header>
         <section id="main">
             @RenderBody()
@@ -27,11 +27,11 @@
             @if (User.IsInRole(KidSteps.Models.Role.SuperUser.ToString()))
             {
                 <div>
-                    @Html.ActionLink("All Users", "Index", "User") |
-                    @Html.ActionLink("All Families", "Index", "Family")
+                    @Html.ActionLink("All Users", MVC.User.Index()) |
+                    @Html.ActionLink("All Families", MVC.Family.Index())
                 </div>
                 <div>
-                    @Html.ActionLink("Error Log", "Index", "Elmah", null, new { target = "_blank" })
+                    @Html.ActionLink("Error Log", MVC.Admin.Elmah.Index(), new { target = "_blank" })
                     | <a href="glimpse.axd" target="_blank">Trace</a>
                 </div>
             }

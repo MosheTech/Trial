@@ -104,6 +104,7 @@
     <Compile Include="AccountController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="ActionFilters\AuthorizationExtensions.cs" />
     <Compile Include="ActionFilters\FamilyTargetAttribute.cs" />
     <Compile Include="ActionFilters\MyAuthorizeAttribute.cs" />
     <Compile Include="ActionFilters\TargetedAttribute.cs" />
@@ -144,9 +145,6 @@
     <Compile Include="LayoutController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="MediaController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Content.cs" />
     <Compile Include="Models\Family.cs" />
@@ -183,6 +181,7 @@
     <Compile Include="ViewModels\InvitationIndexViewModel.cs" />
     <Compile Include="ViewModels\KidCreateViewModel.cs" />
     <Compile Include="ViewModels\LayoutMenuViewModel.cs" />
+    <Compile Include="ViewModels\UserDetailsViewModel.cs" />
     <Compile Include="ViewModels\UserEditViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -420,6 +419,7 @@
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
     <None Include="T4MVC.tt.settings.t4" />
+    <Content Include="Views\Layout\AccountBar.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

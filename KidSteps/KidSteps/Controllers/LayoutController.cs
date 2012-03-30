@@ -24,5 +24,11 @@ namespace KidSteps.Controllers
             return PartialView(model);
         }
 
+        [ChildActionOnly]
+        public virtual ActionResult AccountBar()
+        {
+            return PartialView(CurrentUser);
+        }
+
     }
 }

@@ -15,5 +15,5 @@
     @Html.DisplayFor(m => m.ProfilePicture)
 </div>
 <div>
-    @Html.ActionLink("Select Profile Picture", "ProfileImageEdit", "User")
+    @Html.ActionLink("Select Profile Picture", MVC.User.ProfileImageEdit().WithId(Model))
 </div>

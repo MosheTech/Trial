@@ -32,7 +32,6 @@ public static class MVC {
     public static KidSteps.Controllers.InvitationController Invitation = new KidSteps.Controllers.T4MVC_InvitationController();
     public static KidSteps.Controllers.LayoutController Layout = new KidSteps.Controllers.T4MVC_LayoutController();
     public static KidSteps.Controllers.UserController User = new KidSteps.Controllers.T4MVC_UserController();
-    public static T4MVC.MediaController Media = new T4MVC.MediaController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
 
