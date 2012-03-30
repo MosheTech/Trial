@@ -369,6 +369,14 @@ namespace Links {
         private const string URLPATH = "~/Content";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class Images {
+            private const string URLPATH = "~/Content/Images";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string profile_placeholder_jpg = Url("profile-placeholder.jpg");
+        }
+    
         public static readonly string Site_css = Url("Site.css");
         public static readonly string style_css = Url("style.css");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

@@ -172,6 +172,7 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Utils\ActionResultExtensions.cs" />
+    <Compile Include="Utils\HtmlHelperExtensions.cs" />
     <Compile Include="Utils\ImageHelper.cs" />
     <Compile Include="ViewModels\ConnectToAccountViewModel.cs" />
     <Compile Include="ViewModels\CreateFamilyMemberViewModel.cs" />
@@ -187,6 +188,7 @@
   <ItemGroup>
     <Content Include="App_Readme\glimpse.mvc3.readme.txt" />
     <Content Include="App_Readme\glimpse.readme.txt" />
+    <Content Include="Content\Images\profile-placeholder.jpg" />
     <Content Include="Content\style.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
