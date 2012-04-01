@@ -23,7 +23,7 @@
                     {
                         <tr>
                             <td>
-                                @Html.ActionImage(MVC.User.Details().WithId(member), member.ProfilePicture, 50, Links.Content.Images.profile_placeholder_jpg)
+                                @Html.ProfileActionImage(MVC.User.Details().WithId(member), member.ProfilePicture, 50)
                             </td>
                             <td>
                                 <div>
@@ -31,7 +31,6 @@
                                 </div>
                             </td>
                             <td>
-                                Relationship
                             </td>
                         </tr>
                     }

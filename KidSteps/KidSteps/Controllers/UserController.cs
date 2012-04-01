@@ -35,6 +35,21 @@ namespace KidSteps.Controllers
             model.User = Target;
             model.IsAllowedToEdit = CurrentUser.IsAllowedTo(Permission.UpdateUser, Target);
 
+            model.Children.AddRange(
+                Target.Relationships.
+                    Where(rel => rel.RelatedUserIsSourceUsers == RelationshipType.Child).
+                    Select(rel => rel.RelatedUser));
+
+            model.Parents.AddRange(
+                Target.Relationships.
+                    Where(rel => rel.RelatedUserIsSourceUsers == RelationshipType.Parent).
+                    Select(rel => rel.RelatedUser));
+
+            model.OtherImmediateFamily.AddRange(
+                Target.Relationships.Select(rel => rel.RelatedUser)
+                .Except(model.Parents)
+                .Except(model.Children));
+
             return View(model);
         }
         
@@ -45,6 +60,11 @@ namespace KidSteps.Controllers
         public virtual ActionResult Edit()
         {
             UserEditViewModel model = new UserEditViewModel(Target);
+
+            if (CurrentUser.IsAllowedTo(Permission.EditFamily, Target.Family))
+            {
+
+            }
 
             return View(model);
         }

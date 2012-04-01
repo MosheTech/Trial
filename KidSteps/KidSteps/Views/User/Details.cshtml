@@ -4,11 +4,11 @@
 <table style="border:none;">
     <tr>
         <td style="vertical-align:top; width:160px; padding-right:20px; border:none;">
-            @*@foreach (var child in Model.User.Family.Users.Where(user => !user.IsKid))
+            @foreach (var parent in Model.Parents)
             {
                 <div style="border:solid 1px #aaaaaa; background-color:#f0f0f0; padding:5px; width:60px; margin:2px; float:left">
-                    <div>@Html.DisplayFor(_ => child.ProfilePicture, new { Size = 60 })</div>
-                    <div>@Html.DisplayFor(_ => child.Name)</div>
+                    <div>@Html.ProfileActionImage(MVC.User.Details().WithId(parent), parent.ProfilePicture, 60)</div>
+                    <div>@Html.DisplayFor(_ => parent.Name)</div>
                 </div>
             }
             <div style="clear:left; width:80px; border:solid 3px #aaaaaa; border-top:none; margin-left:15%; height:8px; margin-right:5px;"></div>
@@ -17,13 +17,13 @@
             <div style="width:60px; border-right:solid 3px #aaaaaa; height:8px;"></div>
             <div style="width:80px; border:solid 3px #aaaaaa; border-bottom:none; margin-left:15%; height:8px; margin-right:5px;"></div>
             <div>
-            @foreach (var child in Model.User.Family.Users.Where(user => user.IsKid))
+            @foreach (var child in Model.Children)
             {
                 <div style="border:solid 1px #aaaaaa; background-color:#f0f0f0; padding:5px; width:60px; margin:2px; float:left">
-                    <div>@Html.DisplayFor(_ => child.ProfilePicture, new { Size = 60 })</div>
+                    <div>@Html.ProfileActionImage(MVC.User.Details().WithId(child), child.ProfilePicture, 60)</div>
                     <div>@Html.DisplayFor(_ => child.Name)</div>
                 </div>
-            }*@
+            }
             </div>
         </td>
         <td style="vertical-align:top; width:560px; padding-right:20px; border:none;">

@@ -14,7 +14,7 @@ namespace KidSteps.DAL
     {
         protected override void Seed(KidStepsContext context)
         {
-            throw new Exception();
+            //throw new Exception();
 
             // install/initialize asp.net membership services
             SqlServices.Install(

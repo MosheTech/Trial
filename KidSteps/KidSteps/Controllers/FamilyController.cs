@@ -51,7 +51,7 @@ namespace KidSteps.Controllers
             //Family family = db.Families.Find(id);
             model.Family = Target;
             List<User> allMembers = Target.Members.ToList();
-            model.FamilyMembers = allMembers.Where(u => !u.IsKid);//.Where(fm => fm.Relationship != RelationshipType.Self && fm.Relationship != RelationshipType.None);
+            model.FamilyMembers = allMembers.Where(u => !u.IsKid && u.IsMemberOfFamily);//.Where(fm => fm.Relationship != RelationshipType.Self && fm.Relationship != RelationshipType.None);
             model.Kids = allMembers.Where(u => u.IsKid);
 
             return View(model);
@@ -194,7 +194,7 @@ namespace KidSteps.Controllers
             if (ModelState.IsValid)
             {
                 FamilyRepository repos = new FamilyRepository();
-                repos.AddFamilyMember(db, Target, model.Name, model.Email, model.IsKid);// .AddUnregisteredMember(db, Target, model.Name, model.Email, model.Relationship);
+                repos.AddFamilyMember(db, Target, model.Name, model.Email, model.IsKid);
 
                 return RedirectToAction(MVC.Family.Details().WithId(Target.Id));
             }

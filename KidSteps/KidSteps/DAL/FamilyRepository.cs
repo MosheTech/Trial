@@ -186,9 +186,9 @@ namespace KidSteps.DAL
         public void AddParentChildRelationship(KidStepsContext context, User parent, User child)
         {
             Relationship parentsRelationshipToChild =
-                new Relationship() {RelatedUser = parent, RelatedUserIsUsers = RelationshipType.Parent, Thingy = child};
+                new Relationship() {RelatedUser = parent, RelatedUserIsSourceUsers = RelationshipType.Parent, SourceUser = child};
             Relationship childsRelationshipToParent =
-                new Relationship() {RelatedUser = child, RelatedUserIsUsers = RelationshipType.Child, Thingy = parent};
+                new Relationship() {RelatedUser = child, RelatedUserIsSourceUsers = RelationshipType.Child, SourceUser = parent};
 
             parent.Relationships.Add(childsRelationshipToParent);
             child.Relationships.Add(parentsRelationshipToChild);
@@ -199,9 +199,9 @@ namespace KidSteps.DAL
         public void AddSiblingRelationship(KidStepsContext context, User sibling1, User sibling2)
         {
             Relationship relationship1 =
-                new Relationship() { RelatedUser = sibling2, RelatedUserIsUsers = RelationshipType.Sibling, Thingy = sibling1 };
+                new Relationship() { RelatedUser = sibling2, RelatedUserIsSourceUsers = RelationshipType.Sibling, SourceUser = sibling1 };
             Relationship relationship2 =
-                new Relationship() { RelatedUser = sibling1, RelatedUserIsUsers = RelationshipType.Sibling, Thingy = sibling2 };
+                new Relationship() { RelatedUser = sibling1, RelatedUserIsSourceUsers = RelationshipType.Sibling, SourceUser = sibling2 };
 
             sibling1.Relationships.Add(relationship1);
             sibling2.Relationships.Add(relationship2);
@@ -212,9 +212,9 @@ namespace KidSteps.DAL
         public void AddSpousalRelationship(KidStepsContext context, User spouse1, User spouse2)
         {
             Relationship relationship1 =
-                new Relationship() { RelatedUser = spouse2, RelatedUserIsUsers = RelationshipType.Spouse, Thingy = spouse1 };
+                new Relationship() { RelatedUser = spouse2, RelatedUserIsSourceUsers = RelationshipType.Spouse, SourceUser = spouse1 };
             Relationship relationship2 =
-                new Relationship() { RelatedUser = spouse1, RelatedUserIsUsers = RelationshipType.Spouse, Thingy = spouse2 };
+                new Relationship() { RelatedUser = spouse1, RelatedUserIsSourceUsers = RelationshipType.Spouse, SourceUser = spouse2 };
 
             spouse1.Relationships.Add(relationship1);
             spouse2.Relationships.Add(relationship2);

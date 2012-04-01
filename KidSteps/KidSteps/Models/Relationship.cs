@@ -11,14 +11,26 @@ namespace KidSteps.Models
         public long Id { get; set; }
 
         //[Required]
-        public User RelatedUser { get; set; }
+        public virtual User RelatedUser { get; set; }
         //public int RelatedUserId { get; set; }
 
+        public int RelatedUserIsSourceUsersWrapper { get; set; }
+
         [Required]
-        public RelationshipType RelatedUserIsUsers { get; set; }
+        public RelationshipType RelatedUserIsSourceUsers 
+        {
+            get
+            {
+                return (RelationshipType)RelatedUserIsSourceUsersWrapper;
+            }
+            set
+            {
+                RelatedUserIsSourceUsersWrapper = (int)value;
+            }
+        }
 
         //[Required]
-        public User Thingy { get; set; }
+        public virtual User SourceUser { get; set; }
         //public int UserId { get; set; }
     }
 }

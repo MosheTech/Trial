@@ -11,7 +11,7 @@ namespace KidSteps.ViewModels
     {
         public UserEditViewModel()
         {
-            
+            Relationships = new List<Relationship>();
         }
 
         public UserEditViewModel(User user)
@@ -25,5 +25,12 @@ namespace KidSteps.ViewModels
         public PersonName Name { get; set; }
         public string Bio { get; set; }
         public Image ProfilePicture { get; set; }
+
+        public bool CanEditRelationships { get; set; }
+        public List<Relationship> Relationships { get; set; }
+        public List<User> UnrelatedFamilyMembers { get; set; }
+        public List<RelationshipType> RelationshipTypes { get; set; }
+        public RelationshipType NewRelationshipType { get; set; }
+        public int NewRelatedUserId { get; set; }
     }
 }

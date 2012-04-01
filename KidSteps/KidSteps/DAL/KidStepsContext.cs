@@ -25,7 +25,7 @@ namespace KidSteps.Models
 
             modelBuilder.Entity<User>().HasOptional(u => u.Family).WithMany(f => f.Members);//.WithOptionalDependent();//.WithOptionalPrincipal();
 
-            modelBuilder.Entity<Relationship>().HasRequired(r => r.Thingy).WithMany(u => u.Relationships).WillCascadeOnDelete(true);
+            modelBuilder.Entity<Relationship>().HasRequired(r => r.SourceUser).WithMany(u => u.Relationships).WillCascadeOnDelete(false);
             modelBuilder.Entity<Relationship>().HasRequired(r => r.RelatedUser).WithMany().WillCascadeOnDelete(true);//.WithOptionalDependent();
 
             //modelBuilder.Entity<Relationship>().HasRequired(r => r.RelatedUser).WithRequiredPrincipal();

@@ -41,5 +41,10 @@ namespace KidSteps.Utils
 
             return MvcHtmlString.Create(anchorHtml);
         }
+
+        public static MvcHtmlString ProfileActionImage(this HtmlHelper html, ActionResult action, Image image, int size = 100)
+        {
+            return ActionImage(html, action, image, size, Links.Content.Images.profile_placeholder_jpg);
+        }
     }
 }
