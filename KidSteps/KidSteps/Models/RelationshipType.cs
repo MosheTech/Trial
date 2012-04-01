@@ -12,14 +12,25 @@ namespace KidSteps.Models
         Sibling,
         Child,
         Spouse
-        //Mother,
-        //Father,
-        //Grandmother,
-        //Grandfather,
-        //Aunt,
-        //Uncle,
-        //Cousin,
-        //Self,
-        //None
+    }
+
+    public static class RelationshipTypeExtensions
+    {
+        public static RelationshipType Reciprocal(this RelationshipType relationship)
+        {
+            switch (relationship)
+            {
+                case RelationshipType.Child:
+                    return RelationshipType.Parent;
+                case RelationshipType.Parent:
+                    return RelationshipType.Child;
+                case RelationshipType.Sibling:
+                    return RelationshipType.Sibling;
+                case RelationshipType.Spouse:
+                    return RelationshipType.Spouse;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace KidSteps.Models
         UpdateUser,
         DeleteUser,
         EditFamily,
-        ViewFamily
+        ViewFamily,
+        SuperUserAccess
     }
 }

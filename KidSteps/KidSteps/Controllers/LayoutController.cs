@@ -30,5 +30,11 @@ namespace KidSteps.Controllers
             return PartialView(CurrentUser);
         }
 
+        [ChildActionOnly]
+        public virtual ActionResult SuperUserFooter()
+        {
+            return PartialView(CurrentUser);
+        }
+
     }
 }

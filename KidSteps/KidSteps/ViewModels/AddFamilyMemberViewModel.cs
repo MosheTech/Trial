@@ -9,9 +9,9 @@ using KidSteps.Controllers;
 
 namespace KidSteps.ViewModels
 {
-    public class CreateFamilyMemberViewModel
+    public class AddFamilyMemberViewModel
     {
-        public CreateFamilyMemberViewModel()
+        public AddFamilyMemberViewModel()
         {
             Name = new PersonName();
             //RelationshipsToChooseFrom = FamilyController.RelationshipsTypes;

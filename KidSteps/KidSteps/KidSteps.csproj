@@ -175,7 +175,7 @@
     <Compile Include="Utils\HtmlHelperExtensions.cs" />
     <Compile Include="Utils\ImageHelper.cs" />
     <Compile Include="ViewModels\ConnectToAccountViewModel.cs" />
-    <Compile Include="ViewModels\CreateFamilyMemberViewModel.cs" />
+    <Compile Include="ViewModels\AddFamilyMemberViewModel.cs" />
     <Compile Include="ViewModels\FamilyCreateViewModel.cs" />
     <Compile Include="ViewModels\FamilyDetailsViewModel.cs" />
     <Compile Include="ViewModels\HomeIndexViewModel.cs" />
@@ -396,7 +396,7 @@
     <Content Include="Views\Image\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Family\CreateFamilyMember.cshtml" />
+    <Content Include="Views\Family\AddFamilyMember.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="user.config">
@@ -420,6 +420,7 @@
     <None Include="T4MVC.tt.settings.t4" />
     <Content Include="Views\Layout\AccountBar.cshtml" />
     <Content Include="Views\User\RelationshipsEdit.cshtml" />
+    <Content Include="Views\Layout\SuperUserFooter.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

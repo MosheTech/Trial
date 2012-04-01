@@ -21,7 +21,7 @@ namespace KidSteps.DAL
 
             // add public viewer
             UserRepository userRepos = new UserRepository();
-            User publicViewer = userRepos.CrePublicViewer(context);
+            User publicViewer = userRepos.CreatePublicViewer(context);
             publicViewer.Family = family;
 
             context.SaveChanges();
@@ -33,7 +33,7 @@ namespace KidSteps.DAL
         {
             UserRepository userRepos =
                 new UserRepository();
-            User newUser = userRepos.CreFamilyMember(context, name, email);
+            User newUser = userRepos.CreateFamilyMember(context, name, email);
             newUser.Family = family;
 
             if (isKid)
@@ -183,61 +183,57 @@ namespace KidSteps.DAL
         //    return membership;
         //}
 
-        public void AddParentChildRelationship(KidStepsContext context, User parent, User child)
+        public void AddRelationship(KidStepsContext context, Relationship relationship)
         {
-            Relationship parentsRelationshipToChild =
-                new Relationship() {RelatedUser = parent, RelatedUserIsSourceUsers = RelationshipType.Parent, SourceUser = child};
-            Relationship childsRelationshipToParent =
-                new Relationship() {RelatedUser = child, RelatedUserIsSourceUsers = RelationshipType.Child, SourceUser = parent};
+            context.Relationships.Add(relationship);
 
-            parent.Relationships.Add(childsRelationshipToParent);
-            child.Relationships.Add(parentsRelationshipToChild);
+            Relationship reciprocalRelationship = new Relationship();
+            reciprocalRelationship.RelatedUser = relationship.SourceUser;
+            reciprocalRelationship.SourceUser = relationship.RelatedUser;
+            reciprocalRelationship.RelatedUserIsSourceUsers = relationship.RelatedUserIsSourceUsers.Reciprocal();
+            context.Relationships.Add(reciprocalRelationship);
 
             context.SaveChanges();
         }
 
-        public void AddSiblingRelationship(KidStepsContext context, User sibling1, User sibling2)
-        {
-            Relationship relationship1 =
-                new Relationship() { RelatedUser = sibling2, RelatedUserIsSourceUsers = RelationshipType.Sibling, SourceUser = sibling1 };
-            Relationship relationship2 =
-                new Relationship() { RelatedUser = sibling1, RelatedUserIsSourceUsers = RelationshipType.Sibling, SourceUser = sibling2 };
-
-            sibling1.Relationships.Add(relationship1);
-            sibling2.Relationships.Add(relationship2);
-
-            context.SaveChanges();
-        }
-
-        public void AddSpousalRelationship(KidStepsContext context, User spouse1, User spouse2)
-        {
-            Relationship relationship1 =
-                new Relationship() { RelatedUser = spouse2, RelatedUserIsSourceUsers = RelationshipType.Spouse, SourceUser = spouse1 };
-            Relationship relationship2 =
-                new Relationship() { RelatedUser = spouse1, RelatedUserIsSourceUsers = RelationshipType.Spouse, SourceUser = spouse2 };
-
-            spouse1.Relationships.Add(relationship1);
-            spouse2.Relationships.Add(relationship2);
-
-            context.SaveChanges();
-            
-        }
-
-        //private FamilyMember AddUnregisteredMember(
-        //    KidStepsContext context,
-        //    Family family,
-        //    PersonName name,
-        //    string email,
-        //    bool isMemberOfFamily,
-        //    RelationshipType relationshipToKid)
+        //public void AddParentChildRelationship(KidStepsContext context, User parent, User child)
         //{
-        //    Role role = isMemberOfFamily ? Role.UnregisteredMember : Role.PublicViewer;
+        //    Relationship parentsRelationshipToChild =
+        //        new Relationship() {RelatedUser = parent, RelatedUserIsSourceUsers = RelationshipType.Parent, SourceUser = child};
+        //    Relationship childsRelationshipToParent =
+        //        new Relationship() {RelatedUser = child, RelatedUserIsSourceUsers = RelationshipType.Child, SourceUser = parent};
 
-        //    UserRepository userRepos =
-        //        new UserRepository();
-        //    User newUser = userRepos.CreateUserWithoutAccount(context, name, email);
+        //    parent.Relationships.Add(childsRelationshipToParent);
+        //    child.Relationships.Add(parentsRelationshipToChild);
 
-        //    return AddMember(context, family, newUser, relationshipToKid, setAsUsersDefaultFamily: true);
+        //    context.SaveChanges();
+        //}
+
+        //public void AddSiblingRelationship(KidStepsContext context, User sibling1, User sibling2)
+        //{
+        //    Relationship relationship1 =
+        //        new Relationship() { RelatedUser = sibling2, RelatedUserIsSourceUsers = RelationshipType.Sibling, SourceUser = sibling1 };
+        //    Relationship relationship2 =
+        //        new Relationship() { RelatedUser = sibling1, RelatedUserIsSourceUsers = RelationshipType.Sibling, SourceUser = sibling2 };
+
+        //    sibling1.Relationships.Add(relationship1);
+        //    sibling2.Relationships.Add(relationship2);
+
+        //    context.SaveChanges();
+        //}
+
+        //public void AddSpousalRelationship(KidStepsContext context, User spouse1, User spouse2)
+        //{
+        //    Relationship relationship1 =
+        //        new Relationship() { RelatedUser = spouse2, RelatedUserIsSourceUsers = RelationshipType.Spouse, SourceUser = spouse1 };
+        //    Relationship relationship2 =
+        //        new Relationship() { RelatedUser = spouse1, RelatedUserIsSourceUsers = RelationshipType.Spouse, SourceUser = spouse2 };
+
+        //    spouse1.Relationships.Add(relationship1);
+        //    spouse2.Relationships.Add(relationship2);
+
+        //    context.SaveChanges();
+            
         //}
 
 

@@ -34,7 +34,7 @@ namespace KidSteps.Controllers
         //
         // GET: /Family/
 
-        [MyAuthorize(Role.SuperUser)]
+        [MyAuthorize(Permission.SuperUserAccess)]
         public virtual ViewResult Index()
         {
             return View(db.Families.ToList());
@@ -181,7 +181,7 @@ namespace KidSteps.Controllers
         [FamilyTarget(Models.Permission.EditFamily)]
         public virtual ActionResult AddFamilyMember()
         {
-            CreateFamilyMemberViewModel viewModel = new CreateFamilyMemberViewModel();
+            AddFamilyMemberViewModel viewModel = new AddFamilyMemberViewModel();
             viewModel.Name.Last = Target.Name;
 
             return View(viewModel);
@@ -189,7 +189,7 @@ namespace KidSteps.Controllers
 
         [HttpPost]
         [FamilyTarget(Models.Permission.EditFamily)]
-        public virtual ActionResult AddFamilyMember(CreateFamilyMemberViewModel model)
+        public virtual ActionResult AddFamilyMember(AddFamilyMemberViewModel model)
         {
             if (ModelState.IsValid)
             {

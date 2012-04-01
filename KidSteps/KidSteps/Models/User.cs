@@ -23,6 +23,7 @@ namespace KidSteps.Models
 
         [Required]
         [MaxLength(128)]
+        [RegularExpression(@"\b[A-Z0-9a-z._%+-]+@[A-Z0-9a-z.-]+\.[A-Za-z]{2,4}\b", ErrorMessage = "Incorrect email address format.")]
         public string Email { get; set; }
         [MaxLength(25)]
         public string Phone { get; set; }

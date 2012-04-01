@@ -119,7 +119,7 @@ namespace KidSteps.Controllers
                     // register new user
 
                     // Attempt to register the user
-                    User user = repos.Cre(db, model.Name, model.Email, model.Password, out createStatus);// .Create(db, model.Name, model.Email, model.Password, Role.FamilyAdmin,
+                    User user = repos.CreateFamilyMember(db, model.Name, model.Email, model.Password, out createStatus);// .Create(db, model.Name, model.Email, model.Password, Role.FamilyAdmin,
                                              //out createStatus);
 
                     if (createStatus == MembershipCreateStatus.Success)

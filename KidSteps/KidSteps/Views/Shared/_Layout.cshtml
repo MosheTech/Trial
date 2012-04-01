@@ -23,19 +23,7 @@
         <section id="main">
             @RenderBody()
         </section>
-        <footer>
-            @if (User.IsInRole(KidSteps.Models.Role.SuperUser.ToString()))
-            {
-                <div>
-                    @Html.ActionLink("All Users", MVC.User.Index()) |
-                    @Html.ActionLink("All Families", MVC.Family.Index())
-                </div>
-                <div>
-                    @Html.ActionLink("Error Log", MVC.Admin.Elmah.Index(), new { target = "_blank" })
-                    | <a href="glimpse.axd" target="_blank">Trace</a>
-                </div>
-            }
-        </footer>
+        @Html.Action(MVC.Layout.SuperUserFooter())
     </div>
 </body>
 </html>

@@ -2,18 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
+using Mvc = System.Web.Mvc;
+using KidSteps.Controllers;
 using KidSteps.Models;
-using System.Text;
 
 namespace KidSteps.ActionFilters
 {
-    public class MyAuthorizeAttribute : AuthorizeAttribute
+    public class MyAuthorizeAttribute : Mvc.ActionFilterAttribute
     {
-        public MyAuthorizeAttribute(params Role[] roles)
-            : base()
+        public MyAuthorizeAttribute(Permission permission)
         {
-            Roles = string.Join(",", roles);
+            Permission = permission;
         }
+
+        public override void OnActionExecuting(Mvc.ActionExecutingContext filterContext)
+        {
+            ControllerBase controller = filterContext.Controller as ControllerBase;
+            User user = controller.CurrentUser;
+            if (user == null || !user.IsAllowedTo(Permission))
+                filterContext.Result = new Mvc.HttpUnauthorizedResult();
+
+            base.OnActionExecuting(filterContext);
+        }
+
+        public Permission Permission { get; private set; }
     }
 }

@@ -75,7 +75,7 @@ namespace KidSteps.Controllers {
         public ViewNames Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
-            public readonly string CreateFamilyMember = "~/Views/Family/CreateFamilyMember.cshtml";
+            public readonly string AddFamilyMember = "~/Views/Family/AddFamilyMember.cshtml";
             public readonly string Delete = "~/Views/Family/Delete.cshtml";
             public readonly string Details = "~/Views/Family/Details.cshtml";
             public readonly string Edit = "~/Views/Family/Edit.cshtml";
@@ -113,7 +113,7 @@ namespace KidSteps.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult AddFamilyMember(KidSteps.ViewModels.CreateFamilyMemberViewModel model) {
+        public override System.Web.Mvc.ActionResult AddFamilyMember(KidSteps.ViewModels.AddFamilyMemberViewModel model) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.AddFamilyMember);
             callInfo.RouteValueDictionary.Add("model", model);
             return callInfo;

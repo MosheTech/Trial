@@ -19,7 +19,7 @@ namespace KidSteps.Controllers
         //
         // GET: /User/
 
-        [MyAuthorize(Role.SuperUser)]
+        [MyAuthorize(Permission.SuperUserAccess)]
         public virtual ViewResult Index()
         {
             return View(db.Users.ToList());
@@ -146,7 +146,15 @@ namespace KidSteps.Controllers
         {
             if (ModelState.IsValid)
             {
-                RedirectToAction(MVC.User.Details().WithId(Target));
+                FamilyRepository repos = new FamilyRepository();
+                // save the new relationship
+                Relationship relationship = new Relationship();
+                relationship.SourceUser = Target;
+                relationship.RelatedUser = db.Users.Find(model.NewRelatedUserId);
+                relationship.RelatedUserIsSourceUsers = model.NewRelationshipType;
+                repos.AddRelationship(db, relationship);
+
+                return RedirectToAction(MVC.User.Details().WithId(Target));
             }
 
             return View(model);

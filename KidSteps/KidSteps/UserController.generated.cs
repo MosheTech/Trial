@@ -86,6 +86,7 @@ namespace KidSteps.Controllers {
             public readonly string Edit = "~/Views/User/Edit.cshtml";
             public readonly string Index = "~/Views/User/Index.cshtml";
             public readonly string ProfileImageEdit = "~/Views/User/ProfileImageEdit.cshtml";
+            public readonly string RelationshipsEdit = "~/Views/User/RelationshipsEdit.cshtml";
         }
     }
 

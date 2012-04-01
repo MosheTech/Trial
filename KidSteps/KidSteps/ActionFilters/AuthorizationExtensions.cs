@@ -61,5 +61,13 @@ namespace KidSteps.ActionFilters
                     throw new NotImplementedException();
             }
         }
+
+        public static bool IsAllowedTo(this User user, Permission permission)
+        {
+            if (user.IsSuperUser)
+                return true;
+
+            return false;
+        }
     }
 }

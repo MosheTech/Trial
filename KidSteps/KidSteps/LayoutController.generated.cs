@@ -57,12 +57,14 @@ namespace KidSteps.Controllers {
         public class ActionNamesClass {
             public readonly string Menu = "Menu";
             public readonly string AccountBar = "AccountBar";
+            public readonly string SuperUserFooter = "SuperUserFooter";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants {
             public const string Menu = "Menu";
             public const string AccountBar = "AccountBar";
+            public const string SuperUserFooter = "SuperUserFooter";
         }
 
 
@@ -73,6 +75,7 @@ namespace KidSteps.Controllers {
         public class ViewNames {
             public readonly string AccountBar = "~/Views/Layout/AccountBar.cshtml";
             public readonly string Menu = "~/Views/Layout/Menu.cshtml";
+            public readonly string SuperUserFooter = "~/Views/Layout/SuperUserFooter.cshtml";
         }
     }
 
@@ -87,6 +90,11 @@ namespace KidSteps.Controllers {
 
         public override System.Web.Mvc.ActionResult AccountBar() {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.AccountBar);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult SuperUserFooter() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.SuperUserFooter);
             return callInfo;
         }
 

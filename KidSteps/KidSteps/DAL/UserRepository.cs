@@ -62,10 +62,10 @@ namespace KidSteps.DAL
 
 
 
-        public User Cre(KidStepsContext context, PersonName name, string email, string password, out MembershipCreateStatus status)
+        public User CreateFamilyMember(KidStepsContext context, PersonName name, string email, string password, out MembershipCreateStatus status)
         {
             // create user
-            User user = Cre(context, name, Role.MemberOfFamily | Role.Registered | Role.FamilyAdmin, email);
+            User user = Create(context, name, Role.MemberOfFamily | Role.Registered | Role.FamilyAdmin, email);
 
             // register user
             status = Register(context, user, password);
@@ -77,17 +77,17 @@ namespace KidSteps.DAL
             return user;
         }
 
-        public User CreFamilyMember(KidStepsContext context, PersonName name, string email)
+        public User CreateFamilyMember(KidStepsContext context, PersonName name, string email)
         {
-            return Cre(context, name, Role.MemberOfFamily, email);
+            return Create(context, name, Role.MemberOfFamily, email);
         }
 
-        public User CrePublicViewer(KidStepsContext context)
+        public User CreatePublicViewer(KidStepsContext context)
         {
-            return Cre(context, new PersonName("Public", "Viewer"), Role.PublicViewer, null);
+            return Create(context, new PersonName("Public", "Viewer"), Role.PublicViewer, null);
         }
 
-        private User Cre(KidStepsContext context, PersonName name, Role role, string email)
+        private User Create(KidStepsContext context, PersonName name, Role role, string email)
         {
             User user = new User();
             context.Users.Add(user);
@@ -121,84 +121,5 @@ namespace KidSteps.DAL
 
             return createStatus;
         }
-
-
-
-
-
-
-        //public User CreateUserWithoutAccount(KidStepsContext dbContext, string firstName, string lastName, string email)
-        //{
-        //    PersonName name = new PersonName() {First = firstName, Last = lastName};
-        //    return CreateUserWithoutAccount(dbContext, name, email);
-        //}
-
-        //public User CreateUserWithoutAccount(KidStepsContext dbContext, PersonName name, string email)
-        //{
-        //    User user = new User();
-        //    dbContext.Users.Add(user);
-        //    user.Name = name;
-        //    user.HasAccount = false;
-        //    user.RoleFlags = Role.UnregisteredMember;
-
-        //    string emailToSave = email;
-        //    if (string.IsNullOrWhiteSpace(emailToSave))
-        //        emailToSave = Guid.NewGuid().ToString();
-        //    else
-        //        user.HasRealEmail = true;
-        //    user.Email = emailToSave;
-
-        //    string invitationCode = Guid.NewGuid().ToString();
-        //    user.InvitationCode = invitationCode;
-
-        //    dbContext.SaveChanges();
-        //    return user;
-        //}
-
-        //public User CreatePublicViewer(KidStepsContext dbContext, out MembershipCreateStatus status)
-        //{
-        //    string email = Guid.NewGuid().ToString();
-        //    string password = Membership.GeneratePassword(20, 3);
-
-        //    return
-        //        Create(dbContext, "Public", "Viewer", email, password, Role.PublicViewer, out status);
-        //}
-
-        //private User Create(KidStepsContext dbContext, User existingUser, PersonName name, string email, string password, Role role, out MembershipCreateStatus status)
-        //{
-        //    User user = existingUser;
-        //    if (user == null)
-        //    {
-        //        user = new User();
-        //        dbContext.Users.Add(user);
-        //    }
-        //    user.Email = email;
-        //    user.Name = name;
-        //    user.InvitationCode = Guid.NewGuid().ToString();
-        //    if (role.HasFlag(Role.PublicViewer))
-        //        user.HasAccount = false;
-        //    else
-        //    {
-        //        user.HasAccount = true;
-        //        user.HasRealEmail = true;
-        //    }
-        //    user.RoleFlags = role;
-        //    dbContext.SaveChanges();
-
-        //    // Attempt to register the user
-        //    MembershipCreateStatus createStatus;
-        //    Membership.CreateUser(user.Id.ToString(), password, email, null, null, true, null, out createStatus);
-
-        //    status = createStatus;
-
-        //    // if this was a brand new user, create a family for that user
-        //    if (existingUser == null && !user.IsPublicViewer)
-        //    {
-        //        FamilyRepository familyRepos = new FamilyRepository();
-        //        familyRepos.Create(dbContext, user);
-        //    }
-
-        //    return user;
-        //}
     }
 }

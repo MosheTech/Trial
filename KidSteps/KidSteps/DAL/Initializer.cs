@@ -29,19 +29,19 @@ namespace KidSteps.DAL
             // create admin users
             UserRepository userRepos = new UserRepository();
             MembershipCreateStatus _;
-            User pinchas = userRepos.Cre(context, new PersonName("Pinchas", "Friedman"), "admin", "admin", out _);//, Role.SuperUser, out _);
+            User pinchas = userRepos.CreateFamilyMember(context, new PersonName("Pinchas", "Friedman"), "admin@gmail.com", "admin", out _);//, Role.SuperUser, out _);
             pinchas.RoleFlags |= Role.SuperUser;
-            User moshe = userRepos.Cre(context, new PersonName("Moshe", "Starkman"), "moshe", "moshe", out _);
+            User moshe = userRepos.CreateFamilyMember(context, new PersonName("Moshe", "Starkman"), "moshe@gmail.com", "moshe", out _);
             moshe.RoleFlags |= Role.SuperUser;
 
             // create add admin users' relationships to kids
             FamilyRepository familyRepos = new FamilyRepository();
             User shalom = familyRepos.AddFamilyMember(context, pinchas.Family, new PersonName("Shalom", "Friedman"), null, true);
-            familyRepos.AddParentChildRelationship(context, pinchas, shalom);
+            familyRepos.AddRelationship(context, new Relationship() { SourceUser = pinchas, RelatedUser = shalom, RelatedUserIsSourceUsers = RelationshipType.Child });
 
             User yael = familyRepos.AddFamilyMember(context, pinchas.Family, new PersonName("Yael", "Friedman"), null, false);
-            familyRepos.AddParentChildRelationship(context, yael, shalom);
-            familyRepos.AddSpousalRelationship(context, pinchas, yael);
+            familyRepos.AddRelationship(context, new Relationship() { SourceUser = yael, RelatedUser = shalom, RelatedUserIsSourceUsers = RelationshipType.Child });
+            familyRepos.AddRelationship(context, new Relationship() { SourceUser = pinchas, RelatedUser = yael, RelatedUserIsSourceUsers = RelationshipType.Spouse });
 
 
             //familyRepos.AddRelationship(context, pinchas, RelationshipType.Father);
