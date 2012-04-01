@@ -59,6 +59,7 @@ namespace KidSteps.Controllers {
             public readonly string Details = "Details";
             public readonly string Edit = "Edit";
             public readonly string ProfileImageEdit = "ProfileImageEdit";
+            public readonly string RelationshipsEdit = "RelationshipsEdit";
             public readonly string Delete = "Delete";
             public readonly string DeleteConfirmed = "Delete";
         }
@@ -69,6 +70,7 @@ namespace KidSteps.Controllers {
             public const string Details = "Details";
             public const string Edit = "Edit";
             public const string ProfileImageEdit = "ProfileImageEdit";
+            public const string RelationshipsEdit = "RelationshipsEdit";
             public const string Delete = "Delete";
             public const string DeleteConfirmed = "Delete";
         }
@@ -120,6 +122,17 @@ namespace KidSteps.Controllers {
         public override System.Web.Mvc.ActionResult ProfileImageEdit(long? imageId) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ProfileImageEdit);
             callInfo.RouteValueDictionary.Add("imageId", imageId);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult RelationshipsEdit() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.RelationshipsEdit);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult RelationshipsEdit(KidSteps.ViewModels.UserEditRelationshipsViewModel model) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.RelationshipsEdit);
+            callInfo.RouteValueDictionary.Add("model", model);
             return callInfo;
         }
 

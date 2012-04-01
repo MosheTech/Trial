@@ -61,10 +61,8 @@ namespace KidSteps.Controllers
         {
             UserEditViewModel model = new UserEditViewModel(Target);
 
-            if (CurrentUser.IsAllowedTo(Permission.EditFamily, Target.Family))
-            {
-
-            }
+            model.CanEditRelationships =
+                CurrentUser.IsAllowedTo(Permission.EditFamily, Target.Family);            
 
             return View(model);
         }
@@ -114,6 +112,44 @@ namespace KidSteps.Controllers
             }
 
             return RedirectToAction(Actions.Edit().WithId(Target));
+        }
+
+        [UserTarget(Models.Permission.EditFamily)]
+        public virtual ActionResult RelationshipsEdit()
+        {
+            UserEditRelationshipsViewModel model = new UserEditRelationshipsViewModel();
+            model.RelationshipTypes = FamilyController.RelationshipsTypes;
+            model.CurrentRelationships = Target.Relationships.ToList();
+            model.UnrelatedFamilyMembers = new List<SelectListItem>();
+            var unrelatedUsers =
+                Target.Family.Members.Except(model.CurrentRelationships.Select(r => r.RelatedUser)).ToList();
+            foreach (User unrelatedUser in unrelatedUsers)
+            {
+                if (unrelatedUser.IsPublicViewer || unrelatedUser.Id == Target.Id)
+                    continue;
+                model.UnrelatedFamilyMembers.Add(
+                    new SelectListItem()
+                    {
+                        Text = unrelatedUser.Name.Full,
+                        Value = unrelatedUser.Id.ToString()
+                    });
+            }
+
+            model.TargetUser = Target;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [UserTarget(Models.Permission.EditFamily)]
+        public virtual ActionResult RelationshipsEdit(UserEditRelationshipsViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                RedirectToAction(MVC.User.Details().WithId(Target));
+            }
+
+            return View(model);
         }
 
         //

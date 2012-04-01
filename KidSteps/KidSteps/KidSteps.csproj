@@ -183,6 +183,7 @@
     <Compile Include="ViewModels\KidCreateViewModel.cs" />
     <Compile Include="ViewModels\LayoutMenuViewModel.cs" />
     <Compile Include="ViewModels\UserDetailsViewModel.cs" />
+    <Compile Include="ViewModels\UserEditRelationshipsViewModel.cs" />
     <Compile Include="ViewModels\UserEditViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -418,6 +419,7 @@
     </None>
     <None Include="T4MVC.tt.settings.t4" />
     <Content Include="Views\Layout\AccountBar.cshtml" />
+    <Content Include="Views\User\RelationshipsEdit.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

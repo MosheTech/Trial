@@ -1,0 +1,32 @@
+﻿@model KidSteps.ViewModels.UserEditRelationshipsViewModel
+
+@{
+    ViewBag.Title = "Edit Relationships";
+}
+
+<h2>Edit Relationships</h2>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Relationship</th>
+    </tr>
+    @foreach (var relationship in Model.CurrentRelationships)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(_ => relationship.RelatedUser.Name)
+            </td>
+            <td>@relationship.RelatedUserIsSourceUsers.ToString()</td>
+        </tr>
+    }
+</table>
+@using (Html.BeginForm())
+{
+    @Html.DropDownListFor(m => m.NewRelatedUserId, Model.UnrelatedFamilyMembers)
+    @: is the
+    @Html.DropDownListFor(m => m.NewRelationshipType, Model.RelationshipTypes)
+    @: of
+    @Model.TargetUser.Name.First
+    <p/>    
+    <input type="submit" name="submit" value="Add Relationship" />
+}
