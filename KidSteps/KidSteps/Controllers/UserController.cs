@@ -91,7 +91,7 @@ namespace KidSteps.Controllers
         [UserTarget(Permission.UpdateUser)]
         public virtual ActionResult ProfileImageEdit()
         {
-            return View(db.Images.Where(image => image.CreatedBy.Id == Target.Id).ToList());
+            return View(db.Images.Where(image => image.CreatedBy.Id == CurrentUser.Id).ToList());
         }
 
         //

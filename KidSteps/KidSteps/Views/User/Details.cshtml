@@ -27,10 +27,16 @@
             </div>
         </td>
         <td style="vertical-align:top; width:560px; padding-right:20px; border:none;">
-            <span style="float:right;">@if (Model.IsAllowedToEdit)
+            <span style="float:right;">
+                @if (Model.IsAllowedToEdit)
                 {
                     @Html.ActionLink("Edit", MVC.User.Edit().WithId(Model.User))
-                }</span>
+                    if (Model.User.IsUnregisteredFamilyMember)
+                    {
+                        @:| @Html.ActionLink("Invite", MVC.Invitation.Index())
+                    }
+                }
+            </span>
             <h2>@Html.DisplayFor(m => m.User.Name)</h2>
             <div class="display-field" style="margin:0px 8px 8px 8px">
             @Html.DisplayFor(m => m.User.Bio)

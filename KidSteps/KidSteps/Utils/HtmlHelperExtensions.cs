@@ -15,7 +15,7 @@ namespace KidSteps.Utils
             string alt;
             if (image != null)
             {
-                path = image.Path;
+                path = image.Url;
                 alt = image.AltText;
             }
             else

@@ -8,15 +8,15 @@
     var warning = false;
     function setWarning(value) {
         warning = value;
-        $("#changeImage").val("yes");
     }
     function saveProfile() {
+        $("#changeImage").val("yes");
         $("#btn1").click();
         return false;
     }
 </script>
 <h2>
-    Edit a</h2>
+    Edit @Model.Name.Full</h2>
 @using (Html.BeginForm())
 {
     <input type="hidden" id="changeImage" name="changeImage" />
