@@ -8,7 +8,7 @@ using KidSteps.Models;
 namespace KidSteps.Areas.Admin.Controllers 
 {
     [MyAuthorize(Permission.SuperUserAccess)]
-    public partial class ElmahController : Controller
+    public partial class ElmahController : KidSteps.Controllers.ControllerBase
     {
         public virtual ActionResult Index()
         {
