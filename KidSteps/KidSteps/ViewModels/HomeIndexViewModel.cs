@@ -12,9 +12,6 @@ namespace KidSteps.ViewModels
 
         public User CurrentUser { get; set; }
 
-        public Family UserFamily { get; set; }
-        public List<User> FamilyMembers { get; set; }
-
         public LogOnModel LogOnModel { get; set; }
     }
 }

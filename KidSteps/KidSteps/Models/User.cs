@@ -66,6 +66,11 @@ namespace KidSteps.Models
             get { return RoleFlags.HasFlag(Role.Kid); }
         }
 
+        public bool IsFamilyAdmin
+        {
+            get { return RoleFlags.HasFlag(Role.FamilyAdmin); }
+        }
+
         [Required]
         public virtual PersonName Name { get; set; }        
         public virtual Image ProfilePicture { get; set; }

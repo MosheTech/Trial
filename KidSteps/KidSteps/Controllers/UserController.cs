@@ -154,7 +154,7 @@ namespace KidSteps.Controllers
                 relationship.RelatedUserIsSourceUsers = model.NewRelationshipType;
                 repos.AddRelationship(db, relationship);
 
-                return RedirectToAction(MVC.User.Details().WithId(Target));
+                return RedirectToAction(MVC.User.RelationshipsEdit().WithId(Target));
             }
 
             return View(model);

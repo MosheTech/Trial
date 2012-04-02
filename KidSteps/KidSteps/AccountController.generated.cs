@@ -65,7 +65,6 @@ namespace KidSteps.Controllers {
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
-            public readonly string LogOn = "LogOn";
             public readonly string PublicViewerLogOn = "PublicViewerLogOn";
             public readonly string LogOff = "LogOff";
             public readonly string Register = "Register";
@@ -76,7 +75,6 @@ namespace KidSteps.Controllers {
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants {
-            public const string LogOn = "LogOn";
             public const string PublicViewerLogOn = "PublicViewerLogOn";
             public const string LogOff = "LogOff";
             public const string Register = "Register";
@@ -107,7 +105,6 @@ namespace KidSteps.Controllers {
         public class ViewNames {
             public readonly string ChangePassword = "~/Views/Account/ChangePassword.cshtml";
             public readonly string ChangePasswordSuccess = "~/Views/Account/ChangePasswordSuccess.cshtml";
-            public readonly string LogOn = "~/Views/Account/LogOn.cshtml";
             public readonly string Register = "~/Views/Account/Register.cshtml";
             public readonly string Unauthorized = "~/Views/Account/Unauthorized.cshtml";
         }
@@ -116,18 +113,6 @@ namespace KidSteps.Controllers {
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public class T4MVC_AccountController: KidSteps.Controllers.AccountController {
         public T4MVC_AccountController() : base(Dummy.Instance) { }
-
-        public override System.Web.Mvc.ActionResult LogOn() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.LogOn);
-            return callInfo;
-        }
-
-        public override System.Web.Mvc.ActionResult LogOn(KidSteps.Models.LogOnModel model, string returnUrl) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.LogOn);
-            callInfo.RouteValueDictionary.Add("model", model);
-            callInfo.RouteValueDictionary.Add("returnUrl", returnUrl);
-            return callInfo;
-        }
 
         public override System.Web.Mvc.ActionResult PublicViewerLogOn(string invitationCode) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.PublicViewerLogOn);

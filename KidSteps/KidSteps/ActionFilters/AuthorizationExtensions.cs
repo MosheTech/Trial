@@ -15,9 +15,11 @@ namespace KidSteps.ActionFilters
                 user.Family != null &&
                 target.Family != null &&
                 user.Family.Id == target.Family.Id;
-            bool isFamilyAdminAndTargetIsUnregistered =
+            bool isFamilyAdmin =
                 target.Family != null &&
-                target.Family.Admin.Id == user.Id &&
+                target.Family.Admin.Id == user.Id;
+            bool isFamilyAdminAndTargetIsUnregistered =
+                isFamilyAdmin &&
                 target.IsUnregisteredFamilyMember;
 
 
@@ -33,6 +35,8 @@ namespace KidSteps.ActionFilters
                 // only target user can update
                 case Permission.UpdateUser:
                     return isTargetUser || isFamilyAdminAndTargetIsUnregistered;
+                case Permission.EditFamily:
+                    return isFamilyAdmin;
                 default:
                     throw new NotImplementedException();
             }

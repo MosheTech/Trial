@@ -57,6 +57,7 @@ namespace KidSteps.Controllers {
         public class ActionNamesClass {
             public readonly string Index = "Index";
             public readonly string Details = "Details";
+            public readonly string Manage = "Manage";
             public readonly string Edit = "Edit";
             public readonly string AddFamilyMember = "AddFamilyMember";
         }
@@ -65,11 +66,19 @@ namespace KidSteps.Controllers {
         public class ActionNameConstants {
             public const string Index = "Index";
             public const string Details = "Details";
+            public const string Manage = "Manage";
             public const string Edit = "Edit";
             public const string AddFamilyMember = "AddFamilyMember";
         }
 
 
+        static readonly ActionParamsClass_AddFamilyMember s_params_AddFamilyMember = new ActionParamsClass_AddFamilyMember();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_AddFamilyMember AddFamilyMemberParams { get { return s_params_AddFamilyMember; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_AddFamilyMember {
+            public readonly string isKid = "isKid";
+        }
         static readonly ViewNames s_views = new ViewNames();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewNames Views { get { return s_views; } }
@@ -80,6 +89,7 @@ namespace KidSteps.Controllers {
             public readonly string Details = "~/Views/Family/Details.cshtml";
             public readonly string Edit = "~/Views/Family/Edit.cshtml";
             public readonly string Index = "~/Views/Family/Index.cshtml";
+            public readonly string Manage = "~/Views/Family/Manage.cshtml";
         }
     }
 
@@ -92,8 +102,13 @@ namespace KidSteps.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ViewResult Details() {
-            var callInfo = new T4MVC_ViewResult(Area, Name, ActionNames.Details);
+        public override System.Web.Mvc.ActionResult Details() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Details);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult Manage() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Manage);
             return callInfo;
         }
 
@@ -108,8 +123,9 @@ namespace KidSteps.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult AddFamilyMember() {
+        public override System.Web.Mvc.ActionResult AddFamilyMember(bool? isKid) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.AddFamilyMember);
+            callInfo.RouteValueDictionary.Add("isKid", isKid);
             return callInfo;
         }
 

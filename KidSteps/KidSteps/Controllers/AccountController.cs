@@ -18,41 +18,41 @@ namespace KidSteps.Controllers
         //
         // GET: /Account/LogOn
 
-        public virtual ActionResult LogOn()
-        {
-            return View();
-        }
+        //public virtual ActionResult LogOn()
+        //{
+        //    return View();
+        //}
 
-        //
-        // POST: /Account/LogOn
+        ////
+        //// POST: /Account/LogOn
 
-        [HttpPost]
-        public virtual ActionResult LogOn(LogOnModel model, string returnUrl)
-        {
-            if (ModelState.IsValid)
-            {
-                if (Membership.ValidateUser(model.Email, model.Password))
-                {
-                    FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
-                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
-                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
-                    {
-                        return Redirect(returnUrl);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
-                }
-            }
+        //[HttpPost]
+        //public virtual ActionResult LogOn(LogOnModel model, string returnUrl)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (Membership.ValidateUser(model.Email, model.Password))
+        //        {
+        //            FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
+        //            if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
+        //                && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+        //            {
+        //                return Redirect(returnUrl);
+        //            }
+        //            else
+        //            {
+        //                return RedirectToAction("Index", "Home");
+        //            }
+        //        }
+        //        else
+        //        {
+        //            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+        //        }
+        //    }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
+        //    // If we got this far, something failed, redisplay form
+        //    return View(model);
+        //}
 
 
 

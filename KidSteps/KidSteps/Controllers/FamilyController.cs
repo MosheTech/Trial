@@ -44,7 +44,7 @@ namespace KidSteps.Controllers
         // GET: /Family/Details/5
 
         [FamilyTarget(Permission.ViewFamily)]
-        public virtual ViewResult Details()
+        public virtual ActionResult Details()
         {
             FamilyDetailsViewModel model = new FamilyDetailsViewModel();
 
@@ -54,7 +54,22 @@ namespace KidSteps.Controllers
             model.FamilyMembers = allMembers.Where(u => !u.IsKid && u.IsMemberOfFamily);//.Where(fm => fm.Relationship != RelationshipType.Self && fm.Relationship != RelationshipType.None);
             model.Kids = allMembers.Where(u => u.IsKid);
 
-            return View(model);
+            return PartialView(model);
+        }
+
+        [FamilyTarget(Permission.EditFamily)]
+        public virtual ActionResult Manage()
+        {
+            ManageFamilyViewModel viewModel = new ManageFamilyViewModel();
+
+            viewModel.UserFamily = Target;
+            if (viewModel.UserFamily != null)
+            {
+                viewModel.FamilyMembers =
+                    db.Users.Where(u => u.Family.Id == viewModel.UserFamily.Id).ToList();
+            }
+
+            return View(viewModel);
         }
 
         //
@@ -179,10 +194,12 @@ namespace KidSteps.Controllers
         //}
 
         [FamilyTarget(Models.Permission.EditFamily)]
-        public virtual ActionResult AddFamilyMember()
+        public virtual ActionResult AddFamilyMember(bool? isKid = null)
         {
             AddFamilyMemberViewModel viewModel = new AddFamilyMemberViewModel();
             viewModel.Name.Last = Target.Name;
+            if (isKid.HasValue)
+                viewModel.IsKid = isKid.Value;
 
             return View(viewModel);
         }
@@ -194,9 +211,9 @@ namespace KidSteps.Controllers
             if (ModelState.IsValid)
             {
                 FamilyRepository repos = new FamilyRepository();
-                repos.AddFamilyMember(db, Target, model.Name, model.Email, model.IsKid);
+                User newUser = repos.AddFamilyMember(db, Target, model.Name, model.Email, model.IsKid);
 
-                return RedirectToAction(MVC.Family.Details().WithId(Target.Id));
+                return RedirectToAction(MVC.User.RelationshipsEdit().WithId(newUser));
             }
 
             return View(model);

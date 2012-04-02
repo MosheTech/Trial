@@ -95,7 +95,7 @@ namespace KidSteps.DAL
 
             string emailToSave = email;
             if (string.IsNullOrWhiteSpace(emailToSave))
-                emailToSave = Guid.NewGuid().ToString();
+                emailToSave = Guid.NewGuid().ToString() + "@fake.com";
             else
                 user.HasRealEmail = true;
             user.Email = emailToSave;

@@ -24,12 +24,6 @@ namespace KidSteps.Controllers
                     return View(viewModel);
                 }
                 viewModel.IsLoggedOn = true;
-                viewModel.UserFamily = viewModel.CurrentUser.Family;
-                if (viewModel.UserFamily != null)
-                {
-                    viewModel.FamilyMembers =
-                        db.Users.Where(u => u.Family.Id == viewModel.UserFamily.Id).ToList();
-                }
 
                 if (viewModel.CurrentUser.IsPublicViewer)
                     ViewBag.Message = "Welcome!";

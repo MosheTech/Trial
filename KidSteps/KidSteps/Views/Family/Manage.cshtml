@@ -1,0 +1,33 @@
+﻿@model KidSteps.ViewModels.ManageFamilyViewModel
+
+@*@{
+    ViewBag.Title = "Manage";
+}*@
+
+<h2>Manage</h2>
+<div>
+        <strong>@Model.UserFamily.Name Family</strong></div>
+    <p />
+    <table>
+        <tr>
+            <td>
+                Kids: @Model.FamilyMembers.Count(user => user.IsKid)
+            </td>
+            <td>@Html.ActionLink("Add a kid", MVC.Family.AddFamilyMember(true).WithId(Model.UserFamily))
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Registered Family Members: @Model.FamilyMembers.Count(fm => fm.IsRegistered)
+            </td>
+            <td>@Html.ActionLink("Add a family member", MVC.Family.AddFamilyMember().WithId(Model.UserFamily))
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Unregistered Members: @(Model.FamilyMembers.Count(user => user.IsUnregisteredFamilyMember))
+            </td>
+            <td>@Html.ActionLink("Invite", MVC.Invitation.Index().WithId(Model.UserFamily))
+            </td>
+        </tr>
+    </table>
