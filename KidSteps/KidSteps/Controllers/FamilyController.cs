@@ -40,18 +40,25 @@ namespace KidSteps.Controllers
             return View(db.Families.OrderBy(f => f.Name).ToList());
         }
 
-        //
-        // GET: /Family/Details/5
 
         [FamilyTarget(Permission.ViewFamily)]
         public virtual ActionResult Details()
         {
+            return View(Target);
+        }
+
+        //
+        // GET: /Family/Details/5
+
+        [FamilyTarget(Permission.ViewFamily)]
+        [ChildActionOnly]
+        public virtual ActionResult DetailsPartial()
+        {
             FamilyDetailsViewModel model = new FamilyDetailsViewModel();
 
-            //Family family = db.Families.Find(id);
             model.Family = Target;
             List<User> allMembers = Target.Members.ToList();
-            model.FamilyMembers = allMembers.Where(u => !u.IsKid && u.IsMemberOfFamily);//.Where(fm => fm.Relationship != RelationshipType.Self && fm.Relationship != RelationshipType.None);
+            model.FamilyMembers = allMembers.Where(u => !u.IsKid && u.IsMemberOfFamily);
             model.Kids = allMembers.Where(u => u.IsKid);
 
             return PartialView(model);

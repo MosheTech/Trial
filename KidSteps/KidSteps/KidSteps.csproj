@@ -342,7 +342,7 @@
     <Content Include="Views\Family\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Family\Details.cshtml" />
+    <Content Include="Views\Family\DetailsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Family\Edit.cshtml" />
@@ -422,6 +422,7 @@
     <Content Include="Views\User\RelationshipsEdit.cshtml" />
     <Content Include="Views\Layout\SuperUserFooter.cshtml" />
     <Content Include="Views\Family\Manage.cshtml" />
+    <Content Include="Views\Family\Details.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

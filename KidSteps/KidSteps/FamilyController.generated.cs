@@ -57,6 +57,7 @@ namespace KidSteps.Controllers {
         public class ActionNamesClass {
             public readonly string Index = "Index";
             public readonly string Details = "Details";
+            public readonly string DetailsPartial = "DetailsPartial";
             public readonly string Manage = "Manage";
             public readonly string Edit = "Edit";
             public readonly string AddFamilyMember = "AddFamilyMember";
@@ -66,6 +67,7 @@ namespace KidSteps.Controllers {
         public class ActionNameConstants {
             public const string Index = "Index";
             public const string Details = "Details";
+            public const string DetailsPartial = "DetailsPartial";
             public const string Manage = "Manage";
             public const string Edit = "Edit";
             public const string AddFamilyMember = "AddFamilyMember";
@@ -87,6 +89,7 @@ namespace KidSteps.Controllers {
             public readonly string AddFamilyMember = "~/Views/Family/AddFamilyMember.cshtml";
             public readonly string Delete = "~/Views/Family/Delete.cshtml";
             public readonly string Details = "~/Views/Family/Details.cshtml";
+            public readonly string DetailsPartial = "~/Views/Family/DetailsPartial.cshtml";
             public readonly string Edit = "~/Views/Family/Edit.cshtml";
             public readonly string Index = "~/Views/Family/Index.cshtml";
             public readonly string Manage = "~/Views/Family/Manage.cshtml";
@@ -104,6 +107,11 @@ namespace KidSteps.Controllers {
 
         public override System.Web.Mvc.ActionResult Details() {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Details);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult DetailsPartial() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.DetailsPartial);
             return callInfo;
         }
 
