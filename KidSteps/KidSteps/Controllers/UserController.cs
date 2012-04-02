@@ -22,7 +22,7 @@ namespace KidSteps.Controllers
         [MyAuthorize(Permission.SuperUserAccess)]
         public virtual ViewResult Index()
         {
-            return View(db.Users.ToList());
+            return View(db.Users.OrderBy(u => u.Name.Last).ToList());
         }
 
         //

@@ -1,33 +1,40 @@
 ﻿@model KidSteps.ViewModels.UserDetailsViewModel
 @{ViewBag.Title = "Details";}
-
-<table style="border:none;">
+<table style="border: none;">
     <tr>
-        <td style="vertical-align:top; width:160px; padding-right:20px; border:none;">
+        <td style="vertical-align: top; width: 160px; padding-right: 20px; border: none;">
             @foreach (var parent in Model.Parents)
             {
-                <div style="border:solid 1px #aaaaaa; background-color:#f0f0f0; padding:5px; width:60px; margin:2px; float:left">
+                <div style="border: solid 1px #aaaaaa; background-color: #f0f0f0; padding: 5px; width: 60px;
+                    margin: 2px; float: left">
                     <div>@Html.ProfileActionImage(MVC.User.Details().WithId(parent), parent.ProfilePicture, 60)</div>
                     <div>@Html.DisplayFor(_ => parent.Name)</div>
                 </div>
             }
-            <div style="clear:left; width:80px; border:solid 3px #aaaaaa; border-top:none; margin-left:15%; height:8px; margin-right:5px;"></div>
-            <div style="width:60px; border-right:solid 3px #aaaaaa; height:8px;"></div>
-            @Html.DisplayFor(m => m.User.ProfilePicture, new {Size=150})
-            <div style="width:60px; border-right:solid 3px #aaaaaa; height:8px;"></div>
-            <div style="width:80px; border:solid 3px #aaaaaa; border-bottom:none; margin-left:15%; height:8px; margin-right:5px;"></div>
+            <div style="clear: left; width: 80px; border: solid 3px #aaaaaa; border-top: none;
+                margin-left: 15%; height: 8px; margin-right: 5px;">
+            </div>
+            <div style="width: 60px; border-right: solid 3px #aaaaaa; height: 8px;">
+            </div>
+            @Html.DisplayFor(m => m.User.ProfilePicture, new { Size = 150 })
+            <div style="width: 60px; border-right: solid 3px #aaaaaa; height: 8px;">
+            </div>
+            <div style="width: 80px; border: solid 3px #aaaaaa; border-bottom: none; margin-left: 15%;
+                height: 8px; margin-right: 5px;">
+            </div>
             <div>
-            @foreach (var child in Model.Children)
-            {
-                <div style="border:solid 1px #aaaaaa; background-color:#f0f0f0; padding:5px; width:60px; margin:2px; float:left">
-                    <div>@Html.ProfileActionImage(MVC.User.Details().WithId(child), child.ProfilePicture, 60)</div>
-                    <div>@Html.DisplayFor(_ => child.Name)</div>
-                </div>
-            }
+                @foreach (var child in Model.Children)
+                {
+                    <div style="border: solid 1px #aaaaaa; background-color: #f0f0f0; padding: 5px; width: 60px;
+                        margin: 2px; float: left">
+                        <div>@Html.ProfileActionImage(MVC.User.Details().WithId(child), child.ProfilePicture, 60)</div>
+                        <div>@Html.DisplayFor(_ => child.Name)</div>
+                    </div>
+                }
             </div>
         </td>
-        <td style="vertical-align:top; width:560px; padding-right:20px; border:none;">
-            <span style="float:right;">
+        <td style="vertical-align: top; width: 560px; padding-right: 20px; border: none;">
+            <span style="float: right;">
                 @if (Model.IsAllowedToEdit)
                 {
                     @Html.ActionLink("Edit", MVC.User.Edit().WithId(Model.User))
@@ -38,21 +45,30 @@
                 }
             </span>
             <h2>@Html.DisplayFor(m => m.User.Name)</h2>
-            <div class="display-field" style="margin:0px 8px 8px 8px">
-            @Html.DisplayFor(m => m.User.Bio)
+            <div class="display-field" style="margin: 0px 8px 8px 8px">
+                @Html.DisplayFor(m => m.User.Bio)
             </div>
             @if (Model.User.HasRealEmail)
             {
-            <ul>
-                <t style="font-weight:bold; margin-left:-15px">Contact Information</t>
-                <li>@Html.DisplayFor(m => m.User.Email)</li>
-            </ul>
+                <ul>
+                    <t style="font-weight: bold; margin-left: -15px">Contact Information</t>
+                    <li>@Html.DisplayFor(m => m.User.Email)</li>
+                </ul>
             }
         </td>
-        <td style="vertical-align:top; border:none;">
-            <div style="border:solid 1px #aaaaaa; background-color:#f0f0f0; padding:10px; width:180px; margin-bottom:4px">
+        <td style="vertical-align: top; border: none;">
+            <div style="border: solid 1px #aaaaaa; background-color: #f0f0f0; padding: 10px;
+                width: 180px; margin-bottom: 4px">
                 <b>Additional Family</b>
-            </div>            
+                @foreach (var familyMember in Model.OtherImmediateFamily)
+                {
+                    <div style="border: solid 1px #aaaaaa; background-color: #f0f0f0; padding: 5px; width: 60px;
+                        margin: 2px; float: left">
+                        <div>@Html.ProfileActionImage(MVC.User.Details().WithId(familyMember), familyMember.ProfilePicture, 60)</div>
+                        <div>@Html.DisplayFor(_ => familyMember.Name)</div>
+                    </div>
+                }
+            </div>
         </td>
     </tr>
 </table>

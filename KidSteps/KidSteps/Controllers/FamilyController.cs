@@ -37,7 +37,7 @@ namespace KidSteps.Controllers
         [MyAuthorize(Permission.SuperUserAccess)]
         public virtual ViewResult Index()
         {
-            return View(db.Families.ToList());
+            return View(db.Families.OrderBy(f => f.Name).ToList());
         }
 
         //

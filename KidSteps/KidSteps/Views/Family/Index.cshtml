@@ -7,19 +7,26 @@
 <table>
     <tr>
         <th>
-            Name
+            Family
         </th>
         <th>
+            Admin
+        </th>
+        <th>
+            Members
         </th>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                @item.Name
+                @Html.ActionLink(item.Name, MVC.Family.Details().WithId(item))
             </td>
             <td>
-                @Html.ActionLink("Details", MVC.Family.Details().WithId(item))
+                @Html.ActionLink(item.Admin.Name.Full, MVC.User.Details().WithId(item.Admin))
+            </td>
+            <td>
+                @item.Members.Count
             </td>
         </tr>
     }
