@@ -1,21 +1,23 @@
-﻿@model IEnumerable<KidSteps.Models.Image>
+﻿@model KidSteps.ViewModels.ImageSelectViewModel
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Select";
 }
 <h2>
-    Edit</h2>
+    Select profile image</h2>
 @using (Html.BeginForm())
 {
-    <input type="hidden" name="userId" value="@User.Identity.Name" />
-    foreach (var imageId in Model)
+    foreach (var image in Model.Images)
     {
-    @Html.RadioButtonFor(_ => imageId, imageId.Id)
-    @Html.DisplayFor(_ => imageId)
+    @Html.RadioButtonFor(m => m.SelctedImageId, image.Id)
+    @Html.DisplayFor(_ => image)
     }
-    <div>
-        <input type="submit" value="Select" />
-    </div>
+    if (Model.Images.Any())
+    {
+        <div>
+            <input type="submit" value="Select" />
+        </div>
+    }
 }
 <div>
-    @Html.ActionLink("Upload new image", MVC.Image.Create(Request.RawUrl))
+    @Html.ActionLink("Upload new image", MVC.Image.Create(returnUrl: Url.Action(MVC.User.ProfileImageEdit().WithId(ViewData), Request.Url.Scheme), shouldSetAsProfile: !Model.Images.Any()).WithId(ViewData))
 </div>

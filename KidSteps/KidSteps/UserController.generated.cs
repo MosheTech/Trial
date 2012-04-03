@@ -120,9 +120,9 @@ namespace KidSteps.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult ProfileImageEdit(long? imageId) {
+        public override System.Web.Mvc.ActionResult ProfileImageEdit(KidSteps.ViewModels.ImageSelectViewModel model) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ProfileImageEdit);
-            callInfo.RouteValueDictionary.Add("imageId", imageId);
+            callInfo.RouteValueDictionary.Add("model", model);
             return callInfo;
         }
 

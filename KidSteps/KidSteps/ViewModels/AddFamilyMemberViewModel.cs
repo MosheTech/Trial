@@ -17,6 +17,11 @@ namespace KidSteps.ViewModels
             //RelationshipsToChooseFrom = FamilyController.RelationshipsTypes;
         }
 
+        public string PageHeader
+        {
+            get { return IsKid ? "Add your child" : "Add a family member"; }
+        }
+
         [Required]
         public PersonName Name { get; set; }
 

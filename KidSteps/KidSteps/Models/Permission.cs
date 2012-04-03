@@ -8,10 +8,12 @@ namespace KidSteps.Models
     public enum Permission
     {
         ReadUser,
+        ReadUserPersonalData,
         UpdateUser,
         DeleteUser,
         EditFamily,
         ViewFamily,
-        SuperUserAccess
+        SuperUserAccess,
+        UploadImage
     }
 }

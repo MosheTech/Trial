@@ -1,5 +1,13 @@
 ﻿@model KidSteps.ViewModels.UserDetailsViewModel
-@{ViewBag.Title = "Details";}
+@{
+    ViewBag.Title = "Details";
+}
+<script type="text/javascript">
+    function ShowInvite() {
+        $("thing1").valueOf("")
+  
+    }
+</script>
 <table style="border: none;">
     <tr>
         <td style="vertical-align: top; width: 160px; padding-right: 20px; border: none;">
@@ -16,12 +24,10 @@
             </div>
             <div style="width: 60px; border-right: solid 3px #aaaaaa; height: 8px;">
             </div>
-            
             <div style="border: solid 1px #aaaaaa; background-color: #f0f0f0; padding: 5px; width: 150px;">
                 <div>@Html.DisplayFor(m => m.User.ProfilePicture, new { Size = 150 })</div>
                 <div>@Html.DisplayFor(m => m.User.Name)</div>
             </div>
-
             <div style="width: 60px; border-right: solid 3px #aaaaaa; height: 8px;">
             </div>
             <div style="width: 80px; border: solid 3px #aaaaaa; border-bottom: none; margin-left: 15%;
@@ -43,9 +49,10 @@
                 @if (Model.IsAllowedToEdit)
                 {
                     @Html.ActionLink("Edit", MVC.User.Edit().WithId(Model.User))
-                    if (Model.User.IsUnregisteredFamilyMember)
+                    if (Model.InvitationUrl != null)
                     {
-                        @:| @Html.ActionLink("Invite", MVC.Invitation.Index().WithId(Model.User.Family.Id))
+                    @:| @Html.ActionLink("Invite", MVC.Invitation.Index().WithId(Model.User.Family.Id), new { id = "thingy1" })
+                                                <span id="thingy2" style="display:none">@Model.InvitationUrl</span> 
                     }
                 }
             </span>
@@ -56,7 +63,7 @@
             @if (Model.User.HasRealEmail)
             {
                 <ul>
-                    <t style="font-weight: bold; margin-left: -15px">Contact Information</t>
+                    <text style="font-weight: bold; margin-left: -15px">Contact Information</text>
                     <li>@Html.DisplayFor(m => m.User.Email)</li>
                 </ul>
             }
@@ -68,12 +75,13 @@
                 @foreach (var familyMember in Model.OtherImmediateFamily)
                 {
                     <div style="border: solid 1px #aaaaaa; background-color: #fcfefe; padding: 5px; width: 64px;
-                        margin: 8px 2px; float: left; text-align:center;">
+                        margin: 8px 2px; float: left; text-align: center;">
                         <div>@Html.ProfileActionImage(MVC.User.Details().WithId(familyMember), familyMember.ProfilePicture, 60)</div>
                         <div>@Html.DisplayFor(_ => familyMember.Name)</div>
                     </div>
                 }
-                <div style="clear:left;"></div>
+                <div style="clear: left;">
+                </div>
             </div>
         </td>
     </tr>

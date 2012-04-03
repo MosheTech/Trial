@@ -12,6 +12,7 @@
 @using (Html.BeginForm("Create", "Image", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+    <input type="hidden" name="shouldSetAsProfile" value="@ViewBag.ShouldSetAsProfile" />
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Upload Image</legend>

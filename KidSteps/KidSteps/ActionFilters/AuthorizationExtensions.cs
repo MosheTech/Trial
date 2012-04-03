@@ -32,6 +32,10 @@ namespace KidSteps.ActionFilters
                 // anyone in the family can read
                 case Permission.ReadUser:
                     return (isTargetUser || isInSameFamilyAsTargetUser);
+                // only target user can read personal data and upload images
+                case Permission.ReadUserPersonalData:
+                case Permission.UploadImage:
+                    return isTargetUser;
                 // only target user can update
                 case Permission.UpdateUser:
                     return isTargetUser || isFamilyAdminAndTargetIsUnregistered;

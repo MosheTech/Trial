@@ -3,21 +3,12 @@
     ViewBag.Title = "Add Family Member";
 }
 <h2>
-    Create Family Member</h2>
+    @Model.PageHeader</h2>
 @using (Html.BeginForm())
 {
-    @Html.EditorFor(m => m.Name)
-@*<div class="editor-label">
-        @Html.LabelFor(m => m.Relationship)
-    </div>
+    @Html.HiddenFor(m => m.IsKid)
     
-    <div class="editor-field">
-        @Html.DropDownListFor(m => m.Relationship, Model.RelationshipsToChooseFrom)</div>*@
-    <p />
-    <div class="editor-field">
-        @Html.LabelFor(m => m.IsKid)?
-        @Html.EditorFor(m => m.IsKid)
-    </div>
+    @Html.EditorFor(m => m.Name)
 
     <p>
         <input type="submit" value="Save" />

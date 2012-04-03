@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using KidSteps.ViewModels;
 using KidSteps.Models;
 using KidSteps.ActionFilters;
+using KidSteps.Handlers;
 
 namespace KidSteps.Controllers
 {
@@ -28,7 +29,7 @@ namespace KidSteps.Controllers
             foreach (var unregisteredUser in familyMembers.Where(u => u.IsUnregisteredFamilyMember))
             {
                 InvitationIndexViewModel.Invitation invitation = new InvitationIndexViewModel.Invitation();
-                string url = Url.Action("Register", "Account", new { invitationCode = unregisteredUser.InvitationCode }, Request.Url.Scheme);
+                string url = InvitationHandler.CreateUrl(unregisteredUser, Url, Request);// Url.Action(MVC.Account.Register(unregisteredUser.InvitationCode), Request.Url.Scheme);
                 string recipientAddress = 
                     unregisteredUser.HasRealEmail ? unregisteredUser.Email : string.Empty;
                 string emailHref =
@@ -50,7 +51,7 @@ namespace KidSteps.Controllers
             User publicViewer =
                 familyMembers.FirstOrDefault(u => u.IsPublicViewer);
                 //db.Users.First(u => u.Family.Id == CurrentUser.Family.Id && u.IsPublicViewer);// familyMembers.First(.Single(fm => fm.Relationship == Models.RelationshipType.None).User;
-            string publicViewerUrl = Url.Action("PublicViewerLogon", "Account", new { invitationCode = publicViewer.InvitationCode }, Request.Url.Scheme);
+            string publicViewerUrl = InvitationHandler.CreateUrl(publicViewer, Url, Request);// Url.Action(MVC.Account.PublicViewerLogOn(publicViewer.InvitationCode), Request.Url.Scheme);
             string publicViewerEmailHref =
                 string.Format(
                     "mailto:?subject=You're invited to see my family on MyKidSteps.com!" + 

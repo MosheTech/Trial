@@ -7,19 +7,20 @@ using System.Web;
 using System.Web.Mvc;
 using KidSteps.Models;
 using System.IO;
+using KidSteps.ActionFilters;
+using KidSteps.Utils;
 
 namespace KidSteps.Controllers
 { 
     [Authorize]
-    public partial class ImageController : ControllerBase
+    public partial class ImageController : TargetedController<User>
     {
         //
         // GET: /Image/
-
+        [UserTarget(Models.Permission.ReadUserPersonalData)]
         public virtual ViewResult Index()
         {
-            var currentUser = CurrentUser;
-            return View(db.Images.Where(image => image.CreatedBy.Id.Equals(currentUser.Id)).ToList());
+            return View(db.Images.Where(image => image.CreatedBy.Id.Equals(Target.Id)).ToList());
         }
 
         //
@@ -33,10 +34,11 @@ namespace KidSteps.Controllers
 
         //
         // GET: /Image/Create
-
-        public virtual ActionResult Create(string returnUrl = null)
+        [UserTarget(Permission.UploadImage)]
+        public virtual ActionResult Create(string returnUrl = null, bool shouldSetAsProfile = false)
         {
             ViewBag.ReturnUrl = returnUrl;
+            ViewBag.ShouldSetAsProfile = shouldSetAsProfile;
             return View();
         } 
 
@@ -44,7 +46,8 @@ namespace KidSteps.Controllers
         // POST: /Image/Create
 
         [HttpPost]
-        public virtual ActionResult Create(ImageViewModel imageViewModel, string returnUrl = null)
+        [UserTarget(Permission.UploadImage)]
+        public virtual ActionResult Create(ImageViewModel imageViewModel, string returnUrl = null, bool shouldSetAsProfile = false)
         {
             
             if (ModelState.IsValid)
@@ -54,6 +57,8 @@ namespace KidSteps.Controllers
                 image.CreatedBy = CurrentUser;
                 image.Extension = Path.GetExtension(imageViewModel.File.FileName);
                 db.Images.Add(image);
+                if (shouldSetAsProfile)
+                    Target.ProfilePicture = image;
                 db.SaveChanges();
 
                 try
@@ -67,9 +72,12 @@ namespace KidSteps.Controllers
 
                     thumbnail.Save(rootedPath);
 
-                    if (!String.IsNullOrEmpty(returnUrl))
+                    if (shouldSetAsProfile)
+                        return RedirectToAction(MVC.User.Edit().WithId(Target));
+                    else if (!String.IsNullOrEmpty(returnUrl))
                         return Redirect(returnUrl);
-                    return RedirectToAction("Index");
+                    else
+                        return RedirectToAction("Index");
                 }
                 catch
                 {

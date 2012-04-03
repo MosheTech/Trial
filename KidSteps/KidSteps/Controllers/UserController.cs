@@ -11,6 +11,7 @@ using KidSteps.ViewModels;
 using KidSteps.DAL;
 using System.Web.Security;
 using KidSteps.Utils;
+using KidSteps.Handlers;
 
 namespace KidSteps.Controllers
 {
@@ -34,6 +35,9 @@ namespace KidSteps.Controllers
             UserDetailsViewModel model = new UserDetailsViewModel();
             model.User = Target;
             model.IsAllowedToEdit = CurrentUser.IsAllowedTo(Permission.UpdateUser, Target);
+
+            if (model.IsAllowedToEdit && Target.IsUnregisteredFamilyMember)
+                model.InvitationUrl = InvitationHandler.CreateUrl(Target, Url, Request);
 
             model.Children.AddRange(
                 Target.Relationships.
@@ -91,7 +95,10 @@ namespace KidSteps.Controllers
         [UserTarget(Permission.UpdateUser)]
         public virtual ActionResult ProfileImageEdit()
         {
-            return View(db.Images.Where(image => image.CreatedBy.Id == CurrentUser.Id).ToList());
+            ImageSelectViewModel model = new ImageSelectViewModel();
+            model.Images = db.Images.Where(image => image.CreatedBy.Id == CurrentUser.Id).ToList();
+
+            return View(model);
         }
 
         //
@@ -99,11 +106,9 @@ namespace KidSteps.Controllers
 
         [HttpPost]
         [UserTarget(Permission.UpdateUser)]
-        public virtual ActionResult ProfileImageEdit(long? imageId)
+        public virtual ActionResult ProfileImageEdit(ImageSelectViewModel model)
         {
-            Image image = null;
-            if (imageId.HasValue)
-                image = db.Images.Find(imageId);
+            Image image = db.Images.Find(model.SelctedImageId);
 
             if (image != null)
             {

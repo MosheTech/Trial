@@ -100,6 +100,7 @@ namespace KidSteps.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Create {
             public readonly string returnUrl = "returnUrl";
+            public readonly string shouldSetAsProfile = "shouldSetAsProfile";
         }
         static readonly ActionParamsClass_Edit s_params_Edit = new ActionParamsClass_Edit();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -143,16 +144,18 @@ namespace KidSteps.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Create(string returnUrl) {
+        public override System.Web.Mvc.ActionResult Create(string returnUrl, bool shouldSetAsProfile) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Create);
             callInfo.RouteValueDictionary.Add("returnUrl", returnUrl);
+            callInfo.RouteValueDictionary.Add("shouldSetAsProfile", shouldSetAsProfile);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Create(KidSteps.Models.ImageViewModel imageViewModel, string returnUrl) {
+        public override System.Web.Mvc.ActionResult Create(KidSteps.Models.ImageViewModel imageViewModel, string returnUrl, bool shouldSetAsProfile) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Create);
             callInfo.RouteValueDictionary.Add("imageViewModel", imageViewModel);
             callInfo.RouteValueDictionary.Add("returnUrl", returnUrl);
+            callInfo.RouteValueDictionary.Add("shouldSetAsProfile", shouldSetAsProfile);
             return callInfo;
         }
 

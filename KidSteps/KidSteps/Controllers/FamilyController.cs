@@ -73,7 +73,8 @@ namespace KidSteps.Controllers
             if (viewModel.UserFamily != null)
             {
                 viewModel.FamilyMembers =
-                    db.Users.Where(u => u.Family.Id == viewModel.UserFamily.Id).ToList();
+                    db.Users.Where(u => u.Family.Id == viewModel.UserFamily.Id).OrderBy(u => u.Name.First).ToList().
+                    Where(u => u.IsMemberOfFamily).ToList();
             }
 
             return View(viewModel);

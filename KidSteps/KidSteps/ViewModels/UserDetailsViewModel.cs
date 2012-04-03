@@ -22,5 +22,7 @@ namespace KidSteps.ViewModels
         public List<User> Parents { get; set; }
         public List<User> Children { get; set; }
         public List<User> OtherImmediateFamily { get; set; }
+
+        public string InvitationUrl { get; set; }
     }
 }
