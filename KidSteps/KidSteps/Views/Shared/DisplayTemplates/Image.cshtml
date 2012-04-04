@@ -1,12 +1,15 @@
 ﻿@model KidSteps.Models.Image
 
-@{int size = ViewData.ContainsKey("Size") ? int.Parse(ViewData["Size"].ToString()) : 100;}
+@{
+    int size = ViewData.ContainsKey("Size") ? int.Parse(ViewData["Size"].ToString()) : 100;
+    string id = ViewData.ContainsKey("ImageId") ? ViewData["ImageId"].ToString() : string.Empty;
+}
 
 @if (Model != null)
 {
-        <img src="@Model.Url" alt="Alternate Text" height="@size" />
+        <img src="@Model.Url" alt="Alternate Text" height="@size" id="@id" />
 }
 else
 {
-        <img src="/Images/profile-placeholder.jpg" alt="Alternate Text" height="@size" />
+        <img src="/Images/profile-placeholder.jpg" alt="Alternate Text" height="@size" id="@id" />
 }
