@@ -4,8 +4,7 @@
 }
 <script type="text/javascript">
     function ShowInvite() {
-        $("thing1").valueOf("")
-  
+        $("#thingy2").show();  
     }
 </script>
 <table style="border: none;">
@@ -51,7 +50,7 @@
                     @Html.ActionLink("Edit", MVC.User.Edit().WithId(Model.User))
                     if (Model.InvitationUrl != null)
                     {
-                    @:| @Html.ActionLink("Invite", MVC.Invitation.Index().WithId(Model.User.Family.Id), new { id = "thingy1" })
+                    @:| <a href="#" id="thingy1" onclick="ShowInvite()">Invite</a> @*@Html.ActionLink("Invite", MVC.Invitation.Index().WithId(Model.User.Family.Id), new { id = "thingy1" })*@
                                                 <span id="thingy2" style="display:none">@Model.InvitationUrl</span> 
                     }
                 }
