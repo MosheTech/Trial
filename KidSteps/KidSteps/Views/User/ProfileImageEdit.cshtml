@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "Select";
 }
-
 <script type="text/javascript">
     function Select(id) {
         $('#' + selectedid).css("border-style", "none");
@@ -14,25 +13,21 @@
 
     var selectedid;
 </script>
-
 <h2>
     Select profile image</h2>
 @using (Html.BeginForm())
 {
-        @Html.HiddenFor(m => m.SelectedImageId)
+    @Html.HiddenFor(m => m.SelectedImageId)
     
     foreach (var image in Model.Images)
     {
-        
-    @*@Html.RadioButtonFor(m => m.SelctedImageId, image.Id)*@
-    @*@Html.DisplayFor(_ => image)*@
         <img src="@image.Url" alt="Alternate Text" height="100" id="@image.Id" onclick="Select(@image.Id)" />
     }
     if (Model.Images.Any())
     {
-        <div>
-            <input type="submit" value="Select" />
-        </div>
+    <div>
+        <input type="submit" value="Select" />
+    </div>
     }
 }
 <div>
