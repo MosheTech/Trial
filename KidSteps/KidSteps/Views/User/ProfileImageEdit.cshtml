@@ -5,13 +5,11 @@
 
 <script type="text/javascript">
     function Select(id) {
-
         $('#' + selectedid).css("border-style", "none");
-
-        selectedid = id;
-
         $('#' + id).css("border-style", "solid");
         $('#' + id).css("border-width", "10px");
+        selectedid = id;
+        $('#SelectedImageId').val(selectedid);
     }
 
     var selectedid;
@@ -21,9 +19,10 @@
     Select profile image</h2>
 @using (Html.BeginForm())
 {
+        @Html.HiddenFor(m => m.SelectedImageId)
+    
     foreach (var image in Model.Images)
     {
-        @Html.HiddenFor(m => m.SelctedImageId)
         
     @*@Html.RadioButtonFor(m => m.SelctedImageId, image.Id)*@
     @*@Html.DisplayFor(_ => image)*@

@@ -39,20 +39,18 @@ namespace KidSteps.Controllers
             if (model.IsAllowedToEdit && Target.IsUnregisteredFamilyMember)
                 model.InvitationUrl = InvitationHandler.CreateUrl(Target, Url, Request);
 
-            model.Children.AddRange(
+            model.ChildrenRelationships.AddRange(
                 Target.Relationships.
-                    Where(rel => rel.RelatedUserIsSourceUsers == RelationshipType.Child).
-                    Select(rel => rel.RelatedUser));
+                    Where(rel => rel.RelatedUserIsSourceUsers == RelationshipType.Child));
 
-            model.Parents.AddRange(
+            model.ParentRelationships.AddRange(
                 Target.Relationships.
-                    Where(rel => rel.RelatedUserIsSourceUsers == RelationshipType.Parent).
-                    Select(rel => rel.RelatedUser));
+                    Where(rel => rel.RelatedUserIsSourceUsers == RelationshipType.Parent));
 
-            model.OtherImmediateFamily.AddRange(
-                Target.Relationships.Select(rel => rel.RelatedUser)
-                .Except(model.Parents)
-                .Except(model.Children));
+            model.OtherImmediateFamilyRelationships.AddRange(
+                Target.Relationships
+                .Except(model.ParentRelationships)
+                .Except(model.ChildrenRelationships));
 
             return View(model);
         }
@@ -108,7 +106,7 @@ namespace KidSteps.Controllers
         [UserTarget(Permission.UpdateUser)]
         public virtual ActionResult ProfileImageEdit(ImageSelectViewModel model)
         {
-            Image image = db.Images.Find(model.SelctedImageId);
+            Image image = db.Images.Find(model.SelectedImageId);
 
             if (image != null)
             {
@@ -139,6 +137,8 @@ namespace KidSteps.Controllers
                         Value = unrelatedUser.Id.ToString()
                     });
             }
+
+
 
             model.TargetUser = Target;
 

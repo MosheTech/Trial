@@ -15,5 +15,7 @@ namespace KidSteps.ViewModels
         public IEnumerable<SelectListItem> RelationshipTypes { get; set; }
         public RelationshipType NewRelationshipType { get; set; }
         public int NewRelatedUserId { get; set; }
+
+        public List<Tuple<User, Relationship>> FamilyRelationships { get; set; }
     }
 }

@@ -41,5 +41,15 @@
         @Model.TargetUser.Name.First
         <p/>
         <input type="submit" name="submit" value="Add Relationship" />
+    
+    <p />
+    <table>
+        @foreach (var userRelationship in Model.FamilyRelationships)
+        {
+            <tr>
+            <td>@userRelationship.Item1.Name.Full</td>
+            <td>@(userRelationship.Item2 != null ? userRelationship.Item2.RelatedUserIsSourceUsers.ToString() : "Not related")</td></tr>
+        }
+        </table>
     }
 }

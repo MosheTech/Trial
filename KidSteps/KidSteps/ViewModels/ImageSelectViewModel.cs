@@ -8,7 +8,7 @@ namespace KidSteps.ViewModels
 {
     public class ImageSelectViewModel
     {
-        public long? SelctedImageId { get; set; }
+        public long? SelectedImageId { get; set; }
         public IEnumerable<Image> Images { get; set; }
     }
 }

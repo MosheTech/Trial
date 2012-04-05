@@ -10,12 +10,13 @@
 <table style="border: none;">
     <tr>
         <td style="vertical-align: top; width: 160px; padding-right: 20px; border: none;">
-            @foreach (var parent in Model.Parents)
+            @foreach (var parentRelationship in Model.ParentRelationships)
             {
                 <div style="border: solid 1px #aaaaaa; background-color: #f0f0f0; padding: 5px; width: 60px;
                     margin: 2px; float: left">
-                    <div>@Html.ProfileActionImage(MVC.User.Details().WithId(parent), parent.ProfilePicture, 60)</div>
-                    <div>@Html.DisplayFor(_ => parent.Name)</div>
+                    <div>@Html.DisplayFor(m => parentRelationship.RelatedUserIsSourceUsers)</div>
+                    <div>@Html.ProfileActionImage(MVC.User.Details().WithId(parentRelationship.RelatedUser), parentRelationship.RelatedUser.ProfilePicture, 60)</div>
+                    <div>@Html.DisplayFor(_ => parentRelationship.RelatedUser.Name)</div>
                 </div>
             }
             <div style="clear: left; width: 80px; border: solid 3px #aaaaaa; border-top: none;
@@ -33,12 +34,13 @@
                 height: 8px; margin-right: 5px;">
             </div>
             <div>
-                @foreach (var child in Model.Children)
+                @foreach (var childRelationship in Model.ChildrenRelationships)
                 {
                     <div style="border: solid 1px #aaaaaa; background-color: #f0f0f0; padding: 5px; width: 60px;
                         margin: 2px; float: left">
-                        <div>@Html.ProfileActionImage(MVC.User.Details().WithId(child), child.ProfilePicture, 60)</div>
-                        <div>@Html.DisplayFor(_ => child.Name)</div>
+                        <div>@Html.DisplayFor(m => childRelationship.RelatedUserIsSourceUsers)</div>
+                        <div>@Html.ProfileActionImage(MVC.User.Details().WithId(childRelationship.RelatedUser), childRelationship.RelatedUser.ProfilePicture, 60)</div>
+                        <div>@Html.DisplayFor(_ => childRelationship.RelatedUser.Name)</div>
                     </div>
                 }
             </div>
@@ -71,12 +73,13 @@
             <div style="border: solid 1px #aaaaaa; background-color: #f0f0f0; padding: 10px;
                 width: 180px; margin-bottom: 4px">
                 <b>Additional Family</b>
-                @foreach (var familyMember in Model.OtherImmediateFamily)
+                @foreach (var familyMemberRelationship in Model.OtherImmediateFamilyRelationships)
                 {
                     <div style="border: solid 1px #aaaaaa; background-color: #fcfefe; padding: 5px; width: 64px;
                         margin: 8px 2px; float: left; text-align: center;">
-                        <div>@Html.ProfileActionImage(MVC.User.Details().WithId(familyMember), familyMember.ProfilePicture, 60)</div>
-                        <div>@Html.DisplayFor(_ => familyMember.Name)</div>
+                        <div>@Html.DisplayFor(m => familyMemberRelationship.RelatedUserIsSourceUsers)</div>
+                        <div>@Html.ProfileActionImage(MVC.User.Details().WithId(familyMemberRelationship.RelatedUser), familyMemberRelationship.RelatedUser.ProfilePicture, 60)</div>
+                        <div>@Html.DisplayFor(_ => familyMemberRelationship.RelatedUser.Name)</div>
                     </div>
                 }
                 <div style="clear: left;">
