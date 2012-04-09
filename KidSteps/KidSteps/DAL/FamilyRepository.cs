@@ -183,15 +183,46 @@ namespace KidSteps.DAL
         //    return membership;
         //}
 
-        public void AddRelationship(KidStepsContext context, Relationship relationship)
+        public void UpdateRelationship(KidStepsContext context, Relationship relationship)
         {
-            context.Relationships.Add(relationship);
+            var existingRelationship =
+                relationship.SourceUser.Relationships.FirstOrDefault(rel => rel.RelatedUser.Id == relationship.RelatedUser.Id);
+
+            if (existingRelationship == null)
+                context.Relationships.Add(relationship);
+            else
+                existingRelationship.RelatedUserIsSourceUsers = relationship.RelatedUserIsSourceUsers;
 
             Relationship reciprocalRelationship = new Relationship();
             reciprocalRelationship.RelatedUser = relationship.SourceUser;
             reciprocalRelationship.SourceUser = relationship.RelatedUser;
             reciprocalRelationship.RelatedUserIsSourceUsers = relationship.RelatedUserIsSourceUsers.Reciprocal();
-            context.Relationships.Add(reciprocalRelationship);
+
+            var existingReciprocalRelationship =
+                relationship.RelatedUser.Relationships.FirstOrDefault(rel => rel.RelatedUser.Id == relationship.SourceUser.Id);
+
+            if (existingReciprocalRelationship == null)
+                context.Relationships.Add(reciprocalRelationship);
+            else
+                existingReciprocalRelationship.RelatedUserIsSourceUsers = reciprocalRelationship.RelatedUserIsSourceUsers;
+
+            context.SaveChanges();
+        }
+
+        public void RemoveRelationship(KidStepsContext context, Relationship relationship)
+        {
+
+            var existingRelationship =
+                relationship.SourceUser.Relationships.FirstOrDefault(rel => rel.RelatedUser.Id == relationship.RelatedUser.Id);
+
+            if (existingRelationship != null)
+                context.Relationships.Remove(existingRelationship);
+
+            var existingReciprocalRelationship =
+                relationship.RelatedUser.Relationships.FirstOrDefault(rel => rel.RelatedUser.Id == relationship.SourceUser.Id);
+
+            if (existingReciprocalRelationship != null)
+                context.Relationships.Remove(existingReciprocalRelationship);
 
             context.SaveChanges();
         }

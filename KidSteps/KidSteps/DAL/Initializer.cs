@@ -37,11 +37,11 @@ namespace KidSteps.DAL
             // create add admin users' relationships to kids
             FamilyRepository familyRepos = new FamilyRepository();
             User shalom = familyRepos.AddFamilyMember(context, pinchas.Family, new PersonName("Shalom", "Friedman"), null, true);
-            familyRepos.AddRelationship(context, new Relationship() { SourceUser = pinchas, RelatedUser = shalom, RelatedUserIsSourceUsers = RelationshipType.Child });
+            familyRepos.UpdateRelationship(context, new Relationship() { SourceUser = pinchas, RelatedUser = shalom, RelatedUserIsSourceUsers = RelationshipType.Child });
 
             User yael = familyRepos.AddFamilyMember(context, pinchas.Family, new PersonName("Yael", "Friedman"), null, false);
-            familyRepos.AddRelationship(context, new Relationship() { SourceUser = yael, RelatedUser = shalom, RelatedUserIsSourceUsers = RelationshipType.Child });
-            familyRepos.AddRelationship(context, new Relationship() { SourceUser = pinchas, RelatedUser = yael, RelatedUserIsSourceUsers = RelationshipType.Spouse });
+            familyRepos.UpdateRelationship(context, new Relationship() { SourceUser = yael, RelatedUser = shalom, RelatedUserIsSourceUsers = RelationshipType.Child });
+            familyRepos.UpdateRelationship(context, new Relationship() { SourceUser = pinchas, RelatedUser = yael, RelatedUserIsSourceUsers = RelationshipType.Spouse });
 
 
             //familyRepos.AddRelationship(context, pinchas, RelationshipType.Father);

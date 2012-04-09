@@ -125,7 +125,8 @@ namespace KidSteps.Controllers
             model.CurrentRelationships = Target.Relationships.ToList();
             model.UnrelatedFamilyMembers = new List<SelectListItem>();
             var unrelatedUsers =
-                Target.Family.Members.Except(model.CurrentRelationships.Select(r => r.RelatedUser)).ToList();
+                Target.Family.Members.Except(model.CurrentRelationships.Select(r => r.RelatedUser)).ToList().
+                Where(u => !u.IsPublicViewer && u.Id != Target.Id);
             foreach (User unrelatedUser in unrelatedUsers)
             {
                 if (unrelatedUser.IsPublicViewer || unrelatedUser.Id == Target.Id)
@@ -142,6 +143,34 @@ namespace KidSteps.Controllers
 
             model.TargetUser = Target;
 
+
+
+            // new
+
+            model.FamilyRelationshipsNew = new List<UserEditRelationshipsViewModel.RelationshipViewModel>();
+            foreach (var unrelatedUser in unrelatedUsers)
+            {
+                ViewModels.UserEditRelationshipsViewModel.RelationshipViewModel r =
+                    new UserEditRelationshipsViewModel.RelationshipViewModel();
+                r.RelatedUserId = unrelatedUser.Id;
+                r.RelatedUser = unrelatedUser;
+                r.Relationship = UserEditRelationshipsViewModel.RelationshipTypeViewModel.NotImmediateFamilyMember;
+                model.FamilyRelationshipsNew.Add(r);
+            }
+            foreach (var relationship in Target.Relationships)
+            {
+                ViewModels.UserEditRelationshipsViewModel.RelationshipViewModel r =
+                    new UserEditRelationshipsViewModel.RelationshipViewModel();
+                r.RelatedUserId = relationship.RelatedUser.Id;
+                r.RelatedUser = relationship.RelatedUser;
+                r.Relationship = (UserEditRelationshipsViewModel.RelationshipTypeViewModel)relationship.RelatedUserIsSourceUsers;
+                model.FamilyRelationshipsNew.Add(r);
+            }
+
+            model.FamilyRelationshipsNew.Sort((r1, r2) => r1.RelatedUser.Name.First.CompareTo(r2.RelatedUser.Name.First));
+
+
+
             return View(model);
         }
 
@@ -153,13 +182,29 @@ namespace KidSteps.Controllers
             {
                 FamilyRepository repos = new FamilyRepository();
                 // save the new relationship
-                Relationship relationship = new Relationship();
-                relationship.SourceUser = Target;
-                relationship.RelatedUser = db.Users.Find(model.NewRelatedUserId);
-                relationship.RelatedUserIsSourceUsers = model.NewRelationshipType;
-                repos.AddRelationship(db, relationship);
+                //Relationship relationship = new Relationship();
+                //relationship.SourceUser = Target;
+                //relationship.RelatedUser = db.Users.Find(model.NewRelatedUserId);
+                //relationship.RelatedUserIsSourceUsers = model.NewRelationshipType;
+                //repos.UpdateRelationship(db, relationship);
 
-                return RedirectToAction(MVC.User.RelationshipsEdit().WithId(Target));
+                foreach (var item in model.FamilyRelationshipsNew)
+                {
+                    Relationship relationship = new Relationship();
+                    relationship.SourceUser = Target;
+                    relationship.RelatedUser = db.Users.Find(item.RelatedUserId);
+                    if (item.Relationship == UserEditRelationshipsViewModel.RelationshipTypeViewModel.NotImmediateFamilyMember)
+                    {
+                        repos.RemoveRelationship(db, relationship);
+                    }
+                    else
+                    {
+                        relationship.RelatedUserIsSourceUsers = (RelationshipType)item.Relationship;
+                        repos.UpdateRelationship(db, relationship);
+                    }
+                }
+
+                return RedirectToAction(MVC.User.Details().WithId(Target));
             }
 
             return View(model);

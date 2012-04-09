@@ -30,7 +30,7 @@
         }
     </table>
 }
-@if (Model.UnrelatedFamilyMembers.Any())
+@if (Model.UnrelatedFamilyMembers.Any() || true)
 {
     using (Html.BeginForm())
     {
@@ -43,13 +43,40 @@
         <input type="submit" name="submit" value="Add Relationship" />
     
     <p />
-    <table>
+    @*<table>
         @foreach (var userRelationship in Model.FamilyRelationships)
         {
             <tr>
             <td>@userRelationship.Item1.Name.Full</td>
             <td>@(userRelationship.Item2 != null ? userRelationship.Item2.RelatedUserIsSourceUsers.ToString() : "Not related")</td></tr>
         }
-        </table>
+        </table>*@
+    
+    
+    
+    <p />
+    <p />
+    <p />
+    
+    <table>
+    <tr><th>Name</th><th>Relationship</th></tr>
+    @for(int i = 0; i < Model.FamilyRelationshipsNew.Count; i++)
+    {
+        @Html.HiddenFor( m => m.FamilyRelationshipsNew[i].RelatedUserId)
+        <tr>
+        <td>
+        @Model.FamilyRelationshipsNew[i].RelatedUser.Name.Full</td>
+        <td>
+        is @Model.TargetUser.Name.First's 
+        @Html.DropDownListFor(
+            m => m.FamilyRelationshipsNew[i].Relationship,
+            Model.RelationshipTypesFor(Model.FamilyRelationshipsNew[i]))
+        </td></tr>
+    }
+    </table>
+    
+    <p />
+        <input type="submit" name="submit" value="Update" />
+    
     }
 }
