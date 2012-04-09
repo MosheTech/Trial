@@ -173,8 +173,8 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Utils\ActionResultExtensions.cs" />
+    <Compile Include="Utils\EnumExtensions.cs" />
     <Compile Include="Utils\HtmlHelperExtensions.cs" />
-    <Compile Include="Utils\ImageHelper.cs" />
     <Compile Include="ViewModels\ConnectToAccountViewModel.cs" />
     <Compile Include="ViewModels\AddFamilyMemberViewModel.cs" />
     <Compile Include="ViewModels\FamilyCreateViewModel.cs" />

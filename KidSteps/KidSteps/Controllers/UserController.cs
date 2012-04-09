@@ -121,42 +121,11 @@ namespace KidSteps.Controllers
         public virtual ActionResult RelationshipsEdit()
         {
             UserEditRelationshipsViewModel model = new UserEditRelationshipsViewModel();
-            model.RelationshipTypes = FamilyController.RelationshipsTypes;
-            model.CurrentRelationships = Target.Relationships.ToList();
-            model.UnrelatedFamilyMembers = new List<SelectListItem>();
-            var unrelatedUsers =
-                Target.Family.Members.Except(model.CurrentRelationships.Select(r => r.RelatedUser)).ToList().
-                Where(u => !u.IsPublicViewer && u.Id != Target.Id);
-            foreach (User unrelatedUser in unrelatedUsers)
-            {
-                if (unrelatedUser.IsPublicViewer || unrelatedUser.Id == Target.Id)
-                    continue;
-                model.UnrelatedFamilyMembers.Add(
-                    new SelectListItem()
-                    {
-                        Text = unrelatedUser.Name.Full,
-                        Value = unrelatedUser.Id.ToString()
-                    });
-            }
-
-
 
             model.TargetUser = Target;
 
-
-
-            // new
-
             model.FamilyRelationshipsNew = new List<UserEditRelationshipsViewModel.RelationshipViewModel>();
-            foreach (var unrelatedUser in unrelatedUsers)
-            {
-                ViewModels.UserEditRelationshipsViewModel.RelationshipViewModel r =
-                    new UserEditRelationshipsViewModel.RelationshipViewModel();
-                r.RelatedUserId = unrelatedUser.Id;
-                r.RelatedUser = unrelatedUser;
-                r.Relationship = UserEditRelationshipsViewModel.RelationshipTypeViewModel.NotImmediateFamilyMember;
-                model.FamilyRelationshipsNew.Add(r);
-            }
+            // existing relationships
             foreach (var relationship in Target.Relationships)
             {
                 ViewModels.UserEditRelationshipsViewModel.RelationshipViewModel r =
@@ -164,6 +133,23 @@ namespace KidSteps.Controllers
                 r.RelatedUserId = relationship.RelatedUser.Id;
                 r.RelatedUser = relationship.RelatedUser;
                 r.Relationship = (UserEditRelationshipsViewModel.RelationshipTypeViewModel)relationship.RelatedUserIsSourceUsers;
+                model.FamilyRelationshipsNew.Add(r);
+            }
+            // non-immediate family
+            foreach (var familyMember in Target.Family.Members)
+            {
+                if (model.FamilyRelationshipsNew.Any(vm => vm.RelatedUserId == familyMember.Id))
+                    continue;
+                if (familyMember.Id == Target.Id)
+                    continue;
+                if (familyMember.IsPublicViewer)
+                    continue;
+
+                ViewModels.UserEditRelationshipsViewModel.RelationshipViewModel r =
+                    new UserEditRelationshipsViewModel.RelationshipViewModel();
+                r.RelatedUserId = familyMember.Id;
+                r.RelatedUser = familyMember;
+                r.Relationship = UserEditRelationshipsViewModel.RelationshipTypeViewModel.NotImmediateFamilyMember;
                 model.FamilyRelationshipsNew.Add(r);
             }
 

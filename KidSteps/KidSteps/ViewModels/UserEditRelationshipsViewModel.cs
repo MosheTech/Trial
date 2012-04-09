@@ -4,35 +4,14 @@ using System.Linq;
 using System.Web;
 using KidSteps.Models;
 using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
+using KidSteps.Utils;
 
 namespace KidSteps.ViewModels
 {
     public class UserEditRelationshipsViewModel
     {
-        //public UserEditRelationshipsViewModel()
-        //{
-        //    RelationshipTypesNew = new List<SelectListItem>();
-        //    foreach (var item in Enum.GetValues(typeof(RelationshipTypeViewModel)))
-        //    {
-        //        var s = new SelectListItem();
-        //        s.Text = item.ToString();
-        //        s.Value = item.ToString();
-
-        //        if (s.Text.ToString() == RelationshipTypeViewModel.Sibling.ToString())
-        //            s.Selected = true;
-
-        //        RelationshipTypesNew.Add(s);
-        //    }
-        //}
-
-        public List<Relationship> CurrentRelationships { get; set; }
-        public List<SelectListItem> UnrelatedFamilyMembers { get; set; }
         public User TargetUser { get; set; }
-        public IEnumerable<SelectListItem> RelationshipTypes { get; set; }
-        public RelationshipType NewRelationshipType { get; set; }
-        public int NewRelatedUserId { get; set; }
-
-        public List<Tuple<User, Relationship>> FamilyRelationships { get; set; }
 
         public List<RelationshipViewModel> FamilyRelationshipsNew { get; set; }
 
@@ -42,7 +21,7 @@ namespace KidSteps.ViewModels
             foreach (RelationshipTypeViewModel type in Enum.GetValues(typeof(RelationshipTypeViewModel)))
             {
                 SelectListItem item = new SelectListItem();
-                item.Text = type.ToString();
+                item.Text = type.GetAttributeValue<DisplayAttribute, string>(t => t.Description);
                 item.Value = type.ToString();
 
                 if (type == r.Relationship)
@@ -56,10 +35,19 @@ namespace KidSteps.ViewModels
 
         public enum RelationshipTypeViewModel
         {
+            [Display(Description = "Parent")]
             Parent,
+
+            [Display(Description = "Sibling")]
             Sibling,
+
+            [Display(Description = "Child")]
             Child,
+
+            [Display(Description = "Spouse")]
             Spouse,
+
+            [Display(Description = "Non-immediate family member")]
             NotImmediateFamilyMember,
         }
 
