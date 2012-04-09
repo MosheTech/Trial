@@ -4,9 +4,8 @@
 }
 <script type="text/javascript">
     function Select(id) {
-        $('#' + selectedid).css("border-style", "none");
-        $('#' + id).css("border-style", "solid");
-        $('#' + id).css("border-width", "10px");
+        $('#' + selectedid).css("border-color", "White");
+        $('#' + id).css("border-color", "Red");
         selectedid = id;
         $('#SelectedImageId').val(selectedid);
     }
@@ -21,7 +20,7 @@
     
     foreach (var image in Model.Images)
     {
-        <img src="@image.Url" alt="Alternate Text" height="100" id="@image.Id" onclick="Select(@image.Id)" />
+        <img src="@image.Url" alt="Alternate Text" height="100" id="@image.Id" style=" border-style:solid; border-width:medium; border-color:White" onclick="Select(@image.Id)" />
     }
     if (Model.Images.Any())
     {
