@@ -15,41 +15,52 @@
         return false;
     }
 </script>
-<h2>
-    Edit @Model.Name.Full</h2>
+
+<h2>Edit @Model.Name.Full</h2>
+
 @using (Html.BeginForm())
 {
     <input type="hidden" id="changeImage" name="changeImage" />
     
-    @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>User</legend>
-        <div>
-            @Html.EditorFor(m => m.Name)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Bio)
-        </div>
-        <div class="editor-field">
-            <textarea rows="5" cols="30" name="Bio" onkeyup="setWarning(true);">@Html.DisplayFor(m => m.Bio)</textarea>
-            @Html.ValidationMessageFor(model => model.Bio)
-        </div>
-        <div>
-            @Html.DisplayFor(m => m.ProfilePicture)
-        </div>
-        <div>
-            @Html.ActionLink("Select Profile Picture", MVC.User.ProfileImageEdit().WithId(ViewData), new { onclick = "return (warning ? confirm('You have edited this page, save edits?') ? saveProfile() : true : true);" })
-        </div>
-        <div>
-            @Html.ActionLink("Change Password", MVC.Account.ChangePassword())
-        </div>
-        @if (Model.CanEditRelationships)
-        {
-            <div>
-                @Html.ActionLink("Update Relationships", MVC.User.RelationshipsEdit().WithId(ViewData))</div>
-        }
-        <p>
-            <input type="submit" id="btn1" value="Save" />
-        </p>
-    </fieldset>
+    <table>
+        <tr>
+            <td style="vertical-align:top;">
+                <div>
+                    @Html.DisplayFor(m => m.ProfilePicture)
+                </div>
+                <div>
+                    @Html.ActionLink("Select Profile Picture", MVC.User.ProfileImageEdit().WithId(ViewData), new { onclick = "return (warning ? confirm('You have edited this page, save edits?') ? saveProfile() : true : true);" })
+                </div>
+
+                <div style="margin-top:20px">
+                    @Html.ActionLink("Change Password", MVC.Account.ChangePassword())
+                </div>
+                @if (Model.CanEditRelationships)
+                {
+                    <div style="margin-top:20px">@Html.ActionLink("Update Relationships", MVC.User.RelationshipsEdit().WithId(ViewData))</div>
+                }
+            </td>
+            <td>
+                <fieldset>
+                    <legend>User</legend>
+                    <div>
+                        @Html.EditorFor(m => m.Name)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Bio)
+                    </div>
+                    <div class="editor-field">
+                        <textarea rows="10" cols="60" name="Bio" onkeyup="setWarning(true);">@Html.DisplayFor(m => m.Bio)</textarea>
+                        @Html.ValidationMessageFor(model => model.Bio)
+                    </div>
+
+                    <p>
+                        <input type="submit" id="btn1" value="Save" />
+                    </p>
+                </fieldset>
+            </td>
+        </tr>
+    </table>
+    
+    @Html.ValidationSummary(true)    
 }

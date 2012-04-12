@@ -4,7 +4,10 @@
 }
 <script type="text/javascript">
     function ShowInvite() {
-        $("#thingy2").show();  
+        if (document.getElementById('thingy2').style.display == 'none')
+            $("#thingy2").show();
+        else
+            $("#thingy2").hide();
     }
 </script>
 <table style="border: none;">
@@ -46,20 +49,20 @@
             </div>
         </td>
         <td style="vertical-align: top; width: 560px; padding-right: 20px; border: none;">
-            <span style="float: right;">
+            <div>
                 @if (Model.IsAllowedToEdit)
                 {
                     @Html.ActionLink("Edit", MVC.User.Edit().WithId(Model.User))
                     if (Model.InvitationUrl != null)
                     {
-                    @:| <a href="#" id="thingy1" onclick="ShowInvite()">Invite</a> @*@Html.ActionLink("Invite", MVC.Invitation.Index().WithId(Model.User.Family.Id), new { id = "thingy1" })*@
-                                                <span id="thingy2" style="display:none">@Model.InvitationUrl</span> 
+                    @:| <a href="javascript:ShowInvite()">Invite</a>
+                        <div id="thingy2" style="display:none; background-color:#f0f0f0; padding:2px 2px">@Model.InvitationUrl</div>
                     }
                 }
-            </span>
+            </div>
             <h2>@Html.DisplayFor(m => m.User.Name)</h2>
             <div class="display-field" style="margin: 0px 8px 8px 8px">
-                @Html.DisplayFor(m => m.User.Bio)
+                @Model.User.Bio.Replace("\r", "").Replace("\n", "<br />")
             </div>
             @if (Model.User.HasRealEmail)
             {

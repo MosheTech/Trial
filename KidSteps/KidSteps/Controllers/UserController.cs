@@ -63,8 +63,7 @@ namespace KidSteps.Controllers
         {
             UserEditViewModel model = new UserEditViewModel(Target);
 
-            model.CanEditRelationships =
-                CurrentUser.IsAllowedTo(Permission.EditFamily, Target.Family);            
+            model.CanEditRelationships = CurrentUser.IsAllowedTo(Permission.EditFamily, Target.Family);
 
             return View(model);
         }

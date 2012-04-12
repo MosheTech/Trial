@@ -35,6 +35,8 @@ p, ul {
     line-height: 1.6em;
 }
 
+img {border:none;}
+
 header,
 footer,
 nav,
