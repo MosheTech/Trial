@@ -79,6 +79,15 @@ namespace KidSteps.Controllers
             {
                 Target.Bio = model.Bio;
                 Target.Name = model.Name;
+                if (!string.IsNullOrEmpty(model.Email))
+                {
+                    Target.Email = model.Email;
+                    Target.HasRealEmail = true;
+                }
+                else
+                {
+                    Target.HasRealEmail = false;
+                }
                 db.SaveChanges();
 
                 if (Request.Form["changeImage"] == "yes")
@@ -131,7 +140,7 @@ namespace KidSteps.Controllers
                     new UserEditRelationshipsViewModel.RelationshipViewModel();
                 r.RelatedUserId = relationship.RelatedUser.Id;
                 r.RelatedUser = relationship.RelatedUser;
-                r.Relationship = (UserEditRelationshipsViewModel.RelationshipTypeViewModel)relationship.RelatedUserIsSourceUsers;
+                r.Relationship = (UserEditRelationshipsViewModel.RelationshipTypeViewModel)relationship.RelatedUserIsSourceUsers.Reciprocal();
                 model.FamilyRelationshipsNew.Add(r);
             }
             // non-immediate family
@@ -184,7 +193,7 @@ namespace KidSteps.Controllers
                     }
                     else
                     {
-                        relationship.RelatedUserIsSourceUsers = (RelationshipType)item.Relationship;
+                        relationship.RelatedUserIsSourceUsers = ((RelationshipType)item.Relationship).Reciprocal();
                         repos.UpdateRelationship(db, relationship);
                     }
                 }

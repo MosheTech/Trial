@@ -16,15 +16,18 @@
 @using (Html.BeginForm())
 {
 <table>
-<tr><th>Name</th><th>Relationship</th></tr>
+<tr><th>Name</th><th colspan="2">Relationship</th></tr>
 @for(int i = 0; i < Model.FamilyRelationshipsNew.Count; i++)
 {
     @Html.HiddenFor( m => m.FamilyRelationshipsNew[i].RelatedUserId)
     <tr>
     <td>
-    @Model.FamilyRelationshipsNew[i].RelatedUser.Name.Full</td>
+    @Model.TargetUser.Name.First
+    </td>
     <td>
-    is @Model.TargetUser.Name.First's 
+    is @Model.FamilyRelationshipsNew[i].RelatedUser.Name.Full's 
+    </td>
+    <td>
     @Html.DropDownListFor(
         m => m.FamilyRelationshipsNew[i].Relationship,
         Model.RelationshipTypesFor(Model.FamilyRelationshipsNew[i]))

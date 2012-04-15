@@ -15,7 +15,7 @@
                     <td>
                         Kids: @Model.FamilyMembers.Count(user => user.IsKid)
                     </td>
-                    <td>@Html.ActionLink("Add a kid", MVC.Family.AddFamilyMember(true).WithId(Model.UserFamily))
+                    <td>@Html.ActionLink("Add a child", MVC.Family.AddFamilyMember(true).WithId(Model.UserFamily))
                     </td>
                 </tr>
                 <tr>

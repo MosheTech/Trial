@@ -10,6 +10,13 @@
     
     @Html.EditorFor(m => m.Name)
 
+    <div class="editor-label">
+        @Html.LabelFor(m => m.Email)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(m => m.Email)
+    </div>
+
     <p>
         <input type="submit" value="Save" />
     </p>

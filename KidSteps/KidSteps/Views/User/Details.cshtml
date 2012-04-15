@@ -61,8 +61,8 @@
                 }
             </div>
             <h2>@Html.DisplayFor(m => m.User.Name)</h2>
-            <div class="display-field" style="margin: 0px 8px 8px 8px">
-                @Model.User.Bio.Replace("\r", "").Replace("\n", "<br />")
+            <div class="display-field" style="margin: 0px 8px 8px 8px">            
+                @Html.Raw(Model.User.Bio == null ? string.Empty : Model.User.Bio.Replace("\r", "").Replace("\n", "<br />"))
             </div>
             @if (Model.User.HasRealEmail)
             {
