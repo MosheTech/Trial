@@ -65,6 +65,8 @@ namespace KidSteps.Controllers
 
             model.CanEditRelationships = CurrentUser.IsAllowedTo(Permission.EditFamily, Target.Family);
 
+            model.CanEditProfilePicture = CurrentUser.IsAllowedTo(Permission.UploadImage, Target);
+
             return View(model);
         }
 
@@ -92,6 +94,8 @@ namespace KidSteps.Controllers
 
                 if (Request.Form["changeImage"] == "yes")
                     return RedirectToAction(Actions.ProfileImageEdit().WithId(Target));
+                else if (CurrentUser.IsFamilyAdmin && !Target.Family.HasKids)
+                    return RedirectToAction(MVC.Family.AddFamilyMember(isKid: true).WithId(Target.Family));
                 else
                     return RedirectToAction(Actions.Details().WithId(Target));
             }
@@ -103,6 +107,7 @@ namespace KidSteps.Controllers
         {
             ImageSelectViewModel model = new ImageSelectViewModel();
             model.Images = db.Images.Where(image => image.CreatedBy.Id == CurrentUser.Id).ToList();
+            model.ShouldSetAsProfile = !model.Images.Any() && CurrentUser.Id == Target.Id;
 
             return View(model);
         }

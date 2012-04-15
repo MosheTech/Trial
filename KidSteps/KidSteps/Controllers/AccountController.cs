@@ -126,7 +126,7 @@ namespace KidSteps.Controllers
                     {
                         FormsAuthentication.SetAuthCookie(user.Id.ToString(), model.RememberMe);
 
-                        return RedirectToAction(MVC.Family.AddFamilyMember(isKid: true).WithId(user.Family));
+                        return RedirectToAction(MVC.User.Edit().WithId(user));//.Family.AddFamilyMember(isKid: true).WithId(user.Family));
                     }
                     else
                     {

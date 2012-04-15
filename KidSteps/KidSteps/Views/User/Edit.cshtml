@@ -28,9 +28,12 @@
                 <div>
                     @Html.DisplayFor(m => m.ProfilePicture)
                 </div>
-                <div>
-                    @Html.ActionLink("Select Profile Picture", MVC.User.ProfileImageEdit().WithId(ViewData), new { onclick = "return (warning ? confirm('You have edited this page, save edits?') ? saveProfile() : true : true);" })
-                </div>
+                @if (Model.CanEditProfilePicture)
+                {
+                    <div>
+                        @Html.ActionLink("Select Profile Picture", MVC.User.ProfileImageEdit().WithId(ViewData), new { onclick = "return (warning ? confirm('You have edited this page, save edits?') ? saveProfile() : true : true);" })
+                    </div>
+                }
 
                 <div style="margin-top:20px">
                     @Html.ActionLink("Change Password", MVC.Account.ChangePassword())

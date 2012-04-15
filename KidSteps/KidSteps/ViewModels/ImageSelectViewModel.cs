@@ -8,6 +8,7 @@ namespace KidSteps.ViewModels
 {
     public class ImageSelectViewModel
     {
+        public bool ShouldSetAsProfile { get; set; }
         public long? SelectedImageId { get; set; }
         public IEnumerable<Image> Images { get; set; }
     }

@@ -28,6 +28,8 @@ namespace KidSteps.ViewModels
         [RegularExpression(@"\b[A-Z0-9a-z._%+-]+@[A-Z0-9a-z.-]+\.[A-Za-z]{2,4}\b", ErrorMessage = "Incorrect email address format.")]
         public string Email { get; set; }
         public string Bio { get; set; }
+
+        public bool CanEditProfilePicture { get; set; }
         public Image ProfilePicture { get; set; }
 
         public bool CanEditRelationships { get; set; }
