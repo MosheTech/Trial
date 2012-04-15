@@ -5,9 +5,18 @@
 <script type="text/javascript">
     function Select(id) {
         $('#' + selectedid).css("border-color", "White");
-        $('#' + id).css("border-color", "Red");
+        $('#' + id).css("border-color", "Blue");
         selectedid = id;
         $('#SelectedImageId').val(selectedid);
+    }
+
+    function Over(id, isOver) {
+        if (id === selectedid)
+            return;
+        if (isOver)
+            $('#' + id).css("border-color", "Teal");
+        else
+            $('#' + id).css("border-color", "White");
     }
 
     var selectedid;
@@ -20,7 +29,7 @@
     
     foreach (var image in Model.Images)
     {
-        <img src="@image.Url" alt="Alternate Text" height="100" id="@image.Id" style=" border-style:solid; border-width:medium; border-color:White" onclick="Select(@image.Id)" />
+        <img src="@image.Url" alt="Alternate Text" height="100" id="@image.Id" style=" border-style:solid; border-width:medium; border-color:White" onclick="Select(@image.Id)" onmouseover="Over(@image.Id, true)" onmouseout="Over(@image.Id, false)" />
     }
     if (Model.Images.Any())
     {
