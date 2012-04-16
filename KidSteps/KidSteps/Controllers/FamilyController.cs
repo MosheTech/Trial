@@ -221,6 +221,33 @@ namespace KidSteps.Controllers
                 FamilyRepository repos = new FamilyRepository();
                 User newUser = repos.AddFamilyMember(db, Target, model.Name, model.Email, model.IsKid);
 
+                if (model.IsKid)
+                {
+                    // add assumed relationship to admin
+                    Relationship relationshipToAdmin = new Relationship();
+                    relationshipToAdmin.SourceUser = Target.Admin;
+                    relationshipToAdmin.RelatedUser = newUser;
+                    relationshipToAdmin.RelatedUserIsSourceUsers = RelationshipType.Child;
+                    repos.UpdateRelationship(db, relationshipToAdmin);
+
+                    // add assumed relationships to other kids
+                    foreach (User member in Target.Members)
+                    {
+                        if (member.Id == newUser.Id)
+                            continue;
+                        if (member.Id == Target.Admin.Id)
+                            continue;
+                        if (!member.IsKid)
+                            continue;
+
+                        Relationship relationshipToOtherKid = new Relationship();
+                        relationshipToOtherKid.SourceUser = newUser;
+                        relationshipToOtherKid.RelatedUser = member;
+                        relationshipToOtherKid.RelatedUserIsSourceUsers = RelationshipType.Sibling;
+                        repos.UpdateRelationship(db, relationshipToOtherKid);
+                    }
+                }
+
                 return RedirectToAction(MVC.User.RelationshipsEdit().WithId(newUser));
             }
 
