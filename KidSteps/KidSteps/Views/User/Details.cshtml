@@ -16,14 +16,14 @@
             @foreach (var parentRelationship in Model.ParentRelationships)
             {
                 <div style="border: solid 1px #aaaaaa; background-color: #f0f0f0; padding: 5px; width: 60px;
-                    margin: 2px; float: left">
+                                                                                                        margin: 2px; float: left">
                     <div>@Html.DisplayFor(m => parentRelationship.RelatedUserIsSourceUsers)</div>
                     <div>@Html.ProfileActionImage(MVC.User.Details().WithId(parentRelationship.RelatedUser), parentRelationship.RelatedUser.ProfilePicture, 60)</div>
                     <div>@Html.DisplayFor(_ => parentRelationship.RelatedUser.Name)</div>
                 </div>
             }
             <div style="clear: left; width: 80px; border: solid 3px #aaaaaa; border-top: none;
-                margin-left: 15%; height: 8px; margin-right: 5px;">
+                                                                                                                                       margin-left: 15%; height: 8px; margin-right: 5px;">
             </div>
             <div style="width: 60px; border-right: solid 3px #aaaaaa; height: 8px;">
             </div>
@@ -34,13 +34,13 @@
             <div style="width: 60px; border-right: solid 3px #aaaaaa; height: 8px;">
             </div>
             <div style="width: 80px; border: solid 3px #aaaaaa; border-bottom: none; margin-left: 15%;
-                height: 8px; margin-right: 5px;">
+                                                                                                                                                                                                                                                                                                                                                                                                                            height: 8px; margin-right: 5px;">
             </div>
             <div>
                 @foreach (var childRelationship in Model.ChildrenRelationships)
                 {
                     <div style="border: solid 1px #aaaaaa; background-color: #f0f0f0; padding: 5px; width: 60px;
-                        margin: 2px; float: left">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                  margin: 2px; float: left">
                         <div>@Html.DisplayFor(m => childRelationship.RelatedUserIsSourceUsers)</div>
                         <div>@Html.ProfileActionImage(MVC.User.Details().WithId(childRelationship.RelatedUser), childRelationship.RelatedUser.ProfilePicture, 60)</div>
                         <div>@Html.DisplayFor(_ => childRelationship.RelatedUser.Name)</div>
@@ -55,7 +55,7 @@
                     @Html.ActionLink("Edit", MVC.User.Edit().WithId(Model.User))
                     if (Model.InvitationUrl != null)
                     {
-                    @:| <a href="javascript:ShowInvite()">Invite</a>
+                        @:| <a href="javascript:ShowInvite()">Invite</a>
                         <div id="div_invitation" style="display:none; background-color:#f0f0f0; padding:2px 2px">@Model.InvitationUrl</div>
                     }
                 }
@@ -74,12 +74,12 @@
         </td>
         <td style="vertical-align: top; border: none;">
             <div style="border: solid 1px #aaaaaa; background-color: #f0f0f0; padding: 10px;
-                width: 180px; margin-bottom: 4px">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               width: 180px; margin-bottom: 4px">
                 <b>Additional Family</b>
                 @foreach (var familyMemberRelationship in Model.OtherImmediateFamilyRelationships)
                 {
                     <div style="border: solid 1px #aaaaaa; background-color: #fcfefe; padding: 5px; width: 64px;
-                        margin: 8px 2px; float: left; text-align: center;">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      margin: 8px 2px; float: left; text-align: center;">
                         <div>@Html.DisplayFor(m => familyMemberRelationship.RelatedUserIsSourceUsers)</div>
                         <div>@Html.ProfileActionImage(MVC.User.Details().WithId(familyMemberRelationship.RelatedUser), familyMemberRelationship.RelatedUser.ProfilePicture, 60)</div>
                         <div>@Html.DisplayFor(_ => familyMemberRelationship.RelatedUser.Name)</div>
@@ -91,3 +91,6 @@
         </td>
     </tr>
 </table>
+<div>
+    @Html.Action(MVC.Timeline.Index().WithId(Model.User))
+</div>

@@ -1,0 +1,15 @@
+﻿@using KidSteps.Models
+@model KidSteps.Controllers.TimelineController.IndexViewModel
+    
+@foreach (TimelineEvent item in Model.Items)
+{
+    Comment comment = item as Comment;
+    <div style="border-width:2px; border-color:gray; border-style:solid; margin-left:@(comment.IsReplyTo != null ? "20px" : "0px")">
+        <div style="font-style:italic; font-size:10px">
+            @comment.CreatedTime.ToString()
+        </div>
+        <div style="font-size:14px">
+            @comment.Text
+        </div>
+    </div>
+}

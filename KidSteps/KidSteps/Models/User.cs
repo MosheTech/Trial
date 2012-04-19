@@ -15,6 +15,7 @@ namespace KidSteps.Models
             Name = new PersonName();
             Bio = string.Empty;
             Relationships = new List<Relationship>();
+            TimelineEvents = new List<TimelineEvent>();
         }
 
         public virtual int Id { get; set; }
@@ -84,6 +85,8 @@ namespace KidSteps.Models
         //[InverseProperty("User")]
         //public virtual ICollection<FamilyMember> FamilyMemberships { get; set; }
         public virtual ICollection<Relationship> Relationships { get; set; }
+
+        [InverseProperty("SubjectUser")]
         public virtual ICollection<TimelineEvent> TimelineEvents { get; set; }
         public virtual ICollection<Image> Images { get; set; }
     }

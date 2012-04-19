@@ -122,6 +122,7 @@
     <Compile Include="Controllers\InvitationController.cs" />
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\TargetedController.cs" />
+    <Compile Include="Controllers\TimelineController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\FamilyRepository.cs" />
     <Compile Include="DAL\Initializer.cs" />
@@ -147,6 +148,7 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Content.cs" />
     <Compile Include="Models\Family.cs" />
     <Compile Include="Models\FamilyMember.cs" />
@@ -167,6 +169,9 @@
     <Compile Include="T4MVC.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TimelineController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="UserController.generated.cs">
@@ -425,6 +430,7 @@
     <Content Include="Views\Layout\SuperUserFooter.cshtml" />
     <Content Include="Views\Family\Manage.cshtml" />
     <Content Include="Views\Family\Details.cshtml" />
+    <Content Include="Views\Timeline\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

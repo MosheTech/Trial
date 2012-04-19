@@ -29,7 +29,7 @@ namespace KidSteps.DAL
             // create admin users
             UserRepository userRepos = new UserRepository();
             MembershipCreateStatus _;
-            User pinchas = userRepos.CreateFamilyMember(context, new PersonName("Pinchas", "Friedman"), "admin@gmail.com", "admin", out _);//, Role.SuperUser, out _);
+            User pinchas = userRepos.CreateFamilyMember(context, new PersonName("Pinchas", "Friedman"), "admin@gmail.com", "admin", out _);
             pinchas.RoleFlags |= Role.SuperUser;
             User moshe = userRepos.CreateFamilyMember(context, new PersonName("Moshe", "Starkman"), "moshe@gmail.com", "moshe", out _);
             moshe.RoleFlags |= Role.SuperUser;
@@ -43,14 +43,31 @@ namespace KidSteps.DAL
             familyRepos.UpdateRelationship(context, new Relationship() { SourceUser = yael, RelatedUser = shalom, RelatedUserIsSourceUsers = RelationshipType.Child });
             familyRepos.UpdateRelationship(context, new Relationship() { SourceUser = pinchas, RelatedUser = yael, RelatedUserIsSourceUsers = RelationshipType.Spouse });
 
+            // add some comments
+            TimelineEvent t1 = new Comment()
+            {
+                Owner = pinchas,
+                SubjectUser = pinchas,
+                Text = "Foo"
+            };
+            TimelineEvent t2 = new Comment()
+            {
+                Owner = pinchas,
+                SubjectUser = pinchas,
+                Text = "Foo2",
+                IsReplyTo = t1
+            };
+            TimelineEvent t3 = new Comment()
+            {
+                Owner = pinchas,
+                SubjectUser = pinchas,
+                Text = " New Foo"
+            };
+            context.TimelineEvents.Add(t1);
+            context.TimelineEvents.Add(t2);
+            context.TimelineEvents.Add(t3);
 
-            //familyRepos.AddRelationship(context, pinchas, RelationshipType.Father);
-            //familyRepos.AddRelationship(context, moshe, RelationshipType.Father);
-            
-            //// add family members
-            //familyRepos.AddUnregisteredMember(context, pinchas.Family, "Shalom", "Friedman", null, RelationshipType.Self);
-            //familyRepos.AddUnregisteredMember(context, pinchas.Family, "Yael", "Friedman", null, RelationshipType.Mother);
-
+            //context.Entry(pinchas).Entity.TimelineEvents.Add(t);
             context.SaveChanges();
         }
     }

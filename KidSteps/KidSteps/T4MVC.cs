@@ -31,6 +31,7 @@ public static class MVC {
     public static KidSteps.Controllers.ImageController Image = new KidSteps.Controllers.T4MVC_ImageController();
     public static KidSteps.Controllers.InvitationController Invitation = new KidSteps.Controllers.T4MVC_InvitationController();
     public static KidSteps.Controllers.LayoutController Layout = new KidSteps.Controllers.T4MVC_LayoutController();
+    public static KidSteps.Controllers.TimelineController Timeline = new KidSteps.Controllers.T4MVC_TimelineController();
     public static KidSteps.Controllers.UserController User = new KidSteps.Controllers.T4MVC_UserController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
@@ -311,6 +312,17 @@ public class T4MVC_ActionResult : System.Web.Mvc.ActionResult, IT4MVCActionResul
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
 public class T4MVC_ViewResult : System.Web.Mvc.ViewResult, IT4MVCActionResult {
     public T4MVC_ViewResult(string area, string controller, string action, string protocol = null): base()  {
+        this.InitMVCT4Result(area, controller, action, protocol);
+    }
+    
+    public string Controller { get; set; }
+    public string Action { get; set; }
+    public string Protocol { get; set; }
+    public RouteValueDictionary RouteValueDictionary { get; set; }
+}
+[GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+public class T4MVC_PartialViewResult : System.Web.Mvc.PartialViewResult, IT4MVCActionResult {
+    public T4MVC_PartialViewResult(string area, string controller, string action, string protocol = null): base()  {
         this.InitMVCT4Result(area, controller, action, protocol);
     }
     
