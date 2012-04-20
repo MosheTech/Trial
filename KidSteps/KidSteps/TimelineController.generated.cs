@@ -82,6 +82,12 @@ namespace KidSteps.Controllers {
             return callInfo;
         }
 
+        public override System.Web.Mvc.PartialViewResult Index(KidSteps.Controllers.TimelineController.IndexViewModel model) {
+            var callInfo = new T4MVC_PartialViewResult(Area, Name, ActionNames.Index);
+            callInfo.RouteValueDictionary.Add("model", model);
+            return callInfo;
+        }
+
     }
 }
 
