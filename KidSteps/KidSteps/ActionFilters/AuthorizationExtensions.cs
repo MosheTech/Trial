@@ -42,7 +42,7 @@ namespace KidSteps.ActionFilters
                 case Permission.EditFamily:
                     return isFamilyAdmin;
                 case Permission.Comment:
-                    return isInSameFamilyAsTargetUser;
+                    return isInSameFamilyAsTargetUser && !user.IsPublicViewer;
                 default:
                     throw new NotImplementedException();
             }

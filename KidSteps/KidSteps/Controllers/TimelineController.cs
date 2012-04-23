@@ -12,6 +12,7 @@ namespace KidSteps.Controllers
     public partial class TimelineController : TargetedController<User>
     {
         [UserTarget(Permission.ReadUser)]
+        [ChildActionOnly]
         public virtual PartialViewResult Index()
         {
             IndexViewModel model = new IndexViewModel();
@@ -52,30 +53,7 @@ namespace KidSteps.Controllers
                 db.SaveChanges();
             }
 
-
-
-            IndexViewModel newModel = new IndexViewModel();
-            List<TimelineEvent> allEvents = Target.TimelineEvents.ToList();
-            // sort by create time descending
-            allEvents.Sort((te1, te2) => -te1.CreatedTime.CompareTo(te2.CreatedTime));
-
-            Dictionary<TimelineEvent, List<TimelineEvent>> conversations =
-                new Dictionary<TimelineEvent, List<TimelineEvent>>();
-
-            foreach (TimelineEvent timelineEvent in allEvents)
-            {
-                conversations[timelineEvent] = new List<TimelineEvent>();
-            }
-
-            foreach (var pair in conversations)
-            {
-                Conversation conversation = new Conversation();
-                conversation.ParentItem = pair.Key;
-                conversation.Replies = pair.Value;
-                newModel.Conversations.Add(conversation);
-            }
-
-            return PartialView(newModel);
+            return Index();
         }
 
         #region ViewModels
