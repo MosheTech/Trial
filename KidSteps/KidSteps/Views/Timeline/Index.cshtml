@@ -11,15 +11,15 @@
                         </div>
                         <div>
                             <textarea name="NewComment" rows="3" cols="20"
-                                id="ctl00_ctl00_Canvas_Canvas_MediaControl1_MediaComment" class="mceNoEditor"
+                                class="mceNoEditor"
                                 style="font-family: Arial; width: 470px;"></textarea></div>
                     </div>
                     <div class="box" style="text-align: right;">
                         <div id="ctl00_ctl00_Canvas_Canvas_MediaControl1_UpdatePanel2">
-                            <input type="submit" name="ctl00$ctl00$Canvas$Canvas$MediaControl1$AddButton" value="Share"
-                                onclick="this.style.display='none'; document.getElementById('mtech_mc1').style.display='';"
+                            <input type="submit" value="Share"
+                                @*onclick="this.style.display='none'; document.getElementById('mtech_mc1').style.display='';"*@
                                 id="ctl00_ctl00_Canvas_Canvas_MediaControl1_AddButton" style="color: White; background-color: #000099;
-                                font-weight: bold;"><span id="mtech_mc1" style="display: none;">posting...</span>
+                                font-weight: bold;">@*<span id="mtech_mc1" style="display: none;">posting...</span>*@
                         </div>
                     </div>
                 </div>
@@ -29,37 +29,22 @@
     @foreach (var conversation in Model.Conversations)
     {
         Comment comment = conversation.ParentItem as Comment;
-        <div id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_FeedItem" style="width: 470px;
-            padding: 5px 5px; overflow: hidden;">
-            <div id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_FeedDetails">
-                <span>
-                @Html.ActionImage(MVC.User.Details().WithId(comment.Owner), comment.Owner.ProfilePicture, 60, Links.Content.Images.profile_placeholder_jpg)
-                @*<a id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_Icon1" href="/profiles/?uid=13"
-                    style="float: left;">
-                    <img src="/images/profiles/default.png" alt="" style="vertical-align: middle; width: 60px;
-                        height: 60px; margin-right: 10px"></a>*@</span>
+        <div style="width: 470px; padding: 5px 5px; overflow: hidden;">
+            <div>
+                <span style="float: left; margin-right: 10px">
+                    @Html.ActionImage(MVC.User.Details().WithId(comment.Owner), comment.Owner.ProfilePicture, 60, Links.Content.Images.profile_placeholder_jpg)
+                </span>
                 <div style="margin-left: 60px">
-                    <span id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_UpdatePanel3">
-                            @comment.Text
-                            <div id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_UpdateProgress3"
-                                style="display: none;" role="status" aria-hidden="true">
-                                <div style="margin-left: -38px; margin-top: -24px">
-                                    <img src="/images/animations/loading.gif" alt="loading" style="vertical-align: middle;
-                                        height: 16px"></div>
-                            </div>
-                        </span>
+                    <span>
+                        @comment.Text
+                    </span>
                 </div>
             </div>
             <div style="margin-left: 60px">
-                <div id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_UpdatePanel4">
-                    <div style="margin-top: 6px">
-                        <div id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_UpdateProgress4"
-                            style="display: none;" role="status" aria-hidden="true">
-                            <img src="/images/animations/loading.gif" alt="loading" style="float: right; height: 16px">
-                        </div>
-                        <span id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_PostedDate" style="color: #AAAAAA;">
-                            - @comment.CreatedTime.ToString()</span>
-                    </div>
+                <div style="margin-top: 6px">
+                    <span style="color: #AAAAAA;">
+                        - @comment.CreatedTime.ToString()
+                    </span>
                 </div>
             </div>
         </div>
