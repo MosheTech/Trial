@@ -71,6 +71,12 @@
                     <li>@Html.DisplayFor(m => m.User.Email)</li>
                 </ul>
             }
+            
+            
+            <div>
+                @Html.Action(MVC.Timeline.Index().WithId(Model.User))
+            </div>
+            
         </td>
         <td style="vertical-align: top; border: none;">
             <div style="border: solid 1px #aaaaaa; background-color: #f0f0f0; padding: 10px;
@@ -91,6 +97,3 @@
         </td>
     </tr>
 </table>
-<div>
-    @Html.Action(MVC.Timeline.Index().WithId(Model.User))
-</div>

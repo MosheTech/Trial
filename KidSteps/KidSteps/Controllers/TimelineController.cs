@@ -16,7 +16,10 @@ namespace KidSteps.Controllers
         public virtual PartialViewResult Index()
         {
             IndexViewModel model = new IndexViewModel();
-            List<TimelineEvent> allEvents = Target.TimelineEvents.ToList();
+            List<TimelineEvent> allEvents = 
+                Target.TimelineEvents.
+                OrderByDescending(te => te.CreatedTime).Take(5).
+                ToList();
             // sort by create time descending
             allEvents.Sort((te1, te2) => -te1.CreatedTime.CompareTo(te2.CreatedTime));
 
@@ -35,6 +38,8 @@ namespace KidSteps.Controllers
                 conversation.Replies = pair.Value;
                 model.Conversations.Add(conversation);
             }
+
+            model.CurrentUser = CurrentUser;
 
             return PartialView(model);
         }
@@ -88,6 +93,7 @@ namespace KidSteps.Controllers
                 Conversations = new List<Conversation>();
             }
 
+            public User CurrentUser { get; set; }
             public List<Conversation> Conversations { get; set; }
             public string NewComment { get; set; }
         }
