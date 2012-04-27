@@ -2,7 +2,10 @@
 @model KidSteps.Controllers.TimelineController.IndexViewModel
 <div id="TimelineDiv">
     @using (Ajax.BeginForm(MVC.Timeline.Index().WithId(ViewData), new AjaxOptions() { UpdateTargetId = "TimelineDiv" }))
-    {    
+    {
+        Html.HiddenFor(m => m.NewComment);
+        Html.HiddenFor(m => m.NewCommentParent);
+        
         <div style="width: 480px;">
             <div style="">
                 <div>
@@ -10,13 +13,14 @@
                         <div class="line-1">
                         </div>
                         <div>
-                            <textarea name="NewComment" rows="3" cols="20"
+                            <textarea rows="3" cols="20"
                                 class="mceNoEditor"
                                 style="font-family: Arial; width: 470px;"></textarea></div>
                     </div>
                     <div class="box" style="text-align: right;">
                         <div>
-                            <input type="submit" value="Share"                                
+                            <input type="submit" value="Share"
+                                 onclick="document.getElementById('NewComment').value=document.getElementById.value"
                                 style="color: White; background-color: #000099;
                                 font-weight: bold;">
                         </div>
@@ -49,21 +53,115 @@
             </div>
         </div>
         
+        
+        
+
+        @* Reply *@  
+        foreach (var timelineEvent in conversation.Replies)
+        {
+
+            Comment reply = conversation.ParentItem as Comment;
+            <div id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_ControlPanel" style="width:462px;margin-left:15px">
+                <div id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_Repeater1_ctl00_CommentPanel" style="margin-bottom:2px; background-color:#f5f5f5; overflow:hidden">
+					
+                    <div style="padding:3px 3px; overflow:hidden; float:left; margin-right:5px;">
+                        @Html.ActionImage(MVC.User.Details().WithId(comment.Owner), reply.Owner.ProfilePicture, 40, Links.Content.Images.profile_placeholder_jpg)
+                        <a href="/profiles/?uid=13" profileid="13" class="profileLink" style="float:left"><img src="/images/profiles/default.png" alt="Pinchas Friedman" title="Pinchas Friedman" style="width:40px; height:40px; margin-right:5px; "></a>
+                        <div>
+                    
+                            <div id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_Repeater1_ctl00_DeleteEntryOption" onmouseover="document.getElementById('ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_Repeater1_ctl00_DeleteEntry').style.display='';" onmouseout="document.getElementById('ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_Repeater1_ctl00_DeleteEntry').style.display='none';" style="width:12px; height:12px; float:right;">
+						        <input type="image" name="ctl00$ctl00$Canvas$Canvas$NetworkFeed1$Repeater1$ctl08$NetworkFeedComments1$Repeater1$ctl00$DeleteEntry" id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_Repeater1_ctl00_DeleteEntry" src="/images/error.gif" alt="Remove" onclick="return confirm('Are you sure you want to remove this?');" style="border-width:0px;float:right; margin-left:10px; background-color:#dddddd; font-size:8pt; display:none;">
+					        </div>
+                    
+                            <span id="ContentVIEW2status"><b>Thanks!</b></span>
+                    
+                    
+                            <div id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_Repeater1_ctl00_UpdatePanel5">
+						
+                                <div id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_Repeater1_ctl00_Feedback" style="position:relative; width:400px; margin-top:8px">
+							
+                                    <a id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_Repeater1_ctl00_UserLink" profileid="13" href="http://moshenet.com/profiles/?uid=13" style="color:#AAAAAA;">Pinchas Friedman</a>
+                                    ·
+                                    <span id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_Repeater1_ctl00_PostedDate" style="color:#AAAAAA;font-size:7pt;">Apr 18 2012 10:28AM</span>
+                                    ·
+                                    <a onclick="this.style.display='none';" id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_Repeater1_ctl00_AgreeLinkButton" href="javascript:__doPostBack('ctl00$ctl00$Canvas$Canvas$NetworkFeed1$Repeater1$ctl08$NetworkFeedComments1$Repeater1$ctl00$AgreeLinkButton','')" style="font-weight:bold;">agree</a>
+                                    ·
+                                    <a onclick="this.style.display='none';" id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_Repeater1_ctl00_DisagreeLinkButton" href="javascript:__doPostBack('ctl00$ctl00$Canvas$Canvas$NetworkFeed1$Repeater1$ctl08$NetworkFeedComments1$Repeater1$ctl00$DisagreeLinkButton','')" style="font-weight:bold;">disagree</a>
+                                    ·
+                                    <a id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_Repeater1_ctl00_ResponseLink" onclick="ToggleView('ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_Repeater1_ctl00_PostResponsePanel'); document.getElementById('ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_Repeater1_ctl00_NewResponse').focus();" href="javascript:void(0);">reply</a>
+                                    <div>
+                                    
+                                    </div>
+                                
+                                <div id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_Repeater1_ctl00_AgreeLinkPanel" style="display:none;">
+								
+                                    
+                                
+							    </div>
+                                
+                                <div id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_Repeater1_ctl00_DisagreeLinkPanel" style="display:none;">
+								
+                                    
+                                
+							    </div>
+
+                                <div id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_Repeater1_ctl00_UpdateProgress5" style="display:none;" role="status" aria-hidden="true">
+								    <img src="/images/animations/loading.gif" alt="loading" style="height:16px; vertical-align:middle">
+							    </div>                                
+                            
+						    </div>
+                        
+					    </div>
+                    </div>
+                </div>          
+                <div>                    
+                    <div style="display:none; clear:left; background-color:#f0f6f0; padding:5px 5px; margin-bottom:6px; overflow:hidden">
+                        <table style="width:100%">
+                            <tbody>
+                                <tr>
+                                    <td style="vertical-align:top; width:45px; padding-left:45px">
+                                        <img id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_Repeater1_ctl00_ProfileImageViewResponse" title="Pinchas" src="/images/profiles/default.png" style="border-width:0px;width:40px; height:40px; margin-right:5px">
+                                    </td>
+                                    <td style="vertical-align:top; width:100%"><textarea name="ctl00$ctl00$Canvas$Canvas$NetworkFeed1$Repeater1$ctl08$NetworkFeedComments1$Repeater1$ctl00$NewResponse" rows="3" cols="20" id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_Repeater1_ctl00_NewResponse" style="width:345px;height:36px"></textarea>
+                                        <div style="height:16px">
+                                            <div id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_Repeater1_ctl00_UpdateProgress2" style="display:none;" role="status" aria-hidden="true">
+							                    <img src="/images/animations/processing.gif" alt="posting">
+						                    </div>
+                                            <input type="submit" name="ctl00$ctl00$Canvas$Canvas$NetworkFeed1$Repeater1$ctl08$NetworkFeedComments1$Repeater1$ctl00$PostResponse" value="post response" onclick="this.style.display='none';return (document.getElementById('ContentVIEW2status').value != '');WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$ctl00$Canvas$Canvas$NetworkFeed1$Repeater1$ctl08$NetworkFeedComments1$Repeater1$ctl00$PostResponse&quot;, &quot;&quot;, true, &quot;NewResponseGroup&quot;, &quot;&quot;, false, false))" id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_Repeater1_ctl00_PostResponse" class="TextButton">
+                                            <span id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_Repeater1_ctl00_RequiredFieldValidator3" style="color:Red;font-weight:bold;display:none;">- required</span>
+                                        </div>                                    
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>                    
+				    </div>                
+			    </div>            
+                <div style="margin-left:-10px; text-align:right; background-color:#f0f6f0">
+                    <span style="float:left"><a id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl08_NetworkFeedComments1_Repeater1_ctl00_ViewAllCommentsLink"></a></span>                                        
+                </div>
+        
+	        </div>
+        
+
+		    </div>
+        
+        }
+        
         <div>
             <div
                 style="width: 462px; margin-left: 15px">
             </div>
 
             @* Reply box folded *@
-            <div id="ReplyTextBoxPanel"
+            <div id="ReplyTextBoxPanel@(conversation.ParentItem.Id)"
                 style="margin-bottom: 2px; background-color: #edeff4; padding: 3px 3px;">
                 <input
-                    type="text" id="ReplyTextBox"
-                    value="click here to comment..." onfocus="document.getElementById('ReplyExpandedForm').style.display=''; document.getElementById('ReplyTextBoxPanel').style.display='none'; document.getElementById('ReplyTextArea').focus();"
+                    type="text" id="ReplyTextBox@(conversation.ParentItem.Id)"
+                    value="click here to comment..." onfocus="document.getElementById('ReplyExpandedForm@(conversation.ParentItem.Id)').style.display=''; document.getElementById('ReplyTextBoxPanel@(conversation.ParentItem.Id)').style.display='none'; document.getElementById('ReplyTextArea@(conversation.ParentItem.Id)').focus();"
                     style="width: 470px; font-family: Arial; color: #888888; border: solid 1px #bdc7d8">
             </div>
 
-            <div id="ReplyExpandedForm"
+            <div id="ReplyExpandedForm@(conversation.ParentItem.Id)"
                 style="width: 470px; margin-bottom: 2px; background-color: #edeff4; padding: 3px 5px;
                 display: none;">
                 <table style="width: 100%;">
@@ -75,14 +173,11 @@
                             <td style="vertical-align: top; width: 100%;">
                                 <div>
                                     <textarea
-                                        rows="1" cols="20" id="ReplyTextArea"
-                                        onblur="if (this.value == '') { document.getElementById('ReplyTextBoxPanel').style.display=''; document.getElementById('ReplyExpandedForm').style.display='none'; }"
+                                        rows="1" cols="20" id="ReplyTextArea@(conversation.ParentItem.Id)"
+                                        onblur="if (this.value == '') { document.getElementById('ReplyTextBoxPanel@(conversation.ParentItem.Id)').style.display=''; document.getElementById('ReplyExpandedForm@(conversation.ParentItem.Id)').style.display='none'; }"
                                         style="width: 100%; height: 36px"></textarea></div>
-                                        @Html.TextAreaFor(_ => conversation.NewReply)
                                 <div class="box" style="height: 16px; text-align: right;">
-                                    <input type="submit" id="Reply @conversation.ParentItem.Id"
-                                        value="post comment"
-                                        >
+                                    <input type="submit" value="post comment">
                                 </div>
                             </td>
                         </tr>
