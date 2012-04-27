@@ -18,7 +18,7 @@ namespace KidSteps.Controllers
             IndexViewModel model = new IndexViewModel();
             List<TimelineEvent> allEvents = 
                 Target.TimelineEvents.
-                OrderByDescending(te => te.CreatedTime).Take(5).
+                OrderByDescending(te => te.CreatedTime).Take(1).
                 ToList();
             // sort by create time descending
             allEvents.Sort((te1, te2) => -te1.CreatedTime.CompareTo(te2.CreatedTime));
@@ -102,6 +102,7 @@ namespace KidSteps.Controllers
         {
             public TimelineEvent ParentItem { get; set; }
             public List<TimelineEvent> Replies { get; set; }
+            public string NewReply { get; set; }
         }
 
         #endregion

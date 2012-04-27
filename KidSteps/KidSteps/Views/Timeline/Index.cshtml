@@ -3,10 +3,10 @@
 <div id="TimelineDiv">
     @using (Ajax.BeginForm(MVC.Timeline.Index().WithId(ViewData), new AjaxOptions() { UpdateTargetId = "TimelineDiv" }))
     {    
-        <div id="share" style="width: 480px;">
-            <div id="announcementUI" style="">
-                <div id="ctl00_ctl00_Canvas_Canvas_MediaControl1_PublicSquareUI1">
-                    <div id="ctl00_ctl00_Canvas_Canvas_MediaControl1_CommentsPanel" class="form-field">
+        <div style="width: 480px;">
+            <div style="">
+                <div>
+                    <div class="form-field">
                         <div class="line-1">
                         </div>
                         <div>
@@ -15,20 +15,20 @@
                                 style="font-family: Arial; width: 470px;"></textarea></div>
                     </div>
                     <div class="box" style="text-align: right;">
-                        <div id="ctl00_ctl00_Canvas_Canvas_MediaControl1_UpdatePanel2">
-                            <input type="submit" value="Share"
-                                @*onclick="this.style.display='none'; document.getElementById('mtech_mc1').style.display='';"*@
-                                id="ctl00_ctl00_Canvas_Canvas_MediaControl1_AddButton" style="color: White; background-color: #000099;
-                                font-weight: bold;">@*<span id="mtech_mc1" style="display: none;">posting...</span>*@
+                        <div>
+                            <input type="submit" value="Share"                                
+                                style="color: White; background-color: #000099;
+                                font-weight: bold;">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    }
-    @foreach (var conversation in Model.Conversations)
+    foreach (var conversation in Model.Conversations)
     {
         Comment comment = conversation.ParentItem as Comment;
+        
+        @* Comment *@
         <div style="width: 470px; padding: 5px 5px; overflow: hidden;">
             <div>
                 <span style="float: left; margin-right: 10px">
@@ -48,18 +48,22 @@
                 </div>
             </div>
         </div>
-        <div id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_UpdatePanel1">
-            <div id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_NetworkFeedComments1_ControlPanel"
+        
+        <div>
+            <div
                 style="width: 462px; margin-left: 15px">
             </div>
-            <div id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_DefaultTextBoxPanel"
+
+            @* Reply box folded *@
+            <div id="ReplyTextBoxPanel"
                 style="margin-bottom: 2px; background-color: #edeff4; padding: 3px 3px;">
-                <input name="ctl00$ctl00$Canvas$Canvas$NetworkFeed1$Repeater1$ctl00$DefaultTextBox"
-                    type="text" id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_DefaultTextBox"
-                    value="click here to comment..." onfocus="document.getElementById('ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_PostCommentForm').style.display=''; document.getElementById('ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_DefaultTextBoxPanel').style.display='none'; document.getElementById('ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_NewComment').focus();"
+                <input
+                    type="text" id="ReplyTextBox"
+                    value="click here to comment..." onfocus="document.getElementById('ReplyExpandedForm').style.display=''; document.getElementById('ReplyTextBoxPanel').style.display='none'; document.getElementById('ReplyTextArea').focus();"
                     style="width: 470px; font-family: Arial; color: #888888; border: solid 1px #bdc7d8">
             </div>
-            <div id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_PostCommentForm"
+
+            <div id="ReplyExpandedForm"
                 style="width: 470px; margin-bottom: 2px; background-color: #edeff4; padding: 3px 5px;
                 display: none;">
                 <table style="width: 100%;">
@@ -67,27 +71,18 @@
                         <tr>
                             <td style="vertical-align: top; width: 65px">
                             @Html.ActionImage(MVC.User.Details().WithId(Model.CurrentUser), Model.CurrentUser.ProfilePicture, 60, Links.Content.Images.profile_placeholder_jpg)
-                                @*<img id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_ProfileImageView"
-                                    src="/images/profiles/default.png" style="border-width: 0px; width: 60px; height: 60px;
-                                    margin-right: 6px">*@
-                            </td>
+                                                        </td>
                             <td style="vertical-align: top; width: 100%;">
                                 <div>
-                                    <textarea name="ctl00$ctl00$Canvas$Canvas$NetworkFeed1$Repeater1$ctl00$NewComment"
-                                        rows="1" cols="20" id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_NewComment"
-                                        onblur="if (this.value == '') { document.getElementById('ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_DefaultTextBoxPanel').style.display=''; document.getElementById('ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_PostCommentForm').style.display='none'; }"
-                                        style="width: 100%; height: 36px"></textarea>
-                                    <span id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_NewCommentValidator"
-                                        style="color: Red; display: none;">REQUIRED</span></div>
+                                    <textarea
+                                        rows="1" cols="20" id="ReplyTextArea"
+                                        onblur="if (this.value == '') { document.getElementById('ReplyTextBoxPanel').style.display=''; document.getElementById('ReplyExpandedForm').style.display='none'; }"
+                                        style="width: 100%; height: 36px"></textarea></div>
+                                        @Html.TextAreaFor(_ => conversation.NewReply)
                                 <div class="box" style="height: 16px; text-align: right;">
-                                    <div id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_UpdateProgress2"
-                                        style="display: none;" role="status" aria-hidden="true">
-                                        <img src="/images/animations/processing.gif" alt="posting" style="float: left;">
-                                    </div>
-                                    <input type="submit" name="ctl00$ctl00$Canvas$Canvas$NetworkFeed1$Repeater1$ctl00$PostComment"
-                                        value="post comment" onclick="this.style.display='none'; document.getElementById('mtech_nf1').style.display='';return validateUserInput(document.getElementById('ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_NewComment').value);WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$ctl00$Canvas$Canvas$NetworkFeed1$Repeater1$ctl00$PostComment&quot;, &quot;&quot;, true, &quot;Item9Comments&quot;, &quot;&quot;, false, false))"
-                                        id="ctl00_ctl00_Canvas_Canvas_NetworkFeed1_Repeater1_ctl00_PostComment"><span id="mtech_nf1"
-                                            style="display: none;">posting...</span>
+                                    <input type="submit" id="Reply @conversation.ParentItem.Id"
+                                        value="post comment"
+                                        >
                                 </div>
                             </td>
                         </tr>
@@ -96,4 +91,5 @@
             </div>
         </div>
     }
+}
 </div>
