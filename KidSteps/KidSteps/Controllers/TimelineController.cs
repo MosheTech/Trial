@@ -18,24 +18,31 @@ namespace KidSteps.Controllers
             IndexViewModel model = new IndexViewModel();
             List<TimelineEvent> allEvents = 
                 Target.TimelineEvents.
-                OrderByDescending(te => te.CreatedTime).Take(2).
+                OrderByDescending(te => te.CreatedTime).
                 ToList();
             // sort by create time descending
             allEvents.Sort((te1, te2) => -te1.CreatedTime.CompareTo(te2.CreatedTime));
 
-            Dictionary<TimelineEvent, List<TimelineEvent>> conversations =
-                new Dictionary<TimelineEvent, List<TimelineEvent>>();
+            Dictionary<TimelineEvent, Stack<TimelineEvent>> conversations =
+                new Dictionary<TimelineEvent, Stack<TimelineEvent>>();
 
             foreach (TimelineEvent timelineEvent in allEvents)
             {
-                conversations[timelineEvent] = new List<TimelineEvent>();
+                if (timelineEvent.IsReplyTo == null)
+                    conversations[timelineEvent] = new Stack<TimelineEvent>();
+            }
+
+            foreach (TimelineEvent timelineEvent in allEvents)
+            {
+                if (timelineEvent.IsReplyTo != null)
+                    conversations[timelineEvent.IsReplyTo].Push(timelineEvent);
             }
 
             foreach (var pair in conversations)
             {
                 Conversation conversation = new Conversation();
                 conversation.ParentItem = pair.Key;
-                conversation.Replies = pair.Value;
+                conversation.Replies = pair.Value.ToList();
                 model.Conversations.Add(conversation);
             }
 
@@ -54,6 +61,9 @@ namespace KidSteps.Controllers
                 newComment.Owner = CurrentUser;
                 newComment.SubjectUser = Target;
                 newComment.Text = model.NewComment;
+                if (model.NewCommentParent != -1)
+                    // todo: security check - make sure has permissions for parent comment
+                    newComment.IsReplyTo = db.TimelineEvents.Find(model.NewCommentParent);
                 db.TimelineEvents.Add(newComment);
                 db.SaveChanges();
             }
