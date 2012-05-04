@@ -62,36 +62,16 @@ namespace KidSteps.Controllers
                 newComment.SubjectUser = Target;
                 newComment.Text = model.NewComment;
                 if (model.NewCommentParent != -1)
-                    // todo: security check - make sure has permissions for parent comment
+                {
                     newComment.IsReplyTo = db.TimelineEvents.Find(model.NewCommentParent);
+                    if (!CurrentUser.IsAllowedTo(Permission.Reply, newComment.IsReplyTo))
+                        throw new ArgumentException("Posted to different family");
+                }
                 db.TimelineEvents.Add(newComment);
                 db.SaveChanges();
             }
 
             return Index();
-
-            IndexViewModel model1 = new IndexViewModel();
-            List<TimelineEvent> allEvents = Target.TimelineEvents.ToList();
-            // sort by create time descending
-            allEvents.Sort((te1, te2) => -te1.CreatedTime.CompareTo(te2.CreatedTime));
-
-            Dictionary<TimelineEvent, List<TimelineEvent>> conversations =
-                new Dictionary<TimelineEvent, List<TimelineEvent>>();
-
-            foreach (TimelineEvent timelineEvent in allEvents)
-            {
-                conversations[timelineEvent] = new List<TimelineEvent>();
-            }
-
-            foreach (var pair in conversations)
-            {
-                Conversation conversation = new Conversation();
-                conversation.ParentItem = pair.Key;
-                conversation.Replies = pair.Value;
-                model1.Conversations.Add(conversation);
-            }
-
-            return PartialView(model1);
         }
 
         #region ViewModels

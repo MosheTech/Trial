@@ -26,6 +26,7 @@ namespace KidSteps.Controllers
         //
         // GET: /Image/Details/5
 
+        [UserTarget(Models.Permission.ReadUserPersonalData)]
         public virtual ViewResult Details(long id)
         {
             Image image = db.Images.Find(id);
