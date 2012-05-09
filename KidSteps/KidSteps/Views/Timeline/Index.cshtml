@@ -2,7 +2,7 @@
 @model KidSteps.Controllers.TimelineController.IndexViewModel
 <div id="TimelineDiv">
     @using (Ajax.BeginForm(MVC.Timeline.Index().WithId(ViewData), new AjaxOptions() { UpdateTargetId = "TimelineDiv" }))
-    {
+    {        
         @Html.HiddenFor(m => m.NewComment);
         
         @Html.HiddenFor(m => m.NewCommentParent);
@@ -20,6 +20,7 @@
                     </div>
                     <div class="box" style="text-align: right;">
                         <div>
+                        @Html.ActionLink("Post Image", MVC.Image.Create(isPost: true).WithId(ViewData))
                             <input type="submit" value="Share"
                                  onclick="document.getElementById('NewComment').value=document.getElementById('ShareCommentArea').value; document.getElementById('NewCommentParent').value=-1;"
                                 >

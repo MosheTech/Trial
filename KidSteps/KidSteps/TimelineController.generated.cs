@@ -70,7 +70,9 @@ namespace KidSteps.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
             public readonly string EventList = "~/Views/Timeline/EventList.cshtml";
+            public readonly string Feed = "~/Views/Timeline/Feed.cshtml";
             public readonly string Index = "~/Views/Timeline/Index.cshtml";
+            public readonly string OldIndex = "~/Views/Timeline/OldIndex.cshtml";
         }
     }
 

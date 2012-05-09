@@ -15,6 +15,8 @@ namespace KidSteps.Models
         public string AltText { get; set; }
         public string Extension { get; set; }
 
+        public virtual ICollection<ImageTag> Tags { get; set; }
+
         public string Url
         {
             get { return string.Format("/UserContent/Media/{0}{1}", Id, Extension); }
@@ -27,14 +29,5 @@ namespace KidSteps.Models
                 return string.Format("UserContent\\Media\\{0}{1}", Id, Extension);
             }
         }
-    }
-
-    public class ImageViewModel
-    {
-
-        [FileExtensions(Extensions = ".png,.jpg,.jpeg,.gif", ErrorMessage = "Must be an image file.")]
-        [Required]
-        public HttpPostedFileBase File { get; set; }
-
     }
 }

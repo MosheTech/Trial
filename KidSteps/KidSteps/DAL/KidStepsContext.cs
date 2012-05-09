@@ -14,6 +14,7 @@ namespace KidSteps.Models
         public DbSet<Relationship> Relationships { get; set; }
         public DbSet<TimelineEvent> TimelineEvents { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<ImageTag> ImageTags { get; set; }
         //public DbSet<FamilyMember> FamilyMembers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -21,6 +21,9 @@ namespace KidSteps.ActionFilters
             bool isFamilyAdminAndTargetIsUnregistered =
                 isFamilyAdmin &&
                 target.IsUnregisteredFamilyMember;
+            bool isFamilyMember =
+                isInSameFamilyAsTargetUser &&
+                !user.IsPublicViewer;
 
 
             // superuser is always authorized
@@ -34,6 +37,7 @@ namespace KidSteps.ActionFilters
                     return (isTargetUser || isInSameFamilyAsTargetUser);
                 // only target user can read personal data and upload images
                 case Permission.ReadUserPersonalData:
+                    return isTargetUser;
                 case Permission.UploadImage:
                     return isTargetUser;
                 // only target user can update

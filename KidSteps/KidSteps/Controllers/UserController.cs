@@ -107,7 +107,7 @@ namespace KidSteps.Controllers
         {
             ImageSelectViewModel model = new ImageSelectViewModel();
             model.Images = db.Images.Where(image => image.CreatedBy.Id == CurrentUser.Id).ToList();
-            model.ShouldSetAsProfile = !model.Images.Any() && CurrentUser.Id == Target.Id;
+            //model.ShouldSetAsProfile = !model.Images.Any() && CurrentUser.Id == Target.Id;
 
             return View(model);
         }

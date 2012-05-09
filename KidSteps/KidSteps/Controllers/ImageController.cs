@@ -9,6 +9,8 @@ using KidSteps.Models;
 using System.IO;
 using KidSteps.ActionFilters;
 using KidSteps.Utils;
+using Microsoft.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace KidSteps.Controllers
 { 
@@ -36,11 +38,14 @@ namespace KidSteps.Controllers
         //
         // GET: /Image/Create
         [UserTarget(Permission.UploadImage)]
-        public virtual ActionResult Create(string returnUrl = null, bool shouldSetAsProfile = false)
+        public virtual ActionResult Create(/*string returnUrl = null, */bool? shouldSetAsProfile = false, bool? isPost = false)
         {
-            ViewBag.ReturnUrl = returnUrl;
-            ViewBag.ShouldSetAsProfile = shouldSetAsProfile;
-            return View();
+            ImageViewModel model = new ImageViewModel();
+            model.IsPost = isPost.GetValueOrDefault();
+            model.IsProfileImage = shouldSetAsProfile.GetValueOrDefault();
+            //ViewBag.ReturnUrl = returnUrl;
+            //ViewBag.ShouldSetAsProfile = shouldSetAsProfile;
+            return View(model);
         } 
 
         //
@@ -48,7 +53,7 @@ namespace KidSteps.Controllers
 
         [HttpPost]
         [UserTarget(Permission.UploadImage)]
-        public virtual ActionResult Create(ImageViewModel imageViewModel, string returnUrl = null, bool shouldSetAsProfile = false)
+        public virtual ActionResult Create(ImageViewModel imageViewModel)//, string returnUrl = null, bool shouldSetAsProfile = false)
         {
             
             if (ModelState.IsValid)
@@ -58,8 +63,15 @@ namespace KidSteps.Controllers
                 image.CreatedBy = CurrentUser;
                 image.Extension = Path.GetExtension(imageViewModel.File.FileName);
                 db.Images.Add(image);
-                if (shouldSetAsProfile)
+                if (imageViewModel.IsProfileImage && CurrentUser.IsAllowedTo(Permission.UpdateUser, Target))// (shouldSetAsProfile)
                     Target.ProfilePicture = image;
+                if (imageViewModel.IsPost && CurrentUser.IsAllowedTo(Permission.Comment, Target))
+                {
+                    ImageTimelineEvent imagePost = new ImageTimelineEvent();
+                    imagePost.Image = image;
+                    imagePost.Owner = CurrentUser;
+                    imagePost.SubjectUser = Target;                    
+                }
                 db.SaveChanges();
 
                 try
@@ -72,13 +84,6 @@ namespace KidSteps.Controllers
                     var rootedPath = Path.Combine(Server.MapPath("~"), image.Path);
 
                     thumbnail.Save(rootedPath);
-
-                    if (shouldSetAsProfile)
-                        return RedirectToAction(MVC.User.Edit().WithId(Target));
-                    else if (!String.IsNullOrEmpty(returnUrl))
-                        return Redirect(returnUrl);
-                    else
-                        return RedirectToAction("Index");
                 }
                 catch
                 {
@@ -86,6 +91,16 @@ namespace KidSteps.Controllers
                     db.SaveChanges();
                     throw;
                 }
+
+                if (imageViewModel.IsProfileImage)
+                    return RedirectToAction(MVC.User.Edit().WithId(Target));
+                if (imageViewModel.IsPost)
+                    return RedirectToAction(MVC.User.Details().WithId(Target));
+
+                //else if (!String.IsNullOrEmpty(returnUrl))
+                //    return Redirect(returnUrl);
+                //else
+                //    return RedirectToAction("Index");
             }
 
             return View(imageViewModel);
@@ -136,5 +151,16 @@ namespace KidSteps.Controllers
         //    db.SaveChanges();
         //    return RedirectToAction("Index");
         //}
+
+        public class ImageViewModel
+        {
+
+            [FileExtensions(Extensions = ".png,.jpg,.jpeg,.gif", ErrorMessage = "Must be an image file.")]
+            [Required]
+            public HttpPostedFileBase File { get; set; }
+
+            public bool IsProfileImage { get; set; }
+            public bool IsPost { get; set; }
+        }
     }
 }

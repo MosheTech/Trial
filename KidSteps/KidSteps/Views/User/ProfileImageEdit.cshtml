@@ -39,5 +39,5 @@
     }
 }
 <div>
-    @Html.ActionLink("Upload new image", MVC.Image.Create(returnUrl: Url.Action(MVC.User.ProfileImageEdit().WithId(ViewData), Request.Url.Scheme), shouldSetAsProfile: Model.ShouldSetAsProfile).WithId(ViewData))
+    @Html.ActionLink("Upload new image", MVC.Image.Create(shouldSetAsProfile: true).WithId(ViewData))
 </div>

@@ -153,7 +153,9 @@
     <Compile Include="Models\Family.cs" />
     <Compile Include="Models\FamilyMember.cs" />
     <Compile Include="Models\Image.cs" />
+    <Compile Include="Models\ImageTag.cs" />
     <Compile Include="Models\ImageTimelineEvent.cs" />
+    <Compile Include="Models\ImageUserTag.cs" />
     <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\ProfileImage.cs" />
     <Compile Include="Models\Role.cs" />
