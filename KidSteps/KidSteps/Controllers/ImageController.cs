@@ -70,7 +70,8 @@ namespace KidSteps.Controllers
                     ImageTimelineEvent imagePost = new ImageTimelineEvent();
                     imagePost.Image = image;
                     imagePost.Owner = CurrentUser;
-                    imagePost.SubjectUser = Target;                    
+                    imagePost.SubjectUser = Target;
+                    db.TimelineEvents.Add(imagePost);
                 }
                 db.SaveChanges();
 
