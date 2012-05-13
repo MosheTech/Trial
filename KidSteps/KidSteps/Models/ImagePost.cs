@@ -5,7 +5,7 @@ using System.Web;
 
 namespace KidSteps.Models
 {
-    public class ImageTimelineEvent : TimelineEvent
+    public class ImagePost : FeedItem
     {
         public virtual Image Image { get; set; }
     }

@@ -1,7 +1,7 @@
 ﻿@using KidSteps.Models
-@model KidSteps.Controllers.TimelineController.IndexViewModel
-<div id="TimelineDiv">
-    @using (Ajax.BeginForm(MVC.Timeline.Index().WithId(ViewData), new AjaxOptions() { UpdateTargetId = "TimelineDiv" }))
+@model KidSteps.Controllers.FeedController.IndexViewModel
+<div id="FeedDiv">
+    @using (Ajax.BeginForm(MVC.Feed.Index().WithId(ViewData), new AjaxOptions() { UpdateTargetId = "FeedDiv" }))
     {        
         @Html.HiddenFor(m => m.NewComment);
         
@@ -33,9 +33,9 @@
     {
         <hr />
         
-        TimelineEvent parentPost = conversation.ParentItem;
+        FeedItem parentPost = conversation.ParentItem;
         Comment comment = conversation.ParentItem as Comment;
-        ImageTimelineEvent imagePost = conversation.ParentItem as ImageTimelineEvent;
+        ImagePost imagePost = conversation.ParentItem as ImagePost;
         
         @* Comment *@
         <div style="width: 470px; padding: 5px 5px; overflow: hidden;">
@@ -69,9 +69,9 @@
         
 
         @* Reply *@  
-        foreach (var timelineEvent in conversation.Replies)
+        foreach (var feedItem in conversation.Replies)
         {
-            Comment reply = timelineEvent as Comment;
+            Comment reply = feedItem as Comment;
             
             <div style="width:462px;margin-left:15px">
                 <div style="margin-bottom:2px; background-color:#f5f5f5; overflow:hidden">					

@@ -15,7 +15,7 @@ namespace KidSteps.Models
             Name = new PersonName();
             Bio = string.Empty;
             Relationships = new List<Relationship>();
-            TimelineEvents = new List<TimelineEvent>();
+            FeedItems = new List<FeedItem>();
         }
 
         public virtual int Id { get; set; }
@@ -87,7 +87,7 @@ namespace KidSteps.Models
         public virtual ICollection<Relationship> Relationships { get; set; }
 
         [InverseProperty("SubjectUser")]
-        public virtual ICollection<TimelineEvent> TimelineEvents { get; set; }
+        public virtual ICollection<FeedItem> FeedItems { get; set; }
         public virtual ICollection<Image> Images { get; set; }
     }
 }

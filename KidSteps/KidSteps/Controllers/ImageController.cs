@@ -67,11 +67,11 @@ namespace KidSteps.Controllers
                     Target.ProfilePicture = image;
                 if (imageViewModel.IsPost && CurrentUser.IsAllowedTo(Permission.Comment, Target))
                 {
-                    ImageTimelineEvent imagePost = new ImageTimelineEvent();
+                    ImagePost imagePost = new ImagePost();
                     imagePost.Image = image;
                     imagePost.Owner = CurrentUser;
                     imagePost.SubjectUser = Target;
-                    db.TimelineEvents.Add(imagePost);
+                    db.FeedItems.Add(imagePost);
                 }
                 db.SaveChanges();
 

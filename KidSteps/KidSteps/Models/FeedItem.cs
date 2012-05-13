@@ -5,9 +5,9 @@ using System.Web;
 
 namespace KidSteps.Models
 {
-    public abstract class TimelineEvent
+    public abstract class FeedItem
     {
-        public TimelineEvent()
+        public FeedItem()
         {
             CreatedTime = DateTime.Now;
         }
@@ -15,7 +15,7 @@ namespace KidSteps.Models
         public int Id { get; set; }
         public virtual User Owner { get; set; }
         public virtual User SubjectUser { get; set; }
-        public virtual TimelineEvent IsReplyTo { get; set; }
+        public virtual FeedItem IsReplyTo { get; set; }
         public DateTime CreatedTime { get; private set; }
         //public string foo { get; set; }
     }

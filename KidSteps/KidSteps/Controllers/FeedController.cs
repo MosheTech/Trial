@@ -9,33 +9,33 @@ using KidSteps.Utils;
 
 namespace KidSteps.Controllers
 {
-    public partial class TimelineController : TargetedController<User>
+    public partial class FeedController : TargetedController<User>
     {
         [UserTarget(Permission.ReadUser)]
         [ChildActionOnly]
         public virtual PartialViewResult Index()
         {
             IndexViewModel model = new IndexViewModel();
-            List<TimelineEvent> allEvents = 
-                Target.TimelineEvents.
+            List<FeedItem> allFeedItems = 
+                Target.FeedItems.
                 OrderByDescending(te => te.CreatedTime).
                 ToList();
             // sort by create time descending
-            allEvents.Sort((te1, te2) => -te1.CreatedTime.CompareTo(te2.CreatedTime));
+            allFeedItems.Sort((te1, te2) => -te1.CreatedTime.CompareTo(te2.CreatedTime));
 
-            Dictionary<TimelineEvent, Stack<TimelineEvent>> conversations =
-                new Dictionary<TimelineEvent, Stack<TimelineEvent>>();
+            Dictionary<FeedItem, Stack<FeedItem>> conversations =
+                new Dictionary<FeedItem, Stack<FeedItem>>();
 
-            foreach (TimelineEvent timelineEvent in allEvents)
+            foreach (FeedItem feedItem in allFeedItems)
             {
-                if (timelineEvent.IsReplyTo == null)
-                    conversations[timelineEvent] = new Stack<TimelineEvent>();
+                if (feedItem.IsReplyTo == null)
+                    conversations[feedItem] = new Stack<FeedItem>();
             }
 
-            foreach (TimelineEvent timelineEvent in allEvents)
+            foreach (FeedItem feedItem in allFeedItems)
             {
-                if (timelineEvent.IsReplyTo != null)
-                    conversations[timelineEvent.IsReplyTo].Push(timelineEvent);
+                if (feedItem.IsReplyTo != null)
+                    conversations[feedItem.IsReplyTo].Push(feedItem);
             }
 
             foreach (var pair in conversations)
@@ -63,11 +63,11 @@ namespace KidSteps.Controllers
                 newComment.Text = model.NewComment;
                 if (model.NewCommentParent != -1)
                 {
-                    newComment.IsReplyTo = db.TimelineEvents.Find(model.NewCommentParent);
+                    newComment.IsReplyTo = db.FeedItems.Find(model.NewCommentParent);
                     if (!CurrentUser.IsAllowedTo(Permission.Reply, newComment.IsReplyTo))
                         throw new ArgumentException("Posted to different family");
                 }
-                db.TimelineEvents.Add(newComment);
+                db.FeedItems.Add(newComment);
                 db.SaveChanges();
             }
 
@@ -91,8 +91,8 @@ namespace KidSteps.Controllers
 
         public class Conversation
         {
-            public TimelineEvent ParentItem { get; set; }
-            public List<TimelineEvent> Replies { get; set; }
+            public FeedItem ParentItem { get; set; }
+            public List<FeedItem> Replies { get; set; }
             public string NewReply { get; set; }
         }
 

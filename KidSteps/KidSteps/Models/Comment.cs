@@ -5,7 +5,7 @@ using System.Web;
 
 namespace KidSteps.Models
 {
-    public class Comment : TimelineEvent
+    public class Comment : FeedItem
     {
         public string Text { get; set; }
     }

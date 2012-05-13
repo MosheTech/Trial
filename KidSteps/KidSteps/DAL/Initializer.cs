@@ -44,30 +44,29 @@ namespace KidSteps.DAL
             familyRepos.UpdateRelationship(context, new Relationship() { SourceUser = pinchas, RelatedUser = yael, RelatedUserIsSourceUsers = RelationshipType.Spouse });
 
             // add some comments
-            TimelineEvent t1 = new Comment()
+            FeedItem t1 = new Comment()
             {
                 Owner = pinchas,
                 SubjectUser = pinchas,
                 Text = "Foo"
             };
-            TimelineEvent t2 = new Comment()
+            FeedItem t2 = new Comment()
             {
                 Owner = pinchas,
                 SubjectUser = pinchas,
                 Text = "Foo2",
                 IsReplyTo = t1
             };
-            TimelineEvent t3 = new Comment()
+            FeedItem t3 = new Comment()
             {
                 Owner = pinchas,
                 SubjectUser = pinchas,
                 Text = " New Foo"
             };
-            context.TimelineEvents.Add(t1);
-            context.TimelineEvents.Add(t2);
-            context.TimelineEvents.Add(t3);
+            context.FeedItems.Add(t1);
+            context.FeedItems.Add(t2);
+            context.FeedItems.Add(t3);
 
-            //context.Entry(pinchas).Entity.TimelineEvents.Add(t);
             context.SaveChanges();
         }
     }

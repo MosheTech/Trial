@@ -27,11 +27,11 @@ public static class MVC {
     public static AdminClass Admin { get { return s_Admin; } }
     public static KidSteps.Controllers.AccountController Account = new KidSteps.Controllers.T4MVC_AccountController();
     public static KidSteps.Controllers.FamilyController Family = new KidSteps.Controllers.T4MVC_FamilyController();
+    public static KidSteps.Controllers.FeedController Feed = new KidSteps.Controllers.T4MVC_FeedController();
     public static KidSteps.Controllers.HomeController Home = new KidSteps.Controllers.T4MVC_HomeController();
     public static KidSteps.Controllers.ImageController Image = new KidSteps.Controllers.T4MVC_ImageController();
     public static KidSteps.Controllers.InvitationController Invitation = new KidSteps.Controllers.T4MVC_InvitationController();
     public static KidSteps.Controllers.LayoutController Layout = new KidSteps.Controllers.T4MVC_LayoutController();
-    public static KidSteps.Controllers.TimelineController Timeline = new KidSteps.Controllers.T4MVC_TimelineController();
     public static KidSteps.Controllers.UserController User = new KidSteps.Controllers.T4MVC_UserController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }

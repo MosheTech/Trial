@@ -21,12 +21,12 @@ using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
 namespace KidSteps.Controllers {
-    public partial class TimelineController {
+    public partial class FeedController {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public TimelineController() { }
+        public FeedController() { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected TimelineController(Dummy d) { }
+        protected FeedController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result) {
@@ -42,13 +42,13 @@ namespace KidSteps.Controllers {
 
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public TimelineController Actions { get { return MVC.Timeline; } }
+        public FeedController Actions { get { return MVC.Feed; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "Timeline";
+        public readonly string Name = "Feed";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "Timeline";
+        public const string NameConst = "Feed";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -69,23 +69,20 @@ namespace KidSteps.Controllers {
         public ViewNames Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
-            public readonly string EventList = "~/Views/Timeline/EventList.cshtml";
-            public readonly string Feed = "~/Views/Timeline/Feed.cshtml";
-            public readonly string Index = "~/Views/Timeline/Index.cshtml";
-            public readonly string OldIndex = "~/Views/Timeline/OldIndex.cshtml";
+            public readonly string Index = "~/Views/Feed/Index.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class T4MVC_TimelineController: KidSteps.Controllers.TimelineController {
-        public T4MVC_TimelineController() : base(Dummy.Instance) { }
+    public class T4MVC_FeedController: KidSteps.Controllers.FeedController {
+        public T4MVC_FeedController() : base(Dummy.Instance) { }
 
         public override System.Web.Mvc.PartialViewResult Index() {
             var callInfo = new T4MVC_PartialViewResult(Area, Name, ActionNames.Index);
             return callInfo;
         }
 
-        public override System.Web.Mvc.PartialViewResult Index(KidSteps.Controllers.TimelineController.IndexViewModel model) {
+        public override System.Web.Mvc.PartialViewResult Index(KidSteps.Controllers.FeedController.IndexViewModel model) {
             var callInfo = new T4MVC_PartialViewResult(Area, Name, ActionNames.Index);
             callInfo.RouteValueDictionary.Add("model", model);
             return callInfo;

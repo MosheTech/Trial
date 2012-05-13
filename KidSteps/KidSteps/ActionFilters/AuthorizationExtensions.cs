@@ -76,13 +76,13 @@ namespace KidSteps.ActionFilters
             }
         }
 
-        public static bool IsAllowedTo(this User user, Permission permission, TimelineEvent timelineEvent)
+        public static bool IsAllowedTo(this User user, Permission permission, FeedItem feedItem)
         {
             if (user.IsSuperUser)
                 return true;
 
             bool isInSameFamily =
-                user.Family.Id == timelineEvent.SubjectUser.Family.Id;
+                user.Family.Id == feedItem.SubjectUser.Family.Id;
 
             return isInSameFamily;
         }
