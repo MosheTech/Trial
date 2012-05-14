@@ -117,6 +117,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\FamilyController.cs" />
+    <Compile Include="Controllers\FamilyFeedController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\InvitationController.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Content.cs" />
     <Compile Include="Models\Family.cs" />
+    <Compile Include="Models\FamilyEvent.cs" />
     <Compile Include="Models\FamilyMember.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\ImageTag.cs" />
@@ -162,6 +164,7 @@
     <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\ProfileImage.cs" />
     <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\Story.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\PersonName.cs" />
     <Compile Include="Models\Relationship.cs" />

@@ -17,6 +17,6 @@ namespace KidSteps.Models
         public virtual User SubjectUser { get; set; }
         public virtual FeedItem IsReplyTo { get; set; }
         public DateTime CreatedTime { get; private set; }
-        //public string foo { get; set; }
+        //public string foo { get; set; }        
     }
 }
