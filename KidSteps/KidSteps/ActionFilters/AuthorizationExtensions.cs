@@ -45,7 +45,7 @@ namespace KidSteps.ActionFilters
                     return isTargetUser || isFamilyAdminAndTargetIsUnregistered;
                 case Permission.EditFamily:
                     return isFamilyAdmin;
-                case Permission.Comment:
+                case Permission.TextPost:
                     return isInSameFamilyAsTargetUser && !user.IsPublicViewer;
                 default:
                     throw new NotImplementedException();

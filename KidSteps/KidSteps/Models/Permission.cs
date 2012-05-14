@@ -15,7 +15,7 @@ namespace KidSteps.Models
         ViewFamily,
         SuperUserAccess,
         UploadImage,
-        Comment,
+        TextPost,
         Reply
     }
 }

@@ -27,6 +27,7 @@ public static class MVC {
     public static AdminClass Admin { get { return s_Admin; } }
     public static KidSteps.Controllers.AccountController Account = new KidSteps.Controllers.T4MVC_AccountController();
     public static KidSteps.Controllers.FamilyController Family = new KidSteps.Controllers.T4MVC_FamilyController();
+    public static KidSteps.Controllers.FamilyFeedController FamilyFeed = new KidSteps.Controllers.T4MVC_FamilyFeedController();
     public static KidSteps.Controllers.FeedController Feed = new KidSteps.Controllers.T4MVC_FeedController();
     public static KidSteps.Controllers.HomeController Home = new KidSteps.Controllers.T4MVC_HomeController();
     public static KidSteps.Controllers.ImageController Image = new KidSteps.Controllers.T4MVC_ImageController();

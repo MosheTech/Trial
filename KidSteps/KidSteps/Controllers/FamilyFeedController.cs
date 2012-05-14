@@ -6,17 +6,17 @@ using System.Web.Mvc;
 
 namespace KidSteps.Controllers
 {
-    public class FamilyFeedController : Controller
+    public partial class FamilyFeedController : Controller
     {
         //
         // GET: /FamilyFeed/
 
-        public ActionResult Timeline()
+        public virtual ActionResult Timeline()
         {
             return View();
         }
 
-        public ActionResult Activity()
+        public virtual ActionResult Activity()
         {
             return View();
         }

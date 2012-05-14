@@ -132,6 +132,9 @@
     <Compile Include="FamilyController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="FamilyFeedController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="FeedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -154,6 +157,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Content.cs" />
+    <Compile Include="Models\Conversation.cs" />
     <Compile Include="Models\Family.cs" />
     <Compile Include="Models\FamilyEvent.cs" />
     <Compile Include="Models\FamilyMember.cs" />

@@ -44,20 +44,20 @@ namespace KidSteps.DAL
             familyRepos.UpdateRelationship(context, new Relationship() { SourceUser = pinchas, RelatedUser = yael, RelatedUserIsSourceUsers = RelationshipType.Spouse });
 
             // add some comments
-            FeedItem t1 = new Comment()
+            FeedItem t1 = new TextPost()
             {
                 Owner = pinchas,
                 SubjectUser = pinchas,
                 Text = "Foo"
             };
-            FeedItem t2 = new Comment()
+            FeedItem t2 = new TextPost()
             {
                 Owner = pinchas,
                 SubjectUser = pinchas,
                 Text = "Foo2",
                 IsReplyTo = t1
             };
-            FeedItem t3 = new Comment()
+            FeedItem t3 = new TextPost()
             {
                 Owner = pinchas,
                 SubjectUser = pinchas,

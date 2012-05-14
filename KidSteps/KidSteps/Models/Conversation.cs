@@ -13,7 +13,9 @@ namespace KidSteps.Models
 
         public virtual FamilyEvent FamilyEvent { get; set; }
         public virtual ICollection<ImagePost> ImagePosts { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<TextPost> TextPosts { get; set; }
         public virtual ICollection<Story> Stories { get; set; }
+
+        public virtual ICollection<User> UserTags { get; set; }
     }
 }

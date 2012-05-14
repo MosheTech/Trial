@@ -52,22 +52,22 @@ namespace KidSteps.Controllers
         }
 
         [HttpPost]
-        [UserTarget(Models.Permission.Comment)]
+        [UserTarget(Models.Permission.TextPost)]
         public virtual PartialViewResult Index(IndexViewModel model)
         {
-            if (!string.IsNullOrWhiteSpace(model.NewComment))
+            if (!string.IsNullOrWhiteSpace(model.NewTextPost))
             {
-                Comment newComment = new Comment();
-                newComment.Owner = CurrentUser;
-                newComment.SubjectUser = Target;
-                newComment.Text = model.NewComment;
-                if (model.NewCommentParent != -1)
+                TextPost newTextPost = new TextPost();
+                newTextPost.Owner = CurrentUser;
+                newTextPost.SubjectUser = Target;
+                newTextPost.Text = model.NewTextPost;
+                if (model.NewTextPostParent != -1)
                 {
-                    newComment.IsReplyTo = db.FeedItems.Find(model.NewCommentParent);
-                    if (!CurrentUser.IsAllowedTo(Permission.Reply, newComment.IsReplyTo))
+                    newTextPost.IsReplyTo = db.FeedItems.Find(model.NewTextPostParent);
+                    if (!CurrentUser.IsAllowedTo(Permission.Reply, newTextPost.IsReplyTo))
                         throw new ArgumentException("Posted to different family");
                 }
-                db.FeedItems.Add(newComment);
+                db.FeedItems.Add(newTextPost);
                 db.SaveChanges();
             }
 
@@ -85,8 +85,8 @@ namespace KidSteps.Controllers
 
             public User CurrentUser { get; set; }
             public List<Conversation> Conversations { get; set; }
-            public int NewCommentParent { get; set; }
-            public string NewComment { get; set; }
+            public int NewTextPostParent { get; set; }
+            public string NewTextPost { get; set; }
         }
 
         public class Conversation

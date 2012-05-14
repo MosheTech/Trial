@@ -65,7 +65,7 @@ namespace KidSteps.Controllers
                 db.Images.Add(image);
                 if (imageViewModel.IsProfileImage && CurrentUser.IsAllowedTo(Permission.UpdateUser, Target))// (shouldSetAsProfile)
                     Target.ProfilePicture = image;
-                if (imageViewModel.IsPost && CurrentUser.IsAllowedTo(Permission.Comment, Target))
+                if (imageViewModel.IsPost && CurrentUser.IsAllowedTo(Permission.TextPost, Target))
                 {
                     ImagePost imagePost = new ImagePost();
                     imagePost.Image = image;
