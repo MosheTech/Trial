@@ -5,7 +5,11 @@ using System.Web;
 
 namespace KidSteps.Models
 {
-    public class FamilyEvent : FeedItem
+    public class FamilyEvent
     {
+        public int Id { get; set; }
+
+        public DateTime Date { get; set; }
+        public Conversation Conversation { get; set; }
     }
 }

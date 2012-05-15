@@ -5,10 +5,8 @@ using System.Web;
 
 namespace KidSteps.Models
 {
-    public class Story : FeedItem
+    public class Story : UserContent
     {
         public string Text { get; set; }
-
-        public virtual ICollection<User> UserTags { get; set; }
     }
 }

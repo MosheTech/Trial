@@ -155,7 +155,8 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\Reply.cs" />
+    <Compile Include="Models\TextPost.cs" />
     <Compile Include="Models\Content.cs" />
     <Compile Include="Models\Conversation.cs" />
     <Compile Include="Models\Family.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Models\Relationship.cs" />
     <Compile Include="Models\RelationshipType.cs" />
     <Compile Include="Models\FeedItem.cs" />
+    <Compile Include="Models\UserContent.cs" />
     <Compile Include="Models\Video.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharedController.generated.cs">

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace KidSteps.Models
 {
-    public class TextPost : FeedItem
+    public class TextPost : UserContent
     {
         public string Text { get; set; }
     }
