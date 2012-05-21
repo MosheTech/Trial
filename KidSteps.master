@@ -1,0 +1,233 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="BaseMasterWebsite"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head id="Head1" runat="server">
+    <link rel="shortcut icon" href="http://mykidsteps.com/images/design/favicon.ico" />
+    
+    <title>Kid Steps</title>
+    
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="http://mykidsteps.com/js/jquery-ui-1.8.20.custom.min.js"></script>
+    <script type="text/javascript" src="http://mykidsteps.com/js/master.js"></script>
+
+    <link type="text/css" rel="Stylesheet" href="/css/Site.css" />
+        
+    <asp:ContentPlaceHolder runat="server" ID="ContentPlaceHolder1">
+    <script type="text/javascript">
+        function UpdateDynamicData(notifications, inbox, count) {
+            $(".notifications").html(notifications);
+            $(".inbox").html(inbox);
+            if (count > 0)
+                document.title = "(" + count.toString() + ") Kids Steps";
+        }
+
+        function closeLiveChat(target_id, container) {
+            $("#<%=TargetID.ClientID%>").val(target_id);
+            $("#<%=Button1.ClientID%>").click();
+
+            $(container).hide();
+        }
+    </script>
+    </asp:ContentPlaceHolder>
+
+    <asp:ContentPlaceHolder runat="server" ID="Header" />
+</head>
+<body id="body" runat="server">
+    <div id="fb-root"></div>
+    <script type="text/javascript">
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '<%=fb_appid%>', // App ID
+                channelUrl: '//moshenet.com/channel.html', // Channel File
+                status: true, // check login status
+                cookie: true, // enable cookies to allow the server to access the session
+                xfbml: true  // parse XFBML
+            });
+
+            // Additional initialization code here
+        };
+
+        // Load the SDK Asynchronously
+        (function (d) {
+            var js, id = 'facebook-jssdk'; if (d.getElementById(id)) { return; }
+            js = d.createElement('script'); js.id = id; js.async = true;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            d.getElementsByTagName('head')[0].appendChild(js);
+        } (document));
+    </script>
+
+    <form id="form1" runat="server">
+        <ajax:ToolkitScriptManager runat="server" ID="ScriptManager1" EnablePartialRendering="true" OnAsyncPostBackError="ScriptManager1_AsyncPostBackError"/>
+
+        <div class="page">
+        <header>
+            <div id="title">
+                <h1>Kid Steps</h1>
+                    Where what’s most important...matters most
+            </div>
+            <div id="logindisplay">
+                @Html.Action(MVC.Layout.AccountBar())
+            </div>
+            @Html.Action(MVC.Layout.Menu())
+        </header>
+        <section id="main">
+        <asp:ContentPlaceHolder runat="server" ID="Website" />
+        </section>
+        @Html.Action(MVC.Layout.SuperUserFooter())
+        </div>
+
+
+        <asp:HiddenField ID="TargetID" runat="server" />
+        <asp:UpdatePanel runat="server" ID="UpdatePanel0" UpdateMode="Conditional"><ContentTemplate><asp:Timer runat="server" ID="Timer1" Enabled="false" Interval="60000" OnTick="UpdateDynamicData_Tick" /><asp:Button ID="Button1" runat="server" style="display:none" OnClick="CloseLiveChat_Click" /></ContentTemplate></asp:UpdatePanel>
+        <div id="moshenet_lobby"></div>
+    </form>
+</body>
+</html>
+
+<script runat="server">
+    public bool TimerEnabled
+    { set { Timer1.Enabled = value; } }
+    public int TimerInterval
+    { set { Timer1.Interval = value; } }
+
+    MyUser profile;
+
+    void Page_Init(object sender, EventArgs e)
+    {
+        profile = GetProfile();
+
+        if (!profile.IsLoggedIn)
+        {
+            if (!Request.Path.Equals("/login.aspx"))
+                Response.Redirect("/login.aspx", true);
+        }
+    }
+
+    void Page_Load(object sender, EventArgs e)
+    { if (!IsPostBack) UpdateDynamicData_Tick(sender, e); }
+
+    void UpdateDynamicData_Tick(object sender, EventArgs e)
+    {        
+        if (profile.IsLoggedIn)
+        {
+            if (!profile.IsActive)
+            {
+                if (profile.MinutesIdle > 10)
+                    Timer1.Enabled = false;
+                else
+                    Timer1.Interval = profile.MinutesIdle * 5000;
+            }
+               
+            string target = "_self";
+            if (MosheTechnologies.IsWebsite)
+                target = "_blank";
+
+            StringBuilder Q = new StringBuilder();
+            Q.Append("SELECT COUNT(*) FROM userMESSAGES_Recipients WHERE Deleted=0 AND Viewed=0 AND TO_UserID=");
+            Q.Append(profile.ID);
+            int inbox = int.Parse(MyDatabase.ExecuteScalar(Q.ToString()));
+
+            string tab_inbox;
+            if (inbox > 0)
+                tab_inbox = "<a href=\"http://mykidsteps.com/mailroom/inbox.aspx?sess=" + Session.SessionID + "&uid=" + profile.ID + "&ip=" + MosheTechnologies.UserIP + "\" style=\"font-size:8pt; color:#983b3b\">" + inbox.ToString() + " message(s)</a>";
+            else
+                tab_inbox = "<a href=\"http://mykidsteps.com/mailroom/inbox.aspx?sess=" + Session.SessionID + "&uid=" + profile.ID + "&ip=" + MosheTechnologies.UserIP + "\" style=\"font-size:8pt; color:#888888;\">messages</a>";
+
+            Q.Append(@"SELECT COUNT(*) FROM mosheUSERS_Interactions UI WHERE UI.Viewed=0 AND UI.ProfileID<>UI.User_ID AND UI.ProfileID=");
+            Q.Append(profile.ID);
+            int notifications = int.Parse(MyDatabase.ExecuteScalar(Q.ToString()));
+
+            string tab_notifications;
+            if (notifications > 0)
+                tab_notifications = "<a target=\"" + target + "\" href=\"http://mykidsteps.com/profiles/notifications.aspx?sess=" + Session.SessionID + "&uid=" + profile.ID + "&ip=" + MosheTechnologies.UserIP + "\" style=\"font-size:8pt; color:#983b3b;\">" + notifications.ToString() + " notification(s)</a>";
+            else
+                tab_notifications = "<a target=\"" + target + "\" href=\"http://mykidsteps.com/profiles/notifications.aspx?sess=" + Session.SessionID + "&uid=" + profile.ID + "&ip=" + MosheTechnologies.UserIP +"\" style=\"font-size:8pt; color:#888888;\">notifications</a>";
+
+            Q.Clear();
+            
+
+            if (inbox + notifications > 0)
+                Page.Title = (inbox + notifications).ToString() + " new notifications!";
+
+            if (!IsPostBack || Session["CHATS"] == null)
+                Session["CHATS"] = "0";
+            
+            Q.Clear();
+            Q.Append("SELECT DISTINCT UP.User_ID, U.Display_Name FROM userPOKES UP INNER JOIN mosheUSERS U ON UP.User_ID=U.ID WHERE UP.User_ID NOT IN (" + (string)Session["CHATS"] + ") AND UP.ProfileID=");
+            Q.Append(profile.ID);
+            System.Data.DataTable chat = MyDatabase.LoadRecords(Q.ToString());
+            if (chat != null)
+            {
+                StringBuilder chats = new StringBuilder("0");
+                int pos = 0;
+                foreach (System.Data.DataRow friend in chat.Rows)
+                {
+                    pos += 35;
+                    string target_id = friend["User_ID"].ToString();
+                    StringBuilder conversation = new StringBuilder();
+                    conversation.Append("<div id=\"conv" + target_id + "\" class=\"draggable\" style=\"width:280px; height:368px; background-image:url(\\'http://mykidsteps.com/images/design/chatbox.png\\'); background-repeat:no-repeat; position:fixed; z-index:1000; cursor:move; top:" + pos.ToString() + "px; left:" + pos.ToString() + "px;\">");
+                    conversation.Append("<div style=\"font-weight:bold; color:#ffffff; height:20px; padding:10px 0px\">");
+                    conversation.Append("<img src=\"http://mykidsteps.com/images/X.png\" alt=\"close\" title=\"close\" style=\"float:right; height:24px; margin-top:-15px; margin-right:12px; cursor:pointer;\" onclick=\"closeLiveChat(\\'" + target_id + "\\',\\'#conv" + target_id + "\\');\" />");
+                    conversation.Append("<span style=\"margin-left:55px; margin-top:10px; font-size:14px\">You &amp; " + friend["Display_Name"].ToString());
+                    conversation.Append("</span></div>");
+                    conversation.Append("<iframe src=\"http://mykidsteps.com/profiles/live.aspx?title=false&uid=" + target_id + "\" style=\"width:260px; height:290px; border:none;\"></iframe>");
+                    conversation.Append("<div style=\"text-align:center; padding-right:40px\"><span class=\"inbox\"></span> &middot; <span class=\"notifications\"></span></div>");
+                    conversation.Append("</div>");
+                    
+                    chats.Append("," + target_id);
+                    ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "chat" + target_id, "$('" + conversation.ToString() + "').appendTo(\"#moshenet_lobby\").draggable();", true);
+                }
+                Session["CHATS"] = chats.ToString().TrimStart(',');
+            }
+
+            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "dynamicSystem", "UpdateDynamicData(" + SiteSecurity.SterilizeValue(tab_notifications) + "," + SiteSecurity.SterilizeValue(tab_inbox) + ", " + (notifications + inbox).ToString() + ");", true);
+        }
+    }
+
+    protected void ScriptManager1_AsyncPostBackError(object sender, AsyncPostBackErrorEventArgs e)
+    {
+        if (e.Exception.Data["ExtraInfo"] != null)
+        {
+            ScriptManager1.AsyncPostBackErrorMessage = e.Exception.Message + e.Exception.Data["ExtraInfo"].ToString();
+            MosheTechnologies.RecordError("AsynchPostBackError", Request.Form.ToString() + "<br />" + e.Exception.Data["ExtraInfo"].ToString());
+        }
+        else
+        {
+            ScriptManager1.AsyncPostBackErrorMessage = "An unspecified error occurred.";
+            MosheTechnologies.RecordError("Kid Steps Error", Request.Form.ToString() + "\n\r<br />Message:" + e.Exception.Message + "\n\r<br />Source:" + e.Exception.Source + "\n\r<br />InnerException" + e.Exception.InnerException + "\n\r<br />ToString():" + e.Exception.ToString());
+
+            if (string.IsNullOrWhiteSpace(Request.QueryString["refresh"]))
+                Response.Redirect("http://" + MosheTechnologies.SiteDomain + Request.RawUrl + "&refresh=1", true);
+            else
+            {
+                int x = 0;
+                if (int.TryParse(Request.QueryString["refresh"], out x))
+                    x++;
+
+                MosheTechnologies.RecordError("Kids Steps Error", "NO REFRESH - http://" + MosheTechnologies.SiteDomain + Request.RawUrl.Substring(0, Request.RawUrl.IndexOf("&refresh=")) + "&refresh=" + x.ToString());
+            }
+
+            Timer1.Enabled = false;
+        }
+    }
+
+    void CloseLiveChat_Click(object sender, EventArgs e)
+    {
+        string query = "DELETE FROM userPOKES WHERE ProfileID=" + GetProfile().ID + " AND User_ID=" + TargetID.Value;
+        if (string.IsNullOrEmpty(TargetID.Value))
+            MosheTechnologies.RecordError("Invalid Close Chat Request", sender.ToString() + "<br />" + Request.Form.ToString());
+        else
+            MyDatabase.ExecuteCommand(query);
+    }
+
+    MyUser GetProfile()
+    {
+        Control page = this.Parent;
+        while (page.GetType().ToString().EndsWith("master"))
+        { page = page.Parent; }
+
+        return ((MyPage)page).user;
+    }
+</script>
