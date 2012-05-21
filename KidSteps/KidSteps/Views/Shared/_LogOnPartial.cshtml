@@ -1,9 +1,0 @@
-﻿@model KidSteps.Models.User
-
-@if(Model != null) {
-    <text>[ @Html.ActionLink(Model.Name.Full, MVC.User.Edit().WithId(Model)) ]
-    [ @Html.ActionLink("Log Off", MVC.Account.LogOff()) ]</text>
-}
-else {
-    @:[ @Html.ActionLink("Register", MVC.Account.Register()) ]
-}
