@@ -73,7 +73,16 @@
             @Html.Action(MVC.Layout.Menu())
         </header>
         <section id="main">
-        <asp:ContentPlaceHolder runat="server" ID="Website" />
+        <asp:UpdatePanel runat="server" ID="UpdatePanel1" UpdateMode="Always">
+        <Triggers><asp:AsyncPostBackTrigger ControlID="Timer1" EventName="Tick" /></Triggers>
+        <ContentTemplate>
+            <asp:Literal runat="server" ID="LastUpdated" />
+            <asp:Repeater runat="server" ID="UsersOnline">
+                <HeaderTemplate><h2>Who's Online?</h2></HeaderTemplate>
+                <ItemTemplate><asp:LinkButton runat="server" ID="LinkButton1" OnCommand="OpenChat_Command" CommandName='<%#((System.Data.DataRowView)Container.DataItem)["Display_Name"].ToString()%>' CommandArgument='<%#((System.Data.DataRowView)Container.DataItem)["ID"].ToString()%>'><img style="width:30px; height:30px; margin-right:2px; margin-bottom:2px; vertical-align:middle;" src="<%#((System.Data.DataRowView)Container.DataItem)["Image"].ToString()%>" alt="<%#((System.Data.DataRowView)Container.DataItem)["Display_Name"].ToString()%>" title="<%#((System.Data.DataRowView)Container.DataItem)["Display_Name"].ToString()%>" /></asp:LinkButton></ItemTemplate>
+            </asp:Repeater></ContentTemplate></asp:UpdatePanel>
+
+        <asp:ContentPlaceHolder runat="server" ID="Canvas" />
         </section>
         @Html.Action(MVC.Layout.SuperUserFooter())
         </div>
@@ -184,6 +193,25 @@
 
             ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "dynamicSystem", "UpdateDynamicData(" + SiteSecurity.SterilizeValue(tab_notifications) + "," + SiteSecurity.SterilizeValue(tab_inbox) + ", " + (notifications + inbox).ToString() + ");", true);
         }
+        
+        UsersOnline.DataSource = MyDatabase.LoadRecords("SELECT U.ID, U.Image, U.Display_Name FROM mosheUSERS U INNER JOIN mosheONLINE ONLINE ON ONLINE.User_ID=U.ID WHERE U.Account_Status>0 AND U.ID NOT IN (0,1," + profile.ID + ")");
+        UsersOnline.DataBind();
+    }
+
+    void OpenChat_Command(object sender, CommandEventArgs e)
+    {
+        string target_id = e.CommandArgument.ToString();
+        StringBuilder conversation = new StringBuilder();
+        conversation.Append("<div id=\"conv" + target_id + "\" class=\"draggable\" style=\"width:280px; height:368px; background-image:url(\\'/images/design/chatbox.png\\'); background-repeat:no-repeat; position:fixed; z-index:1000; cursor:move; top:25%; left:30%;\">");
+        conversation.Append("<div style=\"font-weight:bold; color:#ffffff; height:20px; padding:10px 0px\">");
+        conversation.Append("<img src=\"/images/X.png\" alt=\"close\" title=\"close\" style=\"float:right; height:24px; margin-top:-15px; margin-right:12px; cursor:pointer;\" onclick=\"closeLiveChat(\\'" + target_id + "\\',\\'#conv" + target_id + "\\');\" />");
+        conversation.Append("<span style=\"margin-left:55px; margin-top:10px; font-size:14px\">You &amp; " + e.CommandName);
+        conversation.Append("</span></div>");
+        conversation.Append("<iframe src=\"/profiles/live.aspx?title=false&uid=" + target_id + "\" style=\"width:260px; height:300px; border:none;\"></iframe>");
+        conversation.Append("</div>");
+
+        Session["CHATS"] = (string)Session["CHATS"] + "," + target_id;
+        ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "chat" + target_id, "$('" + conversation.ToString() + "').appendTo(\"#moshenet_lobby\").draggable();", true);
     }
 
     protected void ScriptManager1_AsyncPostBackError(object sender, AsyncPostBackErrorEventArgs e)
