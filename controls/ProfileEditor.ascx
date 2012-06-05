@@ -12,30 +12,11 @@
         <div><asp:TextBox runat="server" ValidationGroup="ProfileEditor" ID="LastName" Width="200px" /></div>
     </div>
     
-    <asp:UpdatePanel runat="server" ID="UpdatePanel2" UpdateMode="Conditional">
-        <ContentTemplate>
-            <asp:Panel runat="server" ID="ZipCodePanel" CssClass="form-field">
-                <div class="line-1">Zip Code:<span style="color:Red">*</span> <asp:RequiredFieldValidator runat="server" ValidationGroup="ProfileEditor" ID="RequiredFieldValidator3" ControlToValidate="ZipCode" Text="required" Font-Bold="true" /></div>
-                <div><asp:TextBox runat="server" ValidationGroup="ProfileEditor" ID="ZipCode" Width="200px" onkeyup="validateZip();" /></div>
-                <div style="display:none;"><asp:Button runat="server" ID="LoadStateAndCounty" OnClick="LoadStateAndCounty_Click" /></div>
-                <asp:UpdateProgress runat="server" ID="UpdateProgress1" AssociatedUpdatePanelID="UpdatePanel2"><ProgressTemplate><img src="/images/animations/processing.gif" style="vertical-align: middle; height:12px;" alt="Processing" /><em>...validating zip</em></ProgressTemplate></asp:UpdateProgress>
-            </asp:Panel>
 
-            <div class="form-field">
-                <div class="line-1">State:<span style="color:Red">*</span> <asp:RequiredFieldValidator runat="server" ValidationGroup="ProfileEditor" ID="RequiredFieldValidator8" ControlToValidate="AvailableStates" Text="required" InitialValue="0" Font-Bold="true" /></div>
-                <div><asp:DropDownList runat="server" ValidationGroup="ProfileEditor" ID="AvailableStates" Width="205px" AutoPostBack="true" OnSelectedIndexChanged="LoadCounties" /></div>
-            </div>
-            
-            <div class="form-field">
-                <div class="line-1">County / City:<span style="color:Red">*</span> <asp:RequiredFieldValidator runat="server" ValidationGroup="ProfileEditor" ID="RequiredFieldValidator5" ControlToValidate="AvailableStates" Text="required" InitialValue="0" Font-Bold="true" /></div>
-                <div><asp:DropDownList runat="server" ValidationGroup="ProfileEditor" ID="AvailableLocations" Width="205px" /></div>
-            </div>
-        </ContentTemplate>
-    </asp:UpdatePanel>
 
     <asp:Panel runat="server" ID="AvailableNetworksPanel" style="display:none;">
         <div class="form-field">
-            <div class="line-1">Initial Network:<span style="color:Red">*</span> <asp:RequiredFieldValidator runat="server" ValidationGroup="ProfileEditor" ID="RequiredFieldValidator6" ControlToValidate="AvailableStates" Text="required" InitialValue="0" Font-Bold="true" /></div>
+            <div class="line-1">Initial Network:<span style="color:Red">*</span> </div>
             <div><asp:DropDownList runat="server" ValidationGroup="ProfileEditor" ID="AvailableNetworks" Width="205px" /></div>
         </div>
         
@@ -71,13 +52,6 @@
             <div><asp:CompareValidator runat="server" ID="ComparePasswords" ControlToValidate="Password2" ControlToCompare="Password" ErrorMessage="seriously, they don't match! Try again" Font-Bold="true" EnableClientScript="true" Display="Dynamic" /></div>
         </asp:Panel>
     </asp:Panel>
-
-    <div class="form-field">
-        <div class="line-1">Account Type:</div>
-        <div><asp:DropDownList runat="server" ID="AccountType" onchange="validateType(this.value);" />
-            <a target="_blank" href="http://moshenet.com/print.aspx?type=page&id=1&uid=3878"><img src="/images/icons/help.gif" alt="" /></a>
-        </div>
-    </div>
         
     <script type="text/javascript">
         function validatePassword() {
@@ -88,13 +62,6 @@
                     $("#passwordNote").html("<span style='color:Red;'>passwords do not match</span>");
                 else
                     $("#passwordNote").html("<span style='color:Green; font-weight:bold'>password match!</span>");
-            }
-        }
-
-        function validateZip() {
-            var zip = document.getElementById('<%=ZipCode.ClientID %>').value;
-            if (zip.length == 5) {
-                __doPostBack('<%=LoadStateAndCounty.UniqueID%>', '');
             }
         }
 
@@ -190,12 +157,6 @@
         set { WebsiteIDValue.Value = value; }
     }
 
-    public string StateID
-    {
-        get { return AvailableStates.SelectedValue; }
-        set { AvailableStates.SelectedValue = value; }
-    }
-
     public bool Enabled
     {
         get { return ControlPanel.Enabled; }
@@ -233,31 +194,12 @@
     string Query = "";
     void Page_Init(object sender, EventArgs e)
     {
-        if (!IsPostBack)
-        {
-            Query = "SELECT S.ID, S.Name FROM mosheSTATES S ORDER BY S.Country_ID, S.Name";
-            AvailableStates.DataSource = MyDatabase.LoadRecords(Query);
-            AvailableStates.DataValueField = "ID";
-            AvailableStates.DataTextField = "Name";
-            AvailableStates.DataBind();
-            
-            Query = "SELECT PO.Value, PO.Display FROM pageOPTIONS PO WHERE PO.Type_ID=0 AND PO.Active=1 ORDER BY PO.Rank";
-            AccountType.DataSource = MyDatabase.LoadRecords(Query);
-            AccountType.DataValueField = "Value";
-            AccountType.DataTextField = "Display";
-            AccountType.DataBind();
-        }
     }
 
     void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
-        {
-            if (profile.IsLoggedIn)
-                AvailableStates.SelectedValue = profile.StateID;
-
-            LoadCounties(sender, e);
-            
+        {            
             if (ShowNetworkOptions)
             {
                 if (MosheTechnologies.IsNumeric(WebsiteID, true))
@@ -266,7 +208,7 @@
                     AvailableNetworks.Enabled = false;
                 }
                 else
-                    Query = "SELECT W.ID, W.Name FROM userWEBSITES W WHERE W.ID=1 OR (W.ToBeDeleted=0 AND W.IsActive=1 AND W.State_ID=0" + StateID + ") ORDER BY W.Name";
+                    Query = "SELECT W.ID, W.Name FROM userWEBSITES W WHERE W.ID=1 OR (W.ToBeDeleted=0 AND W.IsActive=1) ORDER BY W.Name";
                 
                 AvailableNetworks.DataSource = MyDatabase.LoadRecords(Query);
                 AvailableNetworks.DataValueField = "ID";
@@ -276,11 +218,8 @@
             
             if (profile.IsLoggedIn && (!CreateNewProfile || !profile.IsSystemAdmin))
             {
-                AvailableLocations.SelectedValue = profile.LocationID;
-                ZipCode.Text = profile.PostalCode;
                 FirstName.Text = profile.FirstName;
                 LastName.Text = profile.LastName;
-                AccountType.SelectedValue = profile.AccountType;
 
                 AvailableNetworksPanel.Visible = false;
 
@@ -362,11 +301,8 @@
     void UpdateProfileInfo()
     {
         Query = @"UPDATE mosheUSERS SET LastUpdated=GETDATE()
-                    , State_ID=" + AvailableStates.SelectedValue + @"
                     , FirstName=" + SiteSecurity.SterilizeValue(FirstName.Text) + @"
                     , LastName=" + SiteSecurity.SterilizeValue(LastName.Text) + @"
-                    , PostalCode=" + SiteSecurity.SterilizeValue(ZipCode.Text, true) + @"
-                    , Account_Type=" + SiteSecurity.SterilizeValue(AccountType.SelectedValue, true) + @"
                 WHERE ID=" + profile.ID;
         if (MosheTechnologies.IsNumeric(profile.ID, true))
         {
@@ -384,12 +320,10 @@
     {
         Session["STATUS"] = "2";
         Query = @"INSERT INTO mosheUSERS (State_ID, Location_ID, Account_Status, FirstName, LastName, Display_Name, AccountID, Account_Type, PostalCode, UserName, Password, From_Domain)
-            VALUES(" + AvailableStates.SelectedValue + ",0" + AvailableLocations.SelectedValue + ",2," + SiteSecurity.SterilizeValue(MosheTechnologies.CensorSubmission(FirstName.Text.Trim())) + @",
-                    " + SiteSecurity.SterilizeValue(MosheTechnologies.CensorSubmission(LastName.Text.Trim())) + @",
-                    " + SiteSecurity.SterilizeValue(MosheTechnologies.CensorSubmission((FirstName.Text + " " + LastName.Text).Trim())) + @",
-                    " + SiteSecurity.SterilizeValue(AccountID.Text.Trim()) + @",         
-                    " + SiteSecurity.SterilizeValue(AccountType.SelectedValue, true) + @",
-                    " + SiteSecurity.SterilizeValue(ZipCode.Text.Trim(), true) + @",
+            VALUES(0,0," + SiteSecurity.SterilizeValue((LastName.Text.Trim()));
+        Query += @",
+                    " + SiteSecurity.SterilizeValue(((FirstName.Text + " " + LastName.Text).Trim())) + @",
+                    " + SiteSecurity.SterilizeValue(AccountID.Text.Trim()) + @",     
                     " + SiteSecurity.SterilizeValue(AccountID.Text.Trim(), true) + @",
                     " + SiteSecurity.SterilizeValue(SiteSecurity.ShtarkEncryption(Password.Text.Trim()), true)
                       + "," + SiteSecurity.SterilizeValue(MosheTechnologies.SiteDomain)
@@ -421,51 +355,48 @@
                 else
                 {
                     string uid = "";
-                    switch (AccountType.SelectedValue)
-                    {
-                        case "Candidate":
-                        case "Staffer":
-                            Query = "SELECT W.ID FROM userWEBSITES W WHERE W.Website LIKE " + SiteSecurity.SterilizeValue("%" + AccountID.Text.Split('@')[1] + "%", true);
-                            uid = MyDatabase.ExecuteScalar(Query);
-                            if (MosheTechnologies.IsNumeric(uid, true))
-                            {
-                                MoshesNetwork.Join(MoshesNetwork.NetworkType.Websites, uid, ProfileID, true);
-                                MyWebsite website = new MyWebsite(uid, ProfileID);
-                                if (website.IsPremiumWebsite)
-                                    NextPage = "/websites/?id=" + uid;
-                                else
-                                    NextPage = "/groups/?id=" + uid;
-                            }
-                            else
-                                NextPage = "/states/candidates.aspx?id=" + profile.StateID;
-                            Session["NextPage"] = NextPage;
-                            break;
-                        case "Elected":
-                            Query = "SELECT W.ID FROM userWEBSITES W WHERE W.Website LIKE " + SiteSecurity.SterilizeValue("%" + AccountID.Text.Split('@')[1] + "%", true);
-                            uid = MyDatabase.ExecuteScalar(Query);
-                            if (MosheTechnologies.IsNumeric(uid, true))
-                            {
-                                MoshesNetwork.Join(MoshesNetwork.NetworkType.Websites, uid, ProfileID, true);
-                                MyWebsite website = new MyWebsite(uid, ProfileID);
-                                if (website.IsPremiumWebsite)
-                                    NextPage = "/websites/?id=" + uid;
-                                else
-                                    NextPage = "/groups/?id=" + uid;
-                            }
-                            else
-                                NextPage = "/states/officials.aspx?id=" + profile.StateID;
-                            Session["NextPage"] = NextPage;
-                            break;
-                        default:
-                            NextPage = "/states/get-involved.aspx?id=" + profile.StateID;
-                            Session["NextPage"] = "/profiles/admin/online.aspx?uid=" + ProfileID;
-                            break;
-                    }
+                    //switch (AccountType.SelectedValue)
+                    //{
+                    //    case "Candidate":
+                    //    case "Staffer":
+                    //        Query = "SELECT W.ID FROM userWEBSITES W WHERE W.Website LIKE " + SiteSecurity.SterilizeValue("%" + AccountID.Text.Split('@')[1] + "%", true);
+                    //        uid = MyDatabase.ExecuteScalar(Query);
+                    //        if (MosheTechnologies.IsNumeric(uid, true))
+                    //        {
+                    //            MoshesNetwork.Join(MoshesNetwork.NetworkType.Websites, uid, ProfileID, true);
+                    //            MyWebsite website = new MyWebsite(uid, ProfileID);
+                    //            if (website.IsPremiumWebsite)
+                    //                NextPage = "/websites/?id=" + uid;
+                    //            else
+                    //                NextPage = "/groups/?id=" + uid;
+                    //        }
+                    //        else
+                    //            NextPage = "/states/candidates.aspx?id=" + profile.StateID;
+                    //        Session["NextPage"] = NextPage;
+                    //        break;
+                    //    case "Elected":
+                    //        Query = "SELECT W.ID FROM userWEBSITES W WHERE W.Website LIKE " + SiteSecurity.SterilizeValue("%" + AccountID.Text.Split('@')[1] + "%", true);
+                    //        uid = MyDatabase.ExecuteScalar(Query);
+                    //        if (MosheTechnologies.IsNumeric(uid, true))
+                    //        {
+                    //            MoshesNetwork.Join(MoshesNetwork.NetworkType.Websites, uid, ProfileID, true);
+                    //            MyWebsite website = new MyWebsite(uid, ProfileID);
+                    //            if (website.IsPremiumWebsite)
+                    //                NextPage = "/websites/?id=" + uid;
+                    //            else
+                    //                NextPage = "/groups/?id=" + uid;
+                    //        }
+                    //        else
+                    //            NextPage = "/states/officials.aspx?id=" + profile.StateID;
+                    //        Session["NextPage"] = NextPage;
+                    //        break;
+                    //    default:
+                    //        NextPage = "/states/get-involved.aspx?id=" + profile.StateID;
+                    //        Session["NextPage"] = "/profiles/admin/online.aspx?uid=" + ProfileID;
+                    //        break;
+                    //}
                 }   
-            }
-
-            MoshesNetwork.UpdateUserRank(ProfileID);
-            MosheMaps.CreateAMMap();
+            }            
             
             MyEmail email = new MyEmail(profile.ID);
             email.IncludeUnsubscribeLink = false;
@@ -522,7 +453,6 @@
             email.Subject = subject;
             message = message.Replace("#FIRSTNAME#", FirstName.Text);
             message = message.Replace("#LASTNAME#", LastName.Text);
-            message = message.Replace("#STATE#", AvailableStates.SelectedItem.Text);
             message = message.Replace("#EMAIL#", AccountID.Text);
             message = message.Replace("#USERNAME#", AccountID.Text);
             message = message.Replace("#PASSWORD#", Password.Text);
@@ -599,33 +529,6 @@
                 NewAccountConfirmation.Visible = false;
                 break;
         }
-    }
-
-    void LoadStateAndCounty_Click(object sender, EventArgs e)
-    {
-        Query = "SELECT State_ID, Location_ID FROM mosheSTATES_Locations WHERE PostalCode=" + SiteSecurity.SterilizeValue(ZipCode.Text, true);
-        string[] location = MyDatabase.ExecuteQuery(Query).Split('|');
-        if (location.Length == 2)
-        {
-            AvailableStates.SelectedValue = location[0];
-
-            LoadCounties(sender, e);
-
-            if (AvailableLocations.Items.FindByValue(location[1]) != null)
-            {
-                AvailableLocations.SelectedValue = location[1];
-                AccountID.Focus();
-            }
-        }
-    }
-
-    void LoadCounties(object sender, EventArgs e)
-    {
-        Query = "SELECT L.ID, L.Name FROM mosheLOCATIONS L WHERE L.State_ID=" + AvailableStates.SelectedValue + " ORDER BY L.Name";
-        AvailableLocations.DataSource = MyDatabase.LoadRecords(Query);
-        AvailableLocations.DataValueField = "ID";
-        AvailableLocations.DataTextField = "Name";
-        AvailableLocations.DataBind();
     }
 
     void ValidateAccountID(object sender, EventArgs e)

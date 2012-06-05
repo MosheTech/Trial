@@ -7,8 +7,8 @@
 </script>
     
     <asp:Panel runat="server" ID="LoginPanel" DefaultButton="LoginButton">
-        <asp:UpdatePanel runat="server" ID="LoginUpdatePanel" UpdateMode="Conditional">
-            <ContentTemplate>
+        <%--<asp:UpdatePanel runat="server" ID="LoginUpdatePanel" UpdateMode="Conditional">
+            <ContentTemplate>--%>
                 <b>Account ID (email)</b>
                 <div><asp:TextBox runat="server" ValidationGroup="LoginPanel" ID="UserName" Width="200" /></div>
                 <div style="margin-top:4px"><b>Password</b></div>
@@ -17,13 +17,13 @@
                 <div><asp:CheckBox runat="server" ID="RememberMe" Text="Keep me logged in" Checked="true" style="font-size:8pt; color:#000066;" /></div>
                 <div style="margin-top:4px"><a href="javascript:void(0);" style="color:#000066; font-size:8pt; font-style:italic" onclick="ToggleView('password-panel');">Forgot your password?</a></div>
                 <div style="margin-top:8px; color:Red;"><asp:Literal runat="server" ID="ErrorMessage" /></div>
-                <asp:UpdateProgress runat="server" ID="UpdateProgress2" AssociatedUpdatePanelID="UpdatePanel1">
+                <%--<asp:UpdateProgress runat="server" ID="UpdateProgress2" AssociatedUpdatePanelID="UpdatePanel1">
                     <ProgressTemplate><img src="/images/animations/loading.gif" style="vertical-align: middle" alt="Processing" /></ProgressTemplate>
                 </asp:UpdateProgress>
             </contenttemplate>
-        </asp:UpdatePanel>
+        </asp:UpdatePanel>--%>
 
-        <asp:Panel runat="server" ID="FacebookPanel" style="margin-top:15px">
+        <asp:Panel runat="server" ID="FacebookPanel" style="margin-top:15px" Visible="false">
             <fb:login-button onlogin="Authenticate()">login via facebook</fb:login-button>
             <div style="height:25px;"><asp:LinkButton runat="server" ID="LinkButton1" OnClick="FB_Click" style="display:none;" /></div>
         </asp:Panel>

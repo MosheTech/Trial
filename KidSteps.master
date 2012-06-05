@@ -39,7 +39,7 @@
     <script type="text/javascript">
         window.fbAsyncInit = function () {
             FB.init({
-                appId: '<%=fb_appid%>', // App ID
+                appId: '328471710564483', // App ID
                 channelUrl: '//moshenet.com/channel.html', // Channel File
                 status: true, // check login status
                 cookie: true, // enable cookies to allow the server to access the session
@@ -227,7 +227,7 @@
             MosheTechnologies.RecordError("Kid Steps Error", Request.Form.ToString() + "\n\r<br />Message:" + e.Exception.Message + "\n\r<br />Source:" + e.Exception.Source + "\n\r<br />InnerException" + e.Exception.InnerException + "\n\r<br />ToString():" + e.Exception.ToString());
 
             if (string.IsNullOrWhiteSpace(Request.QueryString["refresh"]))
-                Response.Redirect("http://" + MosheTechnologies.SiteDomain + Request.RawUrl + "&refresh=1", true);
+                Response.Redirect("http://" + MosheTechnologies.SiteDomain + Request.RawUrl + "?refresh=1", true);
             else
             {
                 int x = 0;
