@@ -319,9 +319,10 @@
     void CreateAccount()
     {
         Session["STATUS"] = "2";
-        Query = @"INSERT INTO mosheUSERS (State_ID, Location_ID, Account_Status, FirstName, LastName, Display_Name, AccountID, Account_Type, PostalCode, UserName, Password, From_Domain)
-            VALUES(0,0," + SiteSecurity.SterilizeValue((LastName.Text.Trim()));
+        Query = @"INSERT INTO mosheUSERS (State_ID, Location_ID, FirstName, LastName, Display_Name, AccountID, UserName, Password, From_Domain)
+            VALUES(0,0," + SiteSecurity.SterilizeValue((FirstName.Text.Trim()));
         Query += @",
+                    " + SiteSecurity.SterilizeValue((LastName.Text.Trim())) + @",
                     " + SiteSecurity.SterilizeValue(((FirstName.Text + " " + LastName.Text).Trim())) + @",
                     " + SiteSecurity.SterilizeValue(AccountID.Text.Trim()) + @",     
                     " + SiteSecurity.SterilizeValue(AccountID.Text.Trim(), true) + @",
