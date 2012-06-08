@@ -6,12 +6,13 @@
     <div style="z-index:20"><moshe:LoginPanel runat="server" ID="LoginPanel1" GoTo="/" FacebookConnect="false" /></div>
 
     <h2>Sign Up</h2>
-        <moshe:ProfileEditor runat="server" ID="ProfileEditor1" CreateNewProfile="true" NextPage="/groups/get-involved.aspx" ValidationWidth="200" />
+        <moshe:ProfileEditor runat="server" ID="ProfileEditor1" CreateNewProfile="true" NextPage="/add_family_member.aspx" ValidationWidth="200" />
 </asp:Content>
 
 <script runat="server">
     void Page_Init(object sender, EventArgs e)
     {
+        //Session["USERID"] = "0";
         ProfileEditor1.ActiveProfile = user;
     }
 

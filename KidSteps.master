@@ -62,31 +62,31 @@
         <ajax:ToolkitScriptManager runat="server" ID="ScriptManager1" EnablePartialRendering="true" OnAsyncPostBackError="ScriptManager1_AsyncPostBackError"/>
 
         <div class="page">
-        <header>
-            <div id="title">
-                <h1>Kid Steps</h1>
-                    Where what’s most important...matters most
+            <div>
+                <header>
+                    <div style="float:right">                    
+                        <asp:LinkButton runat="server" CssClass="top-navigation" ID="LinkButton2" ToolTip="Log out" Text="logout" OnClick="Logout_Click" Font-Size="8pt" />
+                    </div>
+                    <div>            
+                        <h1>Kid Steps</h1>
+                            Where what’s most important...matters most
+                    </div>
+                </header>
             </div>
-            <div id="logindisplay">
-                @Html.Action(MVC.Layout.AccountBar())
-            </div>
-            @Html.Action(MVC.Layout.Menu())
-        </header>
-        <section id="main">
-        <asp:UpdatePanel runat="server" ID="UpdatePanel1" UpdateMode="Always">
-        <Triggers><asp:AsyncPostBackTrigger ControlID="Timer1" EventName="Tick" /></Triggers>
-        <ContentTemplate>
-            <asp:Literal runat="server" ID="LastUpdated" />
-            <asp:Repeater runat="server" ID="UsersOnline">
-                <HeaderTemplate><h2>Who's Online?</h2></HeaderTemplate>
-                <ItemTemplate><asp:LinkButton runat="server" ID="LinkButton1" OnCommand="OpenChat_Command" CommandName='<%#((System.Data.DataRowView)Container.DataItem)["Display_Name"].ToString()%>' CommandArgument='<%#((System.Data.DataRowView)Container.DataItem)["ID"].ToString()%>'><img style="width:30px; height:30px; margin-right:2px; margin-bottom:2px; vertical-align:middle;" src="<%#((System.Data.DataRowView)Container.DataItem)["Image"].ToString()%>" alt="<%#((System.Data.DataRowView)Container.DataItem)["Display_Name"].ToString()%>" title="<%#((System.Data.DataRowView)Container.DataItem)["Display_Name"].ToString()%>" /></asp:LinkButton></ItemTemplate>
-            </asp:Repeater></ContentTemplate></asp:UpdatePanel>
+            <section id="main">
+            <asp:UpdatePanel runat="server" ID="UpdatePanel1" UpdateMode="Always">
+            <Triggers><asp:AsyncPostBackTrigger ControlID="Timer1" EventName="Tick" /></Triggers>
+            <ContentTemplate>
+                <asp:Literal runat="server" ID="LastUpdated" />
+                <asp:Repeater runat="server" ID="UsersOnline">
+                    <HeaderTemplate><h2>Who's Online?</h2></HeaderTemplate>
+                    <ItemTemplate><asp:LinkButton runat="server" ID="LinkButton1" OnCommand="OpenChat_Command" CommandName='<%#((System.Data.DataRowView)Container.DataItem)["Display_Name"].ToString()%>' CommandArgument='<%#((System.Data.DataRowView)Container.DataItem)["ID"].ToString()%>'><img style="width:30px; height:30px; margin-right:2px; margin-bottom:2px; vertical-align:middle;" src="<%#((System.Data.DataRowView)Container.DataItem)["Image"].ToString()%>" alt="<%#((System.Data.DataRowView)Container.DataItem)["Display_Name"].ToString()%>" title="<%#((System.Data.DataRowView)Container.DataItem)["Display_Name"].ToString()%>" /></asp:LinkButton></ItemTemplate>
+                </asp:Repeater></ContentTemplate></asp:UpdatePanel>
 
-        <asp:ContentPlaceHolder runat="server" ID="Canvas" />
-        </section>
-        @Html.Action(MVC.Layout.SuperUserFooter())
+            <asp:ContentPlaceHolder runat="server" ID="Canvas" />
+            </section>
         </div>
-
+        
 
         <asp:HiddenField ID="TargetID" runat="server" />
         <asp:UpdatePanel runat="server" ID="UpdatePanel0" UpdateMode="Conditional"><ContentTemplate><asp:Timer runat="server" ID="Timer1" Enabled="false" Interval="60000" OnTick="UpdateDynamicData_Tick" /><asp:Button ID="Button1" runat="server" style="display:none" OnClick="CloseLiveChat_Click" /></ContentTemplate></asp:UpdatePanel>
@@ -106,12 +106,12 @@
     void Page_Init(object sender, EventArgs e)
     {
         profile = GetProfile();
-
+        
         if (!profile.IsLoggedIn)
         {
             if (!Request.Path.Equals("/login.aspx"))
                 Response.Redirect("/login.aspx", true);
-        }
+        }       
     }
 
     void Page_Load(object sender, EventArgs e)
@@ -257,5 +257,11 @@
         { page = page.Parent; }
 
         return ((MyPage)page).user;
+    }
+
+    void Logout_Click(object sender, EventArgs e)
+    {
+        SiteSecurity.Logout(Session["USERID"].ToString());
+        Response.Redirect(Request.Path, true);
     }
 </script>

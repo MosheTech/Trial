@@ -2,8 +2,20 @@
 <%@ MasterType TypeName="BaseMasterWebsite" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Canvas" runat="Server">
+    <h2>
+        Add your child
+    </h2>
     <div>
         <asp:TextBox runat="server" ID="FirstName" Width="220px" Text="first name" ForeColor="#333333" onfocus="ClearIf(this, 'first name');" />
+    </div>
+    <div>
+        <asp:TextBox runat="server" ID="LastName" Width="220px" Text="last name" ForeColor="#333333" onfocus="ClearIf(this, 'last name');" />
+    </div>
+    <div>
+        <asp:TextBox runat="server" ID="Email" Width="220px" Text="email" ForeColor="#333333" onfocus="ClearIf(this, 'email');" />
+    </div>
+    <div>
+        <asp:Button runat="server" ID="AddFamilyMemberButton" OnClick="AddFamilyMemberButton_Click" Text="Submit" Width="50" Font-Size="8pt" />
     </div>
 </asp:Content>
 
@@ -16,6 +28,18 @@
     {
     }
 
+    void AddFamilyMemberButton_Click(object sender, EventArgs e)
+    {
+        int new_id = MoshesNetwork.CreateNetwork(
+            user.ID, 
+            user.StateID, 
+            MoshesNetwork.NetworkType.Websites, 
+            FirstName.Text + " " + LastName.Text, 
+            string.Empty, 
+            Email.Text);
+
+        Response.Redirect(Request.Path, true);
+    }
 
 </script>
 
