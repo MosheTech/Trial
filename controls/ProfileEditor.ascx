@@ -337,8 +337,14 @@
             
             MyUser.SetupNewUserAccount(ProfileID);
 
-            if (!MosheTechnologies.IsNumeric(WebsiteID, true))
-                WebsiteID = MosheTechnologies.SystemID;
+
+            WebsiteID = MoshesNetwork.CreateNetwork(
+                ProfileID, 
+                "0",
+                MoshesNetwork.NetworkType.Websites,
+                FirstName.Text + " " + LastName.Text,
+                string.Empty,
+                AccountID.Text).ToString();
 
             MoshesNetwork.Join(WebsiteID, ProfileID);
 
@@ -347,6 +353,7 @@
             else
             {
                 Session["USERID"] = ProfileID;
+                Session["FAMILYID"] = WebsiteID;
                 
                 if (MosheTechnologies.IsWebsite)
                 {

@@ -9,8 +9,8 @@
     <title>Kid Steps</title>
     
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="http://mykidsteps.com/js/jquery-ui-1.8.20.custom.min.js"></script>
-    <script type="text/javascript" src="http://mykidsteps.com/js/master.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui-1.8.20.custom.min.js"></script>
+    <script type="text/javascript" src="/js/master.js"></script>
 
     <link type="text/css" rel="Stylesheet" href="/css/Site.css" />
         

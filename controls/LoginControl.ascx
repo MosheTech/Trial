@@ -86,7 +86,7 @@
     void LoginButton_Click(object sender, EventArgs e)
     {
         if (SiteSecurity.UserLogin(UserName.Text, Password.Text, RememberMe.Checked))
-        {
+        {            
             if (!string.IsNullOrEmpty(GoToValue.Value))
                 Response.Redirect(GoToValue.Value, true);
 
