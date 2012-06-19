@@ -12,8 +12,10 @@
 <script runat="server">
     void Page_Init(object sender, EventArgs e)
     {
-        //Session["USERID"] = "0";
-        ProfileEditor1.ActiveProfile = user;
+        MyUser userThing = new MyUser("0");
+        
+        Session["USERID"] = "0";
+        ProfileEditor1.ActiveProfile = userThing;
     }
 
     void Page_Load(object sender, EventArgs e)

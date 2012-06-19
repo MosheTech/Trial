@@ -40,13 +40,14 @@
 
     void AddFamilyMemberButton_Click(object sender, EventArgs e)
     {
-        int new_id = MoshesNetwork.CreateNetwork(
-            user.ID, 
-            user.StateID, 
-            MoshesNetwork.NetworkType.Websites, 
-            FirstName.Text + " " + LastName.Text, 
-            string.Empty, 
-            Email.Text);
+        int new_id = 
+            MoshesNetwork.CreateNetwork(
+                MoshesNetwork.NetworkType.Websites,
+                user.ID, 
+                user.StateID,
+                FirstName.Text + " " + LastName.Text,
+                string.Empty, 
+                Email.Text);
 
         //MoshesNetwork.Join((string)Session["FAMILYID"], new_id.ToString());
         Query = "INSERT INTO userWEBSITES_Affiliates (Parent_Network_ID, Child_Network_ID, Association_ID) VALUES(" + Session["FAMILYID"].ToString() + "," + new_id.ToString() + "," + Relationships.SelectedValue + ");";

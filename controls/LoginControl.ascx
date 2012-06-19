@@ -86,7 +86,10 @@
     void LoginButton_Click(object sender, EventArgs e)
     {
         if (SiteSecurity.UserLogin(UserName.Text, Password.Text, RememberMe.Checked))
-        {            
+        {    
+            Query = "Select Top 1 w.ID from userWEBSITES w Where w.ToBeDeleted=0 AND w.user_id=" + Session["USERID"] +" Order By w.ID";
+            Session["FAMILYID"] = MyDatabase.ExecuteScalar(Query);        
+            
             if (!string.IsNullOrEmpty(GoToValue.Value))
                 Response.Redirect(GoToValue.Value, true);
 

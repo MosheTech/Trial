@@ -339,14 +339,14 @@
 
 
             WebsiteID = MoshesNetwork.CreateNetwork(
+                MoshesNetwork.NetworkType.Websites,
                 ProfileID, 
                 "0",
-                MoshesNetwork.NetworkType.Websites,
                 FirstName.Text + " " + LastName.Text,
                 string.Empty,
                 AccountID.Text).ToString();
 
-            MoshesNetwork.Join(WebsiteID, ProfileID);
+            MoshesNetwork.Join(MoshesNetwork.NetworkType.Websites, ProfileID, WebsiteID);
 
             if (profile.IsSystemAdmin && CreateNewProfile)
                 NextPage = "/admin/users.aspx?uid=" + ProfileID;

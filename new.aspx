@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/SystemPage.master" Debug="true" AutoEventWireup="true" Inherits="MyPage" %>
+<%@ Page Language="C#" MasterPageFile="~/KidSteps.master" Debug="true" AutoEventWireup="true" Inherits="MyPage" %>
 <%@ MasterType TypeName="BaseMasterWebsite" %>
 
 <asp:Content runat="server" ID="Content2" ContentPlaceHolderID="FullPage" />
